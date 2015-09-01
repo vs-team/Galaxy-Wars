@@ -1,0 +1,25 @@
+tasklist 2-9-2015
+
+Working pairs for the oncoming weeks:
+
+Justin & Wouter
+Hidde & Martijn
+
+Wouter: 
+
+Find out about synchronizing the game logic between multiple computers. Start of easy by sending
+one piece of data from one instance of Unity to another.
+
+Martijn:
+
+Start building the scenes for the game Pieter has chosen. Think in general lines such as the background and
+the beams of the vehicle to cover the edges of the screen. The filling of these parts should have nothing to do
+with the game logic.
+
+Hidde: 
+
+Start searching for simple art for the background and build this into the scene Martijn will be building.
+
+Justin: 
+Set up the Casanova infrastructure on github so that game logic can be written. Start by implementing
+the simple game logic for the game that does not require synchronization. 
