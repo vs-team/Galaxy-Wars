@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.7.8)  1 SEP 2015 15:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.7.8)  1 SEP 2015 15:09
 entering extended mode
-**concept*survival*game.tex
+**puzzle*game.tex
 
-("C:\Users\Gebruiker\Documents\GitHub\internship-tilburg\documents\concepts\sur
-vival game\concept survival game.tex"
+("C:\Users\Gebruiker\Documents\GitHub\internship-tilburg\documents\concepts\puz
+zle game\puzzle game.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -349,8 +349,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen112
 \Gin@req@width=\dimen113
 )
-("C:\Users\Gebruiker\Documents\GitHub\internship-tilburg\documents\concepts\sur
-vival game\concept survival game.aux")
+No file puzzle*game.aux.
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
@@ -363,42 +362,25 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Try loading font information for U+msa on input line 10.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 10.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Overfull \hbox (33.47122pt too wide) in paragraph at lines 10--10
- [][] 
- []
-
 [1
 
 {C:/Users/Gebruiker/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-[2]
-("C:\Users\Gebruiker\Documents\GitHub\internship-tilburg\documents\concepts\sur
-vival game\concept survival game.aux") ) 
+("C:\Users\Gebruiker\Documents\GitHub\internship-tilburg\documents\concepts\puz
+zle game\puzzle game.aux") ) 
 Here is how much of TeX's memory you used:
- 1919 strings out of 493921
- 23030 string characters out of 3147271
- 76534 words of memory out of 3000000
- 5209 multiletter control sequences out of 15000+200000
- 9189 words of font info for 35 fonts, out of 3000000 for 9000
+ 1872 strings out of 493921
+ 22075 string characters out of 3147271
+ 75534 words of memory out of 3000000
+ 5184 multiletter control sequences out of 15000+200000
+ 4245 words of font info for 16 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 27i,6n,24p,1056b,199s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17
-.pfb>
-Output written on "concept survival game.pdf" (2 pages, 55341 bytes).
+ 27i,4n,24p,1135b,113s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmr10.pfb>
+Output written on "puzzle game.pdf" (1 page, 28208 bytes).
 PDF statistics:
- 25 PDF objects out of 1000 (max. 8388607)
+ 14 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
