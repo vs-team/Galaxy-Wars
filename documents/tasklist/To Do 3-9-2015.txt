@@ -1,0 +1,28 @@
+To do 3-9-2015
+
+For today the plan is the following: 
+
+We are going to set up a networking enviroment with unity for testing purposes. We will start of easy by 
+connecting two laptops together through a switch to create a local network. These laptops will not have internet
+connectivity for the purpose of keeping only one IP adress that is easy to locate and reach. By using a local
+network we will have a setup that closely resembles the one that we will start to work on very soon.
+
+For the testing part:
+
+Once the laptops are connected through the switch we will start rather easy by trying to make two lightbulbs 
+synchronize with eachother. This means that there will be a lightbulb on each instance of unity on the two
+laptops. These lightbulbs will be accompanied by a switch. The very first thing we are going to try is to make the
+switch change color of the lightbulbs on both laptops. After we have tackled this part we will continue by trying
+to implement the code used for this into the casanova language using a simple proxy script. Once this works we can
+start expanding on the code and find solutions for problems that might occur when both participants press the
+button. After we have tested this we will try to time the latency of the connection and up the data that is being
+transferred. If this all goes according to plan we will expand the setup with two more laptops and one master 
+laptop, this is to make the simulation even more like the augmented reality lab. We will start to test the scene
+in a master/slave setup and try to synchronize as much data as possible to test the latency and bandwith to try
+and get an approximation of the situation we are going to face in the augmented reality lab.
+
+We will all work together on this part since it is going to require quite a bit of thinking capacity. As far as I
+am concerned we have all the necessary documentation in order, we will however spend one hour talking through
+everything so that every detail has been taken into account before we pitch the expanded concepts to Pieter.
+
+Lets get to it then!
