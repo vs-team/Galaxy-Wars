@@ -1,0 +1,32 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{Justin van den Anker, Wouter Volders, Hidde Bolijn, Martijn de Lange}
+\title{Survival Game}
+\begin{document}
+\maketitle
+
+\section{Enviroment}
+The concept of this game has been developed for the DAF augmented reality lab of Tilburg University. This concept is aimed to show off the capabilities of the augmented reality lab and to teach people to work together in order to win the game. 
+
+\section{Setting}
+The setting of this concept is some sort of post apocalyptic surival game. The players will be placed inside a vehicle and have to escape the oncoming waves of attackers. If possible the vehicle would be allowed to roam freely across the scene. Everything outside the vehicle is pitch black, the only light that can be seen is that of the headlights and that of a flashlight. The players have to survive as long as possible without breaking the vehicle. When the vehicle breaks down the players are lost and the game will end.
+
+\section{Gameplay}
+The game will allow room for three players that each have their own responsibility within the vehicle. One of the players is the driver, this person is responsible for choosing the best route to avoid as much oncoming attackers as possible. He will drive the vehicle with either a steering wheel or a controller. The second player is the spotter, this person is in charge of using a flashlight to spot attackers coming from the front and back of the vehicle. Communication is essential for this person because the last player will need to be informed on the whereabouts of the attackers so he can shoot them with  the gun. This means that the third player is the gunner and is in charge of fending of the attackers with a gun. Over time the vehicle will receive damage from the attackers. The longer the team manages to keep the attackers at distance and keep the vehicle under the damage limit, the higher the score will be.
+
+\section{Implementation}
+
+This solution will be implemented in Unity with Casanova if possible. The exact controllers that will be used are as of yet unknown since it is not known if the controllers from the augmented reality lab support Unity. There is however an alternative that does have Unity support, this controller is called the Razer Hydra and supports 6 degrees of movement. The rest of the implementation is unknown as of yet until we can speak to the technical staff of the lab about the possibilites.
+
+\section{Issues}
+\begin{itemize}
+\item How would Unity be used in the augmented reality lab?
+\item What can the controllers do and do they have Unity support?
+\item How smooth can we synchronize the different screens when movement occurs since the scene is not static?
+\item What is the latency between the slave computers and master computer?
+\end{itemize}
+\end{document}
