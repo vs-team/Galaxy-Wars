@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.1)  2 SEP 2015 13:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2015.9.1)  2 SEP 2015 13:20
 entering extended mode
 **questionlist.tex
 (questionlist.tex
@@ -338,7 +338,7 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen112
 \Gin@req@width=\dimen113
 )
-No file questionlist.aux.
+(questionlist.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
@@ -351,6 +351,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
+
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count100
@@ -389,8 +390,8 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 {C:/Users/Justin/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (questionl
 ist.aux) ) 
 Here is how much of TeX's memory you used:
- 2223 strings out of 493673
- 26830 string characters out of 3141528
+ 2225 strings out of 493673
+ 26862 string characters out of 3141528
  84843 words of memory out of 3000000
  5565 multiletter control sequences out of 15000+200000
  8584 words of font info for 33 fonts, out of 3000000 for 9000
@@ -400,7 +401,7 @@ Here is how much of TeX's memory you used:
 10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.
 pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb
 ><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on questionlist.pdf (1 page, 52507 bytes).
+Output written on questionlist.pdf (1 page, 52562 bytes).
 PDF statistics:
  22 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
