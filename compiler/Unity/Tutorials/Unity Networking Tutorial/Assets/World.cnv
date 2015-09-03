@@ -1,0 +1,30 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  
+	  Netcube : Cube
+
+	  Create() = 
+	  {
+		Netcube = new Cube()
+	  }
+}
+
+entity Cube = {
+  inherit UnityNetworkCube
+
+  rule Color =
+    if (Input.GetKeyDown(KeyCode.A)) then
+      yield Color.black
+    if (Input.GetKeyDown(KeyCode.W)) then
+      yield Color.red
+		
+  
+  Create() =
+  {
+		Base = UnityNetworkCube.Instantiate()
+  }
+}
