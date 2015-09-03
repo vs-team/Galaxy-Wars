@@ -7,6 +7,7 @@ public class UnityNetworkCube : MonoBehaviour {
     {
         GameObject var = GameObject.Find("Cube");
         UnityNetworkCube cube = var.GetComponent<UnityNetworkCube>();
+       
         return cube;
 
     }
@@ -17,5 +18,9 @@ public class UnityNetworkCube : MonoBehaviour {
         set { gameObject.renderer.material.color = value; }
     }
 
+    public static void testNet()
+    {
+        
+    }
 }
-                                                                                                                            
+                                                                                                                                                                                                                                                               

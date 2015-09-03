@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\NetworkTest.cs" />
      <Compile Include="Assets\Prelude.cs" />
      <Compile Include="Assets\UnityEntity.cs" />
      <Compile Include="Assets\UnityNetworkCube.cs" />
