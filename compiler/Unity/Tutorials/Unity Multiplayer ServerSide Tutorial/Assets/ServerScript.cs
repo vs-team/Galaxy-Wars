@@ -3,18 +3,27 @@ using System.Collections;
 
 public class ServerScript : MonoBehaviour {
 
+    public GameObject cube;
     public NetworkView networkView;
 	// Use this for initialization
 	void Start () {
         GameObject var = GameObject.Find("test");
         networkView = var.GetComponent<NetworkView>();
+        cube = GameObject.Find("Cube");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	    if (Input.GetKeyDown(KeyCode.A))
         {
-            networkView.RPC("PrintLog", RPCMode.All, null);
+            cube.transform.position += Vector3.right * 2f;
+            //networkView.RPC("MoveRight", RPCMode.All, null);
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            cube.transform.position -= Vector3.right * 2f;
+            //networkView.RPC("MoveLeft", RPCMode.All, null);
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -51,9 +60,14 @@ public class ServerScript : MonoBehaviour {
     }
 
     [RPC]
-    public void PrintLog()
+    public void MoveLeft()
     {
-        Debug.Log("well");
+        cube.transform.position -= Vector3.right * 2f;
+    }
+    [RPC]
+    public void MoveRight()
+    {
+        cube.transform.position += Vector3.right * 2f;
     }
 }
-                                                                                            
+                                                                                                                                             
