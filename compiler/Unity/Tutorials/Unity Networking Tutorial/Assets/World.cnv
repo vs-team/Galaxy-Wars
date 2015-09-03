@@ -9,7 +9,7 @@ worldEntity World = {
 
 	  Create() = 
 	  {
-		Netcube = new Cube()
+		  Netcube = new Cube()
 	  }
 }
 

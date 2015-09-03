@@ -268,4 +268,8 @@ public class RuleTable
   }
 }
 
+<<<<<<< HEAD
                                                                                                                                                                                                                                                                           
+=======
+                                                                                                                                                                                        
+>>>>>>> origin/master
