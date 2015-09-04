@@ -42,9 +42,4 @@ var t = System.DateTime.Now;		this.Rule0(dt, world);
 
 
 }
-<<<<<<< HEAD
-}                                                                                                                                                                            
-=======
-}       
->>>>>>> af6e3709317982f68fcf0c2873540bbc51940d03
-    
+}      
