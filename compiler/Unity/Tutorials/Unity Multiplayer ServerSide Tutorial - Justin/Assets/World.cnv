@@ -4,6 +4,45 @@ open "UnityEngine.dll"
 open UnityEngine
 
 worldEntity World = {
-  Cnt       : int
-  rule Cnt = Cnt + 1
+
+  NetworkManager : NetworkManager
+  InputManager : InputManager
+  
+  Count : int
+
+  rule Count =
+    if InputManager.MouseAndKeyboard.A then
+      Debug.Log("A was pressed")
+      yield Count
+
+  Create() = {
+    InputManager = new InputManager()
+    NetworkManager = new NetworkManager()
+    Count = 5
+  }
+}
+
+entity NetworkManager = {
+  inherit UnityNetworkManager
+
+  Create() = {
+    Base = new UnityNetworkManager()
+  }
+}
+
+entity InputManager = {
+  
+  MouseAndKeyboard : MouseAndKeyboardController
+
+  Create() = {
+    MouseAndKeyboard = new MouseAndKeyboardController()
+  }
+}
+
+entity MouseAndKeyboardController = {
+  inherit UnityMouseAndKeyboard
+
+  Create() = {
+    Base = new UnityMouseAndKeyboard()
+  }
 }
