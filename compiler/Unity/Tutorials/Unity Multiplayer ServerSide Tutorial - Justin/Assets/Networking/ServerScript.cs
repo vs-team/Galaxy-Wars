@@ -29,10 +29,10 @@ public class ServerScript : MonoBehaviour
   }
 
   [RPC]
-  public void SetMyProperty(int arg)
+  public void SetMyProperty(object[] arg)
   {
     Debug.Log("Pizza!");
-    myVar = arg;
+    myVar = (int)arg[0];
   }
 
 
