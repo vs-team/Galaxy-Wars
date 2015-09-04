@@ -26,13 +26,13 @@ public class ServerScript : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            Network.InitializeServer(1, 443, false);
+            Network.InitializeServer(1, 25002, false);
             Debug.Log("succesfully initialized server");
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Network.Connect("145.24.235.242", 443);
+            Network.Connect("192.168.2.30", 25002);
         }
      
 	}
@@ -68,4 +68,4 @@ public class ServerScript : MonoBehaviour {
         cube.transform.position += Vector3.right * 2f;
     }
 }
-                                                                                                                                                         
+                                                                                                                                                                                                       
