@@ -26,7 +26,11 @@ public class ServerScript : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.X))
         {
+<<<<<<< HEAD:compiler/Unity/Tutorials/Unity Multiplayer ServerSide Tutorial - Justin/Assets/ServerScript.cs
             Network.InitializeServer(512, 25002, false);
+=======
+            Network.InitializeServer(1, 25002, false);
+>>>>>>> af6e3709317982f68fcf0c2873540bbc51940d03:compiler/Unity/Tutorials/Unity Multiplayer ServerSide Tutorial - Justin/Assets/Networking/ServerScript.cs
             Debug.Log("succesfully initialized server");
         }
 
@@ -68,4 +72,8 @@ public class ServerScript : MonoBehaviour {
         cube.transform.position += Vector3.right * 2f;
     }
 }
+<<<<<<< HEAD:compiler/Unity/Tutorials/Unity Multiplayer ServerSide Tutorial - Justin/Assets/ServerScript.cs
                                                                                                                                                                  
+=======
+                                                                                                                                                                                                       
+>>>>>>> af6e3709317982f68fcf0c2873540bbc51940d03:compiler/Unity/Tutorials/Unity Multiplayer ServerSide Tutorial - Justin/Assets/Networking/ServerScript.cs

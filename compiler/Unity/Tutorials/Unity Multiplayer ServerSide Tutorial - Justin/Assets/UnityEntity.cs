@@ -11,4 +11,9 @@ public class UnityEntity : MonoBehaviour
   {
 		return GameObject.Find("/Cube").GetComponent<UnityEntity>();
   }
+<<<<<<< HEAD
 }                                                                                                                                                                                                                                                                                                                                                                 
+=======
+}                                                                                                                                                                                                                                                                                                                                                                                                                                      
+>>>>>>> af6e3709317982f68fcf0c2873540bbc51940d03
+    

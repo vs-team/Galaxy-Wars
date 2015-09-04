@@ -268,4 +268,9 @@ public class RuleTable
   }
 }
 
+<<<<<<< HEAD
                                                                                                                                                                             
+=======
+                                                                                                                                                                                                                                                 
+>>>>>>> af6e3709317982f68fcf0c2873540bbc51940d03
+    
