@@ -1,0 +1,48 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+    Jeep : Truck
+
+    Create()=
+    {
+       Jeep = new Truck() 
+    }
+}
+
+
+entity Truck = {
+   inherit TruckScript
+
+   Velocity : float
+
+   rule Rotation =
+      if (Input.GetKey(KeyCode.A) && ((Rotation.y > 135.0f) || (Rotation.y < 45.0f))) then
+         Debug.Log(Rotation)
+         yield (Rotation + Vector3(0.0f, -0.2f, 0.0f))
+      if (Input.GetKey(KeyCode.D) && ((Rotation.y > 135.0f) || (Rotation.y < 45.0f))) then
+         Debug.Log(Rotation)
+         yield (Rotation + Vector3(0.0f, 0.2f, 0.0f))
+
+   rule Position =
+       Vector3(0.0f, 0.0f, (Position.z + (Velocity * dt)))
+
+   rule Velocity =
+     if (Input.GetKey(KeyCode.W)) then
+        yield Velocity + 1.0f
+     if ((Input.GetKey(KeyCode.Space)) && (Velocity > 0.0f))then
+        yield Velocity - 0.9f
+     if (not(Input.GetKey(KeyCode.W)) && (Velocity > 0.0f)) then
+        yield Velocity - 0.2f
+     
+      
+
+   Create()=
+    {
+      Velocity = 0.0f
+      Base = TruckScript.Instantiate()
+    }
+
+}
