@@ -15,20 +15,26 @@ public class ServerScript : MonoBehaviour
     cube = GameObject.Find("Cube");
   }
 
-  List<string> current_rpcs = new List<string>();
+  List<Casanova.Prelude.Tuple<string, object[]>> current_rpcs = new List<Casanova.Prelude.Tuple<string, object[]>>();
 
   private int myVar;
 
-  [RPC]
   public int MyProperty
   {
     get { return myVar; }
     set
     {
-      current_rpcs.Add("MyProperty");
-      myVar = value;
+      current_rpcs.Add(new Casanova.Prelude.Tuple<string,object[]>("MyProperty", new object[1] { value }));
     }
   }
+
+  [RPC]
+  public void SetMyProperty(int arg)
+  {
+    Debug.Log("Pizza!");
+    myVar = arg;
+  }
+
 
 
 
@@ -37,7 +43,7 @@ public class ServerScript : MonoBehaviour
   {
     foreach (var rpc_to_call in current_rpcs)
     {
-      networkView.RPC(rpc_to_call, RPCMode.All, null);
+      networkView.RPC(rpc_to_call.Item1, RPCMode.All, rpc_to_call.Item2);
 
     }
     current_rpcs.Clear();
