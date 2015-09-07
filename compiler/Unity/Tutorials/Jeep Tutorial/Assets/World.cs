@@ -45,7 +45,7 @@ public bool JustEntered = true;
 public Truck()
 	{JustEntered = false;
  frame = World.frame;
-		Velocity = 0f;
+		Velocity = new UnityEngine.Vector3(0f,0f,0f);
 		TruckScript = TruckScript.Instantiate();
 		
 }
@@ -56,7 +56,7 @@ public Truck()
   set{TruckScript.Rotation = value; }
  }
 	public TruckScript TruckScript;
-	public System.Single Velocity;
+	public UnityEngine.Vector3 Velocity;
 	public UnityEngine.Animation animation{  get { return TruckScript.animation; }
  }
 	public UnityEngine.AudioSource audio{  get { return TruckScript.audio; }
@@ -109,17 +109,13 @@ public Truck()
   set{TruckScript.useGUILayout = value; }
  }
 	public void Update(float dt, World world) {
-frame = World.frame;		this.Rule1(dt, world);
+frame = World.frame;
 
 		this.Rule0(dt, world);
+		this.Rule1(dt, world);
 		this.Rule2(dt, world);
 	}
 
-	public void Rule1(float dt, World world) 
-	{
-	Position = new UnityEngine.Vector3(0f,0f,(Position.z) + ((Velocity) * (dt)));
-	}
-	
 
 
 
@@ -130,41 +126,77 @@ frame = World.frame;		this.Rule1(dt, world);
 	{
 
 	case -1:
+	Position = ((Position) + (((Velocity) * (dt))));
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
 	if(UnityEngine.Input.GetKey(KeyCode.W))
 	{
 
-	goto case 7;	}else
+	goto case 14;	}else
 	{
 
-	goto case 3;	}
+	goto case 10;	}
+	case 14:
+	Velocity = ((Velocity) + (new UnityEngine.Vector3(0f,0f,1f)));
+	s1 = 10;
+return;
+	case 10:
+	if(((UnityEngine.Input.GetKey(KeyCode.A)) && (((Velocity.z) > (0f)))))
+	{
+
+	goto case 11;	}else
+	{
+
+	goto case 7;	}
+	case 11:
+	Velocity = ((Velocity) + (new UnityEngine.Vector3(-0.2f,0f,0f)));
+	s1 = 7;
+return;
 	case 7:
-	Velocity = ((Velocity) + (1f));
-	s0 = 3;
+	if(((UnityEngine.Input.GetKey(KeyCode.D)) && (((Velocity.z) > (0f)))))
+	{
+
+	goto case 8;	}else
+	{
+
+	goto case 4;	}
+	case 8:
+	Velocity = ((Velocity) + (new UnityEngine.Vector3(0.2f,0f,0f)));
+	s1 = 4;
 return;
-	case 3:
-	if(((UnityEngine.Input.GetKey(KeyCode.Space)) && (((Velocity) > (0f)))))
-	{
-
-	goto case 4;	}else
-	{
-
-	goto case 0;	}
 	case 4:
-	Velocity = ((Velocity) - (0.9f));
-	s0 = 0;
+	if(UnityEngine.Input.GetKey(KeyCode.Space))
+	{
+
+	goto case 5;	}else
+	{
+
+	goto case 1;	}
+	case 5:
+	Velocity = ((Velocity) + (new UnityEngine.Vector3(0f,0f,-0.8f)));
+	s1 = 1;
 return;
-	case 0:
-	if(((!(UnityEngine.Input.GetKey(KeyCode.W))) && (((Velocity) > (0f)))))
-	{
-
-	goto case 1;	}else
-	{
-
-	s0 = -1;
-return;	}
 	case 1:
-	Velocity = ((Velocity) - (0.2f));
-	s0 = -1;
+	if(((Velocity.z) > (0)))
+	{
+
+	goto case 2;	}else
+	{
+
+	s1 = -1;
+return;	}
+	case 2:
+	Velocity = ((Velocity) + (new UnityEngine.Vector3(0f,0f,-0.2f)));
+	s1 = -1;
 return;	
 	default: return;}}
 	
@@ -175,30 +207,7 @@ return;
 	{
 
 	case -1:
-	if(((UnityEngine.Input.GetKey(KeyCode.A)) && (((((Rotation.y) > (135f))) || (((45f) > (Rotation.y)))))))
-	{
-
-	goto case 14;	}else
-	{
-
-	goto case 9;	}
-	case 14:
-	UnityEngine.Debug.Log(Rotation);
-	Rotation = ((Rotation) + (new UnityEngine.Vector3(0f,-0.2f,0f)));
-	s2 = 9;
-return;
-	case 9:
-	if(((UnityEngine.Input.GetKey(KeyCode.D)) && (((((Rotation.y) > (135f))) || (((45f) > (Rotation.y)))))))
-	{
-
-	goto case 10;	}else
-	{
-
-	s2 = -1;
-return;	}
-	case 10:
-	UnityEngine.Debug.Log(Rotation);
-	Rotation = ((Rotation) + (new UnityEngine.Vector3(0f,0.2f,0f)));
+	Rotation = ((Rotation) + (new UnityEngine.Vector3(0f,(Velocity.x) * (dt),0f)));
 	s2 = -1;
 return;	
 	default: return;}}
@@ -209,4 +218,4 @@ return;
 
 
 }
-}       
+}             

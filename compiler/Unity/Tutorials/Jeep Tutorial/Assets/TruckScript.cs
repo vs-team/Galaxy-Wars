@@ -18,7 +18,7 @@ public class TruckScript : MonoBehaviour {
     public Vector3 Rotation
     {
         get { return gameObject.transform.eulerAngles; }
-        set { gameObject.transform.Rotate(value); }
+        set { gameObject.transform.eulerAngles = value;}
     }
 }
-                                                                                                                                                        
+                                                                                                                                                                                                                          
