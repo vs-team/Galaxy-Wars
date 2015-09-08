@@ -2,15 +2,19 @@
 
 public class UnityEntity : MonoBehaviour
 {
-    public Color Color
-    {
-        get { return gameObject.renderer.material.color; }
-        set { gameObject.renderer.material.color = value; }
-    }
+  public Color Color
+  {
+    get { return gameObject.renderer.material.color; }
+    set { gameObject.renderer.material.color = value; }
+  }
 
-    public static UnityEntity Find()
-    {
-        return GameObject.Find("/Cube").GetComponent<UnityEntity>();
-    }
+  public static UnityEntity Find()
+  {
+    return GameObject.Find("/Cube").GetComponent<UnityEntity>();
+  }
 
-}      
+<<<<<<< HEAD
+}              
+=======
+}           
+>>>>>>> origin/master

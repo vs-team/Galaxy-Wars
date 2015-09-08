@@ -266,6 +266,8 @@ public class RuleTable
       ActiveIndices.Push(i);
     }
   }
-}
-
-      
+<<<<<<< HEAD
+}              
+=======
+}           
+>>>>>>> origin/master
