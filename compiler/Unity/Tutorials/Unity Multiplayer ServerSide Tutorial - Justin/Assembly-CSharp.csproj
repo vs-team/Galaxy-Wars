@@ -46,11 +46,15 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\NetworkCube.cs" />
      <Compile Include="Assets\Networking\ServerScript.cs" />
      <Compile Include="Assets\Prelude.cs" />
      <Compile Include="Assets\UnityEntity.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.8/Standalone/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Lidgren.Network">
+ <HintPath>C:/Users/Justin/GitHub/internship-tilburg/compiler/Unity/Tutorials/Unity Multiplayer ServerSide Tutorial - Justin/Assets/Plugins/Lidgren.Network.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
