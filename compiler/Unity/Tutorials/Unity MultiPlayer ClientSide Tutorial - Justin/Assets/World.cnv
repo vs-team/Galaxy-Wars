@@ -1,9 +1,31 @@
 module Game
 
+open "Lidgren.Network.dll"
+open Lidgren.Network
 open "UnityEngine.dll"
 open UnityEngine
 
 worldEntity World = {
-  Cnt       : int
-  rule Cnt = Cnt + 1
+  
+  TestCube : Cube
+
+  Create()=
+  {
+    TestCube = new Cube()
+  }
 }
+
+
+entity Cube = {
+    inherit CubeScriptNetworking
+
+    rule Position =
+        yield Position
+
+    Create()=
+    {
+    Base = CubeScriptNetworking.Instantiate()
+    }
+
+}
+
