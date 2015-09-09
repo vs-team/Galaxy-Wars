@@ -13,14 +13,18 @@ public bool JustEntered = true;
 
 public void Start()
 	{
-		Landscape ___beginningLandscape00;
-		___beginningLandscape00 = new Landscape(new UnityEngine.Vector3(0f,0f,0f));
 		Landscapes = (
 
-(new Cons<Landscape>(___beginningLandscape00,(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
+(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,0f)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f)),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
 		
 }
-		public List<Landscape> Landscapes;
+		public List<Landscape> __Landscapes;
+	public List<Landscape> Landscapes{  get { return  __Landscapes; }
+  set{ __Landscapes = value;
+ foreach(var e in value){if(e.JustEntered){ e.JustEntered = false;
+}
+} }
+ }
 	public List<Landscape> ___a00;
 	public Landscape ___headOfA00;
 	public UnityEngine.Transform ___headOfATransform00;
@@ -50,10 +54,9 @@ var t = System.DateTime.Now;
 	___a00 = (
 
 (Landscapes).Select(__ContextSymbol1 => new { ___e00 = __ContextSymbol1 })
-.Where(__ContextSymbol2 => __ContextSymbol2.___e00.check.isEntered)
+.Where(__ContextSymbol2 => __ContextSymbol2.___e00.Checkpoint.isEntered)
 .Select(__ContextSymbol3 => __ContextSymbol3.___e00)
 .ToList<Landscape>()).ToList<Landscape>();
-	UnityEngine.Debug.Log(("a.count ") + (___a00.Count));
 	if(((___a00.Count) > (0)))
 	{
 
@@ -63,10 +66,11 @@ var t = System.DateTime.Now;
 	s0 = -1;
 return;	}
 	case 1:
+	UnityEngine.Debug.Log(("a.count ") + (___a00.Count));
 	___headOfA00 = ___a00.Head();
 	___headOfATransform00 = ___headOfA00.transform;
 	___headOfAPosition00 = ___headOfATransform00.position;
-	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___headOfAPosition00.z) - (80f))), (Landscapes)).ToList<Landscape>();
+	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___headOfAPosition00.z) - (240f))), (Landscapes)).ToList<Landscape>();
 	s0 = -1;
 return;	
 	default: return;}}
@@ -89,7 +93,9 @@ public Landscape(UnityEngine.Vector3 StartP)
 		UnityLandscape = UnityLandscape.Instantiate(StartP);
 		
 }
-		public UnityEngine.Vector3 Position{  get { return UnityLandscape.Position; }
+		public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
+ }
+	public UnityEngine.Vector3 Position{  get { return UnityLandscape.Position; }
   set{UnityLandscape.Position = value; }
  }
 	public UnityLandscape UnityLandscape;
@@ -98,9 +104,6 @@ public Landscape(UnityEngine.Vector3 StartP)
 	public UnityEngine.AudioSource audio{  get { return UnityLandscape.audio; }
  }
 	public UnityEngine.Camera camera{  get { return UnityLandscape.camera; }
- }
-	public UnityCheckpoint check{  get { return UnityLandscape.check; }
-  set{UnityLandscape.check = value; }
  }
 	public UnityEngine.Collider collider{  get { return UnityLandscape.collider; }
  }
@@ -150,7 +153,7 @@ public Landscape(UnityEngine.Vector3 StartP)
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-
+		this.Rule0(dt, world);
 
 	}
 
@@ -158,6 +161,30 @@ frame = World.frame;
 
 
 
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	if(!(Checkpoint.isEntered))
+	{
+
+	s0 = -1;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	Checkpoint.isEntered = Checkpoint.isEntered;
+	s0 = 0;
+return;
+	case 0:
+	Checkpoint.isEntered = false;
+	s0 = -1;
+return;	
+	default: return;}}
+	
 
 
 

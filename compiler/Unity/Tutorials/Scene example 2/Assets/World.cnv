@@ -6,30 +6,34 @@ open UnityEngine
 worldEntity World = {
   Landscapes : [Landscape]
 
-  rule Landscapes = 
+  rule Landscapes  = 
     let a =
       [for e in Landscapes do
-       where e.check.isEntered
+       where e.Checkpoint.isEntered
        select e]
-    Debug.Log("a.count " + a.Count)
     if a.Count > 0 then
+      Debug.Log("a.count " + a.Count)
       let headOfA = a.Head
       let headOfATransform = headOfA.transform
       let headOfAPosition = headOfATransform.position
-      yield new Landscape(new Vector3(0.0f,0.0f,headOfAPosition.z - 80.0f)) :: Landscapes
+      yield new Landscape(new Vector3(0.0f,0.0f,headOfAPosition.z - 240.0f)) :: Landscapes
 
   Create() =
-    let beginningLandscape = new Landscape(new Vector3(0.0f,0.0f,0.0f))
     {
-     Landscapes = [beginningLandscape]
+     Landscapes = [new Landscape(new Vector3(0.0f,0.0f,0.0f));new Landscape(new Vector3(0.0f,0.0f,-80.0f));new Landscape(new Vector3(0.0f,0.0f,-160.0f))]
     }
 }
 
 entity Landscape = {
   inherit UnityLandscape
   
+  rule Checkpoint.isEntered =
+    wait Checkpoint.isEntered
+    yield Checkpoint.isEntered
+    yield false
 
   Create(StartP : Vector3) = {
   Base = UnityLandscape.Instantiate(StartP)
+
   }
 }

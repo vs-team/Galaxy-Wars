@@ -12,10 +12,13 @@ public class UnityCheckpoint : MonoBehaviour {
       privateIsEntered = true;
     }
   }
+
+
+
   private bool privateIsEntered = false;
   public bool isEntered
   {
     get { return privateIsEntered; }
     set { privateIsEntered = value; }
   }
-}        
+}                                
