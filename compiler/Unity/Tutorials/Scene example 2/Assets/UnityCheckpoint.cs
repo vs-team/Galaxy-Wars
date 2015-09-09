@@ -21,4 +21,4 @@ public class UnityCheckpoint : MonoBehaviour {
     get { return privateIsEntered; }
     set { privateIsEntered = value; }
   }
-}                                
+}                                                        
