@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Lidgren.Network;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System;
 
 public class CubeScriptNetworking : MonoBehaviour {
 
@@ -31,14 +33,24 @@ public class CubeScriptNetworking : MonoBehaviour {
             mess.Write("Position request");
             netcli.SendMessage(mess, NetDeliveryMethod.ReliableOrdered);
             Debug.Log("sent message");
-            var response = netcli.ReadMessage();
-            byte[] byteresp = response.ReadBytes(10);
-            ms.Write(byteresp, 0,2);
-            var finalresp = bf.Deserialize(ms);
-            Debug.Log(finalresp);
-            Debug.Log(response.ReadString());
-            var resp = response.ReadString();
-            return Vector3.zero;
+            List<NetIncomingMessage> tes = new List<NetIncomingMessage>();
+            var response = netcli.ReadMessages(tes);
+            foreach (NetIncomingMessage n in tes)
+            {
+                Debug.Log(n.ReadFloat());
+            }
+            try
+            {
+                float temp1 = tes[0].ReadFloat();
+                float temp2 = tes[1].ReadFloat();
+                float temp3 = tes[2].ReadFloat();
+                Debug.Log(temp2 + temp3);
+                return new Vector3(temp1, temp2, temp3);
+            }
+            catch (Exception e)
+            {
+                return Position;
+            }
         }
 
         set
@@ -49,4 +61,4 @@ public class CubeScriptNetworking : MonoBehaviour {
 
 
 }
-                                                                                                                                                                            
+                                                                                                                                                                                                                                    

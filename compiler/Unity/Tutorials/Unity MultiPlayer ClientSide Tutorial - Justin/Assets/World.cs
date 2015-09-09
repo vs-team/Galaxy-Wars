@@ -57,6 +57,9 @@ public Cube()
  }
 	public UnityEngine.AudioSource audio{  get { return CubeScriptNetworking.audio; }
  }
+	public System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf{  get { return CubeScriptNetworking.bf; }
+  set{CubeScriptNetworking.bf = value; }
+ }
 	public UnityEngine.Camera camera{  get { return CubeScriptNetworking.camera; }
  }
 	public UnityEngine.Collider collider{  get { return CubeScriptNetworking.collider; }
@@ -83,6 +86,9 @@ public Cube()
  }
 	public UnityEngine.Light light{  get { return CubeScriptNetworking.light; }
  }
+	public System.IO.MemoryStream ms{  get { return CubeScriptNetworking.ms; }
+  set{CubeScriptNetworking.ms = value; }
+ }
 	public System.String name{  get { return CubeScriptNetworking.name; }
   set{CubeScriptNetworking.name = value; }
  }
@@ -107,6 +113,7 @@ public Cube()
 	public System.Boolean useGUILayout{  get { return CubeScriptNetworking.useGUILayout; }
   set{CubeScriptNetworking.useGUILayout = value; }
  }
+	public System.Single count_down1;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -124,6 +131,19 @@ frame = World.frame;
 	{
 
 	case -1:
+	count_down1 = 1f;
+	goto case 2;
+	case 2:
+	if(((count_down1) > (0f)))
+	{
+
+	count_down1 = ((count_down1) - (dt));
+	s0 = 2;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
 	Position = Position;
 	s0 = -1;
 return;	
@@ -136,4 +156,4 @@ return;
 
 
 }
-}                                                                 
+}    
