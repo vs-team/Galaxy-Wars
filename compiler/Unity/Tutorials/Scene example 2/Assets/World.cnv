@@ -1,0 +1,35 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  Landscapes : [Landscape]
+
+  rule Landscapes = 
+    let a =
+      [for e in Landscapes do
+       where e.check.isEntered
+       select e]
+    Debug.Log("a.count " + a.Count)
+    if a.Count > 0 then
+      let headOfA = a.Head
+      let headOfATransform = headOfA.transform
+      let headOfAPosition = headOfATransform.position
+      yield new Landscape(new Vector3(0.0f,0.0f,headOfAPosition.z - 80.0f)) :: Landscapes
+
+  Create() =
+    let beginningLandscape = new Landscape(new Vector3(0.0f,0.0f,0.0f))
+    {
+     Landscapes = [beginningLandscape]
+    }
+}
+
+entity Landscape = {
+  inherit UnityLandscape
+  
+
+  Create(StartP : Vector3) = {
+  Base = UnityLandscape.Instantiate(StartP)
+  }
+}
