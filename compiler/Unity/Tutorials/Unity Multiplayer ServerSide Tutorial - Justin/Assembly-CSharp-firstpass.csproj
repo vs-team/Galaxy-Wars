@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{EAC28001-26FF-E45A-E9E6-667B9CD844C1}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_8;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_IL2CPP;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;UNITY5_SCRIPTING_IN_UNITY4;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_MONO;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetBase.Recycling.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetBase.SimulateLag.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetBase.Statistics.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetBase.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetBitWriter.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetBuffer.Peek.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetBuffer.Read.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetBuffer.Write.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetBuffer.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetChecksum.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetClient.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetConfiguration.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetConnection.Approval.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetConnection.Fragmentation.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetConnection.Latency.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetConnection.Reliability.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetConnection.Statistics.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetConnection.StringTable.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetConnection.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetConstants.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetDiscovery.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetEnums.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetException.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetFrequencyCounter.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetLog.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetMessage.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetPeer.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetPool.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetQueue.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetRandom.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetServer.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetTime.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\NetUtility.cs" />
+     <Compile Include="Assets\Plugins\Lidgren.Network\Properties\AssemblyInfo.cs" />
+     <None Include="Assets\Plugins\Lidgren.Network\obj\Debug\Lidgren.Network.csproj.FileListAbsolute.txt" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.8/Standalone/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Lidgren.Network">
+ <HintPath>C:/Users/Justin/GitHub/internship-tilburg/compiler/Unity/Tutorials/Unity Multiplayer ServerSide Tutorial - Justin/Assets/Plugins/Lidgren.Network/bin/Debug/Lidgren.Network.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>

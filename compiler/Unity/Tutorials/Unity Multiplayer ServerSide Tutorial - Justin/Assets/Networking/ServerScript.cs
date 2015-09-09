@@ -1,62 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Lidgren.Network;
 
 public class ServerScript : MonoBehaviour
 {
-
-  public GameObject cube;
+  public NetServer serv;
   public NetworkView networkView;
+  public NetIncomingMessage inc;
   // Use this for initialization
-  void Start()
+
+  public ServerScript Find()
   {
-    GameObject var = GameObject.Find("test");
-    networkView = var.GetComponent<NetworkView>();
-    cube = GameObject.Find("Cube");
+      GameObject var = GameObject.Find("Cube");
+      var cube = GameObject.Find("Cube");
+      var script = cube.GetComponent<ServerScript>();
+      var test = new NetPeerConfiguration("ServerSide");
+      test.LocalAddress = NetUtility.Resolve("localhost");
+      test.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+      test.Port = 57621;
+      serv = new NetServer(test);
+      serv.Start();
+      Debug.Log("Server is running!");
+      return script;
   }
-
-  List<Casanova.Prelude.Tuple<string, object[]>> current_rpcs = new List<Casanova.Prelude.Tuple<string, object[]>>();
-
-  private int myVar;
-
-  public int MyProperty
-  {
-    get { return myVar; }
-    set
-    {
-      current_rpcs.Add(new Casanova.Prelude.Tuple<string,object[]>("MyProperty", new object[1] { value }));
-    }
-  }
-
-  [RPC]
-  public void SetMyProperty(object[] arg)
-  {
-    Debug.Log("Pizza!");
-    myVar = (int)arg[0];
-  }
-
-
-
+  
 
   // Update is called once per frame
   void Update()
   {
-    foreach (var rpc_to_call in current_rpcs)
+    if ((inc = serv.ReadMessage()) != null)
     {
-      networkView.RPC(rpc_to_call.Item1, RPCMode.All, rpc_to_call.Item2);
-
+        switch (inc.MessageType)
+        {
+            case NetIncomingMessageType.ConnectionApproval:
+                inc.SenderConnection.Approve();
+                break;
+            default:
+                Debug.Log("This type of message is not handled"+inc.MessageType);
+                Debug.Log(serv.ConnectionsCount);
+                break;
+        }
     }
-    current_rpcs.Clear();
-
-
-
-
-    Debug.Log("Myproperty : " + MyProperty);
-
+    if(Input.GetKey(KeyCode.T))
+    {
+        serv.Shutdown("test");
+    }
 
     if (Input.GetKeyDown(KeyCode.A))
     {
-      MyProperty++;
       networkView.RPC("MoveRight", RPCMode.All, null);
 
     }
