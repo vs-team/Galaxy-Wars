@@ -20,7 +20,6 @@ entity Cube = {
     inherit CubeScriptNetworking
 
     rule Position =
-        wait 1.0f
         yield Position
 
     Create()=

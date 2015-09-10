@@ -50,9 +50,9 @@ public class ServerScript : MonoBehaviour
                   var resp = serv.CreateMessage();
                   var resp2 = serv.CreateMessage();
                   var resp3 = serv.CreateMessage();
-                  resp.Write((pos.x));
-                  resp2.Write((pos.y));
-                  resp3.Write((pos.z));
+                  resp.Write((double)(pos.x));
+                  resp2.Write((double)(pos.y));
+                  resp3.Write((double)(pos.z));
                   inc.SenderConnection.SendMessage(resp, NetDeliveryMethod.ReliableOrdered, 3);
                   inc.SenderConnection.SendMessage(resp2, NetDeliveryMethod.ReliableOrdered, 3);
                   inc.SenderConnection.SendMessage(resp3, NetDeliveryMethod.ReliableOrdered, 3);

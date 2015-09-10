@@ -113,7 +113,6 @@ public Cube()
 	public System.Boolean useGUILayout{  get { return CubeScriptNetworking.useGUILayout; }
   set{CubeScriptNetworking.useGUILayout = value; }
  }
-	public System.Single count_down1;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -131,19 +130,6 @@ frame = World.frame;
 	{
 
 	case -1:
-	count_down1 = 1f;
-	goto case 2;
-	case 2:
-	if(((count_down1) > (0f)))
-	{
-
-	count_down1 = ((count_down1) - (dt));
-	s0 = 2;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
 	Position = Position;
 	s0 = -1;
 return;	
@@ -156,4 +142,4 @@ return;
 
 
 }
-}    
+}           

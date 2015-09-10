@@ -39,18 +39,26 @@ public class CubeScriptNetworking : MonoBehaviour {
             {
                 Debug.Log(n.ReadFloat());
             }
-            try
+            if (tes.Count == 3)
             {
+                Debug.Log(tes.Count);
                 float temp1 = tes[0].ReadFloat();
+                Debug.Log(temp1);
                 float temp2 = tes[1].ReadFloat();
+                Debug.Log(temp2);
                 float temp3 = tes[2].ReadFloat();
+                Debug.Log(temp3);
                 Debug.Log(temp2 + temp3);
-                return new Vector3(temp1, temp2, temp3);
+                var finvec = new Vector3(temp1, temp2, temp3);
+                return finvec; 
             }
-            catch (Exception e)
+            else
             {
-                return Position;
+                return gameObject.transform.position;
             }
+            
+            
+            
         }
 
         set
@@ -61,4 +69,4 @@ public class CubeScriptNetworking : MonoBehaviour {
 
 
 }
-                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                            
