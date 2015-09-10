@@ -19,7 +19,7 @@ public class ServerScript : MonoBehaviour
       bf = new BinaryFormatter();
       ms = new MemoryStream();
       GameObject var = GameObject.Find("Cube");
-      var cube = GameObject.Find("Cube");
+      var cube = GameObject.Find("Newcube");
       var script = cube.GetComponent<ServerScript>();
       var test = new NetPeerConfiguration("ServerSide");
       test.LocalAddress = NetUtility.Resolve("localhost");

@@ -5,11 +5,29 @@ open UnityEngine
 
 worldEntity World = {
 
-  Count : int
+  Count : Kubus
 
   
-  Create() = {
-    Count = 1
+  Create() = 
+  {
+   Count = new Kubus()
   }
 }
 
+entity Kubus = {
+    inherit CubeScript
+
+    rule Position =
+        if (Input.GetKeyDown(KeyCode.A)) then
+            yield Position + Vector3(0.0f, -2.0f, 0.0f)
+        if (Input.GetKeyDown(KeyCode.D)) then
+            yield Position + Vector3(0.0f, 2.0f, 0.0f)
+        if (Input.GetKeyDown(KeyCode.W)) then
+            yield Position + Vector3(2.0f, 0.0f, 0.0f)
+
+    Create()=
+    {
+     Base = CubeScript.Instantiate()
+    }
+
+}
