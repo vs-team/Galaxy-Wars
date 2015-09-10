@@ -44,14 +44,18 @@ public class ServerScript : MonoBehaviour
                   Debug.Log("incoming");
                   break;
               case NetIncomingMessageType.Data:
+                  var temp = GameObject.Find("Cube");
+                  var pos = temp.transform.position;
                   Debug.Log(inc.ReadString());
-                  var vec = 4.0f;
-                  bf.Serialize(ms, vec);
-                  byte[] byt = ms.GetBuffer();
-                  Debug.Log(byt);
                   var resp = serv.CreateMessage();
-                  resp.Write(byt);
+                  var resp2 = serv.CreateMessage();
+                  var resp3 = serv.CreateMessage();
+                  resp.Write((pos.x));
+                  resp2.Write((pos.y));
+                  resp3.Write((pos.z));
                   inc.SenderConnection.SendMessage(resp, NetDeliveryMethod.ReliableOrdered, 3);
+                  inc.SenderConnection.SendMessage(resp2, NetDeliveryMethod.ReliableOrdered, 3);
+                  inc.SenderConnection.SendMessage(resp3, NetDeliveryMethod.ReliableOrdered, 3);
                   break;
               default:
                   Debug.Log("This type of message is not handled" + inc.MessageType);
