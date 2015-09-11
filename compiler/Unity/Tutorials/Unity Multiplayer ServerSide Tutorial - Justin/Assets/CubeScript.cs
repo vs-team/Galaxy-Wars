@@ -5,7 +5,7 @@ public class CubeScript : MonoBehaviour {
 
 	public static CubeScript Instantiate()
     {
-        var temp = GameObject.Find("Newcube");
+        var temp = GameObject.Find("Cube");
         var comp = temp.GetComponent<CubeScript>();
         return comp;
     }
@@ -16,4 +16,4 @@ public class CubeScript : MonoBehaviour {
         set { gameObject.transform.position = value; }
     }
 }
-                                                 
+                                                                                  

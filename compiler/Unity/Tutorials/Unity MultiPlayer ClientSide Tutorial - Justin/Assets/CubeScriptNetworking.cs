@@ -37,7 +37,7 @@ public class CubeScriptNetworking : MonoBehaviour {
             var response = netcli.ReadMessages(tes);
             foreach (NetIncomingMessage n in tes)
             {
-                Debug.Log(n.ReadFloat());
+                //Debug.Log(n.ReadFloat());
             }
             if (tes.Count == 3)
             {
@@ -69,4 +69,4 @@ public class CubeScriptNetworking : MonoBehaviour {
 
 
 }
-                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                                                              
