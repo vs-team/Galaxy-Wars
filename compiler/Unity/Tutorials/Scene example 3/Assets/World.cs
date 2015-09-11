@@ -13,9 +13,6 @@ public bool JustEntered = true;
 
 public void Start()
 	{
-		Zombies = (
-
-Enumerable.Empty<Zombie>()).ToList<Zombie>();
 		Landscapes = (
 
 (new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,0f)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f)),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
@@ -30,38 +27,23 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 }
 } }
  }
-	public List<Zombie> Zombies;
 	public List<Landscape> ___a00;
 	public Landscape ___headOfA00;
 	public UnityEngine.Transform ___headOfATransform00;
 	public UnityEngine.Vector3 ___headOfAPosition00;
-	public System.Single count_down1;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
-var t = System.DateTime.Now;		this.Rule2(dt, world);
+var t = System.DateTime.Now;
 
 		Jeep.Update(dt, world);
 		for(int x0 = 0; x0 < Landscapes.Count; x0++) { 
 			Landscapes[x0].Update(dt, world);
 		}
-		for(int x0 = 0; x0 < Zombies.Count; x0++) { 
-			Zombies[x0].Update(dt, world);
-		}
 		this.Rule0(dt, world);
-		this.Rule1(dt, world);
+
 	}
 
-	public void Rule2(float dt, World world) 
-	{
-	Zombies = (
-
-(Zombies).Select(__ContextSymbol2 => new { ___a21 = __ContextSymbol2 })
-.Where(__ContextSymbol3 => !(__ContextSymbol3.___a21.Destroyed))
-.Select(__ContextSymbol4 => __ContextSymbol4.___a21)
-.ToList<Zombie>()).ToList<Zombie>();
-	}
-	
 
 
 
@@ -74,9 +56,9 @@ var t = System.DateTime.Now;		this.Rule2(dt, world);
 	case -1:
 	___a00 = (
 
-(Landscapes).Select(__ContextSymbol5 => new { ___e00 = __ContextSymbol5 })
-.Where(__ContextSymbol6 => __ContextSymbol6.___e00.Checkpoint.isEntered)
-.Select(__ContextSymbol7 => __ContextSymbol7.___e00)
+(Landscapes).Select(__ContextSymbol1 => new { ___e00 = __ContextSymbol1 })
+.Where(__ContextSymbol2 => __ContextSymbol2.___e00.Checkpoint.isEntered)
+.Select(__ContextSymbol3 => __ContextSymbol3.___e00)
 .ToList<Landscape>()).ToList<Landscape>();
 	UnityEngine.Debug.Log(("a.count before if ") + (___a00.Count));
 	if(((___a00.Count) > (0)))
@@ -98,30 +80,6 @@ return;
 	default: return;}}
 	
 
-	int s1=-1;
-	public void Rule1(float dt, World world){ 
-	switch (s1)
-	{
-
-	case -1:
-	count_down1 = 2f;
-	goto case 2;
-	case 2:
-	if(((count_down1) > (0f)))
-	{
-
-	count_down1 = ((count_down1) - (dt));
-	s1 = 2;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
-	Zombies = new Cons<Zombie>(new Zombie(Jeep.Position), (Zombies)).ToList<Zombie>();
-	s1 = -1;
-return;	
-	default: return;}}
-	
 
 
 
@@ -136,15 +94,29 @@ private UnityEngine.Vector3 StartP;
 public Landscape(UnityEngine.Vector3 StartP)
 	{JustEntered = false;
  frame = World.frame;
+		hasSpawned = false;
+		Zombies = (
+
+Enumerable.Empty<Zombie>()).ToList<Zombie>();
 		UnityLandscape = UnityLandscape.Instantiate(StartP);
+		SP = (
+
+Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 		
 }
 		public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
  }
+	public UnityEngine.Vector3 LocPosition{  get { return UnityLandscape.LocPosition; }
+  set{UnityLandscape.LocPosition = value; }
+ }
 	public UnityEngine.Vector3 Position{  get { return UnityLandscape.Position; }
   set{UnityLandscape.Position = value; }
  }
+	public List<UnityEngine.Transform> SP;
+	public System.Collections.Generic.List<UnityEngine.Transform> Spawnpoints2{  get { return UnityLandscape.Spawnpoints2; }
+ }
 	public UnityLandscape UnityLandscape;
+	public List<Zombie> Zombies;
 	public UnityEngine.Animation animation{  get { return UnityLandscape.animation; }
  }
 	public UnityEngine.AudioSource audio{  get { return UnityLandscape.audio; }
@@ -168,6 +140,7 @@ public Landscape(UnityEngine.Vector3 StartP)
  }
 	public UnityEngine.GUITexture guiTexture{  get { return UnityLandscape.guiTexture; }
  }
+	public System.Boolean hasSpawned;
 	public UnityEngine.HideFlags hideFlags{  get { return UnityLandscape.hideFlags; }
   set{UnityLandscape.hideFlags = value; }
  }
@@ -196,14 +169,38 @@ public Landscape(UnityEngine.Vector3 StartP)
 	public System.Boolean useGUILayout{  get { return UnityLandscape.useGUILayout; }
   set{UnityLandscape.useGUILayout = value; }
  }
+	public UnityEngine.Vector3 ___SPHP30;
 	public void Update(float dt, World world) {
-frame = World.frame;
-
+frame = World.frame;		this.Rule1(dt, world);
+		this.Rule4(dt, world);
+		for(int x0 = 0; x0 < Zombies.Count; x0++) { 
+			Zombies[x0].Update(dt, world);
+		}
 		this.Rule0(dt, world);
-
+		this.Rule2(dt, world);
+		this.Rule3(dt, world);
 	}
 
+	public void Rule1(float dt, World world) 
+	{
+	SP = (
 
+(Spawnpoints2).Select(__ContextSymbol8 => new { ___a11 = __ContextSymbol8 })
+.Select(__ContextSymbol9 => __ContextSymbol9.___a11)
+.ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
+	}
+	
+
+	public void Rule4(float dt, World world) 
+	{
+	Zombies = (
+
+(Zombies).Select(__ContextSymbol10 => new { ___a42 = __ContextSymbol10 })
+.Where(__ContextSymbol11 => !(__ContextSymbol11.___a42.Destroyed))
+.Select(__ContextSymbol12 => __ContextSymbol12.___a42)
+.ToList<Zombie>()).ToList<Zombie>();
+	}
+	
 
 
 
@@ -213,25 +210,70 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(!(Checkpoint.isEntered))
+	if(((SP.Count) > (0)))
+	{
+
+	goto case 10;	}else
 	{
 
 	s0 = -1;
+return;	}
+	case 10:
+	SP = SP;
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	if(!(Checkpoint.isEntered))
+	{
+
+	s2 = -1;
 return;	}else
 	{
 
 	goto case 1;	}
 	case 1:
 	Checkpoint.isEntered = Checkpoint.isEntered;
-	s0 = 0;
+	s2 = 0;
 return;
 	case 0:
 	Checkpoint.isEntered = false;
-	s0 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
 
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(!(!(hasSpawned)))
+	{
+
+	s3 = -1;
+return;	}else
+	{
+
+	goto case 3;	}
+	case 3:
+	___SPHP30 = SP.Head().position;
+	UnityEngine.Debug.Log(("Pos ") + (SP.Head().position));
+	UnityEngine.Debug.Log(("LocalPos ") + (SP.Head().localPosition));
+	Zombies = new Cons<Zombie>(new Zombie(___SPHP30), (Zombies)).ToList<Zombie>();
+	hasSpawned = true;
+	s3 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -595,4 +637,4 @@ return;
 
 
 }
-}                     
+}    
