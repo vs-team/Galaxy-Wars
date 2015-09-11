@@ -7,7 +7,7 @@ worldEntity World = {
   Landscapes : [Landscape]
   Jeep : Truck
 
-  rule Landscapes  = 
+   rule Landscapes  = 
     let a =
       [for e in Landscapes do
        where (e.Checkpoint.isEntered && (not e.Destroyed))
@@ -48,14 +48,14 @@ entity Landscape = {
     Debug.Log("LocalPos "+SP.Head.localPosition)
     yield new Zombie(SPHP) :: Zombies, true
 
+  rule Destroyed =
+    wait Vector3.Distance(Position,world.Jeep.Position) > DestroyDistance
+    yield true
+
   rule Checkpoint.isEntered =
     wait Checkpoint.isEntered
     yield Checkpoint.isEntered
     yield false
-
-  rule Destroyed =
-    wait Vector3.Distance(Position,world.Jeep.Position) > DestroyDistance
-    yield true
 
   rule SP = 
     [for a in Spawnpoints2 do

@@ -247,16 +247,20 @@ return;
 	{
 
 	case -1:
-	if(!(((UnityEngine.Vector3.Distance(Position,world.Jeep.Position)) > (DestroyDistance))))
+	if(!(Checkpoint.isEntered))
 	{
 
 	s2 = -1;
 return;	}else
 	{
 
-	goto case 0;	}
+	goto case 1;	}
+	case 1:
+	Checkpoint.isEntered = Checkpoint.isEntered;
+	s2 = 0;
+return;
 	case 0:
-	Destroyed = true;
+	Checkpoint.isEntered = false;
 	s2 = -1;
 return;	
 	default: return;}}
@@ -268,20 +272,16 @@ return;
 	{
 
 	case -1:
-	if(!(Checkpoint.isEntered))
+	if(!(((UnityEngine.Vector3.Distance(Position,world.Jeep.Position)) > (DestroyDistance))))
 	{
 
 	s3 = -1;
 return;	}else
 	{
 
-	goto case 1;	}
-	case 1:
-	Checkpoint.isEntered = Checkpoint.isEntered;
-	s3 = 0;
-return;
+	goto case 0;	}
 	case 0:
-	Checkpoint.isEntered = false;
+	Destroyed = true;
 	s3 = -1;
 return;	
 	default: return;}}
@@ -674,4 +674,4 @@ return;
 
 
 }
-}                  
+}           
