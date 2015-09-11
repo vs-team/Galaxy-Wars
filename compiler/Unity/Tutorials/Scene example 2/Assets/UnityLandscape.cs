@@ -21,5 +21,16 @@ public class UnityLandscape : MonoBehaviour {
     get { return this.transform.position; }
     set { this.transform.position = value; }
   }
-  
-}                                                                   
+
+  private bool destroyed;
+  public bool Destroyed
+  {
+    get { return destroyed; }
+    set
+    {
+      destroyed = value;
+      if (destroyed)
+        GameObject.Destroy(gameObject);
+    }
+  }
+}                                                                                                                                                                                              
