@@ -10,15 +10,17 @@ worldEntity World = {
   rule Landscapes  = 
     let a =
       [for e in Landscapes do
-       where e.Checkpoint.isEntered
+       where (e.Checkpoint.isEntered && (not e.Destroyed))
        select e]
-    Debug.Log("a.count before if " + a.Count)
     if a.Count > 0 then
-      Debug.Log("a.count " + a.Count)
-      let headOfA = a.Head
-      let headOfATransform = headOfA.transform
-      let headOfAPosition = headOfATransform.position
-      yield new Landscape(new Vector3(0.0f,0.0f,headOfAPosition.z - 240.0f)) :: Landscapes
+      yield new Landscape(new Vector3(0.0f,0.0f,a.Head.transform.position.z - 240.0f)) :: Landscapes
+
+  rule Landscapes =
+    let destroyed_filter =
+      [for e in Landscapes do
+       where (not e.Destroyed)
+       select e]
+    yield destroyed_filter
 
   Create() =
     {
@@ -32,6 +34,7 @@ entity Landscape = {
   Zombies	: [Zombie]
   SP : [Transform]
   hasSpawned : bool
+  DestroyDistance : float
 
   rule Zombies = 
     [for a in Zombies do
@@ -50,6 +53,10 @@ entity Landscape = {
     yield Checkpoint.isEntered
     yield false
 
+  rule Destroyed =
+    wait Vector3.Distance(Position,world.Jeep.Position) > DestroyDistance
+    yield true
+
   rule SP = 
     [for a in Spawnpoints2 do
 	   select a]
@@ -63,6 +70,7 @@ entity Landscape = {
   Zombies = []
   SP = []
   hasSpawned = false
+  DestroyDistance = 500.0f
   }
 }
 

@@ -27,10 +27,8 @@ public void Start()
 }
 } }
  }
-	public List<Landscape> ___a00;
-	public Landscape ___headOfA00;
-	public UnityEngine.Transform ___headOfATransform00;
-	public UnityEngine.Vector3 ___headOfAPosition00;
+	public List<Landscape> ___destroyed_filter00;
+	public List<Landscape> ___a10;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -41,7 +39,7 @@ var t = System.DateTime.Now;
 			Landscapes[x0].Update(dt, world);
 		}
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
 	}
 
 
@@ -54,32 +52,44 @@ var t = System.DateTime.Now;
 	{
 
 	case -1:
-	___a00 = (
+	___destroyed_filter00 = (
 
 (Landscapes).Select(__ContextSymbol1 => new { ___e00 = __ContextSymbol1 })
-.Where(__ContextSymbol2 => __ContextSymbol2.___e00.Checkpoint.isEntered)
+.Where(__ContextSymbol2 => !(__ContextSymbol2.___e00.Destroyed))
 .Select(__ContextSymbol3 => __ContextSymbol3.___e00)
 .ToList<Landscape>()).ToList<Landscape>();
-	UnityEngine.Debug.Log(("a.count before if ") + (___a00.Count));
-	if(((___a00.Count) > (0)))
-	{
-
-	goto case 1;	}else
-	{
-
-	s0 = -1;
-return;	}
-	case 1:
-	UnityEngine.Debug.Log(("a.count ") + (___a00.Count));
-	___headOfA00 = ___a00.Head();
-	___headOfATransform00 = ___headOfA00.transform;
-	___headOfAPosition00 = ___headOfATransform00.position;
-	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___headOfAPosition00.z) - (240f))), (Landscapes)).ToList<Landscape>();
+	Landscapes = ___destroyed_filter00;
 	s0 = -1;
 return;	
 	default: return;}}
 	
 
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	___a10 = (
+
+(Landscapes).Select(__ContextSymbol4 => new { ___e11 = __ContextSymbol4 })
+.Where(__ContextSymbol5 => ((__ContextSymbol5.___e11.Checkpoint.isEntered) && (!(__ContextSymbol5.___e11.Destroyed))))
+.Select(__ContextSymbol6 => __ContextSymbol6.___e11)
+.ToList<Landscape>()).ToList<Landscape>();
+	if(((___a10.Count) > (0)))
+	{
+
+	goto case 3;	}else
+	{
+
+	s1 = -1;
+return;	}
+	case 3:
+	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___a10.Head().transform.position.z) - (240f))), (Landscapes)).ToList<Landscape>();
+	s1 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -102,9 +112,14 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 		SP = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
+		DestroyDistance = 500f;
 		
 }
 		public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
+ }
+	public System.Single DestroyDistance;
+	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
+  set{UnityLandscape.Destroyed = value; }
  }
 	public UnityEngine.Vector3 LocPosition{  get { return UnityLandscape.LocPosition; }
   set{UnityLandscape.LocPosition = value; }
@@ -169,35 +184,36 @@ Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	public System.Boolean useGUILayout{  get { return UnityLandscape.useGUILayout; }
   set{UnityLandscape.useGUILayout = value; }
  }
-	public UnityEngine.Vector3 ___SPHP30;
+	public UnityEngine.Vector3 ___SPHP40;
 	public void Update(float dt, World world) {
 frame = World.frame;		this.Rule1(dt, world);
-		this.Rule4(dt, world);
+		this.Rule5(dt, world);
 		for(int x0 = 0; x0 < Zombies.Count; x0++) { 
 			Zombies[x0].Update(dt, world);
 		}
 		this.Rule0(dt, world);
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
+		this.Rule4(dt, world);
 	}
 
 	public void Rule1(float dt, World world) 
 	{
 	SP = (
 
-(Spawnpoints2).Select(__ContextSymbol8 => new { ___a11 = __ContextSymbol8 })
-.Select(__ContextSymbol9 => __ContextSymbol9.___a11)
+(Spawnpoints2).Select(__ContextSymbol11 => new { ___a11 = __ContextSymbol11 })
+.Select(__ContextSymbol12 => __ContextSymbol12.___a11)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	}
 	
 
-	public void Rule4(float dt, World world) 
+	public void Rule5(float dt, World world) 
 	{
 	Zombies = (
 
-(Zombies).Select(__ContextSymbol10 => new { ___a42 = __ContextSymbol10 })
-.Where(__ContextSymbol11 => !(__ContextSymbol11.___a42.Destroyed))
-.Select(__ContextSymbol12 => __ContextSymbol12.___a42)
+(Zombies).Select(__ContextSymbol13 => new { ___a52 = __ContextSymbol13 })
+.Where(__ContextSymbol14 => !(__ContextSymbol14.___a52.Destroyed))
+.Select(__ContextSymbol15 => __ContextSymbol15.___a52)
 .ToList<Zombie>()).ToList<Zombie>();
 	}
 	
@@ -213,12 +229,12 @@ frame = World.frame;		this.Rule1(dt, world);
 	if(((SP.Count) > (0)))
 	{
 
-	goto case 10;	}else
+	goto case 7;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 10:
+	case 7:
 	SP = SP;
 	s0 = -1;
 return;	
@@ -231,20 +247,16 @@ return;
 	{
 
 	case -1:
-	if(!(Checkpoint.isEntered))
+	if(!(((UnityEngine.Vector3.Distance(Position,world.Jeep.Position)) > (DestroyDistance))))
 	{
 
 	s2 = -1;
 return;	}else
 	{
 
-	goto case 1;	}
-	case 1:
-	Checkpoint.isEntered = Checkpoint.isEntered;
-	s2 = 0;
-return;
+	goto case 0;	}
 	case 0:
-	Checkpoint.isEntered = false;
+	Destroyed = true;
 	s2 = -1;
 return;	
 	default: return;}}
@@ -256,21 +268,46 @@ return;
 	{
 
 	case -1:
-	if(!(!(hasSpawned)))
+	if(!(Checkpoint.isEntered))
 	{
 
 	s3 = -1;
 return;	}else
 	{
 
+	goto case 1;	}
+	case 1:
+	Checkpoint.isEntered = Checkpoint.isEntered;
+	s3 = 0;
+return;
+	case 0:
+	Checkpoint.isEntered = false;
+	s3 = -1;
+return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	if(!(!(hasSpawned)))
+	{
+
+	s4 = -1;
+return;	}else
+	{
+
 	goto case 3;	}
 	case 3:
-	___SPHP30 = SP.Head().position;
+	___SPHP40 = SP.Head().position;
 	UnityEngine.Debug.Log(("Pos ") + (SP.Head().position));
 	UnityEngine.Debug.Log(("LocalPos ") + (SP.Head().localPosition));
-	Zombies = new Cons<Zombie>(new Zombie(___SPHP30), (Zombies)).ToList<Zombie>();
+	Zombies = new Cons<Zombie>(new Zombie(___SPHP40), (Zombies)).ToList<Zombie>();
 	hasSpawned = true;
-	s3 = -1;
+	s4 = -1;
 return;	
 	default: return;}}
 	
@@ -637,4 +674,4 @@ return;
 
 
 }
-}    
+}                  
