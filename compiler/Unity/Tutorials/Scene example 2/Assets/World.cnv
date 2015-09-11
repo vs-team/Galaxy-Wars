@@ -5,35 +5,104 @@ open UnityEngine
 
 worldEntity World = {
   Landscapes : [Landscape]
+  Jeep : Truck
 
   rule Landscapes  = 
     let a =
       [for e in Landscapes do
-       where e.Checkpoint.isEntered
+       where (e.Checkpoint.isEntered && (not e.Destroyed))
        select e]
     if a.Count > 0 then
-      Debug.Log("a.count " + a.Count)
-      let headOfA = a.Head
-      let headOfATransform = headOfA.transform
-      let headOfAPosition = headOfATransform.position
-      yield new Landscape(new Vector3(0.0f,0.0f,headOfAPosition.z - 240.0f)) :: Landscapes
+      yield new Landscape(new Vector3(0.0f,0.0f,a.Head.transform.position.z - 240.0f)) :: Landscapes
+
+  rule Landscapes =
+    let destroyed_filter =
+      [for e in Landscapes do
+       where (not e.Destroyed)
+       select e]
+    yield destroyed_filter
 
   Create() =
     {
+     Jeep = new Truck() 
      Landscapes = [new Landscape(new Vector3(0.0f,0.0f,0.0f));new Landscape(new Vector3(0.0f,0.0f,-80.0f));new Landscape(new Vector3(0.0f,0.0f,-160.0f))]
     }
 }
 
 entity Landscape = {
   inherit UnityLandscape
+
+  DestroyDistance : float
   
   rule Checkpoint.isEntered =
     wait Checkpoint.isEntered
     yield Checkpoint.isEntered
     yield false
 
+  rule Destroyed =
+    wait Vector3.Distance(Position,world.Jeep.Position) > DestroyDistance
+    yield true
+    
   Create(StartP : Vector3) = {
   Base = UnityLandscape.Instantiate(StartP)
-
+  DestroyDistance = 500.0f
   }
+}
+
+entity Truck = {
+   inherit TruckScript
+
+   Velocity : Vector3  
+
+   rule Rotation, Velocity.x =
+      //if (Rotation.y > -20.f && Rotation.y < 20.0f) then
+        //yield Rotation + Vector3(0.0f, Velocity.x*dt, 0.0f), Velocity.x
+      //else
+	    //if (Rotation.y > -21.0f) then
+        //  yield Rotation, 0.0f
+	    //if (Rotation.y < 21.0f) then
+          yield Rotation, 0.0f
+
+   (*rule Velocity = 
+
+      if (Input.GetKey(KeyCode.W)) then								// drive forward
+        yield Velocity + Vector3(0.0f, 0.0f, -1.0f)   
+		 
+      if (Input.GetKey(KeyCode.A) && Velocity.z > 0.0f && Velocity.x > -20.0f) then		// to the left
+        yield Velocity + Vector3(-0.2f, 0.0f, 0.0f)
+
+      if (Input.GetKey(KeyCode.D) && Velocity.z > 0.0f && Velocity.x < 20.0f) then		// to the right
+        yield Velocity + Vector3(0.2f, 0.0f, 0.0f)
+
+      if (Input.GetKey(KeyCode.Space) && Velocity.z < 2.99f) then	// handbrake when driving forward
+        yield Velocity + Vector3(0.0f, 0.0f, 3.0f)
+
+      if (Velocity.z > 0.19f) then									// friction forward
+        yield Velocity + Vector3(0.0f, 0.0f, 0.2f)
+
+      if (Velocity.z > -0.19f && Velocity.z < 0.19f) then			// Stop rotating and moving when barely moving
+        yield Vector3.zero
+
+       when reverse is enabled
+      if (Input.GetKey(KeyCode.S)) then								// drive backwards
+        yield Velocity + Vector3(0.0f,0.0f, 1.0f)
+
+      if (Input.GetKey(KeyCode.Space) && Velocity.z < 0.0f) then	// handbrake when driving in reverse
+        yield Velocity + Vector3(0.0f, 0.0f, -3.0f)
+
+      if (Velocity.z < -0.19f) then									// friction backwards
+        yield Velocity + Vector3(0.0f, 0.0f, 0.2f)
+      *)
+      //Debug.Log("Current Velocity Z" + Velocity.z)
+      //Debug.Log("Current Velocity x" + Velocity.x)
+   
+   rule Position = 
+      yield Position + (Velocity * dt)
+      
+
+   Create()=
+    {
+      Velocity = Vector3(0.0f, 0.0f, 0.0f)
+      Base = TruckScript.Instantiate()
+    }
 }

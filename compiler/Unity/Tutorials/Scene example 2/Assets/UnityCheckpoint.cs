@@ -5,10 +5,8 @@ public class UnityCheckpoint : MonoBehaviour {
 
   void OnTriggerEnter(Collider other)
   {
-    Debug.Log(other.name);
     if (other.name == "First Person Controller")
     {
-      Debug.Log("Check has entered");
       privateIsEntered = true;
     }
   }
@@ -21,4 +19,4 @@ public class UnityCheckpoint : MonoBehaviour {
     get { return privateIsEntered; }
     set { privateIsEntered = value; }
   }
-}                                                                                                    
+}                                                                                                                          
