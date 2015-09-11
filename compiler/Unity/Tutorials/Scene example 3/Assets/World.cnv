@@ -6,16 +6,6 @@ open UnityEngine
 worldEntity World = {
   Landscapes : [Landscape]
   Jeep : Truck
-  Zombies	: [Zombie]
-
-  rule Zombies = 
-    [for a in Zombies do
-	 where (not a.Destroyed)
-	 select a]
-
-  rule Zombies = 
-    wait 2.0f
-    yield new Zombie(Jeep.Position) :: Zombies
 
   rule Landscapes  = 
     let a =
@@ -32,7 +22,6 @@ worldEntity World = {
 
   Create() =
     {
-     Zombies = []
      Jeep = new Truck() 
      Landscapes = [new Landscape(new Vector3(0.0f,0.0f,0.0f));new Landscape(new Vector3(0.0f,0.0f,-80.0f));new Landscape(new Vector3(0.0f,0.0f,-160.0f))]
     }
@@ -40,18 +29,42 @@ worldEntity World = {
 
 entity Landscape = {
   inherit UnityLandscape
-  
+  Zombies	: [Zombie]
+  SP : [Transform]
+  hasSpawned : bool
+
+  rule Zombies = 
+    [for a in Zombies do
+	 where (not a.Destroyed)
+	 select a]
+
+  rule Zombies, hasSpawned = 
+    wait (not hasSpawned)
+    let SPHP = SP.Head.position 
+    Debug.Log("Pos "+SP.Head.position)
+    Debug.Log("LocalPos "+SP.Head.localPosition)
+    yield new Zombie(SPHP) :: Zombies, true
+
   rule Checkpoint.isEntered =
     wait Checkpoint.isEntered
     yield Checkpoint.isEntered
     yield false
 
+  rule SP = 
+    [for a in Spawnpoints2 do
+	   select a]
+
+  rule SP =
+    if SP.Count > 0 then
+      yield SP
+
   Create(StartP : Vector3) = {
   Base = UnityLandscape.Instantiate(StartP)
-
+  Zombies = []
+  SP = []
+  hasSpawned = false
   }
 }
-
 
 entity Truck = {
    inherit TruckScript

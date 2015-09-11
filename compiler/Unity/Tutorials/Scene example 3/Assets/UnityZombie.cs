@@ -6,7 +6,7 @@ public class UnityZombie : MonoBehaviour
 
     public static UnityZombie Instantiate(Vector3 pos)
     {
-        var Zombie = GameObject.Instantiate(Resources.Load("Model/Zombie"), pos - (new Vector3(Random.value * 6.0f, 0.0f, Random.value * 6.0f)), Quaternion.identity) as GameObject;
+        var Zombie = GameObject.Instantiate(Resources.Load("Model/Zombie"), pos, Quaternion.identity) as GameObject;
         var zbie = Zombie.GetComponent<UnityZombie>();
         return zbie;
     }
@@ -34,6 +34,7 @@ public class UnityZombie : MonoBehaviour
         }
 
     }
+
     bool destroyed;
     public bool Destroyed
     {
@@ -46,4 +47,4 @@ public class UnityZombie : MonoBehaviour
         }
     }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
