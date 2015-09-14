@@ -16,4 +16,4 @@ public class CubeScript : MonoBehaviour {
         set { gameObject.transform.position = value; }
     }
 }
-                                                                                  
+                                                                                     

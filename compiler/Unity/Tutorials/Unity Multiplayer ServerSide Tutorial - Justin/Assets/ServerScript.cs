@@ -38,6 +38,35 @@ public class ServerScript : MonoBehaviour
                   Debug.Log("incoming");
                   break;
               case NetIncomingMessageType.Data:
+                  byte[] incData = new byte[8];
+                  inc.ReadBytes(8, out incData);
+                  switch(incData[0])
+                  {
+                      case 0:
+                          if(incData[1]==0)
+                          {
+                              break;                    //this option is preset for Position.
+                          }
+                          else
+                          {
+                              break;                    //this option is preset for rotation.
+                          }
+
+                      case 1:
+                          if(incData[1]==0)
+                          {
+                              break;                    //this option is preset for animations.
+                          }
+                          else
+                          {
+                              break;                    //this option is preset for ...
+                          }
+
+                      default:
+                          break;
+                  }
+                  
+                  
                   var temp = GameObject.Find("Cube");
                   var pos = temp.transform.position;
                   Debug.Log(inc.ReadString());
@@ -57,8 +86,24 @@ public class ServerScript : MonoBehaviour
                   break;
           }
       }
-
-
-
   }
-}                        
+
+      public int bitToInt(byte[] b)
+      {
+            int ID = 0;
+            int size = 64;
+            for (int i = 0; i < 8; i++)
+			   {
+			    if(b[i]==1)
+                {
+                    ID += size;
+                    size = size/2;
+                }
+            
+                   
+			   }
+               return ID;     
+      }
+
+  
+}                           

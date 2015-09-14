@@ -30,7 +30,12 @@ public class CubeScriptNetworking : MonoBehaviour {
         get
         {
             var mess = netcli.CreateMessage();
-            mess.Write("Position request");
+            byte[] message = new byte[8];
+            for (int i = 0; i < 8; i++)
+            {
+                message[i] = 0;
+            }
+            mess.Write(message);
             netcli.SendMessage(mess, NetDeliveryMethod.ReliableOrdered);
             Debug.Log("sent message");
             List<NetIncomingMessage> tes = new List<NetIncomingMessage>();
@@ -69,4 +74,4 @@ public class CubeScriptNetworking : MonoBehaviour {
 
 
 }
-                                                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                 
