@@ -57,9 +57,6 @@ public Cube()
  }
 	public UnityEngine.AudioSource audio{  get { return CubeScriptNetworking.audio; }
  }
-	public System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf{  get { return CubeScriptNetworking.bf; }
-  set{CubeScriptNetworking.bf = value; }
- }
 	public UnityEngine.Camera camera{  get { return CubeScriptNetworking.camera; }
  }
 	public UnityEngine.Collider collider{  get { return CubeScriptNetworking.collider; }
@@ -85,9 +82,6 @@ public Cube()
 	public UnityEngine.HingeJoint hingeJoint{  get { return CubeScriptNetworking.hingeJoint; }
  }
 	public UnityEngine.Light light{  get { return CubeScriptNetworking.light; }
- }
-	public System.IO.MemoryStream ms{  get { return CubeScriptNetworking.ms; }
-  set{CubeScriptNetworking.ms = value; }
  }
 	public System.String name{  get { return CubeScriptNetworking.name; }
   set{CubeScriptNetworking.name = value; }
@@ -142,4 +136,4 @@ return;
 
 
 }
-}                                                  
+}                                      
