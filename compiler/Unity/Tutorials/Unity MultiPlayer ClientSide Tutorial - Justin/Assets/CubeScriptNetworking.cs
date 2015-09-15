@@ -9,13 +9,9 @@ using System;
 public class CubeScriptNetworking : MonoBehaviour {
 
     public static NetClient netcli;
-    public static BinaryFormatter bf;
-    public static MemoryStream ms;
 
     public static CubeScriptNetworking Instantiate()
     {
-        bf = new BinaryFormatter();
-        ms = new MemoryStream();
         var conf = new NetPeerConfiguration("ServerSide");
         netcli = new NetClient(conf);
         netcli.Start();
@@ -31,10 +27,19 @@ public class CubeScriptNetworking : MonoBehaviour {
         {
             var mess = netcli.CreateMessage();
             byte[] message = new byte[8];
-            for (int i = 0; i < 8; i++)
-            {
-                message[i] = 0;
-            }
+            
+            message[0] = 0;
+            message[1] = 0;
+            message[2] = 0;
+            message[3] = 0;
+            message[4] = 0;
+            message[5] = 0;
+            message[6] = 0;
+            message[7] = 1;
+
+
+
+            
             mess.Write(message);
             netcli.SendMessage(mess, NetDeliveryMethod.ReliableOrdered);
             Debug.Log("sent message");
@@ -72,6 +77,25 @@ public class CubeScriptNetworking : MonoBehaviour {
         }
     }
 
+    public byte[] intToBit(int e)
+    {
+        int size = 32;
+        byte[] b = new byte[8];
+        for (int i = 2; i < 8; i++)
+        {
+            if(e >= size)
+            {
+                b[i] = 1;
+            }
+            else
+            {
+                b[1] = 0;
+            }
+        }
+        return b;
+
+    }
+
 
 }
-                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                                                            

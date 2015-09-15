@@ -12,9 +12,7 @@ public class ServerScript : MonoBehaviour
 
   public void Start()
   {
-      GameObject var = GameObject.Find("Cube");
-      var cube = GameObject.Find("Cube");
-      var script = cube.GetComponent<ServerScript>();
+    
       var test = new NetPeerConfiguration("ServerSide");
       test.LocalAddress = NetUtility.Resolve("localhost");
       test.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
@@ -40,11 +38,29 @@ public class ServerScript : MonoBehaviour
               case NetIncomingMessageType.Data:
                   byte[] incData = new byte[8];
                   inc.ReadBytes(8, out incData);
+                  for (int i = 0; i < 8; i++)
+                  {
+                      Debug.Log(incData[i]);
+                  }
                   switch(incData[0])
                   {
                       case 0:
                           if(incData[1]==0)
                           {
+                                var t = bitToInt(incData);
+                                Debug.Log(t);
+                                var temp = GameObject.Find(t.ToString());
+                                var pos = temp.transform.position;
+                                Debug.Log(inc.ReadString());
+                                var resp = serv.CreateMessage();
+                                var resp2 = serv.CreateMessage();
+                                var resp3 = serv.CreateMessage();
+                                resp.Write((pos.x));
+                                resp2.Write((pos.y));
+                                resp3.Write((pos.z));
+                                inc.SenderConnection.SendMessage(resp, NetDeliveryMethod.ReliableOrdered, 3);
+                                inc.SenderConnection.SendMessage(resp2, NetDeliveryMethod.ReliableOrdered, 3);
+                                inc.SenderConnection.SendMessage(resp3, NetDeliveryMethod.ReliableOrdered, 3);
                               break;                    //this option is preset for Position.
                           }
                           else
@@ -63,22 +79,12 @@ public class ServerScript : MonoBehaviour
                           }
 
                       default:
+                          Debug.Log("Something went wrong");
                           break;
                   }
                   
                   
-                  var temp = GameObject.Find("Cube");
-                  var pos = temp.transform.position;
-                  Debug.Log(inc.ReadString());
-                  var resp = serv.CreateMessage();
-                  var resp2 = serv.CreateMessage();
-                  var resp3 = serv.CreateMessage();
-                  resp.Write((pos.x));
-                  resp2.Write((pos.y));
-                  resp3.Write((pos.z));
-                  inc.SenderConnection.SendMessage(resp, NetDeliveryMethod.ReliableOrdered, 3);
-                  inc.SenderConnection.SendMessage(resp2, NetDeliveryMethod.ReliableOrdered, 3);
-                  inc.SenderConnection.SendMessage(resp3, NetDeliveryMethod.ReliableOrdered, 3);
+                  
                   break;
               default:
                   Debug.Log("This type of message is not handled" + inc.MessageType);
@@ -91,19 +97,19 @@ public class ServerScript : MonoBehaviour
       public int bitToInt(byte[] b)
       {
             int ID = 0;
-            int size = 64;
-            for (int i = 0; i < 8; i++)
+            int size = 32;
+            for (int i = 2; i < 8; i++)
 			   {
 			    if(b[i]==1)
                 {
                     ID += size;
-                    size = size/2;
+                    
                 }
-            
+                size = size / 2;
                    
 			   }
                return ID;     
       }
 
   
-}                           
+}                                                                              
