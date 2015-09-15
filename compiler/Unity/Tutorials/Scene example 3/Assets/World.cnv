@@ -7,13 +7,16 @@ worldEntity World = {
   Landscapes : [Landscape]
   Jeep : Truck
 
-   rule Landscapes  = 
+  rule Landscapes  = 
     let a =
       [for e in Landscapes do
-       where (e.Checkpoint.isEntered && (not e.Destroyed))
+       where e.Checkpoint.isEntered
        select e]
     if a.Count > 0 then
-      yield new Landscape(new Vector3(0.0f,0.0f,a.Head.transform.position.z - 240.0f)) :: Landscapes
+      let headOfA = a.Head
+      let headOfATransform = headOfA.transform
+      let headOfAPosition = headOfATransform.position
+      yield new Landscape(new Vector3(0.0f,0.0f,headOfAPosition.z - 240.0f)) :: Landscapes
 
   rule Landscapes =
     let destroyed_filter =
@@ -44,26 +47,20 @@ entity Landscape = {
   rule Zombies, hasSpawned = 
     wait (not hasSpawned)
     let SPHP = SP.Head.position 
-    Debug.Log("Pos "+SP.Head.position)
-    Debug.Log("LocalPos "+SP.Head.localPosition)
     yield new Zombie(SPHP) :: Zombies, true
-
-  rule Destroyed =
-    wait Vector3.Distance(Position,world.Jeep.Position) > DestroyDistance
-    yield true
 
   rule Checkpoint.isEntered =
     wait Checkpoint.isEntered
     yield Checkpoint.isEntered
     yield false
 
+  rule Destroyed =
+    wait Vector3.Distance(Position,world.Jeep.Position) > DestroyDistance
+    yield true
+
   rule SP = 
     [for a in Spawnpoints2 do
 	   select a]
-
-  rule SP =
-    if SP.Count > 0 then
-      yield SP
 
   Create(StartP : Vector3) = {
   Base = UnityLandscape.Instantiate(StartP)
@@ -134,6 +131,7 @@ entity Truck = {
 entity Zombie = {
   inherit UnityZombie
   JeepPos : Vector3
+  Animator : ZombieAnimator
 
   rule Position, speed, Destroyed = 
     if Position = JeepPos then // collision
@@ -150,10 +148,29 @@ entity Zombie = {
       yield Rotation, false
 
   rule JeepPos = world.Jeep.Position
-  
+
+  rule collision =
+    if Vector3.Distance(world.Jeep.Position,Position) < 4.0f then
+      yield true
+    else
+      yield false
+
   Create(pos : Vector3) = 
   {
     JeepPos = pos
     UnityZombie = UnityZombie.Instantiate(pos)
+    Animator = new ZombieAnimator()
   }
+}
+
+entity ZombieAnimator = {
+
+  Cnt : int
+  
+
+
+  Create() = {
+    Cnt = 3
+  }
+
 }

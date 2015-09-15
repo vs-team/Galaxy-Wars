@@ -4,10 +4,41 @@ using System.Collections;
 public class UnityZombie : MonoBehaviour
 {
 
-    public static UnityZombie Instantiate(Vector3 pos)
+  private Animator motor1;
+
+  public bool shot
+  {
+    get
+    {
+      //Debug.Log("get");
+      return motor1.GetBool("shot");
+    }
+    set
+    {
+      //Debug.Log("set" + value);
+      motor1.SetBool("shot", value);
+    }
+  }
+
+  public bool collision
+  {
+    get
+    {
+      //Debug.Log("get");
+      return motor1.GetBool("collision");
+    }
+    set
+    {
+      //Debug.Log("set" + value);
+      motor1.SetBool("collision",value);
+    }
+  }
+
+public static UnityZombie Instantiate(Vector3 pos)
     {
         var Zombie = GameObject.Instantiate(Resources.Load("Model/Zombie"), pos, Quaternion.identity) as GameObject;
         var zbie = Zombie.GetComponent<UnityZombie>();
+        zbie.motor1 = Zombie.GetComponent<Animator>();
         return zbie;
     }
 
@@ -46,5 +77,4 @@ public class UnityZombie : MonoBehaviour
                 GameObject.Destroy(gameObject);
         }
     }
-}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

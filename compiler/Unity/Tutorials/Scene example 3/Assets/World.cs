@@ -29,6 +29,9 @@ public void Start()
  }
 	public List<Landscape> ___destroyed_filter00;
 	public List<Landscape> ___a10;
+	public Landscape ___headOfA10;
+	public UnityEngine.Transform ___headOfATransform10;
+	public UnityEngine.Vector3 ___headOfAPosition10;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -73,7 +76,7 @@ return;
 	___a10 = (
 
 (Landscapes).Select(__ContextSymbol4 => new { ___e11 = __ContextSymbol4 })
-.Where(__ContextSymbol5 => ((__ContextSymbol5.___e11.Checkpoint.isEntered) && (!(__ContextSymbol5.___e11.Destroyed))))
+.Where(__ContextSymbol5 => __ContextSymbol5.___e11.Checkpoint.isEntered)
 .Select(__ContextSymbol6 => __ContextSymbol6.___e11)
 .ToList<Landscape>()).ToList<Landscape>();
 	if(((___a10.Count) > (0)))
@@ -85,7 +88,10 @@ return;
 	s1 = -1;
 return;	}
 	case 3:
-	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___a10.Head().transform.position.z) - (240f))), (Landscapes)).ToList<Landscape>();
+	___headOfA10 = ___a10.Head();
+	___headOfATransform10 = ___headOfA10.transform;
+	___headOfAPosition10 = ___headOfATransform10.position;
+	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___headOfAPosition10.z) - (240f))), (Landscapes)).ToList<Landscape>();
 	s1 = -1;
 return;	
 	default: return;}}
@@ -184,59 +190,58 @@ Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	public System.Boolean useGUILayout{  get { return UnityLandscape.useGUILayout; }
   set{UnityLandscape.useGUILayout = value; }
  }
-	public UnityEngine.Vector3 ___SPHP40;
+	public UnityEngine.Vector3 ___SPHP30;
 	public void Update(float dt, World world) {
-frame = World.frame;		this.Rule1(dt, world);
-		this.Rule5(dt, world);
+frame = World.frame;		this.Rule0(dt, world);
+		this.Rule4(dt, world);
 		for(int x0 = 0; x0 < Zombies.Count; x0++) { 
 			Zombies[x0].Update(dt, world);
 		}
-		this.Rule0(dt, world);
+		this.Rule1(dt, world);
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
-		this.Rule4(dt, world);
 	}
 
-	public void Rule1(float dt, World world) 
+	public void Rule0(float dt, World world) 
 	{
 	SP = (
 
-(Spawnpoints2).Select(__ContextSymbol11 => new { ___a11 = __ContextSymbol11 })
-.Select(__ContextSymbol12 => __ContextSymbol12.___a11)
+(Spawnpoints2).Select(__ContextSymbol11 => new { ___a01 = __ContextSymbol11 })
+.Select(__ContextSymbol12 => __ContextSymbol12.___a01)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	}
 	
 
-	public void Rule5(float dt, World world) 
+	public void Rule4(float dt, World world) 
 	{
 	Zombies = (
 
-(Zombies).Select(__ContextSymbol13 => new { ___a52 = __ContextSymbol13 })
-.Where(__ContextSymbol14 => !(__ContextSymbol14.___a52.Destroyed))
-.Select(__ContextSymbol15 => __ContextSymbol15.___a52)
+(Zombies).Select(__ContextSymbol13 => new { ___a42 = __ContextSymbol13 })
+.Where(__ContextSymbol14 => !(__ContextSymbol14.___a42.Destroyed))
+.Select(__ContextSymbol15 => __ContextSymbol15.___a42)
 .ToList<Zombie>()).ToList<Zombie>();
 	}
 	
 
 
 
-	int s0=-1;
-	public void Rule0(float dt, World world){ 
-	switch (s0)
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
 	{
 
 	case -1:
-	if(((SP.Count) > (0)))
+	if(!(((UnityEngine.Vector3.Distance(Position,world.Jeep.Position)) > (DestroyDistance))))
 	{
 
-	goto case 7;	}else
+	s1 = -1;
+return;	}else
 	{
 
-	s0 = -1;
-return;	}
-	case 7:
-	SP = SP;
-	s0 = -1;
+	goto case 0;	}
+	case 0:
+	Destroyed = true;
+	s1 = -1;
 return;	
 	default: return;}}
 	
@@ -272,42 +277,19 @@ return;
 	{
 
 	case -1:
-	if(!(((UnityEngine.Vector3.Distance(Position,world.Jeep.Position)) > (DestroyDistance))))
-	{
-
-	s3 = -1;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
-	Destroyed = true;
-	s3 = -1;
-return;	
-	default: return;}}
-	
-
-	int s4=-1;
-	public void Rule4(float dt, World world){ 
-	switch (s4)
-	{
-
-	case -1:
 	if(!(!(hasSpawned)))
 	{
 
-	s4 = -1;
+	s3 = -1;
 return;	}else
 	{
 
-	goto case 3;	}
-	case 3:
-	___SPHP40 = SP.Head().position;
-	UnityEngine.Debug.Log(("Pos ") + (SP.Head().position));
-	UnityEngine.Debug.Log(("LocalPos ") + (SP.Head().localPosition));
-	Zombies = new Cons<Zombie>(new Zombie(___SPHP40), (Zombies)).ToList<Zombie>();
+	goto case 1;	}
+	case 1:
+	___SPHP30 = SP.Head().position;
+	Zombies = new Cons<Zombie>(new Zombie(___SPHP30), (Zombies)).ToList<Zombie>();
 	hasSpawned = true;
-	s4 = -1;
+	s3 = -1;
 return;	
 	default: return;}}
 	
@@ -520,9 +502,11 @@ public Zombie(UnityEngine.Vector3 pos)
  frame = World.frame;
 		UnityZombie = UnityZombie.Instantiate(pos);
 		JeepPos = pos;
+		Animator = new ZombieAnimator();
 		
 }
-		public System.Boolean Destroyed{  get { return UnityZombie.Destroyed; }
+		public ZombieAnimator Animator;
+	public System.Boolean Destroyed{  get { return UnityZombie.Destroyed; }
   set{UnityZombie.Destroyed = value; }
  }
 	public UnityEngine.Vector3 JeepPos;
@@ -542,6 +526,9 @@ public Zombie(UnityEngine.Vector3 pos)
 	public UnityEngine.Collider collider{  get { return UnityZombie.collider; }
  }
 	public UnityEngine.Collider2D collider2D{  get { return UnityZombie.collider2D; }
+ }
+	public System.Boolean collision{  get { return UnityZombie.collision; }
+  set{UnityZombie.collision = value; }
  }
 	public UnityEngine.ConstantForce constantForce{  get { return UnityZombie.constantForce; }
  }
@@ -579,6 +566,9 @@ public Zombie(UnityEngine.Vector3 pos)
  }
 	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityZombie.rigidbody2D; }
  }
+	public System.Boolean shot{  get { return UnityZombie.shot; }
+  set{UnityZombie.shot = value; }
+ }
 	public System.Single speed{  get { return UnityZombie.speed; }
   set{UnityZombie.speed = value; }
  }
@@ -594,19 +584,21 @@ public Zombie(UnityEngine.Vector3 pos)
   set{UnityZombie.useGUILayout = value; }
  }
 	public void Update(float dt, World world) {
-frame = World.frame;		this.Rule0(dt, world);
-		this.Rule2(dt, world);
-		this.Rule1(dt, world);
+frame = World.frame;		this.Rule1(dt, world);
 		this.Rule3(dt, world);
+		Animator.Update(dt, world);
+		this.Rule0(dt, world);
+		this.Rule2(dt, world);
+		this.Rule4(dt, world);
 	}
 
-	public void Rule0(float dt, World world) 
+	public void Rule1(float dt, World world) 
 	{
 	JeepPos = world.Jeep.Position;
 	}
 	
 
-	public void Rule2(float dt, World world) 
+	public void Rule3(float dt, World world) 
 	{
 		currenta = Position;
 	targeta = JeepPos;
@@ -615,13 +607,13 @@ frame = World.frame;		this.Rule0(dt, world);
 
 
 
-	int s1=-1;
-	public void Rule1(float dt, World world){ 
-	switch (s1)
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
 	{
 
 	case -1:
-	if(((Position) == (JeepPos)))
+	if(((4f) > (UnityEngine.Vector3.Distance(world.Jeep.Position,Position))))
 	{
 
 	goto case 1;	}else
@@ -629,21 +621,19 @@ frame = World.frame;		this.Rule0(dt, world);
 
 	goto case 2;	}
 	case 1:
-	Rotation = new UnityEngine.Quaternion(0f,0f,0f,0f);
-	Destroyed = false;
-	s1 = -1;
+	collision = true;
+	s0 = -1;
 return;
 	case 2:
-	Rotation = Rotation;
-	Destroyed = false;
-	s1 = -1;
+	collision = false;
+	s0 = -1;
 return;	
 	default: return;}}
 	
 
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
 	{
 
 	case -1:
@@ -655,16 +645,42 @@ return;
 
 	goto case 7;	}
 	case 6:
+	Rotation = new UnityEngine.Quaternion(0f,0f,0f,0f);
+	Destroyed = false;
+	s2 = -1;
+return;
+	case 7:
+	Rotation = Rotation;
+	Destroyed = false;
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	if(((Position) == (JeepPos)))
+	{
+
+	goto case 11;	}else
+	{
+
+	goto case 12;	}
+	case 11:
 	Position = new UnityEngine.Vector3(0f,0f,0f);
 	speed = 0f;
 	Destroyed = false;
-	s3 = -1;
+	s4 = -1;
 return;
-	case 7:
+	case 12:
 	Position = Position;
 	speed = ((1f) * (dt));
 	Destroyed = false;
-	s3 = -1;
+	s4 = -1;
 return;	
 	default: return;}}
 	
@@ -674,4 +690,33 @@ return;
 
 
 }
-}           
+public class ZombieAnimator{
+public int frame;
+public bool JustEntered = true;
+	public int ID;
+public ZombieAnimator()
+	{JustEntered = false;
+ frame = World.frame;
+		Cnt = 3;
+		
+}
+		public System.Int32 Cnt;
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+}
+}         
