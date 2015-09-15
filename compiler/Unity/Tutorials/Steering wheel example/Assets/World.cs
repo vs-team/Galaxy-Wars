@@ -13,23 +13,120 @@ public bool JustEntered = true;
 
 public void Start()
 	{
-		Cnt = 0;
+		Blokje = new Cube();
 		
 }
-		public System.Int32 Cnt;
+		public Cube Blokje;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
-var t = System.DateTime.Now;		this.Rule0(dt, world);
+var t = System.DateTime.Now;
 
+		Blokje.Update(dt, world);
 
 
 	}
 
-	public void Rule0(float dt, World world) 
+
+
+
+
+
+
+
+
+
+
+}
+public class Cube{
+public int frame;
+public bool JustEntered = true;
+	public int ID;
+public Cube()
+	{JustEntered = false;
+ frame = World.frame;
+		UnityCube = UnityCube.Find();
+		
+}
+		public UnityEngine.Vector3 Rotation{  get { return UnityCube.Rotation; }
+  set{UnityCube.Rotation = value; }
+ }
+	public UnityCube UnityCube;
+	public UnityEngine.Animation animation{  get { return UnityCube.animation; }
+ }
+	public UnityEngine.AudioSource audio{  get { return UnityCube.audio; }
+ }
+	public UnityEngine.Camera camera{  get { return UnityCube.camera; }
+ }
+	public UnityEngine.Collider collider{  get { return UnityCube.collider; }
+ }
+	public UnityEngine.Collider2D collider2D{  get { return UnityCube.collider2D; }
+ }
+	public UnityEngine.ConstantForce constantForce{  get { return UnityCube.constantForce; }
+ }
+	public System.Boolean enabled{  get { return UnityCube.enabled; }
+  set{UnityCube.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return UnityCube.gameObject; }
+ }
+	public UnityEngine.GUIElement guiElement{  get { return UnityCube.guiElement; }
+ }
+	public UnityEngine.GUIText guiText{  get { return UnityCube.guiText; }
+ }
+	public UnityEngine.GUITexture guiTexture{  get { return UnityCube.guiTexture; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return UnityCube.hideFlags; }
+  set{UnityCube.hideFlags = value; }
+ }
+	public UnityEngine.HingeJoint hingeJoint{  get { return UnityCube.hingeJoint; }
+ }
+	public UnityEngine.Light light{  get { return UnityCube.light; }
+ }
+	public System.String name{  get { return UnityCube.name; }
+  set{UnityCube.name = value; }
+ }
+	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityCube.particleEmitter; }
+ }
+	public UnityEngine.ParticleSystem particleSystem{  get { return UnityCube.particleSystem; }
+ }
+	public UnityEngine.Renderer renderer{  get { return UnityCube.renderer; }
+ }
+	public UnityEngine.Rigidbody rigidbody{  get { return UnityCube.rigidbody; }
+ }
+	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityCube.rigidbody2D; }
+ }
+	public System.String tag{  get { return UnityCube.tag; }
+  set{UnityCube.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return UnityCube.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return UnityCube.useGUILayout; }
+  set{UnityCube.useGUILayout = value; }
+ }
+	public UnityEngine.Vector3 ___vectorRotation00;
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+		this.Rule0(dt, world);
+
+	}
+
+
+
+
+
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
 	{
-	Cnt = (Cnt) + (1);
-	}
+
+	case -1:
+	___vectorRotation00 = new UnityEngine.Vector3(0f,(UnityEngine.Input.GetAxis("SW_Joy0X")) * (180f),0f);
+	UnityEngine.Debug.Log(___vectorRotation00);
+	Rotation = ___vectorRotation00;
+	s0 = -1;
+return;	
+	default: return;}}
 	
 
 
@@ -37,9 +134,5 @@ var t = System.DateTime.Now;		this.Rule0(dt, world);
 
 
 
-
-
-
-
 }
-}                      
+}       
