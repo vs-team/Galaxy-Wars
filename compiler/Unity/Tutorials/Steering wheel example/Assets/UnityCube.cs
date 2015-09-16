@@ -14,4 +14,4 @@ public class UnityCube : MonoBehaviour {
     GameObject var = GameObject.Find("Cube1");
     return var.GetComponent<UnityCube>();
   }
-}                                                         
+}                                                             
