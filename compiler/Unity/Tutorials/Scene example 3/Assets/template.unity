@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &250587979
 GameObject:
@@ -729,7 +730,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1215107673
 Rigidbody:
@@ -739,7 +740,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 2143518094}
   m_GameObject: {fileID: 1215107667}
   serializedVersion: 2
-  m_Mass: 10
+  m_Mass: 80
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -756,7 +757,7 @@ MeshCollider:
   m_GameObject: {fileID: 1215107667}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
@@ -1172,7 +1173,31 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456344, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_Mass
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}

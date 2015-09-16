@@ -502,14 +502,14 @@ public Zombie(UnityEngine.Vector3 pos)
  frame = World.frame;
 		UnityZombie = UnityZombie.Instantiate(pos);
 		JeepPos = pos;
-		Animator = new ZombieAnimator();
 		
 }
-		public ZombieAnimator Animator;
-	public System.Boolean Destroyed{  get { return UnityZombie.Destroyed; }
+		public System.Boolean Destroyed{  get { return UnityZombie.Destroyed; }
   set{UnityZombie.Destroyed = value; }
  }
 	public UnityEngine.Vector3 JeepPos;
+	public System.Boolean OnMouseOver{  get { return UnityZombie.OnMouseOver; }
+ }
 	public UnityEngine.Vector3 Position{  get { return UnityZombie.Position; }
   set{UnityZombie.Position = value; }
  }
@@ -583,22 +583,23 @@ public Zombie(UnityEngine.Vector3 pos)
 	public System.Boolean useGUILayout{  get { return UnityZombie.useGUILayout; }
   set{UnityZombie.useGUILayout = value; }
  }
+	public System.Single count_down1;
 	public void Update(float dt, World world) {
-frame = World.frame;		this.Rule1(dt, world);
-		this.Rule3(dt, world);
-		Animator.Update(dt, world);
-		this.Rule0(dt, world);
-		this.Rule2(dt, world);
+frame = World.frame;		this.Rule2(dt, world);
 		this.Rule4(dt, world);
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
+		this.Rule3(dt, world);
+		this.Rule5(dt, world);
 	}
 
-	public void Rule1(float dt, World world) 
+	public void Rule2(float dt, World world) 
 	{
 	JeepPos = world.Jeep.Position;
 	}
 	
 
-	public void Rule3(float dt, World world) 
+	public void Rule4(float dt, World world) 
 	{
 		currenta = Position;
 	targeta = JeepPos;
@@ -613,74 +614,144 @@ frame = World.frame;		this.Rule1(dt, world);
 	{
 
 	case -1:
+	UnityEngine.Debug.Log("Not yet mouse over");
+	if(OnMouseOver)
+	{
+
+	goto case 2;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 2:
+	UnityEngine.Debug.Log("Mouse is over the zombie");
+	if(UnityEngine.Input.GetMouseButtonDown(0))
+	{
+
+	goto case 4;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 4:
+	UnityEngine.Debug.Log("Button is down");
+	shot = true;
+	Destroyed = false;
+	s0 = 6;
+return;
+	case 6:
+	count_down1 = 2f;
+	goto case 7;
+	case 7:
+	if(((count_down1) > (0f)))
+	{
+
+	count_down1 = ((count_down1) - (dt));
+	s0 = 7;
+return;	}else
+	{
+
+	goto case 5;	}
+	case 5:
+	shot = false;
+	Destroyed = true;
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
 	if(((4f) > (UnityEngine.Vector3.Distance(world.Jeep.Position,Position))))
 	{
 
-	goto case 1;	}else
+	goto case 12;	}else
 	{
 
-	goto case 2;	}
-	case 1:
+	goto case 13;	}
+	case 12:
 	collision = true;
-	s0 = -1;
+	s1 = -1;
 return;
-	case 2:
+	case 13:
 	collision = false;
-	s0 = -1;
+	s1 = -1;
 return;	
 	default: return;}}
 	
 
-	int s2=-1;
-	public void Rule2(float dt, World world){ 
-	switch (s2)
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
 	{
 
 	case -1:
+	if(((Destroyed) == (false)))
+	{
+
+	goto case 18;	}else
+	{
+
+	s3 = -1;
+return;	}
+	case 18:
 	if(((Position) == (JeepPos)))
 	{
 
-	goto case 6;	}else
+	goto case 19;	}else
 	{
 
-	goto case 7;	}
-	case 6:
+	goto case 20;	}
+	case 19:
 	Rotation = new UnityEngine.Quaternion(0f,0f,0f,0f);
 	Destroyed = false;
-	s2 = -1;
+	s3 = -1;
 return;
-	case 7:
+	case 20:
 	Rotation = Rotation;
 	Destroyed = false;
-	s2 = -1;
+	s3 = -1;
 return;	
 	default: return;}}
 	
 
-	int s4=-1;
-	public void Rule4(float dt, World world){ 
-	switch (s4)
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
 	{
 
 	case -1:
+	if(((Destroyed) == (false)))
+	{
+
+	goto case 25;	}else
+	{
+
+	s5 = -1;
+return;	}
+	case 25:
 	if(((Position) == (JeepPos)))
 	{
 
-	goto case 11;	}else
+	goto case 26;	}else
 	{
 
-	goto case 12;	}
-	case 11:
+	goto case 27;	}
+	case 26:
 	Position = new UnityEngine.Vector3(0f,0f,0f);
 	speed = 0f;
 	Destroyed = false;
-	s4 = -1;
+	s5 = -1;
 return;
-	case 12:
+	case 27:
 	Position = Position;
-	speed = ((1f) * (dt));
+	speed = ((((1f) * (dt))) * (0));
 	Destroyed = false;
-	s4 = -1;
+	s5 = -1;
 return;	
 	default: return;}}
 	
@@ -690,33 +761,4 @@ return;
 
 
 }
-public class ZombieAnimator{
-public int frame;
-public bool JustEntered = true;
-	public int ID;
-public ZombieAnimator()
-	{JustEntered = false;
- frame = World.frame;
-		Cnt = 3;
-		
-}
-		public System.Int32 Cnt;
-	public void Update(float dt, World world) {
-frame = World.frame;
-
-
-
-	}
-
-
-
-
-
-
-
-
-
-
-
-}
-}                 
+}                               

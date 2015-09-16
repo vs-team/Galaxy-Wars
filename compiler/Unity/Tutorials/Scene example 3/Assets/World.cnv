@@ -41,8 +41,8 @@ entity Landscape = {
 
   rule Zombies = 
     [for a in Zombies do
-	 where (not a.Destroyed)
-	 select a]
+	   where (not a.Destroyed)
+	   select a]
 
   rule Zombies, hasSpawned = 
     wait (not hasSpawned)
@@ -131,21 +131,22 @@ entity Truck = {
 entity Zombie = {
   inherit UnityZombie
   JeepPos : Vector3
-  Animator : ZombieAnimator
 
   rule Position, speed, Destroyed = 
-    if Position = JeepPos then // collision
-      yield new Vector3(0.0f,0.0f,0.0f), 0.0f, false
-    else // not in range
-      yield Position, 1.0f*dt, false
+    if Destroyed = false then
+      if Position = JeepPos then // collision
+        yield new Vector3(0.0f,0.0f,0.0f), 0.0f, false
+      else // not in range
+        yield Position, 1.0f*dt*0, false
 
   rule currenta,targeta = Position, JeepPos
 
   rule Rotation, Destroyed = 
-    if Position = JeepPos then
-      yield new Quaternion(0.0f,0.0f,0.0f,0.0f), false
-    else
-      yield Rotation, false
+    if Destroyed = false then
+      if Position = JeepPos then
+        yield new Quaternion(0.0f,0.0f,0.0f,0.0f), false
+      else
+        yield Rotation, false
 
   rule JeepPos = world.Jeep.Position
 
@@ -155,22 +156,19 @@ entity Zombie = {
     else
       yield false
 
+  rule shot, Destroyed = 
+    Debug.Log("Not yet mouse over")
+    if OnMouseOver then
+      Debug.Log("Mouse is over the zombie")
+      if Input.GetMouseButtonDown(0) then
+        Debug.Log("Button is down")
+        yield true, false
+        wait 2.0f
+        yield false, true
+
   Create(pos : Vector3) = 
   {
     JeepPos = pos
     UnityZombie = UnityZombie.Instantiate(pos)
-    Animator = new ZombieAnimator()
   }
-}
-
-entity ZombieAnimator = {
-
-  Cnt : int
-  
-
-
-  Create() = {
-    Cnt = 3
-  }
-
 }
