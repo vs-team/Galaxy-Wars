@@ -20,4 +20,4 @@ public class TruckScript : MonoBehaviour {
         get { return gameObject.transform.eulerAngles; }
         set { gameObject.transform.eulerAngles = value;}
     }
-}                                                                       
+}                                                                                                                         
