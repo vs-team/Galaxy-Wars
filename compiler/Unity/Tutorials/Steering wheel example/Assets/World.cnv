@@ -1,0 +1,28 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+
+  Blokje : Cube
+
+
+
+  Create() = {
+  Blokje = new Cube()
+  }
+}
+
+entity Cube = {
+  inherit UnityCube
+
+  rule Rotation =
+    let vectorRotation = new Vector3(0.0f,Input.GetAxis("SW_Joy0X")*180.0f,0.0f)
+    Debug.Log(vectorRotation)
+    yield vectorRotation
+
+  Create() = {
+  Base = UnityCube.Find()
+  }
+}
