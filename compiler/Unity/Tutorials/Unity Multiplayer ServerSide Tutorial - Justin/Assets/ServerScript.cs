@@ -14,10 +14,10 @@ public class ServerScript : MonoBehaviour
   {
     
       var test = new NetPeerConfiguration("ServerSide");
-      test.LocalAddress = NetUtility.Resolve("localhost");
+      test.LocalAddress = NetUtility.Resolve("192.168.2.36");
       test.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
       test.MaximumConnections = 512;
-      test.Port = 443;
+      test.Port = 12345;
       serv = new NetServer(test);
       serv.Start();
       Debug.Log("Server is running!");
@@ -112,4 +112,4 @@ public class ServerScript : MonoBehaviour
       }
 
   
-}                                                                              
+}                                                                                                     
