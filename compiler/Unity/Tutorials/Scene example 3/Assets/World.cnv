@@ -54,9 +54,9 @@ entity Landscape = {
     yield Checkpoint.isEntered
     yield false
 
-  rule Destroyed =
-    wait Vector3.Distance(Position,world.Jeep.Position) > DestroyDistance
-    yield true
+  //rule Destroyed =
+    //wait Vector3.Distance(Position,world.Jeep.Position) > DestroyDistance
+    //yield true
 
   rule SP = 
     [for a in Spawnpoints2 do
@@ -74,18 +74,16 @@ entity Landscape = {
 entity Truck = {
    inherit TruckScript
 
-   Velocity : Vector3  
+   Velocity : Vector3
 
-   rule Rotation, Velocity.x =
-      //if (Rotation.y > -20.f && Rotation.y < 20.0f) then
-        //yield Rotation + Vector3(0.0f, Velocity.x*dt, 0.0f), Velocity.x
-      //else
-	    //if (Rotation.y > -21.0f) then
-        //  yield Rotation, 0.0f
-	    //if (Rotation.y < 21.0f) then
-          yield Rotation, 0.0f
+   rule Rotation =   // Add rotation constraints to prevent jeep falling over
+      yield Rotation
 
-   rule Velocity = 
+   rule CenterOfMass =
+     Debug.Log(CenterOfMass)
+     yield new Vector3(0.0f,0.0f,-0.4f)
+
+   (*rule Velocity = 
 
       if (Input.GetKey(KeyCode.W)) then								// drive forward
         yield Velocity + Vector3(0.0f, 0.0f, -1.0f)   
@@ -105,7 +103,7 @@ entity Truck = {
       if (Velocity.z > -0.19f && Velocity.z < 0.19f) then			// Stop rotating and moving when barely moving
         yield Vector3.zero
 
-      (* when reverse is enabled
+       when reverse is enabled
       if (Input.GetKey(KeyCode.S)) then								// drive backwards
         yield Velocity + Vector3(0.0f,0.0f, 1.0f)
 
@@ -118,9 +116,21 @@ entity Truck = {
       //Debug.Log("Current Velocity Z" + Velocity.z)
       //Debug.Log("Current Velocity x" + Velocity.x)
    
-   rule Position = 
-      yield Position + (Velocity * dt)
+   //rule Position = 
+      //yield Position + (Velocity * dt)
       
+   rule AddFors =
+     if (Input.GetKey(KeyCode.W)) then
+       yield -100.0f
+     if (Input.GetKey(KeyCode.S)) then
+       yield 100.0f
+   
+   rule RotateCar =
+     if (Input.GetKey(KeyCode.D)) then
+       yield new Vector3(0.0f,500.0f,0.0f)
+
+     if (Input.GetKey(KeyCode.A)) then
+       yield new Vector3(0.0f,-500.0f,0.0f)
 
    Create()=
     {
@@ -148,13 +158,13 @@ entity Zombie = {
       else
         yield Rotation, false
 
-  rule JeepPos = world.Jeep.Position
+  //rule JeepPos = world.Jeep.Position
 
-  rule collision =
-    if Vector3.Distance(world.Jeep.Position,Position) < 4.0f then
-      yield true
-    else
-      yield false
+  //rule collision =
+    //if Vector3.Distance(world.Jeep.Position,Position) < 4.0f then
+      //yield true
+    //else
+      //yield false
 
   rule shot, Destroyed = 
     Debug.Log("Not yet mouse over")

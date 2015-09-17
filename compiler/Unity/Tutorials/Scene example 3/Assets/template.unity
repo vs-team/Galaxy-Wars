@@ -73,7 +73,6 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
-    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &250587979
 GameObject:
@@ -657,7 +656,7 @@ Transform:
   m_PrefabInternal: {fileID: 2143518094}
   m_GameObject: {fileID: 1215107667}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: 0, y: -6, z: 20}
+  m_LocalPosition: {x: 4.07000017, y: -6, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 512598451}
@@ -683,6 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6923fc258624b743bb0072f07a2eb30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  truckRigidBody: {fileID: 0}
 --- !u!111 &1215107670
 Animation:
   m_ObjectHideFlags: 0
@@ -728,7 +728,7 @@ BoxCollider:
   m_GameObject: {fileID: 1215107667}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -740,9 +740,9 @@ Rigidbody:
   m_PrefabInternal: {fileID: 2143518094}
   m_GameObject: {fileID: 1215107667}
   serializedVersion: 2
-  m_Mass: 80
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Mass: 3
+  m_Drag: .899999976
+  m_AngularDrag: 1.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -757,7 +757,7 @@ MeshCollider:
   m_GameObject: {fileID: 1215107667}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
@@ -1145,7 +1145,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.07000017
       objectReference: {fileID: 0}
     - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1177,11 +1177,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6594946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6456344, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6594946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
       propertyPath: m_Size.x
@@ -1197,7 +1197,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5494946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
       propertyPath: m_Mass
-      value: 80
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_AngularDrag
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_Drag
+      value: .899999976
+      objectReference: {fileID: 0}
+    - target: {fileID: 14699422, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
