@@ -324,7 +324,7 @@ frame = World.frame;
 
 	goto case 3;	}
 	case 7:
-	RotateCar = new UnityEngine.Vector3(0f,500f,0f);
+	RotateCar = new UnityEngine.Vector3(0f,100f,0f);
 	s0 = 3;
 return;
 	case 3:
@@ -337,7 +337,7 @@ return;
 	s0 = -1;
 return;	}
 	case 4:
-	RotateCar = new UnityEngine.Vector3(0f,-500f,0f);
+	RotateCar = new UnityEngine.Vector3(0f,-100f,0f);
 	s0 = -1;
 return;	
 	default: return;}}
@@ -382,7 +382,6 @@ return;
 	{
 
 	case -1:
-	UnityEngine.Debug.Log(CenterOfMass);
 	CenterOfMass = new UnityEngine.Vector3(0f,0f,-0.4f);
 	s2 = -1;
 return;	
@@ -492,7 +491,6 @@ frame = World.frame;		this.Rule2(dt, world);
 	{
 
 	case -1:
-	UnityEngine.Debug.Log("Not yet mouse over");
 	if(OnMouseOver)
 	{
 
@@ -502,7 +500,6 @@ frame = World.frame;		this.Rule2(dt, world);
 	s0 = -1;
 return;	}
 	case 2:
-	UnityEngine.Debug.Log("Mouse is over the zombie");
 	if(UnityEngine.Input.GetMouseButtonDown(0))
 	{
 
@@ -512,7 +509,6 @@ return;	}
 	s0 = -1;
 return;	}
 	case 4:
-	UnityEngine.Debug.Log("Button is down");
 	shot = true;
 	Destroyed = false;
 	s0 = 6;
@@ -547,25 +543,25 @@ return;
 	if(((Destroyed) == (false)))
 	{
 
-	goto case 13;	}else
+	goto case 10;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 13:
+	case 10:
 	if(((Position) == (JeepPos)))
 	{
 
-	goto case 14;	}else
+	goto case 11;	}else
 	{
 
-	goto case 15;	}
-	case 14:
+	goto case 12;	}
+	case 11:
 	Rotation = new UnityEngine.Quaternion(0f,0f,0f,0f);
 	Destroyed = false;
 	s1 = -1;
 return;
-	case 15:
+	case 12:
 	Rotation = Rotation;
 	Destroyed = false;
 	s1 = -1;
@@ -582,26 +578,26 @@ return;
 	if(((Destroyed) == (false)))
 	{
 
-	goto case 20;	}else
+	goto case 17;	}else
 	{
 
 	s3 = -1;
 return;	}
-	case 20:
+	case 17:
 	if(((Position) == (JeepPos)))
 	{
 
-	goto case 21;	}else
+	goto case 18;	}else
 	{
 
-	goto case 22;	}
-	case 21:
+	goto case 19;	}
+	case 18:
 	Position = new UnityEngine.Vector3(0f,0f,0f);
 	speed = 0f;
 	Destroyed = false;
 	s3 = -1;
 return;
-	case 22:
+	case 19:
 	Position = Position;
 	speed = ((((1f) * (dt))) * (0));
 	Destroyed = false;
@@ -615,4 +611,4 @@ return;
 
 
 }
-}                                                    
+}                   
