@@ -21,4 +21,4 @@ public class TruckScript : MonoBehaviour {
         set { gameObject.transform.eulerAngles = value;}
     }
 }
-                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                      

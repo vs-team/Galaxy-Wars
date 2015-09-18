@@ -57,48 +57,18 @@ public Truck()
  }
 	public TruckScript TruckScript;
 	public UnityEngine.Vector3 Velocity;
-	public UnityEngine.Animation animation{  get { return TruckScript.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return TruckScript.audio; }
- }
-	public UnityEngine.Camera camera{  get { return TruckScript.camera; }
- }
-	public UnityEngine.Collider collider{  get { return TruckScript.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return TruckScript.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return TruckScript.constantForce; }
- }
 	public System.Boolean enabled{  get { return TruckScript.enabled; }
   set{TruckScript.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return TruckScript.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return TruckScript.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return TruckScript.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return TruckScript.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return TruckScript.hideFlags; }
   set{TruckScript.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return TruckScript.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return TruckScript.light; }
+	public System.Boolean isActiveAndEnabled{  get { return TruckScript.isActiveAndEnabled; }
  }
 	public System.String name{  get { return TruckScript.name; }
   set{TruckScript.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return TruckScript.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return TruckScript.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return TruckScript.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return TruckScript.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return TruckScript.rigidbody2D; }
  }
 	public System.String tag{  get { return TruckScript.tag; }
   set{TruckScript.tag = value; }
@@ -218,4 +188,4 @@ return;
 
 
 }
-}   
+}        
