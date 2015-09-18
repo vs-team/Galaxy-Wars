@@ -1,5 +1,0 @@
-Name					Where			Price
-Simple Modular Street Kit		UnityAssetStore		Free
-MoonShine Skybox			StandardUnityAssets	Free
-Shanty Town Assets			UnityAssetStore		Free
-QS Materials Nature - Pack Grass vol.1	UnityAssetStore		Free
