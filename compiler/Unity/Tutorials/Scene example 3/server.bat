@@ -1,0 +1,1 @@
+demo.exe -server 4 tcp://*:1234 tcp://*:* 1000 -logFile server.txt
