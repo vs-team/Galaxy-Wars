@@ -80,45 +80,8 @@ entity Truck = {
       yield Rotation
 
    rule CenterOfMass =
-     Debug.Log(CenterOfMass)
      yield new Vector3(0.0f,0.0f,-0.4f)
 
-   (*rule Velocity = 
-
-      if (Input.GetKey(KeyCode.W)) then								// drive forward
-        yield Velocity + Vector3(0.0f, 0.0f, -1.0f)   
-		 
-      if (Input.GetKey(KeyCode.A) && Velocity.z > 0.0f && Velocity.x > -20.0f) then		// to the left
-        yield Velocity + Vector3(-0.2f, 0.0f, 0.0f)
-
-      if (Input.GetKey(KeyCode.D) && Velocity.z > 0.0f && Velocity.x < 20.0f) then		// to the right
-        yield Velocity + Vector3(0.2f, 0.0f, 0.0f)
-
-      if (Input.GetKey(KeyCode.Space) && Velocity.z < 2.99f) then	// handbrake when driving forward
-        yield Velocity + Vector3(0.0f, 0.0f, 3.0f)
-
-      if (Velocity.z > 0.19f) then									// friction forward
-        yield Velocity + Vector3(0.0f, 0.0f, 0.2f)
-
-      if (Velocity.z > -0.19f && Velocity.z < 0.19f) then			// Stop rotating and moving when barely moving
-        yield Vector3.zero
-
-       when reverse is enabled
-      if (Input.GetKey(KeyCode.S)) then								// drive backwards
-        yield Velocity + Vector3(0.0f,0.0f, 1.0f)
-
-      if (Input.GetKey(KeyCode.Space) && Velocity.z < 0.0f) then	// handbrake when driving in reverse
-        yield Velocity + Vector3(0.0f, 0.0f, -3.0f)
-
-      if (Velocity.z < -0.19f) then									// friction backwards
-        yield Velocity + Vector3(0.0f, 0.0f, 0.2f)
-      *)
-      //Debug.Log("Current Velocity Z" + Velocity.z)
-      //Debug.Log("Current Velocity x" + Velocity.x)
-   
-   //rule Position = 
-      //yield Position + (Velocity * dt)
-      
    rule AddFors =
      if (Input.GetKey(KeyCode.W)) then
        yield -100.0f
@@ -127,10 +90,10 @@ entity Truck = {
    
    rule RotateCar =
      if (Input.GetKey(KeyCode.D)) then
-       yield new Vector3(0.0f,500.0f,0.0f)
+       yield new Vector3(0.0f,100.0f,0.0f)
 
      if (Input.GetKey(KeyCode.A)) then
-       yield new Vector3(0.0f,-500.0f,0.0f)
+       yield new Vector3(0.0f,-100.0f,0.0f)
 
    Create()=
     {
@@ -167,11 +130,8 @@ entity Zombie = {
       //yield false
 
   rule shot, Destroyed = 
-    Debug.Log("Not yet mouse over")
     if OnMouseOver then
-      Debug.Log("Mouse is over the zombie")
       if Input.GetMouseButtonDown(0) then
-        Debug.Log("Button is down")
         yield true, false
         wait 2.0f
         yield false, true

@@ -138,49 +138,19 @@ Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
  }
 	public UnityLandscape UnityLandscape;
 	public List<Zombie> Zombies;
-	public UnityEngine.Animation animation{  get { return UnityLandscape.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityLandscape.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityLandscape.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityLandscape.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityLandscape.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityLandscape.constantForce; }
- }
 	public System.Boolean enabled{  get { return UnityLandscape.enabled; }
   set{UnityLandscape.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityLandscape.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityLandscape.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityLandscape.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityLandscape.guiTexture; }
- }
 	public System.Boolean hasSpawned;
 	public UnityEngine.HideFlags hideFlags{  get { return UnityLandscape.hideFlags; }
   set{UnityLandscape.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityLandscape.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityLandscape.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityLandscape.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityLandscape.name; }
   set{UnityLandscape.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityLandscape.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityLandscape.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityLandscape.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityLandscape.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityLandscape.rigidbody2D; }
  }
 	public System.String tag{  get { return UnityLandscape.tag; }
   set{UnityLandscape.tag = value; }
@@ -303,48 +273,18 @@ public Truck()
  }
 	public TruckScript TruckScript;
 	public UnityEngine.Vector3 Velocity;
-	public UnityEngine.Animation animation{  get { return TruckScript.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return TruckScript.audio; }
- }
-	public UnityEngine.Camera camera{  get { return TruckScript.camera; }
- }
-	public UnityEngine.Collider collider{  get { return TruckScript.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return TruckScript.collider2D; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return TruckScript.constantForce; }
- }
 	public System.Boolean enabled{  get { return TruckScript.enabled; }
   set{TruckScript.enabled = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return TruckScript.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return TruckScript.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return TruckScript.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return TruckScript.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return TruckScript.hideFlags; }
   set{TruckScript.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return TruckScript.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return TruckScript.light; }
+	public System.Boolean isActiveAndEnabled{  get { return TruckScript.isActiveAndEnabled; }
  }
 	public System.String name{  get { return TruckScript.name; }
   set{TruckScript.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return TruckScript.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return TruckScript.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return TruckScript.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return TruckScript.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return TruckScript.rigidbody2D; }
  }
 	public System.String tag{  get { return TruckScript.tag; }
   set{TruckScript.tag = value; }
@@ -384,7 +324,7 @@ frame = World.frame;
 
 	goto case 3;	}
 	case 7:
-	RotateCar = new UnityEngine.Vector3(0f,500f,0f);
+	RotateCar = new UnityEngine.Vector3(0f,100f,0f);
 	s0 = 3;
 return;
 	case 3:
@@ -397,7 +337,7 @@ return;
 	s0 = -1;
 return;	}
 	case 4:
-	RotateCar = new UnityEngine.Vector3(0f,-500f,0f);
+	RotateCar = new UnityEngine.Vector3(0f,-100f,0f);
 	s0 = -1;
 return;	
 	default: return;}}
@@ -442,7 +382,6 @@ return;
 	{
 
 	case -1:
-	UnityEngine.Debug.Log(CenterOfMass);
 	CenterOfMass = new UnityEngine.Vector3(0f,0f,-0.4f);
 	s2 = -1;
 return;	
@@ -491,20 +430,8 @@ public Zombie(UnityEngine.Vector3 pos)
   set{UnityZombie.Rotation = value; }
  }
 	public UnityZombie UnityZombie;
-	public UnityEngine.Animation animation{  get { return UnityZombie.animation; }
- }
-	public UnityEngine.AudioSource audio{  get { return UnityZombie.audio; }
- }
-	public UnityEngine.Camera camera{  get { return UnityZombie.camera; }
- }
-	public UnityEngine.Collider collider{  get { return UnityZombie.collider; }
- }
-	public UnityEngine.Collider2D collider2D{  get { return UnityZombie.collider2D; }
- }
 	public System.Boolean collision{  get { return UnityZombie.collision; }
   set{UnityZombie.collision = value; }
- }
-	public UnityEngine.ConstantForce constantForce{  get { return UnityZombie.constantForce; }
  }
 	public UnityEngine.Vector3 currenta{  get { return UnityZombie.currenta; }
   set{UnityZombie.currenta = value; }
@@ -514,31 +441,13 @@ public Zombie(UnityEngine.Vector3 pos)
  }
 	public UnityEngine.GameObject gameObject{  get { return UnityZombie.gameObject; }
  }
-	public UnityEngine.GUIElement guiElement{  get { return UnityZombie.guiElement; }
- }
-	public UnityEngine.GUIText guiText{  get { return UnityZombie.guiText; }
- }
-	public UnityEngine.GUITexture guiTexture{  get { return UnityZombie.guiTexture; }
- }
 	public UnityEngine.HideFlags hideFlags{  get { return UnityZombie.hideFlags; }
   set{UnityZombie.hideFlags = value; }
  }
-	public UnityEngine.HingeJoint hingeJoint{  get { return UnityZombie.hingeJoint; }
- }
-	public UnityEngine.Light light{  get { return UnityZombie.light; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityZombie.isActiveAndEnabled; }
  }
 	public System.String name{  get { return UnityZombie.name; }
   set{UnityZombie.name = value; }
- }
-	public UnityEngine.ParticleEmitter particleEmitter{  get { return UnityZombie.particleEmitter; }
- }
-	public UnityEngine.ParticleSystem particleSystem{  get { return UnityZombie.particleSystem; }
- }
-	public UnityEngine.Renderer renderer{  get { return UnityZombie.renderer; }
- }
-	public UnityEngine.Rigidbody rigidbody{  get { return UnityZombie.rigidbody; }
- }
-	public UnityEngine.Rigidbody2D rigidbody2D{  get { return UnityZombie.rigidbody2D; }
  }
 	public System.Boolean shot{  get { return UnityZombie.shot; }
   set{UnityZombie.shot = value; }
@@ -582,7 +491,6 @@ frame = World.frame;		this.Rule2(dt, world);
 	{
 
 	case -1:
-	UnityEngine.Debug.Log("Not yet mouse over");
 	if(OnMouseOver)
 	{
 
@@ -592,7 +500,6 @@ frame = World.frame;		this.Rule2(dt, world);
 	s0 = -1;
 return;	}
 	case 2:
-	UnityEngine.Debug.Log("Mouse is over the zombie");
 	if(UnityEngine.Input.GetMouseButtonDown(0))
 	{
 
@@ -602,7 +509,6 @@ return;	}
 	s0 = -1;
 return;	}
 	case 4:
-	UnityEngine.Debug.Log("Button is down");
 	shot = true;
 	Destroyed = false;
 	s0 = 6;
@@ -637,25 +543,25 @@ return;
 	if(((Destroyed) == (false)))
 	{
 
-	goto case 13;	}else
+	goto case 10;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 13:
+	case 10:
 	if(((Position) == (JeepPos)))
 	{
 
-	goto case 14;	}else
+	goto case 11;	}else
 	{
 
-	goto case 15;	}
-	case 14:
+	goto case 12;	}
+	case 11:
 	Rotation = new UnityEngine.Quaternion(0f,0f,0f,0f);
 	Destroyed = false;
 	s1 = -1;
 return;
-	case 15:
+	case 12:
 	Rotation = Rotation;
 	Destroyed = false;
 	s1 = -1;
@@ -672,26 +578,26 @@ return;
 	if(((Destroyed) == (false)))
 	{
 
-	goto case 20;	}else
+	goto case 17;	}else
 	{
 
 	s3 = -1;
 return;	}
-	case 20:
+	case 17:
 	if(((Position) == (JeepPos)))
 	{
 
-	goto case 21;	}else
+	goto case 18;	}else
 	{
 
-	goto case 22;	}
-	case 21:
+	goto case 19;	}
+	case 18:
 	Position = new UnityEngine.Vector3(0f,0f,0f);
 	speed = 0f;
 	Destroyed = false;
 	s3 = -1;
 return;
-	case 22:
+	case 19:
 	Position = Position;
 	speed = ((((1f) * (dt))) * (0));
 	Destroyed = false;
@@ -705,4 +611,4 @@ return;
 
 
 }
-}      
+}                   

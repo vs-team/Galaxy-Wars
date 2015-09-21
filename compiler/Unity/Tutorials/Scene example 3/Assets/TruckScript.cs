@@ -37,4 +37,4 @@ public class TruckScript : MonoBehaviour {
       get { return truckRigidBody.centerOfMass; }
       set { truckRigidBody.centerOfMass = value; }
     }
-}                                                                                                                         
+}                                                                                                                                                                                                             
