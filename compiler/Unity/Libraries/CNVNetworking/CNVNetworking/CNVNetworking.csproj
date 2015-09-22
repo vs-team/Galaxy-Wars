@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Lidgren.Network">
-      <HintPath>..\..\..\..\..\GitHub\internship-tilburg\compiler\Unity\CasanovaCompiler\Lidgren.Network.dll</HintPath>
+      <HintPath>.\Lidgren.Network.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,14 +41,14 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\GitHub\internship-tilburg\compiler\Unity\CasanovaCompiler\UnityEngine.dll</HintPath>
+      <HintPath>.\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\GitHub\internship-tilburg\compiler\Unity\CasanovaCompiler\UnityEngine.UI.dll</HintPath>
+      <HintPath>.\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CasanovaNetwork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
