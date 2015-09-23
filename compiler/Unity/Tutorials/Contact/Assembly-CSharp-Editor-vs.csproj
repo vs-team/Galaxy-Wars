@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\CasanovaAssetsImporter.cs" />
+     <Compile Include="Assets\Editor\ClusterRenderer\CameraRigEditor.cs" />
+     <Compile Include="Assets\Editor\ClusterRenderer\ClusterRendererEditor.cs" />
      <None Include="Assets\Animated Stars\Third-Party\MADFINGER-Unlit-Scroll2Layers-Mul-skybox.shader" />
      <None Include="Assets\Animated Stars\Third-Party\MADFINGER-blinking-god-rays.shader" />
      <None Include="Assets\todo.txt" />
@@ -113,6 +115,9 @@
  </Reference>
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/macstandalonesupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="Ionic.Zip">
+ <HintPath>C:/Users/Justin/GitHub/internship-tilburg/compiler/Unity/Tutorials/Contact/Assets/Editor/ClusterRenderer/Ionic.Zip.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
