@@ -25,4 +25,8 @@ public class TruckScript : MonoBehaviour {
       get { return truckRigidBody.centerOfMass; }
       set { truckRigidBody.centerOfMass = value; }
     }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+    public Vector3 Position
+    {
+        get { return gameObject.transform.position; }
+    }
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

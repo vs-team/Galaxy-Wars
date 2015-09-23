@@ -269,6 +269,8 @@ public Truck()
 	public UnityEngine.Vector3 CenterOfMass{  get { return TruckScript.CenterOfMass; }
   set{TruckScript.CenterOfMass = value; }
  }
+	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
+ }
 	public TruckScript TruckScript;
 	public UnityEngine.Vector3 Velocity;
 	public System.Boolean enabled{  get { return TruckScript.enabled; }
@@ -537,20 +539,25 @@ public Zombie(UnityEngine.Vector3 pos)
  }
 	public System.Single count_down1;
 	public void Update(float dt, World world) {
-frame = World.frame;		this.Rule2(dt, world);
-
-		this.Rule0(dt, world);
-		this.Rule1(dt, world);
+frame = World.frame;		this.Rule1(dt, world);
 		this.Rule3(dt, world);
+		this.Rule0(dt, world);
+		this.Rule2(dt, world);
+		this.Rule4(dt, world);
 	}
 
-	public void Rule2(float dt, World world) 
+	public void Rule1(float dt, World world) 
+	{
+	JeepPos = world.Jeep.Position;
+	}
+	
+
+	public void Rule3(float dt, World world) 
 	{
 		currenta = Position;
 	targeta = JeepPos;
 	}
 	
-
 
 
 
@@ -603,9 +610,9 @@ return;
 	default: return;}}
 	
 
-	int s1=-1;
-	public void Rule1(float dt, World world){ 
-	switch (s1)
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
 	{
 
 	case -1:
@@ -615,7 +622,7 @@ return;
 	goto case 12;	}else
 	{
 
-	s1 = -1;
+	s2 = -1;
 return;	}
 	case 12:
 	if(((Position) == (JeepPos)))
@@ -628,19 +635,19 @@ return;	}
 	case 13:
 	Rotation = new UnityEngine.Quaternion(0f,0f,0f,0f);
 	Destroyed = false;
-	s1 = -1;
+	s2 = -1;
 return;
 	case 14:
 	Rotation = Rotation;
 	Destroyed = false;
-	s1 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
 
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
 	{
 
 	case -1:
@@ -650,7 +657,7 @@ return;
 	goto case 19;	}else
 	{
 
-	s3 = -1;
+	s4 = -1;
 return;	}
 	case 19:
 	if(((Position) == (JeepPos)))
@@ -664,13 +671,13 @@ return;	}
 	Position = new UnityEngine.Vector3(0f,0f,0f);
 	speed = 0f;
 	Destroyed = false;
-	s3 = -1;
+	s4 = -1;
 return;
 	case 21:
 	Position = Position;
-	speed = ((((1f) * (dt))) * (0));
+	speed = ((1f) * (dt));
 	Destroyed = false;
-	s3 = -1;
+	s4 = -1;
 return;	
 	default: return;}}
 	
@@ -680,4 +687,4 @@ return;
 
 
 }
-}                                                                                                                                               
+}             

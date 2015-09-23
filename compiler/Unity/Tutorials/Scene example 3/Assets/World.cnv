@@ -141,9 +141,9 @@ entity Zombie = {
       if Position = JeepPos then // collision
         yield new Vector3(0.0f,0.0f,0.0f), 0.0f, false
       else // not in range
-        yield Position, 1.0f*dt*0, false
+        yield Position, 1.0f*dt, false
 
-  rule currenta,targeta = Position, JeepPos
+  rule currenta,targeta = Position,  JeepPos
 
   rule Rotation, Destroyed = 
     if Destroyed = false then
@@ -152,7 +152,7 @@ entity Zombie = {
       else
         yield Rotation, false
 
-  //rule JeepPos = world.Jeep.Position
+  rule JeepPos = world.Jeep.Position
 
   //rule collision =
     //if Vector3.Distance(world.Jeep.Position,Position) < 4.0f then

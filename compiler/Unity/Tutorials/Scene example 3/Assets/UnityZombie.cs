@@ -60,8 +60,8 @@ public class UnityZombie : MonoBehaviour
         get { return gameObject.transform.rotation; }
         set
         {
-                Vector3 newDir = targeta - currenta;
-                gameObject.transform.rotation = Quaternion.LookRotation(newDir);
+            Vector3 newDir = targeta - currenta;
+            gameObject.transform.rotation = Quaternion.LookRotation(newDir);
         }
 
     }
@@ -103,4 +103,4 @@ public class UnityZombie : MonoBehaviour
         return false;
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
