@@ -254,22 +254,20 @@ public bool JustEntered = true;
 public Truck()
 	{JustEntered = false;
  frame = World.frame;
+		steering = 0f;
+		motor = 0f;
+		maxSteeringAngle = 50f;
+		maxMotorTorque = 250f;
 		Velocity = new UnityEngine.Vector3(0f,0f,0f);
 		TruckScript = TruckScript.Instantiate();
+		AxleInfos = (
+
+(new Cons<AxleInfo>(new AxleInfo(leftFrontWheel,rightFrontWheel,true,true),(new Cons<AxleInfo>(new AxleInfo(leftRearWheel,rightRearWheel,true,false),(new Empty<AxleInfo>()).ToList<AxleInfo>())).ToList<AxleInfo>())).ToList<AxleInfo>()).ToList<AxleInfo>();
 		
 }
-		public System.Single AddFors{  set{TruckScript.AddFors = value; }
- }
+		public List<AxleInfo> AxleInfos;
 	public UnityEngine.Vector3 CenterOfMass{  get { return TruckScript.CenterOfMass; }
   set{TruckScript.CenterOfMass = value; }
- }
-	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
-  set{TruckScript.Position = value; }
- }
-	public UnityEngine.Vector3 RotateCar{  set{TruckScript.RotateCar = value; }
- }
-	public UnityEngine.Vector3 Rotation{  get { return TruckScript.Rotation; }
-  set{TruckScript.Rotation = value; }
  }
 	public TruckScript TruckScript;
 	public UnityEngine.Vector3 Velocity;
@@ -283,9 +281,25 @@ public Truck()
  }
 	public System.Boolean isActiveAndEnabled{  get { return TruckScript.isActiveAndEnabled; }
  }
+	public UnityEngine.WheelCollider leftFrontWheel{  get { return TruckScript.leftFrontWheel; }
+  set{TruckScript.leftFrontWheel = value; }
+ }
+	public UnityEngine.WheelCollider leftRearWheel{  get { return TruckScript.leftRearWheel; }
+  set{TruckScript.leftRearWheel = value; }
+ }
+	public System.Single maxMotorTorque;
+	public System.Single maxSteeringAngle;
+	public System.Single motor;
 	public System.String name{  get { return TruckScript.name; }
   set{TruckScript.name = value; }
  }
+	public UnityEngine.WheelCollider rightFrontWheel{  get { return TruckScript.rightFrontWheel; }
+  set{TruckScript.rightFrontWheel = value; }
+ }
+	public UnityEngine.WheelCollider rightRearWheel{  get { return TruckScript.rightRearWheel; }
+  set{TruckScript.rightRearWheel = value; }
+ }
+	public System.Single steering;
 	public System.String tag{  get { return TruckScript.tag; }
   set{TruckScript.tag = value; }
  }
@@ -297,6 +311,63 @@ public Truck()
 	public System.Boolean useGUILayout{  get { return TruckScript.useGUILayout; }
   set{TruckScript.useGUILayout = value; }
  }
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+		for(int x0 = 0; x0 < AxleInfos.Count; x0++) { 
+			AxleInfos[x0].Update(dt, world);
+		}
+		this.Rule0(dt, world);
+
+	}
+
+
+
+
+
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	CenterOfMass = new UnityEngine.Vector3(0f,0f,-0.4f);
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+
+
+
+
+
+}
+public class AxleInfo{
+public int frame;
+public bool JustEntered = true;
+private UnityEngine.WheelCollider lW;
+private UnityEngine.WheelCollider rW;
+private System.Boolean m;
+private System.Boolean s;
+	public int ID;
+public AxleInfo(UnityEngine.WheelCollider lW, UnityEngine.WheelCollider rW, System.Boolean m, System.Boolean s)
+	{JustEntered = false;
+ frame = World.frame;
+		steering = s;
+		rightWheel = rW;
+		motor = m;
+		leftWheel = lW;
+		
+}
+		public UnityEngine.WheelCollider leftWheel;
+	public System.Boolean motor;
+	public UnityEngine.WheelCollider rightWheel;
+	public System.Boolean steering;
+	public System.Single ___speed00;
+	public System.Single ___speed11;
+	public System.Single ___steeringAngle20;
+	public System.Single ___steeringAngle31;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -316,28 +387,17 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(UnityEngine.Input.GetKey(KeyCode.D))
-	{
-
-	goto case 7;	}else
-	{
-
-	goto case 3;	}
-	case 7:
-	RotateCar = new UnityEngine.Vector3(0f,100f,0f);
-	s0 = 3;
-return;
-	case 3:
-	if(UnityEngine.Input.GetKey(KeyCode.A))
-	{
-
-	goto case 4;	}else
+	if(!(motor))
 	{
 
 	s0 = -1;
-return;	}
-	case 4:
-	RotateCar = new UnityEngine.Vector3(0f,-100f,0f);
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	___speed00 = ((world.Jeep.maxMotorTorque) * (UnityEngine.Input.GetAxis("Vertical")));
+	rightWheel.motorTorque = ___speed00;
 	s0 = -1;
 return;	
 	default: return;}}
@@ -349,28 +409,17 @@ return;
 	{
 
 	case -1:
-	if(UnityEngine.Input.GetKey(KeyCode.W))
-	{
-
-	goto case 13;	}else
-	{
-
-	goto case 9;	}
-	case 13:
-	AddFors = -100f;
-	s1 = 9;
-return;
-	case 9:
-	if(UnityEngine.Input.GetKey(KeyCode.S))
-	{
-
-	goto case 10;	}else
+	if(!(motor))
 	{
 
 	s1 = -1;
-return;	}
-	case 10:
-	AddFors = 100f;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	___speed11 = ((world.Jeep.maxMotorTorque) * (UnityEngine.Input.GetAxis("Vertical")));
+	leftWheel.motorTorque = ___speed11;
 	s1 = -1;
 return;	
 	default: return;}}
@@ -382,7 +431,17 @@ return;
 	{
 
 	case -1:
-	CenterOfMass = new UnityEngine.Vector3(0f,0f,-0.4f);
+	if(!(steering))
+	{
+
+	s2 = -1;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	___steeringAngle20 = ((world.Jeep.maxSteeringAngle) * (UnityEngine.Input.GetAxis("SW_Joy0X")));
+	rightWheel.steerAngle = ___steeringAngle20;
 	s2 = -1;
 return;	
 	default: return;}}
@@ -394,7 +453,17 @@ return;
 	{
 
 	case -1:
-	Rotation = Rotation;
+	if(!(steering))
+	{
+
+	s3 = -1;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	___steeringAngle31 = ((world.Jeep.maxSteeringAngle) * (UnityEngine.Input.GetAxis("SW_Joy0X")));
+	leftWheel.steerAngle = ___steeringAngle31;
 	s3 = -1;
 return;	
 	default: return;}}
@@ -494,39 +563,39 @@ frame = World.frame;		this.Rule2(dt, world);
 	if(OnMouseOver)
 	{
 
-	goto case 2;	}else
-	{
-
-	s0 = -1;
-return;	}
-	case 2:
-	if(UnityEngine.Input.GetMouseButtonDown(0))
-	{
-
 	goto case 4;	}else
 	{
 
 	s0 = -1;
 return;	}
 	case 4:
+	if(UnityEngine.Input.GetMouseButtonDown(0))
+	{
+
+	goto case 6;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 6:
 	shot = true;
 	Destroyed = false;
-	s0 = 6;
+	s0 = 8;
 return;
-	case 6:
+	case 8:
 	count_down1 = 2f;
-	goto case 7;
-	case 7:
+	goto case 9;
+	case 9:
 	if(((count_down1) > (0f)))
 	{
 
 	count_down1 = ((count_down1) - (dt));
-	s0 = 7;
+	s0 = 9;
 return;	}else
 	{
 
-	goto case 5;	}
-	case 5:
+	goto case 7;	}
+	case 7:
 	shot = false;
 	Destroyed = true;
 	s0 = -1;
@@ -543,25 +612,25 @@ return;
 	if(((Destroyed) == (false)))
 	{
 
-	goto case 10;	}else
+	goto case 12;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 10:
+	case 12:
 	if(((Position) == (JeepPos)))
 	{
 
-	goto case 11;	}else
+	goto case 13;	}else
 	{
 
-	goto case 12;	}
-	case 11:
+	goto case 14;	}
+	case 13:
 	Rotation = new UnityEngine.Quaternion(0f,0f,0f,0f);
 	Destroyed = false;
 	s1 = -1;
 return;
-	case 12:
+	case 14:
 	Rotation = Rotation;
 	Destroyed = false;
 	s1 = -1;
@@ -578,26 +647,26 @@ return;
 	if(((Destroyed) == (false)))
 	{
 
-	goto case 17;	}else
+	goto case 19;	}else
 	{
 
 	s3 = -1;
 return;	}
-	case 17:
+	case 19:
 	if(((Position) == (JeepPos)))
 	{
 
-	goto case 18;	}else
+	goto case 20;	}else
 	{
 
-	goto case 19;	}
-	case 18:
+	goto case 21;	}
+	case 20:
 	Position = new UnityEngine.Vector3(0f,0f,0f);
 	speed = 0f;
 	Destroyed = false;
 	s3 = -1;
 return;
-	case 19:
+	case 21:
 	Position = Position;
 	speed = ((((1f) * (dt))) * (0));
 	Destroyed = false;
@@ -611,4 +680,4 @@ return;
 
 
 }
-}                   
+}                           

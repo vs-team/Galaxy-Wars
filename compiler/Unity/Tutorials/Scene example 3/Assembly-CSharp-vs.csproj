@@ -54,8 +54,10 @@
      <Compile Include="Assets\Scripts\ClusterRenderer\CameraRig.cs" />
      <Compile Include="Assets\Scripts\ClusterRenderer\ClusterRenderer.cs" />
      <Compile Include="Assets\TruckScript.cs" />
+     <Compile Include="Assets\UnityCarController.cs" />
      <Compile Include="Assets\UnityCheckpoint.cs" />
      <Compile Include="Assets\UnityEntity.cs" />
+     <Compile Include="Assets\UnityJoystick.cs" />
      <Compile Include="Assets\UnityLandscape.cs" />
      <Compile Include="Assets\UnitySpawnpoint.cs" />
      <Compile Include="Assets\UnityZombie.cs" />

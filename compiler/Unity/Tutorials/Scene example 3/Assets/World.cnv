@@ -27,7 +27,7 @@ worldEntity World = {
 
   Create() =
     {
-     Jeep = new Truck() 
+     Jeep = new Truck()
      Landscapes = [new Landscape(new Vector3(0.0f,0.0f,0.0f));new Landscape(new Vector3(0.0f,0.0f,-80.0f));new Landscape(new Vector3(0.0f,0.0f,-160.0f))]
     }
 }
@@ -75,32 +75,63 @@ entity Truck = {
    inherit TruckScript
 
    Velocity : Vector3
-
-   rule Rotation =   // Add rotation constraints to prevent jeep falling over
-      yield Rotation
+   AxleInfos : [AxleInfo]
+   maxMotorTorque : float
+   maxSteeringAngle : float
+   motor : float
+   steering : float
 
    rule CenterOfMass =
      yield new Vector3(0.0f,0.0f,-0.4f)
 
-   rule AddFors =
-     if (Input.GetKey(KeyCode.W)) then
-       yield -100.0f
-     if (Input.GetKey(KeyCode.S)) then
-       yield 100.0f
-   
-   rule RotateCar =
-     if (Input.GetKey(KeyCode.D)) then
-       yield new Vector3(0.0f,100.0f,0.0f)
-
-     if (Input.GetKey(KeyCode.A)) then
-       yield new Vector3(0.0f,-100.0f,0.0f)
-
    Create()=
     {
+      motor = 0.0f
+      steering = 0.0f
+      maxMotorTorque = 250.0f // Max speed of car
+      maxSteeringAngle = 50.0f // Max steering angle of car
+      AxleInfos = [new AxleInfo(leftFrontWheel,rightFrontWheel,true,true);new AxleInfo(leftRearWheel,rightRearWheel,true,false)] //
       Velocity = Vector3(0.0f, 0.0f, 0.0f)
       Base = TruckScript.Instantiate()
     }
 }
+
+entity AxleInfo = {
+
+  leftWheel : WheelCollider
+  rightWheel : WheelCollider
+  motor : bool
+  steering : bool
+  
+  rule leftWheel.steerAngle =
+    wait steering
+    let steeringAngle = world.Jeep.maxSteeringAngle * Input.GetAxis("SW_Joy0X")
+    yield steeringAngle
+
+  rule rightWheel.steerAngle =
+    wait steering
+    let steeringAngle = world.Jeep.maxSteeringAngle * Input.GetAxis("SW_Joy0X")
+    yield steeringAngle
+
+  rule leftWheel.motorTorque =
+    wait motor
+    let speed = world.Jeep.maxMotorTorque * Input.GetAxis("Vertical")
+    yield speed
+
+  rule rightWheel.motorTorque =
+    wait motor
+    let speed = world.Jeep.maxMotorTorque * Input.GetAxis("Vertical")
+    yield speed
+
+  Create(lW : WheelCollider, rW : WheelCollider, m : bool, s: bool)=
+  {
+    leftWheel = lW
+    rightWheel = rW
+    motor = m
+    steering = s
+  }
+}
+
 entity Zombie = {
   inherit UnityZombie
   JeepPos : Vector3

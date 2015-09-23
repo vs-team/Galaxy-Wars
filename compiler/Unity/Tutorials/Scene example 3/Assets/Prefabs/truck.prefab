@@ -9,11 +9,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 469110}
   - 111: {fileID: 11169108}
-  - 114: {fileID: 11469108}
   - 23: {fileID: 2347346}
   - 54: {fileID: 5494946}
   - 65: {fileID: 6594946}
   - 64: {fileID: 6456344}
+  - 114: {fileID: 11406750}
   m_Layer: 0
   m_Name: truck
   m_TagString: Untagged
@@ -34,6 +34,7 @@ GameObject:
   - 124: {fileID: 12494946}
   - 81: {fileID: 8194946}
   - 114: {fileID: 11445224}
+  - 114: {fileID: 11408158}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -587,9 +588,9 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169110}
   serializedVersion: 2
-  m_Mass: 3
-  m_Drag: .899999976
-  m_AngularDrag: 1.5
+  m_Mass: 23
+  m_Drag: 0
+  m_AngularDrag: 5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -711,6 +712,62 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &11406750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0329772b13790346b3323b61a09799a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axleInfos:
+  - leftWheel: {fileID: 14699422}
+    rightWheel: {fileID: 14699424}
+    motor: 1
+    steering: 1
+  - leftWheel: {fileID: 14699420}
+    rightWheel: {fileID: 14699426}
+    motor: 1
+    steering: 0
+  maxMotorTorque: 250
+  maxSteeringAngle: 30
+--- !u!114 &11408158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f3399c2bdb79d54094291da7b077cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Rig:
+    wallParams:
+      rows: 1
+      cols: 1
+    caveParams:
+      sides: 4
+      hasSky: 0
+      hasFloor: 0
+      indexSky: 4
+      indexFloor: 4
+    nearClip: .300000012
+    farClip: 1000
+    fov: 60
+    clusterType: 0
+    cameraIndexOffset: 0
+    horizontalSeam: 0
+    verticalSeam: 0
+    screenAspectWidth: 16
+    screenAspectHeight: 9
+    masterNodeIntegrated: 0
+    masterNodeIndex: 0
+  m_OverrideNodeIndex: 0
+  m_ForcedIndex: 0
 --- !u!114 &11445224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -745,18 +802,6 @@ MonoBehaviour:
     masterNodeIndex: 0
   m_OverrideNodeIndex: 0
   m_ForcedIndex: 0
---- !u!114 &11469108
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6923fc258624b743bb0072f07a2eb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  truckRigidBody: {fileID: 0}
 --- !u!114 &11499426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -800,14 +845,14 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194950}
-  m_Center: {x: -5.96046448e-08, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
   m_Radius: .534421086
   m_SuspensionSpring:
     spring: 1
     damper: 0
-    targetPosition: 0
-  m_SuspensionDistance: .0534421094
-  m_ForceAppPointDistance: 0
+    targetPosition: 1
+  m_SuspensionDistance: .0500000007
+  m_ForceAppPointDistance: 1
   m_Mass: 1
   m_WheelDampingRate: .25
   m_ForwardFriction:
@@ -829,14 +874,14 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194954}
-  m_Center: {x: -5.96046448e-08, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
   m_Radius: .534421086
   m_SuspensionSpring:
     spring: 1
     damper: 0
-    targetPosition: 0
-  m_SuspensionDistance: .0534421094
-  m_ForceAppPointDistance: 0
+    targetPosition: 1
+  m_SuspensionDistance: .0500000007
+  m_ForceAppPointDistance: 1
   m_Mass: 1
   m_WheelDampingRate: .25
   m_ForwardFriction:
@@ -858,14 +903,14 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194952}
-  m_Center: {x: -5.96046448e-08, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
   m_Radius: .534421027
   m_SuspensionSpring:
     spring: 1
     damper: 0
-    targetPosition: 0
-  m_SuspensionDistance: .0534421019
-  m_ForceAppPointDistance: 0
+    targetPosition: 1
+  m_SuspensionDistance: .0500000007
+  m_ForceAppPointDistance: 1
   m_Mass: 1
   m_WheelDampingRate: .25
   m_ForwardFriction:
@@ -887,14 +932,14 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194948}
-  m_Center: {x: -5.96046448e-08, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
   m_Radius: .534421086
   m_SuspensionSpring:
     spring: 1
     damper: 0
-    targetPosition: 0
-  m_SuspensionDistance: .0534421094
-  m_ForceAppPointDistance: 0
+    targetPosition: 1
+  m_SuspensionDistance: .0500000007
+  m_ForceAppPointDistance: 1
   m_Mass: 1
   m_WheelDampingRate: .25
   m_ForwardFriction:
