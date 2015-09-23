@@ -331,7 +331,7 @@ frame = World.frame;
 	{
 
 	case -1:
-	CenterOfMass = new UnityEngine.Vector3(0f,0f,-0.4f);
+	CenterOfMass = new UnityEngine.Vector3(0.2f,0f,-1f);
 	s0 = -1;
 return;	
 	default: return;}}
@@ -396,7 +396,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	___speed00 = ((world.Jeep.maxMotorTorque) * (UnityEngine.Input.GetAxis("Vertical")));
+	___speed00 = ((((world.Jeep.maxMotorTorque) * (UnityEngine.Input.GetAxis("Vertical")))) * (-1f));
 	rightWheel.motorTorque = ___speed00;
 	s0 = -1;
 return;	
@@ -418,7 +418,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	___speed11 = ((world.Jeep.maxMotorTorque) * (UnityEngine.Input.GetAxis("Vertical")));
+	___speed11 = ((((world.Jeep.maxMotorTorque) * (UnityEngine.Input.GetAxis("Vertical")))) * (-1f));
 	leftWheel.motorTorque = ___speed11;
 	s1 = -1;
 return;	
@@ -440,7 +440,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	___steeringAngle20 = ((world.Jeep.maxSteeringAngle) * (UnityEngine.Input.GetAxis("SW_Joy0X")));
+	___steeringAngle20 = ((world.Jeep.maxSteeringAngle) * (UnityEngine.Input.GetAxis("Horizontal")));
 	rightWheel.steerAngle = ___steeringAngle20;
 	s2 = -1;
 return;	
@@ -462,7 +462,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	___steeringAngle31 = ((world.Jeep.maxSteeringAngle) * (UnityEngine.Input.GetAxis("SW_Joy0X")));
+	___steeringAngle31 = ((world.Jeep.maxSteeringAngle) * (UnityEngine.Input.GetAxis("Horizontal")));
 	leftWheel.steerAngle = ___steeringAngle31;
 	s3 = -1;
 return;	
@@ -680,4 +680,4 @@ return;
 
 
 }
-}                           
+}                                                                                                                                         

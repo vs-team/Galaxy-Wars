@@ -82,7 +82,7 @@ entity Truck = {
    steering : float
 
    rule CenterOfMass =
-     yield new Vector3(0.0f,0.0f,-0.4f)
+     yield new Vector3(0.2f,0.0f,-1.0f)
 
    Create()=
     {
@@ -105,22 +105,22 @@ entity AxleInfo = {
   
   rule leftWheel.steerAngle =
     wait steering
-    let steeringAngle = world.Jeep.maxSteeringAngle * Input.GetAxis("SW_Joy0X")
+    let steeringAngle = world.Jeep.maxSteeringAngle * Input.GetAxis("Horizontal")
     yield steeringAngle
 
   rule rightWheel.steerAngle =
     wait steering
-    let steeringAngle = world.Jeep.maxSteeringAngle * Input.GetAxis("SW_Joy0X")
+    let steeringAngle = world.Jeep.maxSteeringAngle * Input.GetAxis("Horizontal")
     yield steeringAngle
 
   rule leftWheel.motorTorque =
     wait motor
-    let speed = world.Jeep.maxMotorTorque * Input.GetAxis("Vertical")
+    let speed = world.Jeep.maxMotorTorque * Input.GetAxis("Vertical") * -1.0f
     yield speed
 
   rule rightWheel.motorTorque =
     wait motor
-    let speed = world.Jeep.maxMotorTorque * Input.GetAxis("Vertical")
+    let speed = world.Jeep.maxMotorTorque * Input.GetAxis("Vertical") * -1.0f
     yield speed
 
   Create(lW : WheelCollider, rW : WheelCollider, m : bool, s: bool)=

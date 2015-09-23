@@ -5,8 +5,9 @@ public class UnityCheckpoint : MonoBehaviour {
 
   void OnTriggerEnter(Collider other)
   {
-    if (other.name == "truck")
+    if (other.name == "Jeep_KM_body")
     {
+      Debug.Log("Entered");
       privateIsEntered = true;
     }
   }
@@ -19,4 +20,4 @@ public class UnityCheckpoint : MonoBehaviour {
     get { return privateIsEntered; }
     set { privateIsEntered = value; }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 

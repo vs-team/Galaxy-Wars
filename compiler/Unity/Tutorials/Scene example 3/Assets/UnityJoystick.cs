@@ -7,9 +7,13 @@ public class UnityJoystick : MonoBehaviour {
   void Update()
   {
 
-    Vector2 Dpad = new Vector2(Input.GetAxis("SW_DPad_X"), Input.GetAxis("SW_DPad_Y"));
+    //Vector2 Dpad = new Vector2(Input.GetAxis("SW_DPad_X"), Input.GetAxis("SW_DPad_Y"));
     //Debug.Log(Dpad);
-    Debug.Log(Input.GetAxis("SW_Joy0X"));
+    Debug.Log("XXXX" + Input.GetAxis("SW_Joy0X"));
+    Debug.Log("YYYY" + Input.GetAxis("SW_Joy0Y"));
+    Debug.Log("VERT" + Input.GetAxis("SW_DPad_X"));
+    Debug.Log("HORI" + Input.("SW_Joy0F"));
+
 
     /*Debug.Log("Button1 " + Input.GetButtonDown("SW_Button1"));
     Debug.Log("Button2 " + Input.GetButtonDown("SW_Button2"));
@@ -24,4 +28,4 @@ public class UnityJoystick : MonoBehaviour {
     Debug.Log("Button11 " + Input.GetButtonDown("SW_Button11"));
     Debug.Log("Button12 " + Input.GetButtonDown("SW_Button12"));*/
   }
-}                                                                                                                                        
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                             
