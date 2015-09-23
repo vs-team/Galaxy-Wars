@@ -24,9 +24,9 @@ public void Start()
 		MessageCostField = new CnvInputField("MenuUI/MessageCostText/InputField");
 		MapSizeField = new CnvInputField("MenuUI/MapSizeText/InputField");
 		MapSeedField = new CnvInputField("MenuUI/MapSeedText/InputField");
-		LoadingText = new CnvText("LoadingCanvas/LoadingText");
+		LoadingText = new CnvText("MenuUI/LoadingText");
 		Loading = false;
-		BlackScreen = new CnvPanel("LoadingCanvas/BlackCanvas/LoadingScreen");
+		BlackScreen = new CnvPanel("MenuUI/LoadingCanvas/LoadingScreen");
 		
 }
 		public CnvPanel BlackScreen;
@@ -1387,4 +1387,4 @@ frame = Menu.frame;
 
 
 }
-}                          
+}                 

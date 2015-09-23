@@ -1,4 +1,4 @@
-module Game    
+module Game
 
 open "UnityEngine.dll"
 open UnityEngine

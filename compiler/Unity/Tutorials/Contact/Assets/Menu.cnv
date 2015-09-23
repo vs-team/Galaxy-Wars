@@ -1,8 +1,8 @@
-module Menu  
+module Menu
 
 open "UnityEngine.dll"
 open UnityEngine
-open GUIBase 
+open GUIBase
 
 worldEntity Menu = {
   Planet                        : MenuPlanet
@@ -134,8 +134,8 @@ worldEntity Menu = {
       MapSeedField                          = new CnvInputField("MenuUI/MapSeedText/InputField")
       PlayButton                            = new CnvButton("MenuUI/PlayButton")
       QuitButton                            = new CnvButton("MenuUI/QuitButton")
-      LoadingText                           = new CnvText("LoadingCanvas/LoadingText")
-      BlackScreen                           = new CnvPanel("LoadingCanvas/BlackCanvas/LoadingScreen")
+      LoadingText                           = new CnvText("MenuUI/LoadingText")
+      BlackScreen                           = new CnvPanel("MenuUI/LoadingCanvas/LoadingScreen")
       Loading                               = false
     }
 }
