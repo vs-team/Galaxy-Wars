@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Analytics">
       <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
@@ -76,6 +70,8 @@
     <Compile Include="Assets\LogGenerator.cs" />
     <Compile Include="Assets\Menu.cs" />
     <Compile Include="Assets\Prelude.cs" />
+    <Compile Include="Assets\Scripts\ClusterRenderer\CameraRig.cs" />
+    <Compile Include="Assets\Scripts\ClusterRenderer\ClusterRenderer.cs" />
     <Compile Include="Assets\Serializer.cs" />
     <Compile Include="Assets\SetOperations.cs" />
     <Compile Include="Assets\UnityButton.cs" />
