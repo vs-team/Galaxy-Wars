@@ -46,8 +46,15 @@ entity Landscape = {
 
   rule Zombies, hasSpawned = 
     wait (not hasSpawned)
-    let SPHP = SP.Head.position 
-    yield new Zombie(SPHP) :: Zombies, true
+    let SPP_1 = SP.Head.position 
+    let rndm = Random.Range(1,3) // 1 is included && 3 is excluded
+    Debug.Log(rndm)
+    if rndm = 1 then
+      yield new Zombie(SPP_1) :: Zombies, true
+    if rndm = 2 then
+      let SPPT = SP.Tail
+      let SPP_2 = SPPT.Head.position
+      yield new Zombie(SPP_1) :: new Zombie(SPP_2) :: Zombies, true
 
   rule Checkpoint.isEntered =
     wait Checkpoint.isEntered

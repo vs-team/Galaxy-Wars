@@ -160,7 +160,10 @@ Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	public System.Boolean useGUILayout{  get { return UnityLandscape.useGUILayout; }
   set{UnityLandscape.useGUILayout = value; }
  }
-	public UnityEngine.Vector3 ___SPHP20;
+	public UnityEngine.Vector3 ___SPP_120;
+	public System.Int32 ___rndm20;
+	public List<UnityEngine.Transform> ___SPPT20;
+	public UnityEngine.Vector3 ___SPP_220;
 	public void Update(float dt, World world) {
 frame = World.frame;		this.Rule0(dt, world);
 		this.Rule3(dt, world);
@@ -232,10 +235,36 @@ return;
 return;	}else
 	{
 
-	goto case 1;	}
+	goto case 10;	}
+	case 10:
+	___SPP_120 = SP.Head().position;
+	___rndm20 = UnityEngine.Random.Range(1,3);
+	UnityEngine.Debug.Log(___rndm20);
+	if(((___rndm20) == (1)))
+	{
+
+	goto case 6;	}else
+	{
+
+	goto case 0;	}
+	case 6:
+	Zombies = new Cons<Zombie>(new Zombie(___SPP_120), (Zombies)).ToList<Zombie>();
+	hasSpawned = true;
+	s2 = 0;
+return;
+	case 0:
+	if(((___rndm20) == (2)))
+	{
+
+	goto case 1;	}else
+	{
+
+	s2 = -1;
+return;	}
 	case 1:
-	___SPHP20 = SP.Head().position;
-	Zombies = new Cons<Zombie>(new Zombie(___SPHP20), (Zombies)).ToList<Zombie>();
+	___SPPT20 = SP.Tail();
+	___SPP_220 = ___SPPT20.Head().position;
+	Zombies = new Cons<Zombie>(new Zombie(___SPP_120), (new Cons<Zombie>(new Zombie(___SPP_220), (Zombies)).ToList<Zombie>())).ToList<Zombie>();
 	hasSpawned = true;
 	s2 = -1;
 return;	
@@ -687,4 +716,4 @@ return;
 
 
 }
-}             
+}       
