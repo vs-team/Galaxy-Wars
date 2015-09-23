@@ -12,7 +12,7 @@ public class UnityJoystick : MonoBehaviour {
     Debug.Log("XXXX" + Input.GetAxis("SW_Joy0X"));
     Debug.Log("YYYY" + Input.GetAxis("SW_Joy0Y"));
     Debug.Log("VERT" + Input.GetAxis("SW_DPad_X"));
-    Debug.Log("HORI" + Input.("SW_Joy0F"));
+    Debug.Log("HORI" + Input.GetAxis("SW_Joy0F"));
 
 
     /*Debug.Log("Button1 " + Input.GetButtonDown("SW_Button1"));
@@ -28,4 +28,4 @@ public class UnityJoystick : MonoBehaviour {
     Debug.Log("Button11 " + Input.GetButtonDown("SW_Button11"));
     Debug.Log("Button12 " + Input.GetButtonDown("SW_Button12"));*/
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
