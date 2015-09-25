@@ -13,13 +13,21 @@ public bool JustEntered = true;
 
 public void Start()
 	{
+		UnityLandscape = new UnityLandscape();
 		Landscapes = (
 
-(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,0f)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f)),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
+(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,0f),"Landscape2"),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),"Landscape1"),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),"Landscape3"),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
 		Jeep = new Truck();
 		
 }
-		public Truck Jeep;
+		public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
+ }
+	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
+  set{UnityLandscape.Destroyed = value; }
+ }
+	public Truck Jeep;
+	public System.Collections.Generic.List<UnityEngine.GameObject> LandscapePrefabs{  get { return UnityLandscape.LandscapePrefabs; }
+ }
 	public List<Landscape> __Landscapes;
 	public List<Landscape> Landscapes{  get { return  __Landscapes; }
   set{ __Landscapes = value;
@@ -27,8 +35,40 @@ public void Start()
 }
 } }
  }
+	public UnityEngine.Vector3 LocPosition{  get { return UnityLandscape.LocPosition; }
+  set{UnityLandscape.LocPosition = value; }
+ }
+	public UnityEngine.Vector3 Position{  get { return UnityLandscape.Position; }
+  set{UnityLandscape.Position = value; }
+ }
+	public System.Collections.Generic.List<UnityEngine.Transform> Spawnpoints2{  get { return UnityLandscape.Spawnpoints2; }
+ }
+	public UnityLandscape UnityLandscape;
+	public System.Boolean enabled{  get { return UnityLandscape.enabled; }
+  set{UnityLandscape.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return UnityLandscape.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return UnityLandscape.hideFlags; }
+  set{UnityLandscape.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return UnityLandscape.isActiveAndEnabled; }
+ }
+	public System.String name{  get { return UnityLandscape.name; }
+  set{UnityLandscape.name = value; }
+ }
+	public System.String tag{  get { return UnityLandscape.tag; }
+  set{UnityLandscape.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return UnityLandscape.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return UnityLandscape.useGUILayout; }
+  set{UnityLandscape.useGUILayout = value; }
+ }
 	public List<Landscape> ___destroyed_filter00;
 	public List<Landscape> ___a10;
+	public List<UnityEngine.GameObject> ___p10;
+	public System.String ___landscapename10;
 	public Landscape ___headOfA10;
 	public UnityEngine.Transform ___headOfATransform10;
 	public UnityEngine.Vector3 ___headOfAPosition10;
@@ -88,10 +128,17 @@ return;
 	s1 = -1;
 return;	}
 	case 3:
+	___p10 = (
+
+(LandscapePrefabs).Select(__ContextSymbol7 => new { ___a11 = __ContextSymbol7 })
+.Select(__ContextSymbol8 => __ContextSymbol8.___a11)
+.ToList<UnityEngine.GameObject>()).ToList<UnityEngine.GameObject>();
+	___landscapename10 = ___p10.Head().name;
+	UnityEngine.Debug.Log(___landscapename10);
 	___headOfA10 = ___a10.Head();
 	___headOfATransform10 = ___headOfA10.transform;
 	___headOfAPosition10 = ___headOfATransform10.position;
-	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___headOfAPosition10.z) - (240f))), (Landscapes)).ToList<Landscape>();
+	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___headOfAPosition10.z) - (240f)),___landscapename10), (Landscapes)).ToList<Landscape>();
 	s1 = -1;
 return;	
 	default: return;}}
@@ -106,15 +153,16 @@ public class Landscape{
 public int frame;
 public bool JustEntered = true;
 private UnityEngine.Vector3 StartP;
+private System.String p;
 	public int ID;
-public Landscape(UnityEngine.Vector3 StartP)
+public Landscape(UnityEngine.Vector3 StartP, System.String p)
 	{JustEntered = false;
  frame = World.frame;
 		hasSpawned = false;
 		Zombies = (
 
 Enumerable.Empty<Zombie>()).ToList<Zombie>();
-		UnityLandscape = UnityLandscape.Instantiate(StartP);
+		UnityLandscape = UnityLandscape.Instantiate(StartP,p);
 		SP = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
@@ -126,6 +174,8 @@ Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	public System.Single DestroyDistance;
 	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
   set{UnityLandscape.Destroyed = value; }
+ }
+	public System.Collections.Generic.List<UnityEngine.GameObject> LandscapePrefabs{  get { return UnityLandscape.LandscapePrefabs; }
  }
 	public UnityEngine.Vector3 LocPosition{  get { return UnityLandscape.LocPosition; }
   set{UnityLandscape.LocPosition = value; }
@@ -178,8 +228,8 @@ frame = World.frame;		this.Rule0(dt, world);
 	{
 	SP = (
 
-(Spawnpoints2).Select(__ContextSymbol11 => new { ___a01 = __ContextSymbol11 })
-.Select(__ContextSymbol12 => __ContextSymbol12.___a01)
+(Spawnpoints2).Select(__ContextSymbol13 => new { ___a02 = __ContextSymbol13 })
+.Select(__ContextSymbol14 => __ContextSymbol14.___a02)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	}
 	
@@ -188,9 +238,9 @@ frame = World.frame;		this.Rule0(dt, world);
 	{
 	Zombies = (
 
-(Zombies).Select(__ContextSymbol13 => new { ___a32 = __ContextSymbol13 })
-.Where(__ContextSymbol14 => !(__ContextSymbol14.___a32.Destroyed))
-.Select(__ContextSymbol15 => __ContextSymbol15.___a32)
+(Zombies).Select(__ContextSymbol15 => new { ___a33 = __ContextSymbol15 })
+.Where(__ContextSymbol16 => !(__ContextSymbol16.___a33.Destroyed))
+.Select(__ContextSymbol17 => __ContextSymbol17.___a33)
 .ToList<Zombie>()).ToList<Zombie>();
 	}
 	
@@ -235,11 +285,10 @@ return;
 return;	}else
 	{
 
-	goto case 10;	}
-	case 10:
+	goto case 9;	}
+	case 9:
 	___SPP_120 = SP.Head().position;
 	___rndm20 = UnityEngine.Random.Range(1,3);
-	UnityEngine.Debug.Log(___rndm20);
 	if(((___rndm20) == (1)))
 	{
 
@@ -716,4 +765,4 @@ return;
 
 
 }
-}       
+}                                                 

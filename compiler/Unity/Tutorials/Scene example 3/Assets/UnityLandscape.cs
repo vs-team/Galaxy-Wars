@@ -8,6 +8,7 @@ public class UnityLandscape : MonoBehaviour {
 
   public UnityCheckpoint Checkpoint { get { return check; } }
 
+  //spawnpoints
   private List<Transform> spawnp;
   public List<Transform> randr(List<Transform> a)
   {
@@ -21,10 +22,65 @@ public class UnityLandscape : MonoBehaviour {
     }
     return spawnp;
   }
-  public List<Transform> Spawnpoints2 { get { return randr(spawnp); } }
-  public static UnityLandscape Instantiate(Vector3 newPos)
+    
+    public List<Transform> Spawnpoints2
+    {
+        get { return randr(spawnp); }
+    }
+
+
+
+
+    // landscape prefabs
+    private static List<GameObject> myListObjects = new List<GameObject>();
+    public List<GameObject> prefabs(List<GameObject> a)
+    {
+        for (int i = 0; i < a.Count; i++)
+        {
+            GameObject temp = a[i];
+            int randomIndex = Random.Range(i, a.Count);
+            a[i] = a[randomIndex];
+            a[randomIndex] = temp;
+
+        }
+        return myListObjects;
+    }
+
+    void Start()
+    {
+        if (myListObjects.Count == 0)
+        {
+            Object[] subListObjects = Resources.LoadAll("Prefabs", typeof(GameObject));
+            foreach (GameObject subListObject in subListObjects)
+            {
+                GameObject lo = (GameObject)subListObject;
+                //Debug.Log("prefabs " + subListObject.name);
+                myListObjects.Add(lo);
+            }
+        }
+        else
+        {
+            int x = 1;
+            foreach (GameObject a in myListObjects)
+            {
+                //Debug.Log("Prefab nr " + x + " = " + a.name);
+                x++;
+            }
+        }
+
+    }
+    public List<GameObject> LandscapePrefabs
+    {
+        get { return prefabs(myListObjects); }
+    }
+
+
+
+
+
+    public static UnityLandscape Instantiate(Vector3 newPos, string p)
   {
-    GameObject landscape = GameObject.Instantiate(Resources.Load("Prefabs/Landscape_01"),newPos, Quaternion.identity) as GameObject;
+    GameObject landscape = GameObject.Instantiate(Resources.Load("Prefabs/"+p),newPos, Quaternion.identity) as GameObject;
     UnityLandscape component = landscape.GetComponent<UnityLandscape>() as UnityLandscape;
     component.check = landscape.transform.FindChild("Checkpoint").GetComponent<UnityCheckpoint>();
     component.spawnp = new List<Transform>();
@@ -73,4 +129,4 @@ public class UnityLandscape : MonoBehaviour {
         GameObject.Destroy(gameObject);
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            

@@ -169,6 +169,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JustEntered: 1
+  UnityLandscape: {fileID: 0}
+  ___p10: []
+  ___landscapename10: 
   ___headOfATransform10: {fileID: 0}
   ___headOfAPosition10: {x: 0, y: 0, z: 0}
 --- !u!4 &250587981
@@ -242,66 +245,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
---- !u!1001 &325890800
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 4.07000017
-      objectReference: {fileID: 0}
-    - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -4.37113883e-08
-      objectReference: {fileID: 0}
-    - target: {fileID: 469110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 169110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_Name
-      value: truck - old
-      objectReference: {fileID: 0}
-    - target: {fileID: 169110, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11408158, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8194946, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11445224, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-  m_ParentPrefab: {fileID: 100100000, guid: d6998840a1fe5994f99c438c565e3f34, type: 2}
-  m_IsPrefabParent: 0
+  m_RootOrder: 4
 --- !u!1001 &523840176
 Prefab:
   m_ObjectHideFlags: 0
