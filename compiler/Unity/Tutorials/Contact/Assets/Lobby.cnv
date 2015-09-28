@@ -17,14 +17,11 @@ Create()={
 
 entity Host ={
 
-    StartGame : bool
-    PlayersConnected : bool
+StartGame : bool
+PlayersConnected : bool
 
         
 
-    rule GameReady = 
-        wait StartGame
-        Application.LoadLevel("Contact")
 
 Create()={
     StartGame = false

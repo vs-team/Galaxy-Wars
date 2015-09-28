@@ -7811,4 +7811,115 @@ return;	}
 
 
 }
+public class Lobby{
+public int frame;
+public bool JustEntered = true;
+	public int ID;
+public Lobby()
+	{JustEntered = false;
+ frame = World.frame;
+		Players = 0;
+		PlayerLobby = new PlayerLobby();
+		
+}
+		public PlayerLobby PlayerLobby;
+	public System.Int32 Players;
+	public System.String Text{  get { return PlayerLobby.Text; }
+  set{PlayerLobby.Text = value; }
+ }
+	public System.Boolean enabled{  get { return PlayerLobby.enabled; }
+  set{PlayerLobby.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return PlayerLobby.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return PlayerLobby.hideFlags; }
+  set{PlayerLobby.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return PlayerLobby.isActiveAndEnabled; }
+ }
+	public System.String name{  get { return PlayerLobby.name; }
+  set{PlayerLobby.name = value; }
+ }
+	public System.String tag{  get { return PlayerLobby.tag; }
+  set{PlayerLobby.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return PlayerLobby.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return PlayerLobby.useGUILayout; }
+  set{PlayerLobby.useGUILayout = value; }
+ }
+	public System.Single count_down20;
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+		this.Rule0(dt, world);
+
+	}
+
+
+
+
+
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	count_down20 = 2f;
+	goto case 2;
+	case 2:
+	if(((count_down20) > (0f)))
+	{
+
+	count_down20 = ((count_down20) - (dt));
+	s0 = 2;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	((Players) + (1))
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+
+
+
+
+
+}
+public class Host{
+public int frame;
+public bool JustEntered = true;
+	public int ID;
+public Host()
+	{JustEntered = false;
+ frame = World.frame;
+		StartGame = false;
+		PlayersConnected = false;
+		
+}
+		public System.Boolean PlayersConnected;
+	public System.Boolean StartGame;
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+}
 }    

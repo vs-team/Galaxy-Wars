@@ -7,6 +7,7 @@ open GUI
 open GUIBase
 open GameLogic
 open System.Collections.Generic
+open Lobby       
 
 worldEntity World = {
   GUI                   : GameUI

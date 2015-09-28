@@ -61,6 +61,12 @@
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>Assets\DllsToImport\Lidgren.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>Assets\Plugins\Lidgren.Network.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Client.cs" />
@@ -92,7 +98,6 @@
     <Compile Include="Assets\UnityStar.cs" />
     <Compile Include="Assets\UnityText.cs" />
     <Compile Include="Assets\UnityToggle.cs" />
-    <Compile Include="Assets\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Animated Stars\Third-Party\MADFINGER-blinking-god-rays.shader" />

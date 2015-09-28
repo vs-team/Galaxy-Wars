@@ -16,4 +16,4 @@ public class PlayerLobby : MonoBehaviour {
         set { this.gameObject.transform.GetComponent<Text>().text = value; }
     }
 }
-           
+                                 
