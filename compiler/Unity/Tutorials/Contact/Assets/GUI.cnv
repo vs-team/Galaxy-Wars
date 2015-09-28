@@ -104,7 +104,6 @@ entity KeyboardButton = {
       CnvButton   = new CnvButton(n)
     }
 }
-
 entity PreviewIcon = {
   inherit CnvIcon
 
