@@ -116,7 +116,7 @@ GameObject:
   - 4: {fileID: 405222}
   - 33: {fileID: 3340802}
   - 23: {fileID: 2390670}
-  - 64: {fileID: 6483214}
+  - 65: {fileID: 6596842}
   m_Layer: 0
   m_Name: Jeep_KM_body
   m_TagString: Untagged
@@ -539,8 +539,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6483214
-MeshCollider:
+--- !u!65 &6596842
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -549,8 +549,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 1
-  m_Mesh: {fileID: 4300004, guid: 27749d3e6be5de64fad65b011307cf1a, type: 3}
+  m_Size: {x: 4.68675423, y: 9.73999977, z: 2.0999999}
+  m_Center: {x: 4.3016623e-22, y: -.0599999987, z: .150000006}
 --- !u!81 &8152396
 AudioListener:
   m_ObjectHideFlags: 1

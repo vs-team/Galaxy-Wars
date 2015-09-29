@@ -61,14 +61,23 @@
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>Assets\DllsToImport\Lidgren.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>Assets\Plugins\Lidgren.Network.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Client.cs" />
     <Compile Include="Assets\ComboBox.cs" />
     <Compile Include="Assets\ComboList.cs" />
     <Compile Include="Assets\GameSettings.cs" />
     <Compile Include="Assets\GameUtils.cs" />
+    <Compile Include="Assets\Host.cs" />
     <Compile Include="Assets\LogGenerator.cs" />
     <Compile Include="Assets\Menu.cs" />
+    <Compile Include="Assets\PlayerLobby.cs" />
     <Compile Include="Assets\Prelude.cs" />
     <Compile Include="Assets\Scripts\ClusterRenderer\CameraRig.cs" />
     <Compile Include="Assets\Scripts\ClusterRenderer\ClusterRenderer.cs" />
@@ -89,7 +98,6 @@
     <Compile Include="Assets\UnityStar.cs" />
     <Compile Include="Assets\UnityText.cs" />
     <Compile Include="Assets\UnityToggle.cs" />
-    <Compile Include="Assets\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Animated Stars\Third-Party\MADFINGER-blinking-god-rays.shader" />

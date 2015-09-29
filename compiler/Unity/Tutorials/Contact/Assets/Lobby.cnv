@@ -1,0 +1,31 @@
+module Lobby
+
+entity Lobby ={
+inherit PlayerLobby
+
+Players : int
+
+rule Players =
+    wait 2.0f
+    Players + 1    
+
+Create()={
+    Players = 0
+}
+
+}
+
+entity Host ={
+
+StartGame : bool
+PlayersConnected : bool
+
+        
+
+
+Create()={
+    StartGame = false
+    PlayersConnected = false
+}
+
+}
