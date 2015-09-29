@@ -53,6 +53,13 @@
      <Compile Include="Assets\Prelude.cs" />
      <Compile Include="Assets\Scripts\ClusterRenderer\CameraRig.cs" />
      <Compile Include="Assets\Scripts\ClusterRenderer\ClusterRenderer.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHand.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHandsController.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseInputTest.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseObjectController.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseRaycast.cs" />
+     <Compile Include="Assets\SixenseInput\Scripts\SixenseInput.cs" />
+     <Compile Include="Assets\SixenseInput\Scripts\SixensePlugin.cs" />
      <Compile Include="Assets\TruckScript.cs" />
      <Compile Include="Assets\UnityCarController.cs" />
      <Compile Include="Assets\UnityCheckpoint.cs" />
@@ -67,7 +74,7 @@
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example 3/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Gebruiker/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example 3/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

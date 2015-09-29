@@ -585,6 +585,9 @@ public Zombie(UnityEngine.Vector3 pos)
 	public UnityEngine.Vector3 currenta{  get { return UnityZombie.currenta; }
   set{UnityZombie.currenta = value; }
  }
+	public System.Boolean dead2{  get { return UnityZombie.dead2; }
+  set{UnityZombie.dead2 = value; }
+ }
 	public System.Boolean enabled{  get { return UnityZombie.enabled; }
   set{UnityZombie.enabled = value; }
  }
@@ -616,21 +619,23 @@ public Zombie(UnityEngine.Vector3 pos)
   set{UnityZombie.useGUILayout = value; }
  }
 	public System.Single count_down1;
+	public System.Single count_down2;
 	public void Update(float dt, World world) {
-frame = World.frame;		this.Rule1(dt, world);
-		this.Rule3(dt, world);
-		this.Rule0(dt, world);
-		this.Rule2(dt, world);
+frame = World.frame;		this.Rule2(dt, world);
 		this.Rule4(dt, world);
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
+		this.Rule3(dt, world);
+		this.Rule5(dt, world);
 	}
 
-	public void Rule1(float dt, World world) 
+	public void Rule2(float dt, World world) 
 	{
 	JeepPos = world.Jeep.Position;
 	}
 	
 
-	public void Rule3(float dt, World world) 
+	public void Rule4(float dt, World world) 
 	{
 		currenta = Position;
 	targeta = JeepPos;
@@ -645,117 +650,157 @@ frame = World.frame;		this.Rule1(dt, world);
 	{
 
 	case -1:
-	if(OnMouseOver)
-	{
-
-	goto case 4;	}else
+	if(!(shot))
 	{
 
 	s0 = -1;
-return;	}
-	case 4:
-	if(UnityEngine.Input.GetMouseButtonDown(0))
+return;	}else
 	{
 
-	goto case 6;	}else
-	{
-
-	s0 = -1;
-return;	}
-	case 6:
-	shot = true;
+	goto case 3;	}
+	case 3:
+	dead2 = true;
 	Destroyed = false;
-	s0 = 8;
+	s0 = 1;
 return;
-	case 8:
-	count_down1 = 2f;
-	goto case 9;
-	case 9:
+	case 1:
+	count_down1 = 0.8f;
+	goto case 2;
+	case 2:
 	if(((count_down1) > (0f)))
 	{
 
 	count_down1 = ((count_down1) - (dt));
-	s0 = 9;
+	s0 = 2;
 return;	}else
 	{
 
-	goto case 7;	}
-	case 7:
-	shot = false;
+	goto case 0;	}
+	case 0:
+	dead2 = false;
 	Destroyed = true;
 	s0 = -1;
 return;	
 	default: return;}}
 	
 
-	int s2=-1;
-	public void Rule2(float dt, World world){ 
-	switch (s2)
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
 	{
 
 	case -1:
-	if(((Destroyed) == (false)))
+	if(OnMouseOver)
 	{
 
-	goto case 12;	}else
+	goto case 6;	}else
 	{
 
-	s2 = -1;
+	s1 = -1;
 return;	}
-	case 12:
-	if(((Position) == (JeepPos)))
+	case 6:
+	if(UnityEngine.Input.GetMouseButtonDown(0))
 	{
 
-	goto case 13;	}else
+	goto case 8;	}else
 	{
 
-	goto case 14;	}
-	case 13:
-	Rotation = new UnityEngine.Quaternion(0f,0f,0f,0f);
+	s1 = -1;
+return;	}
+	case 8:
+	shot = true;
 	Destroyed = false;
-	s2 = -1;
+	s1 = 10;
 return;
-	case 14:
-	Rotation = Rotation;
-	Destroyed = false;
-	s2 = -1;
+	case 10:
+	count_down2 = 2f;
+	goto case 11;
+	case 11:
+	if(((count_down2) > (0f)))
+	{
+
+	count_down2 = ((count_down2) - (dt));
+	s1 = 11;
+return;	}else
+	{
+
+	goto case 9;	}
+	case 9:
+	shot = false;
+	Destroyed = true;
+	s1 = -1;
 return;	
 	default: return;}}
 	
 
-	int s4=-1;
-	public void Rule4(float dt, World world){ 
-	switch (s4)
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
 	{
 
 	case -1:
 	if(((Destroyed) == (false)))
 	{
 
-	goto case 19;	}else
+	goto case 14;	}else
 	{
 
-	s4 = -1;
+	s3 = -1;
 return;	}
-	case 19:
+	case 14:
 	if(((Position) == (JeepPos)))
 	{
 
-	goto case 20;	}else
+	goto case 15;	}else
 	{
 
-	goto case 21;	}
-	case 20:
+	goto case 16;	}
+	case 15:
+	Rotation = new UnityEngine.Quaternion(0f,0f,0f,0f);
+	Destroyed = false;
+	s3 = -1;
+return;
+	case 16:
+	Rotation = Rotation;
+	Destroyed = false;
+	s3 = -1;
+return;	
+	default: return;}}
+	
+
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
+	{
+
+	case -1:
+	if(((Destroyed) == (false)))
+	{
+
+	goto case 21;	}else
+	{
+
+	s5 = -1;
+return;	}
+	case 21:
+	if(((Position) == (JeepPos)))
+	{
+
+	goto case 22;	}else
+	{
+
+	goto case 23;	}
+	case 22:
 	Position = new UnityEngine.Vector3(0f,0f,0f);
 	speed = 0f;
 	Destroyed = false;
-	s4 = -1;
+	s5 = -1;
 return;
-	case 21:
+	case 23:
 	Position = Position;
 	speed = ((1f) * (dt));
 	Destroyed = false;
-	s4 = -1;
+	s5 = -1;
 return;	
 	default: return;}}
 	
@@ -765,4 +810,4 @@ return;
 
 
 }
-}                                                                       
+}        

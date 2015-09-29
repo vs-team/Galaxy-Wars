@@ -180,6 +180,12 @@ entity Zombie = {
         wait 2.0f
         yield false, true
 
+  rule dead2, Destroyed =
+    wait shot
+    yield true, false
+    wait 0.8f
+    yield false, true
+
   Create(pos : Vector3) = 
   {
     JeepPos = pos
