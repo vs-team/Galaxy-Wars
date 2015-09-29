@@ -1,0 +1,165 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  inherit UnityLandscape
+  Landscapes : [Landscape]
+  Jeep : Truck
+  Zombies : [Zombie] // are created in the landscape
+  Pistols : [Gun]
+  Flashs : [Light]
+  GUIpanel : GUI
+
+  rule Zombies = 
+    let zombies_let = 
+      [for a in Zombies do
+	   where (a.life <> 0.0f)
+	   select a]
+    Debug.Log("Amount of zombies alive = "+zombies_let.Count)
+    yield zombies_let
+
+  Create() =
+    {
+     Jeep = new Truck()
+     Landscapes = [new Landscape(1)]
+     Zombies = [new Zombie(Vector3.zero)]
+     Pistols = [new Gun()]
+     Flashs = [new Light()]
+     GUIpanel = new GUI()
+    }
+}
+
+entity ControllerRazor= { // one hand
+  Position : Vector3
+  Forward : Vector3
+  Trigger : bool
+
+  rule Trigger = 
+    Debug.Log("Trigger value = "+ Trigger)
+    yield Trigger
+
+  Create() = 
+  {
+    Position = Vector3.zero
+    Forward = Vector3.zero
+    Trigger = false
+  }
+}
+
+entity Gun = { //pistol
+  GunController : ControllerRazor
+  Ammo : int
+  Shoot : bool
+  Onclick : bool // should be in c#
+
+  rule Ammo, Shoot = 
+    Debug.Log("Ammo left = "+ Ammo)
+    if Onclick && Ammo > 0 then
+      yield Ammo - 1, true
+      yield Ammo, false
+
+  Create() = 
+  {
+    GunController = new ControllerRazor()
+    Ammo = 80 //amount of bullets
+    Shoot = false
+    Onclick = true
+  }
+
+}
+
+entity Light = { //flashlight
+  LightController : ControllerRazor
+  Battery : float
+  Active : bool
+
+  rule Active = 
+    yield true
+    wait false
+
+  Create() = 
+  {
+    LightController = new ControllerRazor()
+    Battery = 100.0f
+    Active = false
+  }
+
+}
+
+entity GUI = { //panel. Each wall contains the same info?
+  test : bool
+
+  rule test = 
+    yield test
+    wait false
+
+  Create() = 
+  {
+    test = false
+  }
+
+}
+
+entity Landscape = { //here are the zombies created and destroyed after a frame
+  inherit UnityLandscape
+  ref Zombies	: [Zombie]
+  Spawnpoints : [Transform]
+
+  Create(amountofzombies : int) = 
+  let pos = Vector3.zero
+  {
+  Base = UnityLandscape.Instantiate(pos)
+  Spawnpoints = []
+  Zombies = []
+  }
+}
+
+entity Truck = {
+   inherit TruckScript
+   DriveEngine : Engine
+
+   Create()=
+    {
+	  DriveEngine = new Engine()
+    }
+}
+
+entity Engine = {
+    accel : float // has to be a value between 0.0f and 1.0f
+    BrakeAndReverse : float // has to be a value between 0.0f and 1.0f
+    rotation : Vector3
+    active : bool
+
+    Create() = 
+	{
+      accel = 0.0f
+      BrakeAndReverse = 0.0f
+      rotation = Vector3.zero
+      active = false
+	}
+
+}
+
+entity Zombie = {
+  inherit UnityZombie
+  life : float
+
+  rule Destroyed = 
+    wait (life = 0.0f)
+    yield true
+
+  rule life = 
+    Debug.Log("Life left = "+ life)
+    if life > 0.49f then 
+      yield life - 1.5f
+    else
+	  yield 0.0f
+  
+  Create(pos : Vector3) = 
+  {
+  UnityZombie = UnityZombie.Instantiate(pos)
+  life = 100.0f
+  }
+}
