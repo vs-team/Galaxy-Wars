@@ -20,6 +20,20 @@ public class UnityZombie : MonoBehaviour
     }
   }
 
+  public bool dead2
+  {
+    get
+    {
+      //Debug.Log("get");
+      return motor1.GetBool("dead2");
+    }
+    set
+    {
+      //Debug.Log("set" + value);
+      motor1.SetBool("dead2", value);
+    }
+  }
+
   public bool collision
   {
     get
@@ -103,4 +117,4 @@ public class UnityZombie : MonoBehaviour
         return false;
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

@@ -53,6 +53,13 @@
      <Compile Include="Assets\Prelude.cs" />
      <Compile Include="Assets\Scripts\ClusterRenderer\CameraRig.cs" />
      <Compile Include="Assets\Scripts\ClusterRenderer\ClusterRenderer.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHand.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseHandsController.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseInputTest.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseObjectController.cs" />
+     <Compile Include="Assets\SixenseInput\DemoScenes\Scripts\SixenseRaycast.cs" />
+     <Compile Include="Assets\SixenseInput\Scripts\SixenseInput.cs" />
+     <Compile Include="Assets\SixenseInput\Scripts\SixensePlugin.cs" />
      <Compile Include="Assets\TruckScript.cs" />
      <Compile Include="Assets\UnityCarController.cs" />
      <Compile Include="Assets\UnityCheckpoint.cs" />
