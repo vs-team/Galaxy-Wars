@@ -1,0 +1,71 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  
+    Host : bool
+    Players : [Player]
+    MainMenu : Menu
+
+    Create()={
+        Players = []
+        Host = false
+        MainMenu = new Menu()
+    }    
+}
+
+entity Player={
+
+    Identifier : int
+    
+    Create()={
+        Identifier = 2
+    }
+}
+
+entity Ship = {
+
+    Health : int
+    
+    Create()={
+        Health = 98;
+    }
+}
+
+entity Menu = {
+    inherit UnityMenu
+
+    InstanceReady : Button
+    isHost : Toggle
+
+    rule InstanceReady.ButtonText =
+        if isHost.Toggled then   
+            yield "Test"
+        else
+            yield "Whatever"
+
+    Create()={
+    Base = UnityMenu.Find()
+    InstanceReady = new Button("Connect")
+    isHost = new Toggle("InstanceHost")
+    }
+}
+
+entity Button = {
+    inherit UnityButton
+
+    Create(n : string)={
+    Base = UnityButton.Find(n)
+    } 
+
+}
+
+entity Toggle = {
+    inherit UnityToggle
+    
+    Create(n : string) = {
+    Base = UnityToggle.Find(n)
+    }
+}
