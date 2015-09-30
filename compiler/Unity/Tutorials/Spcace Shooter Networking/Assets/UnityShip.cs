@@ -4,30 +4,20 @@ using Lidgren.Network;
 
 public class UnityShip : MonoBehaviour {
 
-    private NetClient nc;
-    private NetServer ns;
-	// Use this for initialization
-	public UnityShip Instantiate(Vector3 pos, bool isHost, string gameName, string endPoint, int conPort)
+	//Use this for initialization
+	public static UnityShip Instantiate(Vector3 pos)
     {
         GameObject ship = GameObject.Instantiate(Resources.Load("Ship"), pos, Quaternion.identity) as GameObject;
-        if(isHost)
-        {
-            NetPeerConfiguration config = new NetPeerConfiguration(gameName);
-            ns = new NetServer(config);
-        }
-        else
-        {
-            NetPeerConfiguration config = new NetPeerConfiguration(gameName);
-            nc = new NetClient(config);
-            nc.Connect(host: endPoint, port: conPort);
-        }
+        var debug = ship.GetComponent<UnityShip>();
         return ship.GetComponent<UnityShip>();
-
     }
 
-    // Update is called once per frame
-    void Update () {
-	
-	}
+    public Vector3 Position
+    {
+        get { return this.gameObject.transform.position; }
+        set { this.gameObject.transform.position = value; }
+    }
+
+    
 }
-                                                                                                                                          
+                                                                                                                                                                                                              

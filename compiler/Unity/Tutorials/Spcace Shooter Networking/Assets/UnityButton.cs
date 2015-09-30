@@ -4,21 +4,20 @@ using System.Collections;
 
 public class UnityButton : MonoBehaviour {
 
-    private static bool clicked;
     private static Text buttonText;
 
     public static UnityButton Find(string name)
     {
         GameObject button = GameObject.Find(name);
-        button.GetComponent<Button>().onClick.AddListener(() => { clicked = true; });
+        button.GetComponent<Button>().onClick.AddListener(() => { Clicked = true; });
         buttonText = button.transform.FindChild("ButtonText").GetComponent<Text>();
-        clicked = false;
+        Clicked = false;
         return button.GetComponent<UnityButton>();
     }
 
     public static bool Clicked
     {
-        get { return clicked; }
+        get;set; 
     }
 
     public static string ButtonText
@@ -27,4 +26,4 @@ public class UnityButton : MonoBehaviour {
         set { buttonText.text = value; }
     }
 }
-                                                                                            
+                                                                                                                                                                    

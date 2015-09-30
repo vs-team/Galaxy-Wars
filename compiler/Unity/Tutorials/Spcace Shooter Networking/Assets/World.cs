@@ -13,6 +13,7 @@ public bool JustEntered = true;
 
 public void Start()
 	{
+		StarShip = new Ship();
 		Players = (
 
 Enumerable.Empty<Player>()).ToList<Player>();
@@ -23,6 +24,7 @@ Enumerable.Empty<Player>()).ToList<Player>();
 		public System.Boolean Host;
 	public Menu MainMenu;
 	public List<Player> Players;
+	public Ship StarShip;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -32,6 +34,7 @@ var t = System.DateTime.Now;
 		for(int x0 = 0; x0 < Players.Count; x0++) { 
 			Players[x0].Update(dt, world);
 		}
+		StarShip.Update(dt, world);
 
 
 	}
@@ -83,14 +86,40 @@ public bool JustEntered = true;
 public Ship()
 	{JustEntered = false;
  frame = World.frame;
+		UnityShip = UnityShip.Instantiate(new UnityEngine.Vector3(0f,-2.7f,-15f));
 		Health = 98;
 		
 }
 		public System.Int32 Health;
+	public UnityEngine.Vector3 Position{  get { return UnityShip.Position; }
+  set{UnityShip.Position = value; }
+ }
+	public UnityShip UnityShip;
+	public System.Boolean enabled{  get { return UnityShip.enabled; }
+  set{UnityShip.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return UnityShip.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return UnityShip.hideFlags; }
+  set{UnityShip.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return UnityShip.isActiveAndEnabled; }
+ }
+	public System.String name{  get { return UnityShip.name; }
+  set{UnityShip.name = value; }
+ }
+	public System.String tag{  get { return UnityShip.tag; }
+  set{UnityShip.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return UnityShip.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return UnityShip.useGUILayout; }
+  set{UnityShip.useGUILayout = value; }
+ }
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-
+		this.Rule0(dt, world);
 
 	}
 
@@ -98,6 +127,38 @@ frame = World.frame;
 
 
 
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	if(UnityEngine.Input.GetKey(KeyCode.A))
+	{
+
+	goto case 4;	}else
+	{
+
+	goto case 0;	}
+	case 4:
+	Position = ((Position) + (new UnityEngine.Vector3((-2f) * (dt),0f,0f)));
+	s0 = 0;
+return;
+	case 0:
+	if(UnityEngine.Input.GetKey(KeyCode.D))
+	{
+
+	goto case 1;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 1:
+	Position = ((Position) + (new UnityEngine.Vector3((2f) * (dt),0f,0f)));
+	s0 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -114,10 +175,10 @@ public Menu()
  frame = World.frame;
 		isHost = new Toggle("InstanceHost");
 		UnityMenu = UnityMenu.Find();
-		InstanceReady = new Button("Connect");
+		Connect = new Button("Connect");
 		
 }
-		public Button InstanceReady;
+		public Button Connect;
 	public UnityMenu UnityMenu;
 	public System.Boolean enabled{  get { return UnityMenu.enabled; }
   set{UnityMenu.enabled = value; }
@@ -144,10 +205,10 @@ public Menu()
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-		InstanceReady.Update(dt, world);
+		Connect.Update(dt, world);
 		isHost.Update(dt, world);
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
 	}
 
 
@@ -160,24 +221,48 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(isHost.Toggled)
+	if(Connect.Clicked)
 	{
 
-	goto case 0;	}else
+	goto case 6;	}else
 	{
 
-	goto case 1;	}
-	case 0:
-	InstanceReady.ButtonText = "Test";
+	goto case 7;	}
+	case 6:
+	UnityEngine.Application.LoadLevel("Game");
+	Connect.Clicked = false;
 	s0 = -1;
 return;
-	case 1:
-	InstanceReady.ButtonText = "Whatever";
+	case 7:
+	Connect.Clicked = false;
 	s0 = -1;
 return;	
 	default: return;}}
 	
 
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	if(isHost.Toggled)
+	{
+
+	goto case 12;	}else
+	{
+
+	goto case 13;	}
+	case 12:
+	Connect.ButtonText = "Host game!";
+	s1 = -1;
+return;
+	case 13:
+	Connect.ButtonText = "Connect to game!";
+	s1 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -199,6 +284,7 @@ public Button(System.String n)
   set{UnityButton.ButtonText = value; }
  }
 	public System.Boolean Clicked{  get { return UnityButton.Clicked; }
+  set{UnityButton.Clicked = value; }
  }
 	public UnityButton UnityButton;
 	public System.Boolean enabled{  get { return UnityButton.enabled; }
@@ -293,4 +379,4 @@ frame = World.frame;
 
 
 }
-}       
+}                           

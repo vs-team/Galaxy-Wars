@@ -4,15 +4,18 @@ using System.Collections;
 
 public class UnityToggle : MonoBehaviour {
 
+    static Toggle toggler;
+
 	public static UnityToggle Find(string name)
     {
         GameObject toggle = GameObject.Find(name);
+        toggler = toggle.GetComponent<Toggle>();
         return toggle.GetComponent<UnityToggle>();
     }
 
-    public bool Toggled
+    public static bool Toggled
     {
-        get { return this.GetComponent<Toggle>(); }
+        get { return toggler.isOn; }
     }
 }
-                                                                           
+                                                                                                                                                   
