@@ -15,7 +15,7 @@ public void Start()
 	{
 		Zombies = (
 
-(new Cons<Zombie>(new Zombie(Vector3.zero),(new Empty<Zombie>()).ToList<Zombie>())).ToList<Zombie>()).ToList<Zombie>();
+Enumerable.Empty<Zombie>()).ToList<Zombie>();
 		UnityLandscape = new UnityLandscape();
 		Pistols = (
 
@@ -24,6 +24,7 @@ public void Start()
 
 (new Cons<Landscape>(new Landscape(1),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
 		Jeep = new Truck();
+		Health = 10f;
 		GUIpanel = new GUI();
 		Flashs = (
 
@@ -35,9 +36,18 @@ public void Start()
  }
 	public List<Light> Flashs;
 	public GUI GUIpanel;
+	public System.Single Health;
 	public Truck Jeep;
-	public List<Landscape> Landscapes;
+	public List<Landscape> __Landscapes;
+	public List<Landscape> Landscapes{  get { return  __Landscapes; }
+  set{ __Landscapes = value;
+ foreach(var e in value){if(e.JustEntered){ e.JustEntered = false;
+}
+} }
+ }
 	public List<Gun> Pistols;
+	public System.Collections.Generic.List<UnityEngine.Transform> Spawnpoints2{  get { return UnityLandscape.Spawnpoints2; }
+ }
 	public UnityLandscape UnityLandscape;
 	public List<Zombie> __Zombies;
 	public List<Zombie> Zombies{  get { return  __Zombies; }
@@ -67,7 +77,7 @@ public void Start()
 	public System.Boolean useGUILayout{  get { return UnityLandscape.useGUILayout; }
   set{UnityLandscape.useGUILayout = value; }
  }
-	public List<Zombie> ___zombies_let00;
+	public List<Zombie> ___zombies_let10;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -88,7 +98,7 @@ var t = System.DateTime.Now;
 			Zombies[x0].Update(dt, world);
 		}
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
 	}
 
 
@@ -101,19 +111,40 @@ var t = System.DateTime.Now;
 	{
 
 	case -1:
-	___zombies_let00 = (
+	Health = Health;
+	s0 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
 
-(Zombies).Select(__ContextSymbol4 => new { ___a00 = __ContextSymbol4 })
-.Where(__ContextSymbol5 => !(((__ContextSymbol5.___a00.life) == (0f))))
-.Select(__ContextSymbol6 => __ContextSymbol6.___a00)
-.ToList<Zombie>()).ToList<Zombie>();
-	UnityEngine.Debug.Log(("Amount of zombies alive = ") + (___zombies_let00.Count));
-	Zombies = ___zombies_let00;
+	s0 = 0;
+return;	}else
+	{
+
 	s0 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	___zombies_let10 = (
+
+(Zombies).Select(__ContextSymbol4 => new { ___a10 = __ContextSymbol4 })
+.Where(__ContextSymbol5 => !(((__ContextSymbol5.___a10.life) == (0f))))
+.Select(__ContextSymbol6 => __ContextSymbol6.___a10)
+.ToList<Zombie>()).ToList<Zombie>();
+	UnityEngine.Debug.Log(("Amount of zombies alive = ") + (___zombies_let10.Count));
+	Zombies = ___zombies_let10;
+	s1 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -153,7 +184,20 @@ frame = World.frame;
 
 	case -1:
 	UnityEngine.Debug.Log(("Trigger value = ") + (Trigger));
-	Trigger = Trigger;
+	if(UnityEngine.Input.GetMouseButton(0))
+	{
+
+	goto case 4;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 4:
+	Trigger = true;
+	s0 = 5;
+return;
+	case 5:
+	Trigger = false;
 	s0 = -1;
 return;	
 	default: return;}}
@@ -172,22 +216,24 @@ public bool JustEntered = true;
 public Gun()
 	{JustEntered = false;
  frame = World.frame;
-		Shoot = false;
-		Onclick = true;
+		Reloading = false;
+		ReloadDuration = 4f;
 		GunController = new ControllerRazor();
 		Ammo = 80;
 		
 }
 		public System.Int32 Ammo;
 	public ControllerRazor GunController;
-	public System.Boolean Onclick;
-	public System.Boolean Shoot;
+	public System.Single ReloadDuration;
+	public System.Boolean Reloading;
+	public System.Single count_down1;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		GunController.Update(dt, world);
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
 	}
 
 
@@ -200,28 +246,86 @@ frame = World.frame;
 	{
 
 	case -1:
-	UnityEngine.Debug.Log(("Ammo left = ") + (Ammo));
-	if(((Onclick) && (((Ammo) > (0)))))
+	if(UnityEngine.Input.GetButton("C"))
 	{
 
-	goto case 3;	}else
+	goto case 9;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 3:
-	Ammo = ((Ammo) - (1));
-	Shoot = true;
-	s0 = 4;
-return;
-	case 4:
-	Ammo = Ammo;
-	Shoot = false;
+	case 9:
+	Reloading = false;
 	s0 = -1;
 return;	
 	default: return;}}
 	
 
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	if(UnityEngine.Input.GetButton("R"))
+	{
+
+	goto case 12;	}else
+	{
+
+	s1 = -1;
+return;	}
+	case 12:
+	Reloading = true;
+	Ammo = Ammo;
+	s1 = 14;
+return;
+	case 14:
+	count_down1 = ReloadDuration;
+	goto case 15;
+	case 15:
+	if(((count_down1) > (0f)))
+	{
+
+	count_down1 = ((count_down1) - (dt));
+	s1 = 15;
+return;	}else
+	{
+
+	goto case 13;	}
+	case 13:
+	Reloading = false;
+	Ammo = 20;
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	UnityEngine.Debug.Log(("Ammo left = ") + (Ammo));
+	if(((((GunController.Trigger) && (((Ammo) > (0))))) && (((Reloading) == (false)))))
+	{
+
+	goto case 18;	}else
+	{
+
+	s2 = -1;
+return;	}
+	case 18:
+	Ammo = ((Ammo) - (1));
+	s2 = 19;
+return;
+	case 19:
+	Ammo = Ammo;
+	s2 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -237,7 +341,7 @@ public Light()
  frame = World.frame;
 		LightController = new ControllerRazor();
 		Battery = 100f;
-		Active = false;
+		Active = true;
 		
 }
 		public System.Boolean Active;
@@ -248,7 +352,7 @@ frame = World.frame;
 
 		LightController.Update(dt, world);
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
 	}
 
 
@@ -261,22 +365,45 @@ frame = World.frame;
 	{
 
 	case -1:
-	Active = true;
-	s0 = 0;
+	if(((Active) && (((Battery) > (0.49f)))))
+	{
+
+	goto case 22;	}else
+	{
+
+	goto case 23;	}
+	case 22:
+	Battery = ((Battery) - (0.5f));
+	s0 = -1;
+return;
+	case 23:
+	Battery = 0f;
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	Active = LightController.Trigger;
+	s1 = 0;
 return;
 	case 0:
 	if(!(false))
 	{
 
-	s0 = 0;
+	s1 = 0;
 return;	}else
 	{
 
-	s0 = -1;
+	s1 = -1;
 return;	}	
 	default: return;}}
 	
-
 
 
 
@@ -356,6 +483,8 @@ Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
   set{UnityLandscape.Destroyed = value; }
  }
 	public List<UnityEngine.Transform> Spawnpoints;
+	public System.Collections.Generic.List<UnityEngine.Transform> Spawnpoints2{  get { return UnityLandscape.Spawnpoints2; }
+ }
 	public UnityLandscape UnityLandscape;
 	public List<Zombie> Zombies;
 	public System.Boolean enabled{  get { return UnityLandscape.enabled; }
@@ -379,18 +508,96 @@ Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	public System.Boolean useGUILayout{  get { return UnityLandscape.useGUILayout; }
   set{UnityLandscape.useGUILayout = value; }
  }
+	public List<System.String> ___sps_name00;
+	public List<System.String> ___sps_number00;
+	public List<UnityEngine.Transform> ___sps00;
+	public UnityEngine.Transform ___sps_head10;
+	public UnityEngine.Vector3 ___sps_pos10;
+	public List<Zombie> ___zmbies10;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-
-
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
 	}
 
 
 
 
 
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
 
+	case -1:
+	___sps_name00 = (
+
+(Spawnpoints2).Select(__ContextSymbol11 => new { ___a01 = __ContextSymbol11 })
+.Select(__ContextSymbol12 => __ContextSymbol12.___a01.name)
+.ToList<System.String>()).ToList<System.String>();
+	___sps_number00 = (
+
+(___sps_name00).Select(__ContextSymbol13 => new { ___a02 = __ContextSymbol13 })
+.Select(__ContextSymbol14 => __ContextSymbol14.___a02.Substring(10,1))
+.ToList<System.String>()).ToList<System.String>();
+	UnityEngine.Debug.Log(("spsnumberhead = ") + (___sps_number00.Head()));
+	___sps00 = (
+
+(Spawnpoints2).Select(__ContextSymbol15 => new { ___a03 = __ContextSymbol15 })
+.Select(__ContextSymbol16 => __ContextSymbol16.___a03)
+.ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
+	Spawnpoints = ___sps00;
+	s0 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s0 = 0;
+return;	}else
+	{
+
+	s0 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	if(!(((Spawnpoints.Count) > (0))))
+	{
+
+	s1 = -1;
+return;	}else
+	{
+
+	goto case 4;	}
+	case 4:
+	___sps_head10 = Spawnpoints.Head();
+	___sps_pos10 = ___sps_head10.position;
+	___zmbies10 = (
+
+(new Cons<Zombie>(new Zombie(___sps_pos10),(new Empty<Zombie>()).ToList<Zombie>())).ToList<Zombie>()).ToList<Zombie>();
+	Zombies = ___zmbies10;
+	s1 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s1 = 0;
+return;	}else
+	{
+
+	s1 = -1;
+return;	}	
+	default: return;}}
+	
 
 
 
@@ -404,6 +611,7 @@ public bool JustEntered = true;
 public Truck()
 	{JustEntered = false;
  frame = World.frame;
+		fuel = 40f;
 		TruckScript = new TruckScript();
 		DriveEngine = new Engine();
 		
@@ -413,6 +621,7 @@ public Truck()
 	public System.Boolean enabled{  get { return TruckScript.enabled; }
   set{TruckScript.enabled = value; }
  }
+	public System.Single fuel;
 	public UnityEngine.GameObject gameObject{  get { return TruckScript.gameObject; }
  }
 	public UnityEngine.HideFlags hideFlags{  get { return TruckScript.hideFlags; }
@@ -438,7 +647,7 @@ public Truck()
 frame = World.frame;
 
 		DriveEngine.Update(dt, world);
-
+		this.Rule0(dt, world);
 
 	}
 
@@ -446,6 +655,30 @@ frame = World.frame;
 
 
 
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	UnityEngine.Debug.Log(("Fuel amount left = ") + (fuel));
+	if(((world.Jeep.DriveEngine.active) && (((fuel) > (0.99f)))))
+	{
+
+	goto case 6;	}else
+	{
+
+	goto case 7;	}
+	case 6:
+	fuel = ((fuel) - (1f));
+	s0 = -1;
+return;
+	case 7:
+	fuel = 0f;
+	s0 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -461,7 +694,7 @@ public Engine()
 	{JustEntered = false;
  frame = World.frame;
 		rotation = Vector3.zero;
-		active = false;
+		active = true;
 		accel = 0f;
 		BrakeAndReverse = 0f;
 		
@@ -549,15 +782,15 @@ frame = World.frame;
 	if(((life) > (0.49f)))
 	{
 
-	goto case 2;	}else
+	goto case 12;	}else
 	{
 
-	goto case 3;	}
-	case 2:
+	goto case 13;	}
+	case 12:
 	life = ((life) - (1.5f));
 	s0 = -1;
 return;
-	case 3:
+	case 13:
 	life = 0f;
 	s0 = -1;
 return;	
@@ -590,4 +823,4 @@ return;
 
 
 }
-}     
+}      

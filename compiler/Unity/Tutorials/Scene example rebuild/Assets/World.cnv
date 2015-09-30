@@ -7,10 +7,11 @@ worldEntity World = {
   inherit UnityLandscape
   Landscapes : [Landscape]
   Jeep : Truck
-  Zombies : [Zombie] // are created in the landscape
+  Zombies : [Zombie] // are created in the landscape!
   Pistols : [Gun]
   Flashs : [Light]
   GUIpanel : GUI
+  Health : float
 
   rule Zombies = 
     let zombies_let = 
@@ -20,14 +21,19 @@ worldEntity World = {
     Debug.Log("Amount of zombies alive = "+zombies_let.Count)
     yield zombies_let
 
+  rule Health = 
+    yield Health
+    wait false
+
   Create() =
     {
      Jeep = new Truck()
      Landscapes = [new Landscape(1)]
-     Zombies = [new Zombie(Vector3.zero)]
+     Zombies = []
      Pistols = [new Gun()]
      Flashs = [new Light()]
      GUIpanel = new GUI()
+     Health = 10.0f
     }
 }
 
@@ -38,7 +44,9 @@ entity ControllerRazor= { // one hand
 
   rule Trigger = 
     Debug.Log("Trigger value = "+ Trigger)
-    yield Trigger
+    if Input.GetMouseButton(0) then
+      yield true
+      yield false
 
   Create() = 
   {
@@ -51,23 +59,32 @@ entity ControllerRazor= { // one hand
 entity Gun = { //pistol
   GunController : ControllerRazor
   Ammo : int
-  Shoot : bool
-  Onclick : bool // should be in c#
+  Reloading : bool
+  ReloadDuration : float
 
-  rule Ammo, Shoot = 
+  rule Ammo = 
     Debug.Log("Ammo left = "+ Ammo)
-    if Onclick && Ammo > 0 then
-      yield Ammo - 1, true
-      yield Ammo, false
+    if GunController.Trigger && Ammo > 0 && (Reloading = false) then
+      yield Ammo - 1
+      yield Ammo
+
+  rule Reloading, Ammo = 
+    if Input.GetButton("R") then
+      yield true, Ammo
+      wait (ReloadDuration)
+      yield false, 20
+
+  rule Reloading = 
+    if Input.GetButton("C") then
+      yield false
 
   Create() = 
   {
     GunController = new ControllerRazor()
     Ammo = 80 //amount of bullets
-    Shoot = false
-    Onclick = true
+    Reloading = false
+    ReloadDuration = 4.0f
   }
-
 }
 
 entity Light = { //flashlight
@@ -75,17 +92,22 @@ entity Light = { //flashlight
   Battery : float
   Active : bool
 
-  rule Active = 
-    yield true
+  rule Active =
+    yield LightController.Trigger
     wait false
+
+  rule Battery = 
+    if Active && Battery > 0.49f then
+      yield Battery - 0.5f
+    else
+      yield 0.0f
 
   Create() = 
   {
     LightController = new ControllerRazor()
     Battery = 100.0f
-    Active = false
+    Active = true
   }
-
 }
 
 entity GUI = { //panel. Each wall contains the same info?
@@ -105,9 +127,37 @@ entity GUI = { //panel. Each wall contains the same info?
 entity Landscape = { //here are the zombies created and destroyed after a frame
   inherit UnityLandscape
   ref Zombies	: [Zombie]
-  Spawnpoints : [Transform]
+  Spawnpoints : [Transform] // tuple? transform * int?
 
-  Create(amountofzombies : int) = 
+  rule Zombies = 
+    wait Spawnpoints.Count > 0
+    let sps_head = Spawnpoints.Head
+    let sps_pos = sps_head.position
+    let zmbies = [new Zombie(sps_pos)]
+    yield zmbies
+    wait false
+
+  rule Spawnpoints = 
+    let sps_name = //[Spawnpoint1;Spawnpoint2;Spawnpoint3;Spawnpoint4]
+      [for a in Spawnpoints2 do
+       select a.name] 
+    let sps_number = // [1;2;3;4]
+      [for a in sps_name do
+       select (a.Substring(10,1))]
+    Debug.Log("spsnumberhead = "+sps_number.Head)
+
+    let sps = //[Transform of each Spawnpoint]
+      [for a in Spawnpoints2 do
+       select a]
+    //let tuple_sps =
+      //[for a in sps_number do
+       //for b in sps do
+       //select (a,b)]
+    
+    yield sps
+    wait false
+
+  Create(amountofzombies : int) = // order of execution? First instantiate, then assign spawnpoints
   let pos = Vector3.zero
   {
   Base = UnityLandscape.Instantiate(pos)
@@ -119,10 +169,19 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
 entity Truck = {
    inherit TruckScript
    DriveEngine : Engine
+   fuel : float
+     
+   rule fuel = 
+     Debug.Log("Fuel amount left = "+fuel)
+     if world.Jeep.DriveEngine.active && fuel > 0.99f then
+       yield fuel - 1.0f
+     else
+       yield 0.0f
 
    Create()=
     {
-	  DriveEngine = new Engine()
+      DriveEngine = new Engine()
+      fuel = 40.0f // liters
     }
 }
 
@@ -137,9 +196,8 @@ entity Engine = {
       accel = 0.0f
       BrakeAndReverse = 0.0f
       rotation = Vector3.zero
-      active = false
+      active = true
 	}
-
 }
 
 entity Zombie = {
@@ -156,10 +214,10 @@ entity Zombie = {
       yield life - 1.5f
     else
 	  yield 0.0f
-  
+
   Create(pos : Vector3) = 
   {
   UnityZombie = UnityZombie.Instantiate(pos)
-  life = 100.0f
+  life = 100.0f // healthpoints
   }
 }
