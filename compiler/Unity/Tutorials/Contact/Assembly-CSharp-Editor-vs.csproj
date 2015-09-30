@@ -71,8 +71,14 @@
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
+ <Reference Include="Lidgren.Network">
+ <HintPath>C:/Users/Justin/GitHub/internship-tilburg/compiler/Unity/Tutorials/Contact/Assets/DllsToImport/Lidgren.Network.dll</HintPath>
+ </Reference>
  <Reference Include="Ionic.Zip">
  <HintPath>C:/Users/Justin/GitHub/internship-tilburg/compiler/Unity/Tutorials/Contact/Assets/Editor/ClusterRenderer/Ionic.Zip.dll</HintPath>
+ </Reference>
+ <Reference Include="Lidgren.Network">
+ <HintPath>C:/Users/Justin/GitHub/internship-tilburg/compiler/Unity/Tutorials/Contact/Assets/Plugins/Lidgren.Network.dll</HintPath>
  </Reference>
  <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
  <HintPath>C:/Users/Justin/GitHub/internship-tilburg/compiler/Unity/Tutorials/Contact/Assets/UnityVS/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
@@ -119,19 +125,9 @@
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/macstandalonesupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="Lidgren.Network">
- <HintPath>C:/Users/Justin/GitHub/internship-tilburg/compiler/Unity/Tutorials/Contact/Assets/Plugins/Lidgren.Network.dll</HintPath>
- </Reference>
- <Reference Include="Lidgren.Network">
- <HintPath>C:/Users/Justin/GitHub/internship-tilburg/compiler/Unity/Tutorials/Contact/Assets/DllsToImport/Lidgren.Network.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-vs.csproj">
-      <Project>{0D6487E0-E2B0-850B-9AAD-E8B8E073BCC5}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
