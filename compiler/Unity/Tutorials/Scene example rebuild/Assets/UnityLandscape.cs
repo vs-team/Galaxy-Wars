@@ -4,10 +4,11 @@ using System.Collections.Generic;
 
 public class UnityLandscape : MonoBehaviour {
 
-  public static UnityLandscape Instantiate(Vector3 newPos)
+  public static UnityLandscape Instantiate(Vector3 newPos, int numb)
   {
-    GameObject landscape = GameObject.Instantiate(Resources.Load("Prefabs/Landscape1"),newPos, Quaternion.identity) as GameObject;
+    GameObject landscape = GameObject.Instantiate(Resources.Load("Prefabs/Landscape"+ numb),newPos, Quaternion.identity) as GameObject;
     UnityLandscape component = landscape.GetComponent<UnityLandscape>() as UnityLandscape;
+    component.check = landscape.transform.FindChild("Checkpoint").GetComponent<UnityCheckpoint>();
     component.spawnp = new List<Transform>();
         Transform comps = landscape.transform;
         foreach (Transform child in comps)
@@ -26,6 +27,9 @@ public class UnityLandscape : MonoBehaviour {
         get { return spawnp; }
     }
 
+  private UnityCheckpoint check;
+  public UnityCheckpoint Checkpoint { get { return check; } }
+
   private bool destroyed;
   public bool Destroyed
   {
@@ -37,4 +41,4 @@ public class UnityLandscape : MonoBehaviour {
         GameObject.Destroy(gameObject);
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     

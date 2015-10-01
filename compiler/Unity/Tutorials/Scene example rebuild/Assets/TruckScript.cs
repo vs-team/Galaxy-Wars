@@ -12,4 +12,17 @@ public class TruckScript : MonoBehaviour {
         truck.truckRigidBody = jeepGameObject.GetComponent<Rigidbody>() as Rigidbody;
         return truck;
     }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  public Vector3 Position
+  {
+    get { return this.transform.position;}
+  }
+  public Vector3 Frce
+  {
+    get { return truckRigidBody.position; }
+    set { truckRigidBody.AddForce(value, ForceMode.Force); }
+  }
+  public Vector3 Trque
+  {
+    set { truckRigidBody.AddTorque(value, ForceMode.Force); }
+  }
+}                      

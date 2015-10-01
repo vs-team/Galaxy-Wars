@@ -13,6 +13,8 @@ public bool JustEntered = true;
 
 public void Start()
 	{
+		System.Int32 ___randomr00;
+		___randomr00 = UnityEngine.Random.Range(2,4);
 		Zombies = (
 
 Enumerable.Empty<Zombie>()).ToList<Zombie>();
@@ -22,7 +24,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 (new Cons<Gun>(new Gun(),(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();
 		Landscapes = (
 
-(new Cons<Landscape>(new Landscape(1),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
+(new Cons<Landscape>(new Landscape(Vector3.zero,___randomr00),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),(___randomr00) + (1)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),(___randomr00) - (1)),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
 		Jeep = new Truck();
 		Health = 10f;
 		GUIpanel = new GUI();
@@ -31,7 +33,9 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 (new Cons<Light>(new Light(),(new Empty<Light>()).ToList<Light>())).ToList<Light>()).ToList<Light>();
 		
 }
-		public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
+		public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
+ }
+	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
   set{UnityLandscape.Destroyed = value; }
  }
 	public List<Light> Flashs;
@@ -77,11 +81,14 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Boolean useGUILayout{  get { return UnityLandscape.useGUILayout; }
   set{UnityLandscape.useGUILayout = value; }
  }
-	public List<Zombie> ___zombies_let10;
+	public List<Landscape> ___ls00;
+	public System.Int32 ___randr00;
+	public System.Single count_down1;
+	public List<Zombie> ___new_zombies30;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
-var t = System.DateTime.Now;
+var t = System.DateTime.Now;		this.Rule2(dt, world);
 
 		for(int x0 = 0; x0 < Flashs.Count; x0++) { 
 			Flashs[x0].Update(dt, world);
@@ -99,8 +106,19 @@ var t = System.DateTime.Now;
 		}
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
+		this.Rule3(dt, world);
 	}
 
+	public void Rule2(float dt, World world) 
+	{
+	Zombies = (
+
+(Zombies).Select(__ContextSymbol4 => new { ___a21 = __ContextSymbol4 })
+.Where(__ContextSymbol5 => !(((__ContextSymbol5.___a21.Life) == (0f))))
+.Select(__ContextSymbol6 => __ContextSymbol6.___a21)
+.ToList<Zombie>()).ToList<Zombie>();
+	}
+	
 
 
 
@@ -111,14 +129,34 @@ var t = System.DateTime.Now;
 	{
 
 	case -1:
-	Health = Health;
-	s0 = 0;
-return;
-	case 0:
-	if(!(false))
+	___ls00 = (
+
+(Landscapes).Select(__ContextSymbol7 => new { ___a00 = __ContextSymbol7 })
+.Where(__ContextSymbol8 => __ContextSymbol8.___a00.Checkpoint.isEntered)
+.Select(__ContextSymbol9 => __ContextSymbol9.___a00)
+.ToList<Landscape>()).ToList<Landscape>();
+	if(((___ls00.Count) > (0)))
 	{
 
-	s0 = 0;
+	goto case 1;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 1:
+	___randr00 = UnityEngine.Random.Range(1,5);
+	Landscapes = new Cons<Landscape>(new Landscape(Jeep.Position,___randr00), (Landscapes)).ToList<Landscape>();
+	s0 = 2;
+return;
+	case 2:
+	count_down1 = 2f;
+	goto case 3;
+	case 3:
+	if(((count_down1) > (0f)))
+	{
+
+	count_down1 = ((count_down1) - (dt));
+	s0 = 3;
 return;	}else
 	{
 
@@ -133,15 +171,37 @@ return;	}
 	{
 
 	case -1:
-	___zombies_let10 = (
+	Health = Health;
+	s1 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
 
-(Zombies).Select(__ContextSymbol4 => new { ___a10 = __ContextSymbol4 })
-.Where(__ContextSymbol5 => !(((__ContextSymbol5.___a10.life) == (0f))))
-.Select(__ContextSymbol6 => __ContextSymbol6.___a10)
-.ToList<Zombie>()).ToList<Zombie>();
-	UnityEngine.Debug.Log(("Amount of zombies alive = ") + (___zombies_let10.Count));
-	Zombies = ___zombies_let10;
+	s1 = 0;
+return;	}else
+	{
+
 	s1 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	___new_zombies30 = (
+
+(Landscapes).Select(__ContextSymbol10 => new { ___a32 = __ContextSymbol10 })
+.SelectMany(__ContextSymbol11=> (__ContextSymbol11.___a32.Zombies).Select(__ContextSymbol12 => new { ___b30 = __ContextSymbol12,
+                                                      prev = __ContextSymbol11 })
+.Select(__ContextSymbol13 => __ContextSymbol13.___b30)
+.ToList<Zombie>())).ToList<Zombie>();
+	Zombies = ___new_zombies30;
+	s3 = -1;
 return;	
 	default: return;}}
 	
@@ -187,16 +247,16 @@ frame = World.frame;
 	if(UnityEngine.Input.GetMouseButton(0))
 	{
 
-	goto case 4;	}else
+	goto case 3;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 4:
+	case 3:
 	Trigger = true;
-	s0 = 5;
+	s0 = 4;
 return;
-	case 5:
+	case 4:
 	Trigger = false;
 	s0 = -1;
 return;	
@@ -226,7 +286,7 @@ public Gun()
 	public ControllerRazor GunController;
 	public System.Single ReloadDuration;
 	public System.Boolean Reloading;
-	public System.Single count_down1;
+	public System.Single count_down2;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -246,15 +306,15 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(UnityEngine.Input.GetButton("C"))
+	if(UnityEngine.Input.GetKey(KeyCode.C))
 	{
 
-	goto case 9;	}else
+	goto case 8;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 9:
+	case 8:
 	Reloading = false;
 	s0 = -1;
 return;	
@@ -267,33 +327,33 @@ return;
 	{
 
 	case -1:
-	if(UnityEngine.Input.GetButton("R"))
+	if(UnityEngine.Input.GetKey(KeyCode.R))
 	{
 
-	goto case 12;	}else
+	goto case 11;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 12:
+	case 11:
 	Reloading = true;
 	Ammo = Ammo;
-	s1 = 14;
+	s1 = 13;
 return;
+	case 13:
+	count_down2 = ReloadDuration;
+	goto case 14;
 	case 14:
-	count_down1 = ReloadDuration;
-	goto case 15;
-	case 15:
-	if(((count_down1) > (0f)))
+	if(((count_down2) > (0f)))
 	{
 
-	count_down1 = ((count_down1) - (dt));
-	s1 = 15;
+	count_down2 = ((count_down2) - (dt));
+	s1 = 14;
 return;	}else
 	{
 
-	goto case 13;	}
-	case 13:
+	goto case 12;	}
+	case 12:
 	Reloading = false;
 	Ammo = 20;
 	s1 = -1;
@@ -311,16 +371,16 @@ return;
 	if(((((GunController.Trigger) && (((Ammo) > (0))))) && (((Reloading) == (false)))))
 	{
 
-	goto case 18;	}else
+	goto case 17;	}else
 	{
 
 	s2 = -1;
 return;	}
-	case 18:
+	case 17:
 	Ammo = ((Ammo) - (1));
-	s2 = 19;
+	s2 = 18;
 return;
-	case 19:
+	case 18:
 	Ammo = Ammo;
 	s2 = -1;
 return;	
@@ -368,15 +428,15 @@ frame = World.frame;
 	if(((Active) && (((Battery) > (0.49f)))))
 	{
 
-	goto case 22;	}else
+	goto case 21;	}else
 	{
 
-	goto case 23;	}
-	case 22:
+	goto case 22;	}
+	case 21:
 	Battery = ((Battery) - (0.5f));
 	s0 = -1;
 return;
-	case 23:
+	case 22:
 	Battery = 0f;
 	s0 = -1;
 return;	
@@ -463,23 +523,24 @@ return;	}
 public class Landscape{
 public int frame;
 public bool JustEntered = true;
-private System.Int32 amountofzombies;
+private UnityEngine.Vector3 pos;
+private System.Int32 ps;
 	public int ID;
-public Landscape(System.Int32 amountofzombies)
+public Landscape(UnityEngine.Vector3 pos, System.Int32 ps)
 	{JustEntered = false;
  frame = World.frame;
-		UnityEngine.Vector3 ___pos00;
-		___pos00 = Vector3.zero;
 		Zombies = (
 
 Enumerable.Empty<Zombie>()).ToList<Zombie>();
-		UnityLandscape = UnityLandscape.Instantiate(___pos00);
+		UnityLandscape = UnityLandscape.Instantiate(pos,ps);
 		Spawnpoints = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 		
 }
-		public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
+		public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
+ }
+	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
   set{UnityLandscape.Destroyed = value; }
  }
 	public List<UnityEngine.Transform> Spawnpoints;
@@ -508,10 +569,9 @@ Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	public System.Boolean useGUILayout{  get { return UnityLandscape.useGUILayout; }
   set{UnityLandscape.useGUILayout = value; }
  }
-	public List<System.String> ___sps_name00;
-	public List<System.String> ___sps_number00;
 	public List<UnityEngine.Transform> ___sps00;
-	public UnityEngine.Transform ___sps_head10;
+	public System.Int32 ___random_spawnp10;
+	public UnityEngine.Transform ___sps11;
 	public UnityEngine.Vector3 ___sps_pos10;
 	public List<Zombie> ___zmbies10;
 	public void Update(float dt, World world) {
@@ -531,21 +591,10 @@ frame = World.frame;
 	{
 
 	case -1:
-	___sps_name00 = (
-
-(Spawnpoints2).Select(__ContextSymbol11 => new { ___a01 = __ContextSymbol11 })
-.Select(__ContextSymbol12 => __ContextSymbol12.___a01.name)
-.ToList<System.String>()).ToList<System.String>();
-	___sps_number00 = (
-
-(___sps_name00).Select(__ContextSymbol13 => new { ___a02 = __ContextSymbol13 })
-.Select(__ContextSymbol14 => __ContextSymbol14.___a02.Substring(10,1))
-.ToList<System.String>()).ToList<System.String>();
-	UnityEngine.Debug.Log(("spsnumberhead = ") + (___sps_number00.Head()));
 	___sps00 = (
 
-(Spawnpoints2).Select(__ContextSymbol15 => new { ___a03 = __ContextSymbol15 })
-.Select(__ContextSymbol16 => __ContextSymbol16.___a03)
+(Spawnpoints2).Select(__ContextSymbol18 => new { ___a03 = __ContextSymbol18 })
+.Select(__ContextSymbol19 => __ContextSymbol19.___a03)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	Spawnpoints = ___sps00;
 	s0 = 0;
@@ -576,26 +625,29 @@ return;	}
 return;	}else
 	{
 
-	goto case 4;	}
-	case 4:
-	___sps_head10 = Spawnpoints.Head();
-	___sps_pos10 = ___sps_head10.position;
+	goto case 5;	}
+	case 5:
+	___random_spawnp10 = UnityEngine.Random.Range(0,4);
+	___sps11 = (Spawnpoints)[___random_spawnp10];
+	___sps_pos10 = ___sps11.position;
 	___zmbies10 = (
 
 (new Cons<Zombie>(new Zombie(___sps_pos10),(new Empty<Zombie>()).ToList<Zombie>())).ToList<Zombie>()).ToList<Zombie>();
 	Zombies = ___zmbies10;
+	Spawnpoints = (
+
+Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	s1 = 0;
 return;
 	case 0:
-	if(!(false))
-	{
+	Zombies = (
 
-	s1 = 0;
-return;	}else
-	{
+Enumerable.Empty<Zombie>()).ToList<Zombie>();
+	Spawnpoints = (
 
+Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	s1 = -1;
-return;	}	
+return;	
 	default: return;}}
 	
 
@@ -611,17 +663,24 @@ public bool JustEntered = true;
 public Truck()
 	{JustEntered = false;
  frame = World.frame;
-		fuel = 40f;
-		TruckScript = new TruckScript();
+		TruckScript = TruckScript.Instantiate();
+		Fuel = 40f;
 		DriveEngine = new Engine();
 		
 }
 		public Engine DriveEngine;
+	public UnityEngine.Vector3 Frce{  get { return TruckScript.Frce; }
+  set{TruckScript.Frce = value; }
+ }
+	public System.Single Fuel;
+	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
+ }
+	public UnityEngine.Vector3 Trque{  set{TruckScript.Trque = value; }
+ }
 	public TruckScript TruckScript;
 	public System.Boolean enabled{  get { return TruckScript.enabled; }
   set{TruckScript.enabled = value; }
  }
-	public System.Single fuel;
 	public UnityEngine.GameObject gameObject{  get { return TruckScript.gameObject; }
  }
 	public UnityEngine.HideFlags hideFlags{  get { return TruckScript.hideFlags; }
@@ -648,7 +707,8 @@ frame = World.frame;
 
 		DriveEngine.Update(dt, world);
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
 	}
 
 
@@ -661,25 +721,81 @@ frame = World.frame;
 	{
 
 	case -1:
-	UnityEngine.Debug.Log(("Fuel amount left = ") + (fuel));
-	if(((world.Jeep.DriveEngine.active) && (((fuel) > (0.99f)))))
+	UnityEngine.Debug.Log(("Fuel amount left = ") + (Fuel));
+	if(((world.Jeep.DriveEngine.Active) && (((Fuel) > (0.99f)))))
 	{
 
-	goto case 6;	}else
+	goto case 7;	}else
 	{
 
-	goto case 7;	}
-	case 6:
-	fuel = ((fuel) - (1f));
+	goto case 8;	}
+	case 7:
+	Fuel = ((Fuel) - (1f));
 	s0 = -1;
 return;
-	case 7:
-	fuel = 0f;
+	case 8:
+	Fuel = 0f;
 	s0 = -1;
 return;	
 	default: return;}}
 	
 
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	Trque = new UnityEngine.Vector3(0f,(40f) * (DriveEngine.Rotation),0f);
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	if(((((DriveEngine.Accel) > (0f))) && (((DriveEngine.BrakeAndReverse) > (0f)))))
+	{
+
+	goto case 1;	}else
+	{
+
+	goto case 2;	}
+	case 1:
+	Frce = Vector3.zero;
+	s2 = -1;
+return;
+	case 2:
+	if(((DriveEngine.Accel) > (0f)))
+	{
+
+	goto case 9;	}else
+	{
+
+	goto case 5;	}
+	case 9:
+	Frce = new UnityEngine.Vector3(0f,0f,(-180f) * (DriveEngine.Accel));
+	s2 = 5;
+return;
+	case 5:
+	if(((DriveEngine.BrakeAndReverse) > (0f)))
+	{
+
+	goto case 6;	}else
+	{
+
+	s2 = -1;
+return;	}
+	case 6:
+	Frce = new UnityEngine.Vector3(0f,0f,(300f) * (DriveEngine.BrakeAndReverse));
+	s2 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -693,16 +809,16 @@ public bool JustEntered = true;
 public Engine()
 	{JustEntered = false;
  frame = World.frame;
-		rotation = Vector3.zero;
-		active = true;
-		accel = 0f;
+		Rotation = 0.8f;
 		BrakeAndReverse = 0f;
+		Active = true;
+		Accel = 0.9f;
 		
 }
-		public System.Single BrakeAndReverse;
-	public System.Single accel;
-	public System.Boolean active;
-	public UnityEngine.Vector3 rotation;
+		public System.Single Accel;
+	public System.Boolean Active;
+	public System.Single BrakeAndReverse;
+	public System.Single Rotation;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -729,13 +845,14 @@ private UnityEngine.Vector3 pos;
 public Zombie(UnityEngine.Vector3 pos)
 	{JustEntered = false;
  frame = World.frame;
-		life = 100f;
 		UnityZombie = UnityZombie.Instantiate(pos);
+		Life = 100f;
 		
 }
 		public System.Boolean Destroyed{  get { return UnityZombie.Destroyed; }
   set{UnityZombie.Destroyed = value; }
  }
+	public System.Single Life;
 	public System.Boolean OnMouseOver{  get { return UnityZombie.OnMouseOver; }
  }
 	public UnityZombie UnityZombie;
@@ -749,7 +866,6 @@ public Zombie(UnityEngine.Vector3 pos)
  }
 	public System.Boolean isActiveAndEnabled{  get { return UnityZombie.isActiveAndEnabled; }
  }
-	public System.Single life;
 	public System.String name{  get { return UnityZombie.name; }
   set{UnityZombie.name = value; }
  }
@@ -778,20 +894,20 @@ frame = World.frame;
 	{
 
 	case -1:
-	UnityEngine.Debug.Log(("Life left = ") + (life));
-	if(((life) > (0.49f)))
+	UnityEngine.Debug.Log(("Life left = ") + (Life));
+	if(((Life) > (0.49f)))
 	{
 
-	goto case 12;	}else
+	goto case 11;	}else
 	{
 
-	goto case 13;	}
-	case 12:
-	life = ((life) - (1.5f));
+	goto case 12;	}
+	case 11:
+	Life = ((Life) - (1.5f));
 	s0 = -1;
 return;
-	case 13:
-	life = 0f;
+	case 12:
+	Life = 0f;
 	s0 = -1;
 return;	
 	default: return;}}
@@ -803,7 +919,7 @@ return;
 	{
 
 	case -1:
-	if(!(((life) == (0f))))
+	if(!(((Life) == (0f))))
 	{
 
 	s1 = -1;
@@ -823,4 +939,4 @@ return;
 
 
 }
-}      
+}     
