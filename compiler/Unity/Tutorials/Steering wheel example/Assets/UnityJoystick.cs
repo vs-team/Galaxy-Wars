@@ -3,6 +3,14 @@ using System.Collections;
 
 public class UnityJoystick : MonoBehaviour {
 
+  public Vector3 Rotation
+  {
+    set
+    {
+      this.transform.eulerAngles = new Vector3(0.0f, Input.GetAxis("SW_Joy0X") * 180.0f, 0.0f);
+    }
+
+  }
 
   void Update()
   {
@@ -24,4 +32,4 @@ public class UnityJoystick : MonoBehaviour {
     Debug.Log("Button11 " + Input.GetButtonDown("SW_Button11"));
     Debug.Log("Button12 " + Input.GetButtonDown("SW_Button12"));*/
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                 
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
