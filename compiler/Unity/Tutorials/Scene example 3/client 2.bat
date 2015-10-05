@@ -1,1 +1,0 @@
-demo.exe -client 1 tcp://127.0.0.1:1234 tcp://*:1236 5000 -logFile client2.txt
