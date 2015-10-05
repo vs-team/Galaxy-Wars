@@ -91,8 +91,8 @@ Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 	public System.Int32 ___randr00;
 	public System.Single count_down1;
 	public List<Zombie> ___zmbies20;
-	public List<GroupZombie> ___new_zombies30;
-	public List<Zombie> ___group30;
+	public List<GroupZombie> ___groups30;
+	public List<Zombie> ___zombiegroup30;
 	public System.Int32 ___amount30;
 	public System.Int32 ___amount230;
 
@@ -215,25 +215,25 @@ return;
 	{
 
 	case -1:
-	___new_zombies30 = (
+	___groups30 = (
 
 (Landscapes).Select(__ContextSymbol11 => new { ___a32 = __ContextSymbol11 })
 .SelectMany(__ContextSymbol12=> (__ContextSymbol12.___a32.Group).Select(__ContextSymbol13 => new { ___b30 = __ContextSymbol13,
                                                       prev = __ContextSymbol12 })
 .Select(__ContextSymbol14 => __ContextSymbol14.___b30)
 .ToList<GroupZombie>())).ToList<GroupZombie>();
-	___group30 = (
+	___zombiegroup30 = (
 
-(___new_zombies30).Select(__ContextSymbol15 => new { ___a33 = __ContextSymbol15 })
+(___groups30).Select(__ContextSymbol15 => new { ___a33 = __ContextSymbol15 })
 .SelectMany(__ContextSymbol16=> (__ContextSymbol16.___a33.ZombieFollowers).Select(__ContextSymbol17 => new { ___c30 = __ContextSymbol17,
                                                       prev = __ContextSymbol16 })
 .Select(__ContextSymbol18 => __ContextSymbol18.___c30)
 .ToList<Zombie>())).ToList<Zombie>();
-	___amount30 = ___new_zombies30.Count;
-	___amount230 = ___group30.Count;
-	UnityEngine.Debug.Log(("NewZombiesCount ") + (___amount30));
-	UnityEngine.Debug.Log(("GroupCount ") + (___amount230));
-	if(((___new_zombies30.Count) > (0)))
+	___amount30 = ___groups30.Count;
+	___amount230 = ___zombiegroup30.Count;
+	UnityEngine.Debug.Log(("groups =  ") + (___amount30));
+	UnityEngine.Debug.Log(("zombiegroup = ") + (___amount230));
+	if(((___zombiegroup30.Count) > (0)))
 	{
 
 	goto case 3;	}else
@@ -242,7 +242,7 @@ return;
 	s3 = -1;
 return;	}
 	case 3:
-	Zombies = (___group30).Concat(Zombies).ToList<Zombie>();
+	Zombies = (___zombiegroup30).Concat(Zombies).ToList<Zombie>();
 	s3 = -1;
 return;	
 	default: return;}}
@@ -296,7 +296,8 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Boolean useGUILayout{  get { return UnityGroup.useGUILayout; }
   set{UnityGroup.useGUILayout = value; }
  }
-	public List<Zombie> ___z10;
+	public List<Zombie> ___z00;
+	public Zombie ___leader10;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -319,23 +320,25 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	{
 
 	case -1:
-	UnityEngine.Debug.Log(("Followers: ") + (ZombieFollowers.Count));
-	if(ZombieLeader.IsNone)
-	{
+	___z00 = (
 
-	goto case 12;	}else
-	{
-
-	s0 = -1;
-return;	}
-	case 12:
-	ZombieLeader = (new Just<Zombie>(new Zombie(U_ZombieLeader)));
-	s0 = 13;
+(U_Zombies).Select(__ContextSymbol21 => new { ___a04 = __ContextSymbol21 })
+.Select(__ContextSymbol22 => new Zombie(__ContextSymbol22.___a04))
+.ToList<Zombie>()).ToList<Zombie>();
+	UnityEngine.Debug.Log(("U_Zombies ") + (___z00.Count));
+	ZombieFollowers = ___z00;
+	s0 = 0;
 return;
-	case 13:
-	UnityEngine.Debug.Log(("Leader: ") + (ZombieLeader.Value.name));
+	case 0:
+	if(!(false))
+	{
+
+	s0 = 0;
+return;	}else
+	{
+
 	s0 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
@@ -345,15 +348,13 @@ return;
 	{
 
 	case -1:
-	___z10 = (
-
-(U_Zombies).Select(__ContextSymbol21 => new { ___a14 = __ContextSymbol21 })
-.Select(__ContextSymbol22 => new {___Name10 = __ContextSymbol22.___a14.name, prev = __ContextSymbol22 })
-.Select(__ContextSymbol23 => new {___num10 = __ContextSymbol23.___Name10.Substring(5,1), prev = __ContextSymbol23 })
-.Select(__ContextSymbol24 => new Zombie(__ContextSymbol24.prev.prev.___a14))
-.ToList<Zombie>()).ToList<Zombie>();
-	UnityEngine.Debug.Log(("U_Zombies ") + (___z10.Count));
-	ZombieFollowers = (___z10).Concat(ZombieFollowers).ToList<Zombie>();
+	UnityEngine.Debug.Log(("Followers: ") + (ZombieFollowers.Count));
+	___leader10 = new Zombie(U_ZombieLeader);
+	ZombieLeader = (new Just<Zombie>(___leader10));
+	s1 = 0;
+return;
+	case 0:
+	UnityEngine.Debug.Log(("Leader: ") + (ZombieLeader.Value.name));
 	s1 = -1;
 return;	
 	default: return;}}
@@ -838,8 +839,8 @@ frame = World.frame;
 	case -1:
 	___sps00 = (
 
-(Spawnpoints2).Select(__ContextSymbol29 => new { ___a05 = __ContextSymbol29 })
-.Select(__ContextSymbol30 => __ContextSymbol30.___a05)
+(Spawnpoints2).Select(__ContextSymbol27 => new { ___a05 = __ContextSymbol27 })
+.Select(__ContextSymbol28 => __ContextSymbol28.___a05)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	Spawnpoints = ___sps00;
 	s0 = 0;
@@ -870,23 +871,14 @@ return;	}
 return;	}else
 	{
 
-	goto case 4;	}
-	case 4:
+	goto case 3;	}
+	case 3:
 	___random_spawnp10 = UnityEngine.Random.Range(0,4);
 	___sps11 = (Spawnpoints)[___random_spawnp10];
 	___sps_pos10 = ___sps11.position;
 	Group = (
 
 (new Cons<GroupZombie>(new GroupZombie(___sps_pos10),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
-	Spawnpoints = (
-
-Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
-	s1 = 0;
-return;
-	case 0:
-	Group = (
-
-Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 	Spawnpoints = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
@@ -1215,7 +1207,6 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
-		this.Rule3(dt, world);
 	}
 
 
@@ -1283,31 +1274,10 @@ return;
 	{
 
 	case -1:
-	if(!(((Life) == (0f))))
-	{
-
-	s2 = -1;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
-	Destroyed = true;
-	s2 = -1;
-return;	
-	default: return;}}
-	
-
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
-	{
-
-	case -1:
 	if(!(dead2))
 	{
 
-	s3 = -1;
+	s2 = -1;
 return;	}else
 	{
 
@@ -1320,14 +1290,14 @@ return;	}else
 	{
 
 	count_down3 = ((count_down3) - (dt));
-	s3 = 2;
+	s2 = 2;
 return;	}else
 	{
 
 	goto case 0;	}
 	case 0:
 	Destroyed = true;
-	s3 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
@@ -1337,4 +1307,4 @@ return;
 
 
 }
-}                                         
+}              
