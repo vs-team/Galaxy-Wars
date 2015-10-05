@@ -201,6 +201,7 @@ GameObject:
   - 23: {fileID: 2356460}
   - 95: {fileID: 9556456}
   - 64: {fileID: 6432646}
+  - 65: {fileID: 6508684}
   m_Layer: 0
   m_Name: Street2Lanes80m
   m_TagString: Untagged
@@ -458,7 +459,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.50955272, y: -751.146118, z: -113.648262}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 439556}
@@ -856,7 +857,7 @@ MeshCollider:
   m_GameObject: {fileID: 156460}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 2c53d954fde49f34db79f022ac909940, type: 3}
@@ -908,6 +909,18 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: a1ae189e51e352c4fa15728d5285ee7a, type: 3}
+--- !u!65 &6508684
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156460}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 40.6999969, y: 80.0000305, z: .300000072}
+  m_Center: {x: 1.90734863e-06, y: 0, z: .150000036}
 --- !u!65 &6535546
 BoxCollider:
   m_ObjectHideFlags: 1

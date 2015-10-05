@@ -18,9 +18,8 @@ entity Cube = {
   inherit UnityCube
 
   rule Rotation =
-    let vectorRotation = new Vector3(0.0f,Input.GetAxis("SW_Joy0X")*180.0f,0.0f)
-    Debug.Log(vectorRotation)
-    yield vectorRotation
+    let rot = new Vector3(0.0f, Steering * 180.0f, 0.0f)
+    yield rot
 
   Create() = {
   Base = UnityCube.Find()

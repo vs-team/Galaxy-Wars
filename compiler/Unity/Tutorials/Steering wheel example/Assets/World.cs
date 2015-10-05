@@ -51,6 +51,8 @@ public Cube()
 		public UnityEngine.Vector3 Rotation{  get { return UnityCube.Rotation; }
   set{UnityCube.Rotation = value; }
  }
+	public System.Single Steering{  get { return UnityCube.Steering; }
+ }
 	public UnityCube UnityCube;
 	public System.Boolean enabled{  get { return UnityCube.enabled; }
   set{UnityCube.enabled = value; }
@@ -73,7 +75,7 @@ public Cube()
 	public System.Boolean useGUILayout{  get { return UnityCube.useGUILayout; }
   set{UnityCube.useGUILayout = value; }
  }
-	public UnityEngine.Vector3 ___vectorRotation00;
+	public UnityEngine.Vector3 ___rot00;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -91,9 +93,8 @@ frame = World.frame;
 	{
 
 	case -1:
-	___vectorRotation00 = new UnityEngine.Vector3(0f,(UnityEngine.Input.GetAxis("SW_Joy0X")) * (180f),0f);
-	UnityEngine.Debug.Log(___vectorRotation00);
-	Rotation = ___vectorRotation00;
+	___rot00 = new UnityEngine.Vector3(0f,(Steering) * (180f),0f);
+	Rotation = ___rot00;
 	s0 = -1;
 return;	
 	default: return;}}
@@ -105,4 +106,4 @@ return;
 
 
 }
-}                             
+}                                                       

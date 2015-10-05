@@ -98,7 +98,6 @@
     <Compile Include="Assets\UnityStar.cs" />
     <Compile Include="Assets\UnityText.cs" />
     <Compile Include="Assets\UnityToggle.cs" />
-    <Compile Include="Assets\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Animated Stars\Third-Party\MADFINGER-blinking-god-rays.shader" />
