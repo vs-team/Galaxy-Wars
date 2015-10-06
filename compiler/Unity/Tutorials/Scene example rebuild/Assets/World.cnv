@@ -12,7 +12,6 @@ worldEntity World = {
   Flashs : [Light]
   GUIpanel : GUI
   Health : float
-  Flock : [GroupZombie]
 
   rule Zombies = 
     let groups = 
@@ -62,8 +61,7 @@ worldEntity World = {
      Pistols = [new Gun()]
      Flashs = [new Light()]
      GUIpanel = new GUI()
-     Health = 10.0f
-     Flock = []
+     Health = 100.0f
     }
 }
 
@@ -73,18 +71,17 @@ entity GroupZombie = {
   ZombieLeader : Option<Zombie>
 
   rule ZombieLeader = 
-    //Debug.Log("Followers: " + ZombieFollowers.Count)
-    //if ZombieLeader.IsNone then
     let leader = new Zombie(U_ZombieLeader)
     yield Some leader
-    //Debug.Log("Leader: " + ZombieLeader.Value.name)
+    yield None
+    wait false
 
   rule ZombieFollowers = 
     let z = 
       [for a in U_Zombies do
        select (new Zombie(a))] 
-    //Debug.Log("U_Zombies " + z.Count)
     yield z
+    yield []
     wait false
 
   Create(sps : Vector3) =
@@ -127,7 +124,7 @@ entity Gun = { //pistol
     //Debug.Log("InMagazine left = "+ InMagazine)
     if GunController.Trigger && InMagazine > 0 && (Reloading = false) then
       yield InMagazine - 1
-      yield InMagazine
+      wait (not GunController.Trigger)
 
   rule Reloading, InMagazine, NotInMagazine = 
     if Input.GetKey(KeyCode.R) && NotInMagazine > 0 then // if reloading and available bullets
@@ -160,7 +157,7 @@ entity Light = { //flashlight
   Lighty : bool
 
   rule Active, Lighty =
-    wait LightController.Trigger
+    wait (LightController.Trigger <> Active)
     yield LightController.Trigger, world.Jeep.LightOn
     
   rule Battery =

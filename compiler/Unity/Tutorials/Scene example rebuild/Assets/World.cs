@@ -26,11 +26,8 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 
 (new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),1),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),2),(new Cons<Landscape>(new Landscape(Vector3.zero,___randomr00),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
 		Jeep = new Truck();
-		Health = 10f;
+		Health = 100f;
 		GUIpanel = new GUI();
-		Flock = (
-
-Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 		Flashs = (
 
 (new Cons<Light>(new Light(),(new Empty<Light>()).ToList<Light>())).ToList<Light>()).ToList<Light>();
@@ -48,7 +45,6 @@ Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 }
 } }
  }
-	public List<GroupZombie> Flock;
 	public GUI GUIpanel;
 	public System.Single Health;
 	public Truck Jeep;
@@ -109,9 +105,6 @@ var t = System.DateTime.Now;
 		for(int x0 = 0; x0 < Flashs.Count; x0++) { 
 			Flashs[x0].Update(dt, world);
 		}
-		for(int x0 = 0; x0 < Flock.Count; x0++) { 
-			Flock[x0].Update(dt, world);
-		}
 		GUIpanel.Update(dt, world);
 		Jeep.Update(dt, world);
 		for(int x0 = 0; x0 < Landscapes.Count; x0++) { 
@@ -141,8 +134,8 @@ var t = System.DateTime.Now;
 	case -1:
 	___ls00 = (
 
-(Landscapes).Select(__ContextSymbol5 => new { ___a00 = __ContextSymbol5 })
-.Select(__ContextSymbol6 => __ContextSymbol6.___a00)
+(Landscapes).Select(__ContextSymbol4 => new { ___a00 = __ContextSymbol4 })
+.Select(__ContextSymbol5 => __ContextSymbol5.___a00)
 .ToList<Landscape>()).ToList<Landscape>();
 	if(((___ls00.Count) > (0)))
 	{
@@ -202,9 +195,9 @@ return;	}
 	case -1:
 	___zmbies20 = (
 
-(Zombies).Select(__ContextSymbol7 => new { ___a21 = __ContextSymbol7 })
-.Where(__ContextSymbol8 => ((__ContextSymbol8.___a21.Destroyed) == (false)))
-.Select(__ContextSymbol9 => __ContextSymbol9.___a21)
+(Zombies).Select(__ContextSymbol6 => new { ___a21 = __ContextSymbol6 })
+.Where(__ContextSymbol7 => ((__ContextSymbol7.___a21.Destroyed) == (false)))
+.Select(__ContextSymbol8 => __ContextSymbol8.___a21)
 .ToList<Zombie>()).ToList<Zombie>();
 	Zombies = ___zmbies20;
 	s2 = -1;
@@ -220,17 +213,17 @@ return;
 	case -1:
 	___groups30 = (
 
-(Landscapes).Select(__ContextSymbol10 => new { ___a32 = __ContextSymbol10 })
-.SelectMany(__ContextSymbol11=> (__ContextSymbol11.___a32.Group).Select(__ContextSymbol12 => new { ___b30 = __ContextSymbol12,
-                                                      prev = __ContextSymbol11 })
-.Select(__ContextSymbol13 => __ContextSymbol13.___b30)
+(Landscapes).Select(__ContextSymbol9 => new { ___a32 = __ContextSymbol9 })
+.SelectMany(__ContextSymbol10=> (__ContextSymbol10.___a32.Group).Select(__ContextSymbol11 => new { ___b30 = __ContextSymbol11,
+                                                      prev = __ContextSymbol10 })
+.Select(__ContextSymbol12 => __ContextSymbol12.___b30)
 .ToList<GroupZombie>())).ToList<GroupZombie>();
 	___zombiegroup30 = (
 
-(___groups30).Select(__ContextSymbol14 => new { ___a33 = __ContextSymbol14 })
-.SelectMany(__ContextSymbol15=> (__ContextSymbol15.___a33.ZombieFollowers).Select(__ContextSymbol16 => new { ___c30 = __ContextSymbol16,
-                                                      prev = __ContextSymbol15 })
-.Select(__ContextSymbol17 => __ContextSymbol17.___c30)
+(___groups30).Select(__ContextSymbol13 => new { ___a33 = __ContextSymbol13 })
+.SelectMany(__ContextSymbol14=> (__ContextSymbol14.___a33.ZombieFollowers).Select(__ContextSymbol15 => new { ___c30 = __ContextSymbol15,
+                                                      prev = __ContextSymbol14 })
+.Select(__ContextSymbol16 => __ContextSymbol16.___c30)
 .ToList<Zombie>())).ToList<Zombie>();
 	___amount30 = ___groups30.Count;
 	___amount230 = ___zombiegroup30.Count;
@@ -323,10 +316,16 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	case -1:
 	___z00 = (
 
-(U_Zombies).Select(__ContextSymbol20 => new { ___a04 = __ContextSymbol20 })
-.Select(__ContextSymbol21 => new Zombie(__ContextSymbol21.___a04))
+(U_Zombies).Select(__ContextSymbol19 => new { ___a04 = __ContextSymbol19 })
+.Select(__ContextSymbol20 => new Zombie(__ContextSymbol20.___a04))
 .ToList<Zombie>()).ToList<Zombie>();
 	ZombieFollowers = ___z00;
+	s0 = 1;
+return;
+	case 1:
+	ZombieFollowers = (
+
+Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	s0 = 0;
 return;
 	case 0:
@@ -350,8 +349,22 @@ return;	}
 	case -1:
 	___leader10 = new Zombie(U_ZombieLeader);
 	ZombieLeader = (new Just<Zombie>(___leader10));
+	s1 = 1;
+return;
+	case 1:
+	ZombieLeader = (new Nothing<Zombie>());
+	s1 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s1 = 0;
+return;	}else
+	{
+
 	s1 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
@@ -627,9 +640,15 @@ return;	}
 	s2 = 19;
 return;
 	case 19:
-	InMagazine = InMagazine;
+	if(!(!(GunController.Trigger)))
+	{
+
+	s2 = 19;
+return;	}else
+	{
+
 	s2 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
@@ -695,7 +714,7 @@ return;
 	{
 
 	case -1:
-	if(!(LightController.Trigger))
+	if(!(!(((LightController.Trigger) == (Active)))))
 	{
 
 	s1 = -1;
@@ -1416,4 +1435,4 @@ return;
 
 
 }
-}      
+}       

@@ -118,8 +118,7 @@ MonoBehaviour:
   Health: 0
   UnityLandscape: {fileID: 0}
   ___randr00: 0
-  ___Headposz00: 0
-  count_down1: 0
+  ___Headpos00: {x: 0, y: 0, z: 0}
   ___amount30: 0
   ___amount230: 0
 --- !u!4 &250587981
