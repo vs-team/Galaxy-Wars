@@ -56,4 +56,39 @@ public class TruckScript : MonoBehaviour
     get { return lampi.enabled; }
     set { lampi.enabled = value; }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
+  public float Steering
+  {
+    get { return Input.GetAxisRaw("SW_Joy0X"); }
+  }
+
+  public float BrakeAndReverse
+  {
+    get
+    {
+      if (Input.GetAxisRaw("SW_Joy0Y") >= 0.0f)
+      {
+        return 0.0f;
+      }
+      else
+      {
+        return (Input.GetAxisRaw("SW_Joy0Y") * -1.0f);
+      }
+    }
+  }
+
+  public float Acceleration
+  {
+    get
+    {
+      if (Input.GetAxisRaw("SW_Joy0Y") <= 0.0f)
+      {
+        return 0.0f;
+      }
+      else
+      {
+        return Input.GetAxisRaw("SW_Joy0Y");
+      }
+    }
+  }
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        

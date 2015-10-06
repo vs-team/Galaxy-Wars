@@ -25,8 +25,8 @@ worldEntity World = {
 	     select c]
     let amount = groups.Count
     let amount2 = zombiegroup.Count
-    Debug.Log("groups =  " + amount)
-    Debug.Log("zombiegroup = " + amount2)
+    //Debug.Log("groups =  " + amount)
+    //Debug.Log("zombiegroup = " + amount2)
     if zombiegroup.Count > 0 then
       yield zombiegroup @ Zombies
   
@@ -45,17 +45,18 @@ worldEntity World = {
   rule Landscapes = 
     let ls = 
       [for a in Landscapes do
-       where a.Checkpoint.isEntered
        select a]
     if ls.Count > 0 then
-      let randr = Random.Range(1,5) 
+      let randr = Random.Range(1,5)
+      let Headpos = ls.Head.Position
+      Debug.Log("Headpos = "+Headpos)
       yield (new Landscape(new Vector3(0.0f,0.0f,ls.Head.Position.z - 80.0f), randr)) :: Landscapes
-      wait 10.0f //wait for boxcolliding
+      wait (Vector3.Distance(Jeep.Position, Headpos) < 200.0f)
 
   Create() =
     let randomr = Random.Range(1,5)
     {
-     Landscapes = [new Landscape((Vector3.zero), 1); new Landscape(new Vector3(0.0f,0.0f,-80.0f), 2); new Landscape(new Vector3(0.0f,0.0f,-160.0f), (randomr))]
+     Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape(new Vector3(0.0f,0.0f,-80.0f), 2); new Landscape((Vector3.zero), (randomr))]
      Jeep = new Truck()
      Zombies = []
      Pistols = [new Gun()]
@@ -72,17 +73,17 @@ entity GroupZombie = {
   ZombieLeader : Option<Zombie>
 
   rule ZombieLeader = 
-    Debug.Log("Followers: " + ZombieFollowers.Count)
+    //Debug.Log("Followers: " + ZombieFollowers.Count)
     //if ZombieLeader.IsNone then
     let leader = new Zombie(U_ZombieLeader)
     yield Some leader
-    Debug.Log("Leader: " + ZombieLeader.Value.name)
+    //Debug.Log("Leader: " + ZombieLeader.Value.name)
 
   rule ZombieFollowers = 
     let z = 
       [for a in U_Zombies do
        select (new Zombie(a))] 
-    Debug.Log("U_Zombies " + z.Count)
+    //Debug.Log("U_Zombies " + z.Count)
     yield z
     wait false
 
@@ -233,7 +234,7 @@ entity Truck = {
     {
       Base = TruckScript.Instantiate()
       DriveEngine = new Engine()
-      maxMotorTorque = 250.0f
+      maxMotorTorque = 200.0f
       maxSteeringAngle = 50.0f
       AxleInfos = [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)] // FWD
       Fuel = 4000.0f // gas liters
@@ -249,14 +250,14 @@ entity AxleInfo = {
   
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
-    let steeringAngle = world.Jeep.maxSteeringAngle * Input.GetAxis("Horizontal")
+    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.DriveEngine.cnvRotation
     yield steeringAngle, steeringAngle
 
   rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel =
     if world.Jeep.Fuel > 0.99f then
-      if (world.Jeep.DriveEngine.Active && Input.GetAxis("Vertical") <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded) then
+      if (world.Jeep.DriveEngine.Active && world.Jeep.DriveEngine.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded) then
         wait motor
-        let speed = world.Jeep.maxMotorTorque * Input.GetAxis("Vertical") * -1.0f
+        let speed = world.Jeep.maxMotorTorque * world.Jeep.DriveEngine.cnvAccel * -1.0f
         yield speed, speed, world.Jeep.Fuel - 1.0f
       else
         yield 0.0f,0.0f, world.Jeep.Fuel
@@ -273,16 +274,28 @@ entity AxleInfo = {
 }
 
 entity Engine = {
-    Accel : float // has to be a value between 0.0f and 1.0f
-    BrakeAndReverse : float // has to be a value between 0.0f and 1.0f
-    Rotation : float // has to be a value between -1.0f and 1.0f
+    inherit TruckScript
+    cnvAccel : float // has to be a value between 0.0f and 1.0f
+    cnvBrakeAndReverse : float // has to be a value between 0.0f and 1.0f
+    cnvRotation : float // has to be a value between -1.0f and 1.0f
     Active : bool
+
+    rule cnvRotation = 
+      //Debug.Log("cnvRotation = "+cnvRotation)
+      yield Steering
+
+    rule cnvAccel = 
+      //Debug.Log("cnvAccel = "+cnvAccel)
+      if Acceleration <> 0.0f then
+        yield Acceleration
+      else 
+        yield BrakeAndReverse * -1.0f
 
     Create() = 
 	{
-      Accel = 0.0f
-      BrakeAndReverse = 0.0f
-      Rotation = 0.0f
+      cnvAccel = 0.0f
+      cnvBrakeAndReverse = 0.0f
+      cnvRotation = 0.0f
       Active = true
 	}
 }
