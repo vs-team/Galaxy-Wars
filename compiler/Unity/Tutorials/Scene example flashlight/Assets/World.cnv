@@ -25,17 +25,17 @@ worldEntity World = {
 	     select c]
     let amount = new_zombies.Count
     let amount2 = group.Count
-    Debug.Log("NewZombiesCount " + amount)
-    Debug.Log("GroupCount " + amount2)
+    9Debug.Log("NewZombiesCount " + amount)
+    //Debug.Log("GroupCount " + amount2)
     if new_zombies.Count > 0 then
-      yield group @ Zombies
+      yield group :: Zombies
   
   rule Zombies = 
     let zmbies = 
       [for a in Zombies do
        where (a.Destroyed = false)
        select a]
-    //Debug.Log("zombies count = "+zmbies.Count)
+    Debug.Log("zombies count = "+zmbies.Count)
     yield zmbies
 
   rule Health = 
@@ -79,7 +79,6 @@ entity GroupZombie = {
        select (new Zombie(a))] 
     Debug.Log("U_Zombies " + z.Count)
     yield z @ ZombieFollowers
-    
 
   rule ZombieLeader = 
     Debug.Log("Followers: " + ZombieFollowers.Count)
@@ -201,7 +200,6 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
     let sps = Spawnpoints.[random_spawnp]
     let sps_pos = sps.position
     yield [new GroupZombie(sps_pos)], []
-    yield [], []
 
   rule Spawnpoints = 
     let sps = //[Transform of each Spawnpoint]
@@ -287,7 +285,6 @@ entity Engine = {
       Active = true
 	}
 }
-
 entity Zombie = {
   inherit UnityZombie
   Life : float
@@ -302,7 +299,10 @@ entity Zombie = {
     yield true
 
   rule Life = 
-    if (OnMouseOver && world.Pistols.Head.GunController.Trigger) then
+    Debug.Log("Vector lpos: " + world.Pistols.Head.GunController.transform.localPosition)
+    Debug.Log("Vector fwd: " + world.Pistols.Head.GunController.transform.forward)
+    if (Physics.Raycast(world.Pistols.Head.GunController.transform.localPosition, world.Pistols.Head.GunController.transform.forward) && world.Pistols.Head.GunController.Trigger) then
+      Debug.Log("Life: " + Life)
       if Life > 0.49f then 
         yield Life - 40.0f
       else
