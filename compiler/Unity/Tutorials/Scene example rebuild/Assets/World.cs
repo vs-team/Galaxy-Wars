@@ -95,8 +95,8 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public List<Zombie> ___zmbies20;
 	public List<GroupZombie> ___groups30;
 	public List<Zombie> ___zombiegroup30;
-	public System.Int32 ___amount30;
-	public System.Int32 ___amount230;
+	public List<Zombie> ___groupleader30;
+	public List<Zombie> ___group30;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -225,9 +225,16 @@ return;
                                                       prev = __ContextSymbol14 })
 .Select(__ContextSymbol16 => __ContextSymbol16.___c30)
 .ToList<Zombie>())).ToList<Zombie>();
-	___amount30 = ___groups30.Count;
-	___amount230 = ___zombiegroup30.Count;
-	if(((___zombiegroup30.Count) > (0)))
+	___groupleader30 = (
+
+(___groups30).Select(__ContextSymbol17 => new { ___a34 = __ContextSymbol17 })
+.Where(__ContextSymbol18 => __ContextSymbol18.___a34.ZombieLeader.IsSome)
+.Select(__ContextSymbol19 => new {___z30 = __ContextSymbol19.___a34.ZombieLeader.Value, prev = __ContextSymbol19 })
+.Select(__ContextSymbol20 => __ContextSymbol20.___z30)
+.ToList<Zombie>()).ToList<Zombie>();
+	___group30 = (___groupleader30).Concat(___zombiegroup30).ToList<Zombie>();
+	UnityEngine.Debug.Log(("group.Count = ") + (___group30.Count));
+	if(((___group30.Count) > (0)))
 	{
 
 	goto case 3;	}else
@@ -236,7 +243,7 @@ return;
 	s3 = -1;
 return;	}
 	case 3:
-	Zombies = (___zombiegroup30).Concat(Zombies).ToList<Zombie>();
+	Zombies = (___group30).Concat(Zombies).ToList<Zombie>();
 	s3 = -1;
 return;	
 	default: return;}}
@@ -290,7 +297,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Boolean useGUILayout{  get { return UnityGroup.useGUILayout; }
   set{UnityGroup.useGUILayout = value; }
  }
-	public List<Zombie> ___z00;
+	public List<Zombie> ___z01;
 	public Zombie ___leader10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -314,12 +321,12 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	{
 
 	case -1:
-	___z00 = (
+	___z01 = (
 
-(U_Zombies).Select(__ContextSymbol19 => new { ___a04 = __ContextSymbol19 })
-.Select(__ContextSymbol20 => new Zombie(__ContextSymbol20.___a04))
+(U_Zombies).Select(__ContextSymbol23 => new { ___a05 = __ContextSymbol23 })
+.Select(__ContextSymbol24 => new Zombie(__ContextSymbol24.___a05))
 .ToList<Zombie>()).ToList<Zombie>();
-	ZombieFollowers = ___z00;
+	ZombieFollowers = ___z01;
 	s0 = 1;
 return;
 	case 1:
@@ -742,14 +749,83 @@ public bool JustEntered = true;
 public GUI()
 	{JustEntered = false;
  frame = World.frame;
-		test = false;
+		GUIBarScript = GUIBarScript.Instantiate();
 		
 }
-		public System.Boolean test;
+		public UnityEngine.Texture2D Background{  get { return GUIBarScript.Background; }
+  set{GUIBarScript.Background = value; }
+ }
+	public System.Boolean DisplayText{  get { return GUIBarScript.DisplayText; }
+  set{GUIBarScript.DisplayText = value; }
+ }
+	public System.Single FadeFactor{  get { return GUIBarScript.FadeFactor; }
+  set{GUIBarScript.FadeFactor = value; }
+ }
+	public UnityEngine.Texture2D Foreground{  get { return GUIBarScript.Foreground; }
+  set{GUIBarScript.Foreground = value; }
+ }
+	public GUIBarScript GUIBarScript;
+	public System.Collections.Generic.List<UnityEngine.Color> GradientColors{  get { return GUIBarScript.GradientColors; }
+  set{GUIBarScript.GradientColors = value; }
+ }
+	public UnityEngine.Texture2D Mask{  get { return GUIBarScript.Mask; }
+  set{GUIBarScript.Mask = value; }
+ }
+	public System.Boolean OverRideTextColorWithGradient{  get { return GUIBarScript.OverRideTextColorWithGradient; }
+  set{GUIBarScript.OverRideTextColorWithGradient = value; }
+ }
+	public UnityEngine.Vector2 Position{  get { return GUIBarScript.Position; }
+  set{GUIBarScript.Position = value; }
+ }
+	public System.Single ScaleSize{  get { return GUIBarScript.ScaleSize; }
+  set{GUIBarScript.ScaleSize = value; }
+ }
+	public UnityEngine.Color TextColor{  get { return GUIBarScript.TextColor; }
+  set{GUIBarScript.TextColor = value; }
+ }
+	public UnityEngine.Font TextFont{  get { return GUIBarScript.TextFont; }
+  set{GUIBarScript.TextFont = value; }
+ }
+	public UnityEngine.Vector2 TextOffset{  get { return GUIBarScript.TextOffset; }
+  set{GUIBarScript.TextOffset = value; }
+ }
+	public System.Single TextSize{  get { return GUIBarScript.TextSize; }
+  set{GUIBarScript.TextSize = value; }
+ }
+	public System.String TextString{  get { return GUIBarScript.TextString; }
+  set{GUIBarScript.TextString = value; }
+ }
+	public System.Single Value{  get { return GUIBarScript.Value; }
+  set{GUIBarScript.Value = value; }
+ }
+	public UnityEngine.Texture2D ValueBar{  get { return GUIBarScript.ValueBar; }
+  set{GUIBarScript.ValueBar = value; }
+ }
+	public System.Boolean enabled{  get { return GUIBarScript.enabled; }
+  set{GUIBarScript.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return GUIBarScript.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return GUIBarScript.hideFlags; }
+  set{GUIBarScript.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return GUIBarScript.isActiveAndEnabled; }
+ }
+	public System.String name{  get { return GUIBarScript.name; }
+  set{GUIBarScript.name = value; }
+ }
+	public System.String tag{  get { return GUIBarScript.tag; }
+  set{GUIBarScript.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return GUIBarScript.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return GUIBarScript.useGUILayout; }
+  set{GUIBarScript.useGUILayout = value; }
+ }
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-		this.Rule0(dt, world);
+
 
 	}
 
@@ -757,27 +833,6 @@ frame = World.frame;
 
 
 
-	int s0=-1;
-	public void Rule0(float dt, World world){ 
-	switch (s0)
-	{
-
-	case -1:
-	test = test;
-	s0 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s0 = 0;
-return;	}else
-	{
-
-	s0 = -1;
-return;	}	
-	default: return;}}
-	
 
 
 
@@ -862,8 +917,8 @@ frame = World.frame;
 	case -1:
 	___sps00 = (
 
-(Spawnpoints2).Select(__ContextSymbol26 => new { ___a05 = __ContextSymbol26 })
-.Select(__ContextSymbol27 => __ContextSymbol27.___a05)
+(Spawnpoints2).Select(__ContextSymbol30 => new { ___a06 = __ContextSymbol30 })
+.Select(__ContextSymbol31 => __ContextSymbol31.___a06)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	Spawnpoints = ___sps00;
 	s0 = 0;
@@ -1435,4 +1490,4 @@ return;
 
 
 }
-}       
+}          

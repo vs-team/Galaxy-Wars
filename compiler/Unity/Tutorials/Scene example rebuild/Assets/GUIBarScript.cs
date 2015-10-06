@@ -244,4 +244,12 @@ public class GUIBarScript : MonoBehaviour {
 		UpdateBar();
 	}
 
+  public static GUIBarScript Instantiate()
+  {
+    GameObject gui = GameObject.Find("DriveBar");
+    GUIBarScript guiscript = gui.GetComponent<GUIBarScript>() as GUIBarScript;
+    return guiscript;
+  }
+
 }
+                                  

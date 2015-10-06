@@ -119,8 +119,6 @@ MonoBehaviour:
   UnityLandscape: {fileID: 0}
   ___randr00: 0
   ___Headpos00: {x: 0, y: 0, z: 0}
-  ___amount30: 0
-  ___amount230: 0
 --- !u!4 &250587981
 Transform:
   m_ObjectHideFlags: 0
@@ -133,7 +131,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!1001 &278170381
+--- !u!1001 &264794253
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -170,16 +168,24 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 417812, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 9576542, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 7f70e6dac7302084581f5deb8a87aa82, type: 2}
     - target: {fileID: 9520238, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 7f70e6dac7302084581f5deb8a87aa82, type: 2}
+    - target: {fileID: 9576542, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7f70e6dac7302084581f5deb8a87aa82, type: 2}
+    - target: {fileID: 10841758, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
+      propertyPath: m_Intensity
+      value: 2.79999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 10820480, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
+      propertyPath: m_Intensity
+      value: 2.72000003
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
   m_IsPrefabParent: 0
@@ -208,7 +214,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: .0745098069, a: 1}
+  m_Color: {r: 0, g: .0318965539, b: .127586216, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -242,7 +248,65 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
+--- !u!1 &595122467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 595122468}
+  - 114: {fileID: 595122469}
+  m_Layer: 0
+  m_Name: DriveBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &595122468
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 595122467}
+  m_LocalRotation: {x: .0507222116, y: -.00858444814, z: -.000435958733, w: -.998675883}
+  m_LocalPosition: {x: 5.63800001, y: -5.48000002, z: 16.3519993}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+--- !u!114 &595122469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 595122467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ab6c5eb77615f4bb6be89000d76bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 80
+  FadeFactor: 6
+  Position: {x: 0, y: 0}
+  ScaleSize: 0
+  DisplayText: 1
+  TextString: testastas
+  TextColor: {r: .897058845, g: .639705896, b: .0823529437, a: 0}
+  OverRideTextColorWithGradient: 0
+  TextFont: {fileID: 12800000, guid: 240a102734c6045e1a3e91655501fa0a, type: 3}
+  TextSize: 6
+  TextOffset: {x: 0, y: 0}
+  Background: {fileID: 0}
+  Mask: {fileID: 2800000, guid: 67065f8e8add54f348951792d1f16c2a, type: 3}
+  ValueBar: {fileID: 2800000, guid: 179b80a7d990940c8b958af9da5224d1, type: 3}
+  Foreground: {fileID: 2800000, guid: de935cedef6ae4ee9a2f9edea4805a85, type: 3}
+  GradientColors:
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 1, g: 1, b: 0, a: 0}
+  - {r: 0, g: 1, b: 0, a: 0}
 --- !u!1 &743358565
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +453,7 @@ Transform:
   m_LocalScale: {x: 9999, y: 1, z: 9999}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!65 &2109732172
 BoxCollider:
   m_ObjectHideFlags: 0

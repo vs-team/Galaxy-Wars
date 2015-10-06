@@ -22,19 +22,21 @@ worldEntity World = {
       [for a in groups do
        for c in a.ZombieFollowers do
 	     select c]
-    let amount = groups.Count
-    let amount2 = zombiegroup.Count
-    //Debug.Log("groups =  " + amount)
-    //Debug.Log("zombiegroup = " + amount2)
-    if zombiegroup.Count > 0 then
-      yield zombiegroup @ Zombies
+    let groupleader = 
+      [for a in groups do
+       where a.ZombieLeader.IsSome
+       let z = a.ZombieLeader.Value
+       select (z)]
+    let group = groupleader @ zombiegroup
+    Debug.Log("group.Count = "+group.Count)
+    if group.Count > 0 then
+      yield group @ Zombies
   
   rule Zombies = 
     let zmbies = 
       [for a in Zombies do
        where (a.Destroyed = false)
        select a]
-    //Debug.Log("zombies count = "+zmbies.Count)
     yield zmbies
 
   rule Health = 
@@ -175,15 +177,11 @@ entity Light = { //flashlight
 }
 
 entity GUI = { //panel. Each wall contains the same info?
-  test : bool
-
-  rule test = 
-    yield test
-    wait false
+  inherit GUIBarScript
 
   Create() = 
   {
-    test = false
+    Base = GUIBarScript.Instantiate()
   }
 
 }

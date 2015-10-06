@@ -14,3 +14,4 @@ public class MoveCameraScript : MonoBehaviour {
 		transform.position = Vector3.Lerp (transform.position,new Vector3(Mathf.Sin (Time.time / 5f) * 5f,transform.position.y,transform.position.z),1* Time.deltaTime);
 	}
 }
+                                  
