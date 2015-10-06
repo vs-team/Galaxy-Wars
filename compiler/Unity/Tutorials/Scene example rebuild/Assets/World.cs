@@ -404,8 +404,6 @@ public ControllerRazor(System.String joystickName)
  }
 	public UnityEngine.Vector3 Position{  get { return SixenseHand.Position; }
  }
-	public System.Boolean RaycastBool{  get { return SixenseHand.RaycastBool; }
- }
 	public SixenseHand SixenseHand;
 	public System.Boolean Trigger{  get { return SixenseHand.Trigger; }
   set{SixenseHand.Trigger = value; }
@@ -454,24 +452,6 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(!(Bumper))
-	{
-
-	s0 = -1;
-return;	}else
-	{
-
-	goto case 1;	}
-	case 1:
-	if(!(!(Bumper)))
-	{
-
-	s0 = 1;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
 	Bumper = Bumper;
 	s0 = -1;
 return;	
@@ -484,27 +464,6 @@ return;
 	{
 
 	case -1:
-	if(!(Trigger))
-	{
-
-	s1 = -1;
-return;	}else
-	{
-
-	goto case 2;	}
-	case 2:
-	UnityEngine.Debug.Log("Booom!");
-	goto case 1;
-	case 1:
-	if(!(!(Trigger)))
-	{
-
-	s1 = 1;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
 	Trigger = Trigger;
 	s1 = -1;
 return;	
@@ -560,12 +519,12 @@ frame = World.frame;
 	if(UnityEngine.Input.GetKey(KeyCode.C))
 	{
 
-	goto case 5;	}else
+	goto case 2;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 5:
+	case 2:
 	Reloading = false;
 	s0 = -1;
 return;	
@@ -581,45 +540,45 @@ return;
 	if(((UnityEngine.Input.GetKey(KeyCode.R)) && (((NotInMagazine) > (0)))))
 	{
 
-	goto case 8;	}else
+	goto case 5;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 8:
+	case 5:
 	Reloading = true;
 	InMagazine = InMagazine;
 	NotInMagazine = NotInMagazine;
-	s1 = 14;
+	s1 = 11;
 return;
-	case 14:
+	case 11:
 	count_down1 = ReloadDuration;
-	goto case 15;
-	case 15:
+	goto case 12;
+	case 12:
 	if(((count_down1) > (0f)))
 	{
 
 	count_down1 = ((count_down1) - (dt));
-	s1 = 15;
+	s1 = 12;
 return;	}else
 	{
 
-	goto case 11;	}
-	case 11:
+	goto case 8;	}
+	case 8:
 	if(((MagazineSize) > (NotInMagazine)))
 	{
 
-	goto case 9;	}else
+	goto case 6;	}else
 	{
 
-	goto case 10;	}
-	case 9:
+	goto case 7;	}
+	case 6:
 	Reloading = false;
 	InMagazine = NotInMagazine;
 	NotInMagazine = 0;
 	s1 = -1;
 return;
-	case 10:
+	case 7:
 	Reloading = false;
 	InMagazine = MagazineSize;
 	NotInMagazine = ((NotInMagazine) - (MagazineSize));
@@ -637,20 +596,20 @@ return;
 	if(((((GunController.Trigger) && (((InMagazine) > (0))))) && (((Reloading) == (false)))))
 	{
 
-	goto case 18;	}else
+	goto case 15;	}else
 	{
 
 	s2 = -1;
 return;	}
-	case 18:
+	case 15:
 	InMagazine = ((InMagazine) - (1));
-	s2 = 19;
+	s2 = 16;
 return;
-	case 19:
+	case 16:
 	if(!(!(GunController.Trigger)))
 	{
 
-	s2 = 19;
+	s2 = 16;
 return;	}else
 	{
 
@@ -1350,6 +1309,8 @@ public Zombie(UnityEngine.Transform trans)
 		public System.Boolean Destroyed{  get { return UnityZombie.Destroyed; }
   set{UnityZombie.Destroyed = value; }
  }
+	public System.Boolean IsHit{  get { return UnityZombie.IsHit; }
+ }
 	public System.Single Life;
 	public System.Boolean OnMouseOver{  get { return UnityZombie.OnMouseOver; }
  }
@@ -1402,7 +1363,7 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(((0f) > (Life)))
+	if(((0.1f) > (Life)))
 	{
 
 	goto case 2;	}else
@@ -1424,7 +1385,7 @@ return;
 	{
 
 	case -1:
-	if(((OnMouseOver) && (UnityEngine.Input.GetMouseButtonDown(0))))
+	if(world.Pistols.Head().GunController.Trigger)
 	{
 
 	goto case 5;	}else
@@ -1433,18 +1394,27 @@ return;
 	s1 = -1;
 return;	}
 	case 5:
+	if(IsHit)
+	{
+
+	goto case 7;	}else
+	{
+
+	s1 = -1;
+return;	}
+	case 7:
 	if(((Life) > (0.49f)))
 	{
 
-	goto case 6;	}else
+	goto case 8;	}else
 	{
 
-	goto case 7;	}
-	case 6:
+	goto case 9;	}
+	case 8:
 	Life = ((Life) - (40f));
 	s1 = -1;
 return;
-	case 7:
+	case 9:
 	Life = 0f;
 	s1 = -1;
 return;	
@@ -1466,7 +1436,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	count_down2 = 3f;
+	count_down2 = 1f;
 	goto case 2;
 	case 2:
 	if(((count_down2) > (0f)))
@@ -1490,4 +1460,4 @@ return;
 
 
 }
-}          
+}                                                 

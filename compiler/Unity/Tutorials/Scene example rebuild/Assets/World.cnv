@@ -98,14 +98,9 @@ entity ControllerRazor= { // one hand
   inherit SixenseHand
   
   rule Trigger =
-    wait Trigger
-    Debug.Log("Booom!")
-    wait not Trigger 
     yield Trigger
 
   rule Bumper =
-    wait Bumper
-    wait not Bumper
     yield Bumper
 
   Create(joystickName : string) = 
@@ -301,18 +296,19 @@ entity Zombie = {
 
   rule Destroyed = 
     wait dead2
-    wait 3.0f
+    wait 1.0f
     yield true
 
   rule Life = 
-    if (OnMouseOver && Input.GetMouseButtonDown(0)) then
-      if Life > 0.49f then 
-        yield Life - 40.0f
-      else
-	      yield 0.0f
+    if (world.Pistols.Head.GunController.Trigger) then
+      if (IsHit) then
+        if Life > 0.49f then 
+          yield Life - 40.0f
+        else
+	        yield 0.0f
 
   rule shot, dead2 = 
-    if Life < 0.0f then
+    if Life < 0.1f then
       yield true, true
 
   Create(trans : Transform) = 
