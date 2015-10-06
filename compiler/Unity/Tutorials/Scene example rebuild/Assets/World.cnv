@@ -50,12 +50,12 @@ worldEntity World = {
     if ls.Count > 0 then
       let randr = Random.Range(1,5) 
       yield (new Landscape(new Vector3(0.0f,0.0f,ls.Head.Position.z - 80.0f), randr)) :: Landscapes
-      wait 10.0f
+      wait 10.0f //wait for boxcolliding
 
   Create() =
-    let randomr = Random.Range(2,4)
+    let randomr = Random.Range(1,5)
     {
-     Landscapes = [new Landscape((Vector3.zero), randomr); new Landscape(new Vector3(0.0f,0.0f,-80.0f), (randomr + 1)); new Landscape(new Vector3(0.0f,0.0f,-160.0f), (randomr - 1))]
+     Landscapes = [new Landscape((Vector3.zero), 1); new Landscape(new Vector3(0.0f,0.0f,-80.0f), 2); new Landscape(new Vector3(0.0f,0.0f,-160.0f), (randomr))]
      Jeep = new Truck()
      Zombies = []
      Pistols = [new Gun()]
@@ -156,22 +156,23 @@ entity Light = { //flashlight
   LightController : ControllerRazor
   Battery : float
   Active : bool
-  
-  rule Active =
-    yield LightController.Trigger
+  Lighty : bool
+
+  rule Active, Lighty =
+    wait LightController.Trigger
+    yield LightController.Trigger, world.Jeep.LightOn
     
-  rule Battery = 
+  rule Battery =
+    wait (Active && Battery > 0.49f)
     Debug.Log("Battery: " + Battery)
-    if Active && Battery > 0.49f then
-      yield Battery - 0.5f
-    else
-      yield Battery
+    yield Battery - 0.5f
 
   Create() = 
   {
     LightController = new ControllerRazor("Hydra1 - Left")//lefthand
     Battery = 100.0f
     Active = false
+    Lighty = false
   }
 }
 
@@ -202,7 +203,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
     yield [new GroupZombie(sps_pos)], []
 
   rule Spawnpoints = 
-    let sps = //[Transform of each Spawnpoint]
+    let sps = 
       [for a in Spawnpoints2 do
        select a]
     yield sps
@@ -223,7 +224,7 @@ entity Truck = {
    AxleInfos : [AxleInfo]
    maxMotorTorque : float
    maxSteeringAngle : float
-   
+
    rule CenterOfMass = 
      yield new Vector3(1.0f,0.0f,-1.5f)
      wait false
@@ -296,7 +297,7 @@ entity Zombie = {
     yield true
 
   rule Life = 
-    if (OnMouseOver && world.Pistols.Head.GunController.Trigger) then
+    if (OnMouseOver && Input.GetMouseButtonDown(0)) then
       if Life > 0.49f then 
         yield Life - 40.0f
       else

@@ -14,7 +14,7 @@ public bool JustEntered = true;
 public void Start()
 	{
 		System.Int32 ___randomr00;
-		___randomr00 = UnityEngine.Random.Range(2,4);
+		___randomr00 = UnityEngine.Random.Range(1,5);
 		Zombies = (
 
 Enumerable.Empty<Zombie>()).ToList<Zombie>();
@@ -24,7 +24,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 (new Cons<Gun>(new Gun(),(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();
 		Landscapes = (
 
-(new Cons<Landscape>(new Landscape(Vector3.zero,___randomr00),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),(___randomr00) + (1)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),(___randomr00) - (1)),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
+(new Cons<Landscape>(new Landscape(Vector3.zero,1),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),2),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),___randomr00),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
 		Jeep = new Truck();
 		Health = 10f;
 		GUIpanel = new GUI();
@@ -41,7 +41,13 @@ Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
   set{UnityLandscape.Destroyed = value; }
  }
-	public List<Light> Flashs;
+	public List<Light> __Flashs;
+	public List<Light> Flashs{  get { return  __Flashs; }
+  set{ __Flashs = value;
+ foreach(var e in value){if(e.JustEntered){ e.JustEntered = false;
+}
+} }
+ }
 	public List<GroupZombie> Flock;
 	public GUI GUIpanel;
 	public System.Single Health;
@@ -650,6 +656,7 @@ public bool JustEntered = true;
 public Light()
 	{JustEntered = false;
  frame = World.frame;
+		Lighty = false;
 		LightController = new ControllerRazor("Hydra1 - Left");
 		Battery = 100f;
 		Active = false;
@@ -658,6 +665,7 @@ public Light()
 		public System.Boolean Active;
 	public System.Single Battery;
 	public ControllerRazor LightController;
+	public System.Boolean Lighty;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -676,20 +684,17 @@ frame = World.frame;
 	{
 
 	case -1:
-	UnityEngine.Debug.Log(("Battery: ") + (Battery));
-	if(((Active) && (((Battery) > (0.49f)))))
+	if(!(((Active) && (((Battery) > (0.49f))))))
 	{
 
-	goto case 21;	}else
-	{
-
-	goto case 22;	}
-	case 21:
-	Battery = ((Battery) - (0.5f));
 	s0 = -1;
-return;
-	case 22:
-	Battery = Battery;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	UnityEngine.Debug.Log(("Battery: ") + (Battery));
+	Battery = ((Battery) - (0.5f));
 	s0 = -1;
 return;	
 	default: return;}}
@@ -701,7 +706,17 @@ return;
 	{
 
 	case -1:
+	if(!(LightController.Trigger))
+	{
+
+	s1 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
 	Active = LightController.Trigger;
+	Lighty = world.Jeep.LightOn;
 	s1 = -1;
 return;	
 	default: return;}}
@@ -923,6 +938,9 @@ public Truck()
   set{TruckScript.FrontRightWheel = value; }
  }
 	public System.Single Fuel;
+	public System.Boolean LightOn{  get { return TruckScript.LightOn; }
+  set{TruckScript.LightOn = value; }
+ }
 	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
  }
 	public UnityEngine.WheelCollider RearLeftWheel{  get { return TruckScript.RearLeftWheel; }
@@ -943,6 +961,9 @@ public Truck()
   set{TruckScript.hideFlags = value; }
  }
 	public System.Boolean isActiveAndEnabled{  get { return TruckScript.isActiveAndEnabled; }
+ }
+	public UnityEngine.Light lampi{  get { return TruckScript.lampi; }
+  set{TruckScript.lampi = value; }
  }
 	public System.Single maxMotorTorque;
 	public System.Single maxSteeringAngle;
@@ -1241,7 +1262,7 @@ return;
 	{
 
 	case -1:
-	if(((OnMouseOver) && (world.Pistols.Head().GunController.Trigger)))
+	if(((OnMouseOver) && (UnityEngine.Input.GetMouseButtonDown(0))))
 	{
 
 	goto case 7;	}else
@@ -1307,4 +1328,4 @@ return;
 
 
 }
-}              
+}     

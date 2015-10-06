@@ -96,4 +96,4 @@ public class SixenseHandsController : MonoBehaviour
 		return ( controller != null && controller.Enabled && !controller.Docked );
 	}
 }
-                                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                                                                                                       
