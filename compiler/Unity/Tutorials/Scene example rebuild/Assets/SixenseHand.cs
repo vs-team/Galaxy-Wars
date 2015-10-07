@@ -51,7 +51,7 @@ public class SixenseHand : MonoBehaviour
   {
     if ( m_controller.GetButtonDown(SixenseButtons.ONE))
     {
-      //Debug.Log(RaycastBool);
+      Debug.Log(RaycastBool);
     }
     if (m_controller.GetButtonDown(SixenseButtons.TWO))
     {
@@ -90,9 +90,9 @@ public class SixenseHand : MonoBehaviour
 
   public Vector3 Forward { get { return transform.forward; } }
 
-  //public bool RaycastBool { get { return Physics.Raycast(transform.localPosition, transform.forward); } }
+  public bool RaycastBool { get { return Physics.Raycast(transform.localPosition, transform.forward); } }
 
   public Quaternion InitialRotation { get { return m_initialRotation; } }
 	
 	public Vector3 InitialPosition { get { return m_initialPosition; } }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+}                                                                                                                                                                                                                               
