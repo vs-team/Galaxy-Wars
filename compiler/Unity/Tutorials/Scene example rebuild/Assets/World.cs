@@ -14,7 +14,7 @@ public bool JustEntered = true;
 public void Start()
 	{
 		System.Int32 ___randomr00;
-		___randomr00 = UnityEngine.Random.Range(1,5);
+		___randomr00 = UnityEngine.Random.Range(2,4);
 		Zombies = (
 
 Enumerable.Empty<Zombie>()).ToList<Zombie>();
@@ -24,9 +24,9 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 (new Cons<Gun>(new Gun(),(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();
 		Landscapes = (
 
-(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),1),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),2),(new Cons<Landscape>(new Landscape(Vector3.zero,___randomr00),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
+(new Cons<Landscape>(new Landscape(Vector3.zero,___randomr00),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),(___randomr00) + (1)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),(___randomr00) - (1)),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
 		Jeep = new Truck();
-		Health = 100f;
+		Health = 10f;
 		GUIpanel = new GUI();
 		Flashs = (
 
@@ -38,13 +38,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
   set{UnityLandscape.Destroyed = value; }
  }
-	public List<Light> __Flashs;
-	public List<Light> Flashs{  get { return  __Flashs; }
-  set{ __Flashs = value;
- foreach(var e in value){if(e.JustEntered){ e.JustEntered = false;
-}
-} }
- }
+	public List<Light> Flashs;
 	public GUI GUIpanel;
 	public System.Single Health;
 	public Truck Jeep;
@@ -90,13 +84,12 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
   set{UnityLandscape.useGUILayout = value; }
  }
 	public List<Landscape> ___ls00;
-	public System.Int32 ___randr00;
 	public UnityEngine.Vector3 ___Headpos00;
+	public System.Int32 ___randr00;
+	public System.Single count_down1;
 	public List<Zombie> ___zmbies20;
 	public List<GroupZombie> ___groups30;
 	public List<Zombie> ___zombiegroup30;
-	public List<Zombie> ___groupleader30;
-	public List<Zombie> ___group30;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -135,7 +128,8 @@ var t = System.DateTime.Now;
 	___ls00 = (
 
 (Landscapes).Select(__ContextSymbol4 => new { ___a00 = __ContextSymbol4 })
-.Select(__ContextSymbol5 => __ContextSymbol5.___a00)
+.Where(__ContextSymbol5 => __ContextSymbol5.___a00.Checkpoint.isEntered)
+.Select(__ContextSymbol6 => __ContextSymbol6.___a00)
 .ToList<Landscape>()).ToList<Landscape>();
 	if(((___ls00.Count) > (0)))
 	{
@@ -146,17 +140,20 @@ var t = System.DateTime.Now;
 	s0 = -1;
 return;	}
 	case 1:
-	___randr00 = UnityEngine.Random.Range(1,5);
 	___Headpos00 = ___ls00.Head().Position;
-	UnityEngine.Debug.Log(("Headpos = ") + (___Headpos00));
-	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___ls00.Head().Position.z) - (80f)),___randr00), (Landscapes)).ToList<Landscape>();
+	___randr00 = UnityEngine.Random.Range(1,5);
+	Landscapes = new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,(___Headpos00.z) - (80f)),___randr00), (Landscapes)).ToList<Landscape>();
 	s0 = 2;
 return;
 	case 2:
-	if(!(((200f) > (UnityEngine.Vector3.Distance(Jeep.Position,___Headpos00)))))
+	count_down1 = UnityEngine.Vector3.Distance(___Headpos00,Jeep.Position);
+	goto case 3;
+	case 3:
+	if(((count_down1) > (0f)))
 	{
 
-	s0 = 2;
+	count_down1 = ((count_down1) - (dt));
+	s0 = 3;
 return;	}else
 	{
 
@@ -195,9 +192,9 @@ return;	}
 	case -1:
 	___zmbies20 = (
 
-(Zombies).Select(__ContextSymbol6 => new { ___a21 = __ContextSymbol6 })
-.Where(__ContextSymbol7 => ((__ContextSymbol7.___a21.Destroyed) == (false)))
-.Select(__ContextSymbol8 => __ContextSymbol8.___a21)
+(Zombies).Select(__ContextSymbol7 => new { ___a21 = __ContextSymbol7 })
+.Where(__ContextSymbol8 => ((__ContextSymbol8.___a21.Destroyed) == (false)))
+.Select(__ContextSymbol9 => __ContextSymbol9.___a21)
 .ToList<Zombie>()).ToList<Zombie>();
 	Zombies = ___zmbies20;
 	s2 = -1;
@@ -213,28 +210,19 @@ return;
 	case -1:
 	___groups30 = (
 
-(Landscapes).Select(__ContextSymbol9 => new { ___a32 = __ContextSymbol9 })
-.SelectMany(__ContextSymbol10=> (__ContextSymbol10.___a32.Group).Select(__ContextSymbol11 => new { ___b30 = __ContextSymbol11,
-                                                      prev = __ContextSymbol10 })
-.Select(__ContextSymbol12 => __ContextSymbol12.___b30)
+(Landscapes).Select(__ContextSymbol10 => new { ___a32 = __ContextSymbol10 })
+.SelectMany(__ContextSymbol11=> (__ContextSymbol11.___a32.Group).Select(__ContextSymbol12 => new { ___b30 = __ContextSymbol12,
+                                                      prev = __ContextSymbol11 })
+.Select(__ContextSymbol13 => __ContextSymbol13.___b30)
 .ToList<GroupZombie>())).ToList<GroupZombie>();
 	___zombiegroup30 = (
 
-(___groups30).Select(__ContextSymbol13 => new { ___a33 = __ContextSymbol13 })
-.SelectMany(__ContextSymbol14=> (__ContextSymbol14.___a33.ZombieFollowers).Select(__ContextSymbol15 => new { ___c30 = __ContextSymbol15,
-                                                      prev = __ContextSymbol14 })
-.Select(__ContextSymbol16 => __ContextSymbol16.___c30)
+(___groups30).Select(__ContextSymbol14 => new { ___a33 = __ContextSymbol14 })
+.SelectMany(__ContextSymbol15=> (__ContextSymbol15.___a33.ZombieFollowers).Select(__ContextSymbol16 => new { ___c30 = __ContextSymbol16,
+                                                      prev = __ContextSymbol15 })
+.Select(__ContextSymbol17 => __ContextSymbol17.___c30)
 .ToList<Zombie>())).ToList<Zombie>();
-	___groupleader30 = (
-
-(___groups30).Select(__ContextSymbol17 => new { ___a34 = __ContextSymbol17 })
-.Where(__ContextSymbol18 => __ContextSymbol18.___a34.ZombieLeader.IsSome)
-.Select(__ContextSymbol19 => new {___z30 = __ContextSymbol19.___a34.ZombieLeader.Value, prev = __ContextSymbol19 })
-.Select(__ContextSymbol20 => __ContextSymbol20.___z30)
-.ToList<Zombie>()).ToList<Zombie>();
-	___group30 = (___groupleader30).Concat(___zombiegroup30).ToList<Zombie>();
-	UnityEngine.Debug.Log(("group.Count = ") + (___group30.Count));
-	if(((___group30.Count) > (0)))
+	if(((___zombiegroup30.Count) > (0)))
 	{
 
 	goto case 3;	}else
@@ -243,7 +231,7 @@ return;
 	s3 = -1;
 return;	}
 	case 3:
-	Zombies = (___group30).Concat(Zombies).ToList<Zombie>();
+	Zombies = (___zombiegroup30).Concat(Zombies).ToList<Zombie>();
 	s3 = -1;
 return;	
 	default: return;}}
@@ -297,7 +285,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Boolean useGUILayout{  get { return UnityGroup.useGUILayout; }
   set{UnityGroup.useGUILayout = value; }
  }
-	public List<Zombie> ___z01;
+	public List<Zombie> ___z00;
 	public Zombie ___leader10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -321,12 +309,13 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	{
 
 	case -1:
-	___z01 = (
+	___z00 = (
 
-(U_Zombies).Select(__ContextSymbol23 => new { ___a05 = __ContextSymbol23 })
-.Select(__ContextSymbol24 => new Zombie(__ContextSymbol24.___a05))
+(U_Zombies).Select(__ContextSymbol20 => new { ___a04 = __ContextSymbol20 })
+.Select(__ContextSymbol21 => new Zombie(__ContextSymbol21.___a04))
 .ToList<Zombie>()).ToList<Zombie>();
-	ZombieFollowers = ___z01;
+	UnityEngine.Debug.Log(("U_Zombies ") + (___z00.Count));
+	ZombieFollowers = ___z00;
 	s0 = 1;
 return;
 	case 1:
@@ -403,6 +392,8 @@ public ControllerRazor(System.String joystickName)
 	public UnityEngine.Quaternion InitialRotation{  get { return SixenseHand.InitialRotation; }
  }
 	public UnityEngine.Vector3 Position{  get { return SixenseHand.Position; }
+ }
+	public System.Boolean RaycastBool{  get { return SixenseHand.RaycastBool; }
  }
 	public SixenseHand SixenseHand;
 	public System.Boolean Trigger{  get { return SixenseHand.Trigger; }
@@ -496,7 +487,7 @@ public Gun()
 	public System.Int32 NotInMagazine;
 	public System.Single ReloadDuration;
 	public System.Boolean Reloading;
-	public System.Single count_down1;
+	public System.Single count_down2;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -552,13 +543,13 @@ return;	}
 	s1 = 11;
 return;
 	case 11:
-	count_down1 = ReloadDuration;
+	count_down2 = ReloadDuration;
 	goto case 12;
 	case 12:
-	if(((count_down1) > (0f)))
+	if(((count_down2) > (0f)))
 	{
 
-	count_down1 = ((count_down1) - (dt));
+	count_down2 = ((count_down2) - (dt));
 	s1 = 12;
 return;	}else
 	{
@@ -630,7 +621,6 @@ public bool JustEntered = true;
 public Light()
 	{JustEntered = false;
  frame = World.frame;
-		Lighty = false;
 		LightController = new ControllerRazor("Hydra1 - Left");
 		Battery = 100f;
 		Active = false;
@@ -639,7 +629,6 @@ public Light()
 		public System.Boolean Active;
 	public System.Single Battery;
 	public ControllerRazor LightController;
-	public System.Boolean Lighty;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -658,17 +647,20 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(!(((Active) && (((Battery) > (0.49f))))))
-	{
-
-	s0 = -1;
-return;	}else
-	{
-
-	goto case 1;	}
-	case 1:
 	UnityEngine.Debug.Log(("Battery: ") + (Battery));
+	if(((Active) && (((Battery) > (0.49f)))))
+	{
+
+	goto case 18;	}else
+	{
+
+	goto case 19;	}
+	case 18:
 	Battery = ((Battery) - (0.5f));
+	s0 = -1;
+return;
+	case 19:
+	Battery = Battery;
 	s0 = -1;
 return;	
 	default: return;}}
@@ -680,17 +672,7 @@ return;
 	{
 
 	case -1:
-	if(!(!(((LightController.Trigger) == (Active)))))
-	{
-
-	s1 = -1;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
 	Active = LightController.Trigger;
-	Lighty = world.Jeep.LightOn;
 	s1 = -1;
 return;	
 	default: return;}}
@@ -708,83 +690,14 @@ public bool JustEntered = true;
 public GUI()
 	{JustEntered = false;
  frame = World.frame;
-		GUIBarScript = GUIBarScript.Instantiate();
+		test = false;
 		
 }
-		public UnityEngine.Texture2D Background{  get { return GUIBarScript.Background; }
-  set{GUIBarScript.Background = value; }
- }
-	public System.Boolean DisplayText{  get { return GUIBarScript.DisplayText; }
-  set{GUIBarScript.DisplayText = value; }
- }
-	public System.Single FadeFactor{  get { return GUIBarScript.FadeFactor; }
-  set{GUIBarScript.FadeFactor = value; }
- }
-	public UnityEngine.Texture2D Foreground{  get { return GUIBarScript.Foreground; }
-  set{GUIBarScript.Foreground = value; }
- }
-	public GUIBarScript GUIBarScript;
-	public System.Collections.Generic.List<UnityEngine.Color> GradientColors{  get { return GUIBarScript.GradientColors; }
-  set{GUIBarScript.GradientColors = value; }
- }
-	public UnityEngine.Texture2D Mask{  get { return GUIBarScript.Mask; }
-  set{GUIBarScript.Mask = value; }
- }
-	public System.Boolean OverRideTextColorWithGradient{  get { return GUIBarScript.OverRideTextColorWithGradient; }
-  set{GUIBarScript.OverRideTextColorWithGradient = value; }
- }
-	public UnityEngine.Vector2 Position{  get { return GUIBarScript.Position; }
-  set{GUIBarScript.Position = value; }
- }
-	public System.Single ScaleSize{  get { return GUIBarScript.ScaleSize; }
-  set{GUIBarScript.ScaleSize = value; }
- }
-	public UnityEngine.Color TextColor{  get { return GUIBarScript.TextColor; }
-  set{GUIBarScript.TextColor = value; }
- }
-	public UnityEngine.Font TextFont{  get { return GUIBarScript.TextFont; }
-  set{GUIBarScript.TextFont = value; }
- }
-	public UnityEngine.Vector2 TextOffset{  get { return GUIBarScript.TextOffset; }
-  set{GUIBarScript.TextOffset = value; }
- }
-	public System.Single TextSize{  get { return GUIBarScript.TextSize; }
-  set{GUIBarScript.TextSize = value; }
- }
-	public System.String TextString{  get { return GUIBarScript.TextString; }
-  set{GUIBarScript.TextString = value; }
- }
-	public System.Single Value{  get { return GUIBarScript.Value; }
-  set{GUIBarScript.Value = value; }
- }
-	public UnityEngine.Texture2D ValueBar{  get { return GUIBarScript.ValueBar; }
-  set{GUIBarScript.ValueBar = value; }
- }
-	public System.Boolean enabled{  get { return GUIBarScript.enabled; }
-  set{GUIBarScript.enabled = value; }
- }
-	public UnityEngine.GameObject gameObject{  get { return GUIBarScript.gameObject; }
- }
-	public UnityEngine.HideFlags hideFlags{  get { return GUIBarScript.hideFlags; }
-  set{GUIBarScript.hideFlags = value; }
- }
-	public System.Boolean isActiveAndEnabled{  get { return GUIBarScript.isActiveAndEnabled; }
- }
-	public System.String name{  get { return GUIBarScript.name; }
-  set{GUIBarScript.name = value; }
- }
-	public System.String tag{  get { return GUIBarScript.tag; }
-  set{GUIBarScript.tag = value; }
- }
-	public UnityEngine.Transform transform{  get { return GUIBarScript.transform; }
- }
-	public System.Boolean useGUILayout{  get { return GUIBarScript.useGUILayout; }
-  set{GUIBarScript.useGUILayout = value; }
- }
+		public System.Boolean test;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-
+		this.Rule0(dt, world);
 
 	}
 
@@ -792,6 +705,27 @@ frame = World.frame;
 
 
 
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	test = test;
+	s0 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s0 = 0;
+return;	}else
+	{
+
+	s0 = -1;
+return;	}	
+	default: return;}}
+	
 
 
 
@@ -876,8 +810,8 @@ frame = World.frame;
 	case -1:
 	___sps00 = (
 
-(Spawnpoints2).Select(__ContextSymbol30 => new { ___a06 = __ContextSymbol30 })
-.Select(__ContextSymbol31 => __ContextSymbol31.___a06)
+(Spawnpoints2).Select(__ContextSymbol27 => new { ___a05 = __ContextSymbol27 })
+.Select(__ContextSymbol28 => __ContextSymbol28.___a05)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	Spawnpoints = ___sps00;
 	s0 = 0;
@@ -908,8 +842,8 @@ return;	}
 return;	}else
 	{
 
-	goto case 3;	}
-	case 3:
+	goto case 4;	}
+	case 4:
 	___random_spawnp10 = UnityEngine.Random.Range(0,4);
 	___sps11 = (Spawnpoints)[___random_spawnp10];
 	___sps_pos10 = ___sps11.position;
@@ -919,8 +853,18 @@ return;	}else
 	Spawnpoints = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
+	s1 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s1 = 0;
+return;	}else
+	{
+
 	s1 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
@@ -937,7 +881,7 @@ public Truck()
 	{JustEntered = false;
  frame = World.frame;
 		maxSteeringAngle = 50f;
-		maxMotorTorque = 200f;
+		maxMotorTorque = 250f;
 		TruckScript = TruckScript.Instantiate();
 		Fuel = 4000f;
 		DriveEngine = new Engine();
@@ -1153,7 +1097,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	___steeringAngle10 = ((world.Jeep.maxSteeringAngle) * (world.Jeep.DriveEngine.cnvRotation));
+	___steeringAngle10 = ((world.Jeep.maxSteeringAngle) * (world.Jeep.DriveEngine.Rotation));
 	leftWheel.steerAngle = ___steeringAngle10;
 	rightWheel.steerAngle = ___steeringAngle10;
 	s1 = -1;
@@ -1173,10 +1117,9 @@ public bool JustEntered = true;
 public Engine()
 	{JustEntered = false;
  frame = World.frame;
-		cnvRotation = 0f;
-		cnvBrakeAndReverse = 0f;
 		cnvAccel = 0f;
 		TruckScript = new TruckScript();
+		Rotation = 0f;
 		Active = true;
 		
 }
@@ -1207,14 +1150,13 @@ public Engine()
 	public UnityEngine.WheelCollider RearRightWheel{  get { return TruckScript.RearRightWheel; }
   set{TruckScript.RearRightWheel = value; }
  }
+	public System.Single Rotation;
 	public System.Single Steering{  get { return TruckScript.Steering; }
  }
 	public UnityEngine.Vector3 Trque{  set{TruckScript.Trque = value; }
  }
 	public TruckScript TruckScript;
 	public System.Single cnvAccel;
-	public System.Single cnvBrakeAndReverse;
-	public System.Single cnvRotation;
 	public System.Boolean enabled{  get { return TruckScript.enabled; }
   set{TruckScript.enabled = value; }
  }
@@ -1259,19 +1201,7 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(!(((Acceleration) == (0f))))
-	{
-
-	goto case 3;	}else
-	{
-
-	goto case 4;	}
-	case 3:
-	cnvAccel = Acceleration;
-	s0 = -1;
-return;
-	case 4:
-	cnvAccel = ((BrakeAndReverse) * (-1f));
+	Rotation = Steering;
 	s0 = -1;
 return;	
 	default: return;}}
@@ -1283,7 +1213,19 @@ return;
 	{
 
 	case -1:
-	cnvRotation = Steering;
+	if(!(((Acceleration) == (0f))))
+	{
+
+	goto case 1;	}else
+	{
+
+	goto case 2;	}
+	case 1:
+	cnvAccel = Acceleration;
+	s1 = -1;
+return;
+	case 2:
+	cnvAccel = BrakeAndReverse;
 	s1 = -1;
 return;	
 	default: return;}}
@@ -1344,7 +1286,7 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean useGUILayout{  get { return UnityZombie.useGUILayout; }
   set{UnityZombie.useGUILayout = value; }
  }
-	public System.Single count_down2;
+	public System.Single count_down3;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1363,15 +1305,15 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(((0.1f) > (Life)))
+	if(((0f) > (Life)))
 	{
 
-	goto case 2;	}else
+	goto case 7;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 2:
+	case 7:
 	shot = true;
 	dead2 = true;
 	s0 = -1;
@@ -1385,36 +1327,27 @@ return;
 	{
 
 	case -1:
-	if(world.Pistols.Head().GunController.Trigger)
+	if(((OnMouseOver) && (world.Pistols.Head().GunController.Trigger)))
 	{
 
-	goto case 5;	}else
-	{
-
-	s1 = -1;
-return;	}
-	case 5:
-	if(IsHit)
-	{
-
-	goto case 7;	}else
+	goto case 10;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 7:
+	case 10:
 	if(((Life) > (0.49f)))
 	{
 
-	goto case 8;	}else
+	goto case 11;	}else
 	{
 
-	goto case 9;	}
-	case 8:
+	goto case 12;	}
+	case 11:
 	Life = ((Life) - (40f));
 	s1 = -1;
 return;
-	case 9:
+	case 12:
 	Life = 0f;
 	s1 = -1;
 return;	
@@ -1436,13 +1369,13 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	count_down2 = 1f;
+	count_down3 = 3f;
 	goto case 2;
 	case 2:
-	if(((count_down2) > (0f)))
+	if(((count_down3) > (0f)))
 	{
 
-	count_down2 = ((count_down2) - (dt));
+	count_down3 = ((count_down3) - (dt));
 	s2 = 2;
 return;	}else
 	{
@@ -1460,4 +1393,4 @@ return;
 
 
 }
-}                                                           
+}             

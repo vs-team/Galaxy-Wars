@@ -12,7 +12,6 @@ worldEntity World = {
   Flashs : [Light]
   GUIpanel : GUI
   Health : float
-  Flock : [GroupZombie]
 
   rule Zombies = 
     let groups = 
@@ -23,10 +22,6 @@ worldEntity World = {
       [for a in groups do
        for c in a.ZombieFollowers do
 	     select c]
-    let amount = groups.Count
-    let amount2 = zombiegroup.Count
-    Debug.Log("groups =  " + amount)
-    Debug.Log("zombiegroup = " + amount2)
     if zombiegroup.Count > 0 then
       yield zombiegroup @ Zombies
   
@@ -48,9 +43,10 @@ worldEntity World = {
        where a.Checkpoint.isEntered
        select a]
     if ls.Count > 0 then
+      let Headpos = ls.Head.Position
       let randr = Random.Range(1,5) 
-      yield (new Landscape(new Vector3(0.0f,0.0f,ls.Head.Position.z - 80.0f), randr)) :: Landscapes
-      wait 10.0f
+      yield (new Landscape(new Vector3(0.0f,0.0f,Headpos.z - 80.0f), randr)) :: Landscapes
+      wait Vector3.Distance(Headpos, Jeep.Position)
 
   Create() =
     let randomr = Random.Range(2,4)
@@ -62,7 +58,6 @@ worldEntity World = {
      Flashs = [new Light()]
      GUIpanel = new GUI()
      Health = 10.0f
-     Flock = []
     }
 }
 
@@ -72,11 +67,10 @@ entity GroupZombie = {
   ZombieLeader : Option<Zombie>
 
   rule ZombieLeader = 
-    Debug.Log("Followers: " + ZombieFollowers.Count)
-    //if ZombieLeader.IsNone then
     let leader = new Zombie(U_ZombieLeader)
     yield Some leader
-    Debug.Log("Leader: " + ZombieLeader.Value.name)
+    yield None
+    wait false
 
   rule ZombieFollowers = 
     let z = 
@@ -84,7 +78,9 @@ entity GroupZombie = {
        select (new Zombie(a))] 
     Debug.Log("U_Zombies " + z.Count)
     yield z
+    yield []
     wait false
+
 
   Create(sps : Vector3) =
   {
@@ -98,14 +94,9 @@ entity ControllerRazor= { // one hand
   inherit SixenseHand
   
   rule Trigger =
-    wait Trigger
-    Debug.Log("Booom!")
-    wait not Trigger 
     yield Trigger
 
   rule Bumper =
-    wait Bumper
-    wait not Bumper
     yield Bumper
 
   Create(joystickName : string) = 
@@ -126,7 +117,7 @@ entity Gun = { //pistol
     //Debug.Log("InMagazine left = "+ InMagazine)
     if GunController.Trigger && InMagazine > 0 && (Reloading = false) then
       yield InMagazine - 1
-      yield InMagazine
+      wait (not GunController.Trigger) 
 
   rule Reloading, InMagazine, NotInMagazine = 
     if Input.GetKey(KeyCode.R) && NotInMagazine > 0 then // if reloading and available bullets
@@ -200,6 +191,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
     let sps = Spawnpoints.[random_spawnp]
     let sps_pos = sps.position
     yield [new GroupZombie(sps_pos)], []
+    wait false
 
   rule Spawnpoints = 
     let sps = //[Transform of each Spawnpoint]
@@ -248,14 +240,14 @@ entity AxleInfo = {
   
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
-    let steeringAngle = world.Jeep.maxSteeringAngle * Input.GetAxis("Horizontal")
+    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.DriveEngine.Rotation
     yield steeringAngle, steeringAngle
 
   rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel =
     if world.Jeep.Fuel > 0.99f then
-      if (world.Jeep.DriveEngine.Active && Input.GetAxis("Vertical") <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded) then
+      if (world.Jeep.DriveEngine.Active && world.Jeep.DriveEngine.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded) then
         wait motor
-        let speed = world.Jeep.maxMotorTorque * Input.GetAxis("Vertical") * -1.0f
+        let speed = world.Jeep.maxMotorTorque * world.Jeep.DriveEngine.cnvAccel * -1.0f
         yield speed, speed, world.Jeep.Fuel - 1.0f
       else
         yield 0.0f,0.0f, world.Jeep.Fuel
@@ -272,15 +264,24 @@ entity AxleInfo = {
 }
 
 entity Engine = {
-    Accel : float // has to be a value between 0.0f and 1.0f
-    BrakeAndReverse : float // has to be a value between 0.0f and 1.0f
+    inherit TruckScript
+    cnvAccel : float // has to be a value between 0.0f and 1.0f
     Rotation : float // has to be a value between -1.0f and 1.0f
     Active : bool
 
+    rule cnvAccel = 
+      if Acceleration <> 0.0f then 
+        yield Acceleration
+      else
+        yield BrakeAndReverse
+
+    rule Rotation = 
+      yield Steering
+
+
     Create() = 
 	{
-      Accel = 0.0f
-      BrakeAndReverse = 0.0f
+      cnvAccel = 0.0f
       Rotation = 0.0f
       Active = true
 	}
