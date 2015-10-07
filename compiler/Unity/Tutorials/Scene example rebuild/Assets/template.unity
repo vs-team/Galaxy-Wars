@@ -243,6 +243,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!1 &899262373 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 199624, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
+  m_PrefabInternal: {fileID: 278170381}
+--- !u!114 &899262374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 899262373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f3399c2bdb79d54094291da7b077cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Rig:
+    wallParams:
+      rows: 1
+      cols: 1
+    caveParams:
+      sides: 4
+      hasSky: 0
+      hasFloor: 0
+      indexSky: 4
+      indexFloor: 4
+    nearClip: .300000012
+    farClip: 1000
+    fov: 60
+    clusterType: 0
+    cameraIndexOffset: 0
+    horizontalSeam: 0
+    verticalSeam: 0
+    screenAspectWidth: 16
+    screenAspectHeight: 9
+    masterNodeIntegrated: 1
+    masterNodeIndex: 3
+  m_OverrideNodeIndex: 0
+  m_ForcedIndex: 0
 --- !u!1 &2109732167
 GameObject:
   m_ObjectHideFlags: 0
