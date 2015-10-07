@@ -22,8 +22,14 @@ worldEntity World = {
       [for a in groups do
        for c in a.ZombieFollowers do
 	     select c]
-    if zombiegroup.Count > 0 then
-      yield zombiegroup @ Zombies
+    let groupleader = 
+      [for a in groups do
+       where a.ZombieLeader.IsSome
+       let z = a.ZombieLeader.Value
+       select z]
+    let group = groupleader @ zombiegroup
+    if group.Count > 0 then
+      yield group @ Zombies
   
   rule Zombies = 
     let zmbies = 
@@ -40,18 +46,16 @@ worldEntity World = {
   rule Landscapes = 
     let ls = 
       [for a in Landscapes do
-       where a.Checkpoint.isEntered
        select a]
     if ls.Count > 0 then
       let Headpos = ls.Head.Position
       let randr = Random.Range(1,5) 
       yield (new Landscape(new Vector3(0.0f,0.0f,Headpos.z - 80.0f), randr)) :: Landscapes
-      wait Vector3.Distance(Headpos, Jeep.Position)
+      wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
 
   Create() =
-    let randomr = Random.Range(2,4)
     {
-     Landscapes = [new Landscape((Vector3.zero), randomr); new Landscape(new Vector3(0.0f,0.0f,-80.0f), (randomr + 1)); new Landscape(new Vector3(0.0f,0.0f,-160.0f), (randomr - 1))]
+     Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape(new Vector3(0.0f,0.0f,-80.0f), (4)); new Landscape((Vector3.zero), (2))]
      Jeep = new Truck()
      Zombies = []
      Pistols = [new Gun()]
@@ -76,7 +80,6 @@ entity GroupZombie = {
     let z = 
       [for a in U_Zombies do
        select (new Zombie(a))] 
-    Debug.Log("U_Zombies " + z.Count)
     yield z
     yield []
     wait false
@@ -152,7 +155,7 @@ entity Light = { //flashlight
     yield LightController.Trigger
     
   rule Battery = 
-    Debug.Log("Battery: " + Battery)
+    //Debug.Log("Battery: " + Battery)
     if Active && Battery > 0.49f then
       yield Battery - 0.5f
     else
@@ -273,7 +276,7 @@ entity Engine = {
       if Acceleration <> 0.0f then 
         yield Acceleration
       else
-        yield BrakeAndReverse
+        yield BrakeAndReverse * -1.0f
 
     rule Rotation = 
       yield Steering

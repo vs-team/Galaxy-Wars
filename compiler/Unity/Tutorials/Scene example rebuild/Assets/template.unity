@@ -119,7 +119,6 @@ MonoBehaviour:
   UnityLandscape: {fileID: 0}
   ___Headpos00: {x: 0, y: 0, z: 0}
   ___randr00: 0
-  count_down1: 0
 --- !u!4 &250587981
 Transform:
   m_ObjectHideFlags: 0
@@ -157,7 +156,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: .0745098069, a: 1}
+  m_Color: {r: .0379310325, g: .0379310325, b: .00282623363, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30

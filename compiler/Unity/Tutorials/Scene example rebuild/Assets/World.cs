@@ -13,8 +13,6 @@ public bool JustEntered = true;
 
 public void Start()
 	{
-		System.Int32 ___randomr00;
-		___randomr00 = UnityEngine.Random.Range(2,4);
 		Zombies = (
 
 Enumerable.Empty<Zombie>()).ToList<Zombie>();
@@ -24,7 +22,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 (new Cons<Gun>(new Gun(),(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();
 		Landscapes = (
 
-(new Cons<Landscape>(new Landscape(Vector3.zero,___randomr00),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),(___randomr00) + (1)),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),(___randomr00) - (1)),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
+(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),1),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),4),(new Cons<Landscape>(new Landscape(Vector3.zero,2),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
 		Jeep = new Truck();
 		Health = 10f;
 		GUIpanel = new GUI();
@@ -86,10 +84,11 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public List<Landscape> ___ls00;
 	public UnityEngine.Vector3 ___Headpos00;
 	public System.Int32 ___randr00;
-	public System.Single count_down1;
 	public List<Zombie> ___zmbies20;
 	public List<GroupZombie> ___groups30;
 	public List<Zombie> ___zombiegroup30;
+	public List<Zombie> ___groupleader30;
+	public List<Zombie> ___group30;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -128,8 +127,7 @@ var t = System.DateTime.Now;
 	___ls00 = (
 
 (Landscapes).Select(__ContextSymbol4 => new { ___a00 = __ContextSymbol4 })
-.Where(__ContextSymbol5 => __ContextSymbol5.___a00.Checkpoint.isEntered)
-.Select(__ContextSymbol6 => __ContextSymbol6.___a00)
+.Select(__ContextSymbol5 => __ContextSymbol5.___a00)
 .ToList<Landscape>()).ToList<Landscape>();
 	if(((___ls00.Count) > (0)))
 	{
@@ -146,14 +144,10 @@ return;	}
 	s0 = 2;
 return;
 	case 2:
-	count_down1 = UnityEngine.Vector3.Distance(___Headpos00,Jeep.Position);
-	goto case 3;
-	case 3:
-	if(((count_down1) > (0f)))
+	if(!(((200f) > (UnityEngine.Vector3.Distance(___Headpos00,Jeep.Position)))))
 	{
 
-	count_down1 = ((count_down1) - (dt));
-	s0 = 3;
+	s0 = 2;
 return;	}else
 	{
 
@@ -192,9 +186,9 @@ return;	}
 	case -1:
 	___zmbies20 = (
 
-(Zombies).Select(__ContextSymbol7 => new { ___a21 = __ContextSymbol7 })
-.Where(__ContextSymbol8 => ((__ContextSymbol8.___a21.Destroyed) == (false)))
-.Select(__ContextSymbol9 => __ContextSymbol9.___a21)
+(Zombies).Select(__ContextSymbol6 => new { ___a21 = __ContextSymbol6 })
+.Where(__ContextSymbol7 => ((__ContextSymbol7.___a21.Destroyed) == (false)))
+.Select(__ContextSymbol8 => __ContextSymbol8.___a21)
 .ToList<Zombie>()).ToList<Zombie>();
 	Zombies = ___zmbies20;
 	s2 = -1;
@@ -210,19 +204,27 @@ return;
 	case -1:
 	___groups30 = (
 
-(Landscapes).Select(__ContextSymbol10 => new { ___a32 = __ContextSymbol10 })
-.SelectMany(__ContextSymbol11=> (__ContextSymbol11.___a32.Group).Select(__ContextSymbol12 => new { ___b30 = __ContextSymbol12,
-                                                      prev = __ContextSymbol11 })
-.Select(__ContextSymbol13 => __ContextSymbol13.___b30)
+(Landscapes).Select(__ContextSymbol9 => new { ___a32 = __ContextSymbol9 })
+.SelectMany(__ContextSymbol10=> (__ContextSymbol10.___a32.Group).Select(__ContextSymbol11 => new { ___b30 = __ContextSymbol11,
+                                                      prev = __ContextSymbol10 })
+.Select(__ContextSymbol12 => __ContextSymbol12.___b30)
 .ToList<GroupZombie>())).ToList<GroupZombie>();
 	___zombiegroup30 = (
 
-(___groups30).Select(__ContextSymbol14 => new { ___a33 = __ContextSymbol14 })
-.SelectMany(__ContextSymbol15=> (__ContextSymbol15.___a33.ZombieFollowers).Select(__ContextSymbol16 => new { ___c30 = __ContextSymbol16,
-                                                      prev = __ContextSymbol15 })
-.Select(__ContextSymbol17 => __ContextSymbol17.___c30)
+(___groups30).Select(__ContextSymbol13 => new { ___a33 = __ContextSymbol13 })
+.SelectMany(__ContextSymbol14=> (__ContextSymbol14.___a33.ZombieFollowers).Select(__ContextSymbol15 => new { ___c30 = __ContextSymbol15,
+                                                      prev = __ContextSymbol14 })
+.Select(__ContextSymbol16 => __ContextSymbol16.___c30)
 .ToList<Zombie>())).ToList<Zombie>();
-	if(((___zombiegroup30.Count) > (0)))
+	___groupleader30 = (
+
+(___groups30).Select(__ContextSymbol17 => new { ___a34 = __ContextSymbol17 })
+.Where(__ContextSymbol18 => __ContextSymbol18.___a34.ZombieLeader.IsSome)
+.Select(__ContextSymbol19 => new {___z30 = __ContextSymbol19.___a34.ZombieLeader.Value, prev = __ContextSymbol19 })
+.Select(__ContextSymbol20 => __ContextSymbol20.___z30)
+.ToList<Zombie>()).ToList<Zombie>();
+	___group30 = (___groupleader30).Concat(___zombiegroup30).ToList<Zombie>();
+	if(((___group30.Count) > (0)))
 	{
 
 	goto case 3;	}else
@@ -231,7 +233,7 @@ return;
 	s3 = -1;
 return;	}
 	case 3:
-	Zombies = (___zombiegroup30).Concat(Zombies).ToList<Zombie>();
+	Zombies = (___group30).Concat(Zombies).ToList<Zombie>();
 	s3 = -1;
 return;	
 	default: return;}}
@@ -285,7 +287,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Boolean useGUILayout{  get { return UnityGroup.useGUILayout; }
   set{UnityGroup.useGUILayout = value; }
  }
-	public List<Zombie> ___z00;
+	public List<Zombie> ___z01;
 	public Zombie ___leader10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -309,13 +311,12 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	{
 
 	case -1:
-	___z00 = (
+	___z01 = (
 
-(U_Zombies).Select(__ContextSymbol20 => new { ___a04 = __ContextSymbol20 })
-.Select(__ContextSymbol21 => new Zombie(__ContextSymbol21.___a04))
+(U_Zombies).Select(__ContextSymbol23 => new { ___a05 = __ContextSymbol23 })
+.Select(__ContextSymbol24 => new Zombie(__ContextSymbol24.___a05))
 .ToList<Zombie>()).ToList<Zombie>();
-	UnityEngine.Debug.Log(("U_Zombies ") + (___z00.Count));
-	ZombieFollowers = ___z00;
+	ZombieFollowers = ___z01;
 	s0 = 1;
 return;
 	case 1:
@@ -487,7 +488,7 @@ public Gun()
 	public System.Int32 NotInMagazine;
 	public System.Single ReloadDuration;
 	public System.Boolean Reloading;
-	public System.Single count_down2;
+	public System.Single count_down1;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -543,13 +544,13 @@ return;	}
 	s1 = 11;
 return;
 	case 11:
-	count_down2 = ReloadDuration;
+	count_down1 = ReloadDuration;
 	goto case 12;
 	case 12:
-	if(((count_down2) > (0f)))
+	if(((count_down1) > (0f)))
 	{
 
-	count_down2 = ((count_down2) - (dt));
+	count_down1 = ((count_down1) - (dt));
 	s1 = 12;
 return;	}else
 	{
@@ -647,7 +648,6 @@ frame = World.frame;
 	{
 
 	case -1:
-	UnityEngine.Debug.Log(("Battery: ") + (Battery));
 	if(((Active) && (((Battery) > (0.49f)))))
 	{
 
@@ -810,8 +810,8 @@ frame = World.frame;
 	case -1:
 	___sps00 = (
 
-(Spawnpoints2).Select(__ContextSymbol27 => new { ___a05 = __ContextSymbol27 })
-.Select(__ContextSymbol28 => __ContextSymbol28.___a05)
+(Spawnpoints2).Select(__ContextSymbol30 => new { ___a06 = __ContextSymbol30 })
+.Select(__ContextSymbol31 => __ContextSymbol31.___a06)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	Spawnpoints = ___sps00;
 	s0 = 0;
@@ -1225,7 +1225,7 @@ return;
 	s1 = -1;
 return;
 	case 2:
-	cnvAccel = BrakeAndReverse;
+	cnvAccel = ((BrakeAndReverse) * (-1f));
 	s1 = -1;
 return;	
 	default: return;}}
@@ -1286,7 +1286,7 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean useGUILayout{  get { return UnityZombie.useGUILayout; }
   set{UnityZombie.useGUILayout = value; }
  }
-	public System.Single count_down3;
+	public System.Single count_down2;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1369,13 +1369,13 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	count_down3 = 3f;
+	count_down2 = 3f;
 	goto case 2;
 	case 2:
-	if(((count_down3) > (0f)))
+	if(((count_down2) > (0f)))
 	{
 
-	count_down3 = ((count_down3) - (dt));
+	count_down2 = ((count_down2) - (dt));
 	s2 = 2;
 return;	}else
 	{
@@ -1393,4 +1393,4 @@ return;
 
 
 }
-}    
+}     
