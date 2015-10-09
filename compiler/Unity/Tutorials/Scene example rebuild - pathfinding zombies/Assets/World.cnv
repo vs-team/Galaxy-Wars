@@ -1,0 +1,319 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+  inherit UnityLandscape
+  Landscapes : [Landscape]
+  Jeep : Truck
+  Zombies : [Zombie] // are created in the landscape in groups
+  Pistols : [Gun]
+  Flashs : [Light]
+  GUIpanel : GUI
+  Health : float
+
+  rule Zombies = 
+    let groups = 
+      [for a in Landscapes do
+       for b in a.Group do
+       select b]
+    let zombiegroup = 
+      [for a in groups do
+       for c in a.ZombieFollowers do
+	     select c]
+    let groupleader = 
+      [for a in groups do
+       where a.ZombieLeader.IsSome
+       let z = a.ZombieLeader.Value
+       select z]
+    let group = groupleader @ zombiegroup
+    if group.Count > 0 then
+      yield group @ Zombies
+  
+  rule Zombies = 
+    let zmbies = 
+      [for a in Zombies do
+       where (a.Destroyed = false)
+       select a]
+    //Debug.Log("zombies count = "+zmbies.Count)
+    yield zmbies
+
+  rule Health = 
+    yield Health
+    wait false
+
+  rule Landscapes = 
+    let ls = 
+      [for a in Landscapes do
+       select a]
+    if ls.Count > 0 then
+      let Headpos = ls.Head.Position
+      let randr = Random.Range(1,5) 
+      yield (new Landscape(new Vector3(0.0f,0.0f,Headpos.z - 80.0f), randr)) :: Landscapes
+      wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
+
+  Create() =
+    {
+     Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape(new Vector3(0.0f,0.0f,-80.0f), (4)); new Landscape((Vector3.zero), (2))]
+     Jeep = new Truck()
+     Zombies = []
+     Pistols = [new Gun()]
+     Flashs = [new Light()]
+     GUIpanel = new GUI()
+     Health = 10.0f
+    }
+}
+
+entity GroupZombie = { 
+  inherit UnityGroup
+  ZombieFollowers : [Zombie]
+  ZombieLeader : Option<Zombie>
+
+  rule ZombieLeader = 
+    let leader = new Zombie(U_ZombieLeader)
+    yield Some leader
+    yield None
+    wait false
+
+  rule ZombieFollowers = 
+    let z = 
+      [for a in U_Zombies do
+       select (new Zombie(a))] 
+    yield z
+    yield []
+    wait false
+
+
+  Create(sps : Vector3) =
+  {
+    Base = UnityGroup.Instantiate(sps)
+    ZombieFollowers = []
+    ZombieLeader = None
+  }
+}
+
+entity ControllerRazor= { // one hand
+  inherit SixenseHand
+  
+  rule Trigger =
+    yield Trigger
+
+  rule Bumper =
+    yield Bumper
+
+  Create(joystickName : string) = 
+  {
+    Base = SixenseHand.Instantiate(joystickName)
+  }
+}
+
+entity Gun = { //pistol
+  GunController : ControllerRazor
+  NotInMagazine : int
+  Reloading : bool
+  ReloadDuration : float
+  InMagazine : int
+  MagazineSize : int
+
+  rule InMagazine = 
+    //Debug.Log("InMagazine left = "+ InMagazine)
+    if GunController.Trigger && InMagazine > 0 && (Reloading = false) then
+      yield InMagazine - 1
+      wait (not GunController.Trigger) 
+
+  rule Reloading, InMagazine, NotInMagazine = 
+    if Input.GetKey(KeyCode.R) && NotInMagazine > 0 then // if reloading and available bullets
+      yield true, InMagazine, NotInMagazine
+      wait (ReloadDuration)
+      if MagazineSize > NotInMagazine then // clip can't be fulled completely
+        yield false, NotInMagazine, 0
+      else 
+        yield false, MagazineSize, NotInMagazine - MagazineSize // fill clip completely
+
+  rule Reloading = 
+    if Input.GetKey(KeyCode.C) then
+      yield false
+
+  Create() = 
+  {
+    GunController = new ControllerRazor("Hydra1 - Right")//righthand
+    NotInMagazine = 200 //amount of bullets
+    Reloading = false
+    MagazineSize = 80
+    InMagazine = 20
+    ReloadDuration = 4.0f
+  }
+}
+
+entity Light = { //flashlight
+  LightController : ControllerRazor
+  Battery : float
+  Active : bool
+  
+  rule Active =
+    yield LightController.Trigger
+    
+  rule Battery = 
+    //Debug.Log("Battery: " + Battery)
+    if Active && Battery > 0.49f then
+      yield Battery - 0.5f
+    else
+      yield Battery
+
+  Create() = 
+  {
+    LightController = new ControllerRazor("Hydra1 - Left")//lefthand
+    Battery = 100.0f
+    Active = false
+  }
+}
+
+entity GUI = { //panel. Each wall contains the same info?
+  test : bool
+
+  rule test = 
+    yield test
+    wait false
+
+  Create() = 
+  {
+    test = false
+  }
+
+}
+
+entity Landscape = { //here are the zombies created and destroyed after a frame
+  inherit UnityLandscape
+  Group : [GroupZombie]
+  Spawnpoints : [Transform]
+
+  rule Group, Spawnpoints = 
+    wait Spawnpoints.Count > 0
+    let random_spawnp = Random.Range(0,4) // Spawnpoint index
+    let sps = Spawnpoints.[random_spawnp]
+    let sps_pos = sps.position
+    yield [new GroupZombie(sps_pos)], []
+    wait false
+
+  rule Spawnpoints = 
+    let sps = //[Transform of each Spawnpoint]
+      [for a in Spawnpoints2 do
+       select a]
+    yield sps
+    wait false
+
+  Create(pos : Vector3, ps : int) =
+  {
+  Base = UnityLandscape.Instantiate(pos, ps)
+  Spawnpoints = []
+  Group = []
+  }
+}
+
+entity Truck = {
+   inherit TruckScript
+   DriveEngine : Engine
+   Fuel : float
+   AxleInfos : [AxleInfo]
+   maxMotorTorque : float
+   maxSteeringAngle : float
+   
+   rule CenterOfMass = 
+     yield new Vector3(1.0f,0.0f,-1.5f)
+     wait false
+
+   Create()=
+    {
+      Base = TruckScript.Instantiate()
+      DriveEngine = new Engine()
+      maxMotorTorque = 250.0f
+      maxSteeringAngle = 50.0f
+      AxleInfos = [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)] // FWD
+      Fuel = 4000.0f // gas liters
+    }
+}
+
+entity AxleInfo = {
+
+  leftWheel : WheelCollider
+  rightWheel : WheelCollider
+  motor : bool
+  steering : bool
+  
+  rule leftWheel.steerAngle, rightWheel.steerAngle =
+    wait steering
+    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.DriveEngine.Rotation
+    yield steeringAngle, steeringAngle
+
+  rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel =
+    if world.Jeep.Fuel > 0.99f then
+      if (world.Jeep.DriveEngine.Active && world.Jeep.DriveEngine.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded) then
+        wait motor
+        let speed = world.Jeep.maxMotorTorque * world.Jeep.DriveEngine.cnvAccel * -1.0f
+        yield speed, speed, world.Jeep.Fuel - 1.0f
+      else
+        yield 0.0f,0.0f, world.Jeep.Fuel
+    else
+      yield 0.0f,0.0f, 0.0f
+
+  Create(lW : WheelCollider, rW : WheelCollider, m : bool, s: bool)=
+  {
+    leftWheel = lW
+    rightWheel = rW
+    motor = m
+    steering = s
+  }
+}
+
+entity Engine = {
+    inherit TruckScript
+    cnvAccel : float // has to be a value between 0.0f and 1.0f
+    Rotation : float // has to be a value between -1.0f and 1.0f
+    Active : bool
+
+    rule cnvAccel = 
+      if Acceleration <> 0.0f then 
+        yield Acceleration
+      else
+        yield BrakeAndReverse * -1.0f
+
+    rule Rotation = 
+      yield Steering
+
+
+    Create() = 
+	{
+      cnvAccel = 0.0f
+      Rotation = 0.0f
+      Active = true
+	}
+}
+
+entity Zombie = {
+  inherit UnityZombie
+  Life : float
+
+  rule Destroyed = 
+    wait dead2
+    wait 3.0f
+    yield true
+
+  rule Life = 
+    if (OnMouseOver && world.Pistols.Head.GunController.Trigger) then
+      if Life > 0.49f then 
+        yield Life - 40.0f
+      else
+	      yield 0.0f
+
+  rule shot, dead2 = 
+    if Life < 0.0f then
+      yield true, true
+
+  Create(trans : Transform) = 
+  {
+  // UnityZombie = UnityZombie.Instantiate(num,pos)
+  Base = UnityZombie.Find(trans)
+  Life = 100.0f // healthpoints
+  }
+}

@@ -1,0 +1,38 @@
+In this project folder every [file].cs is cleared. 
+Only basic functions that require to run are coded. 
+All other stuff has to be added, like spawnpoints and rotations. 
+
+Here is a task list for rebuilding the projects code
+
+
+Martijn
+Zombies and landscape: (like in galaxy wars with the ships)
+Zombies are created in the landscape
+One frame after the zombies are created in the landscape, they have to be moved to the world. 
+The zombies in the landscapes can now be destroyed
+
+
+
+Hidde
+Pistol and flashlight are both controlled by the razor. The razor has a seperate entity called ControllerRazor. 
+In ControllerRazor we need:
+	- Which hand belongs to which controller
+	- the value of the trigger
+	- (gameObject position and rotation) or the raycast
+	- Docked / Enabled
+
+All the other information can be ignored  
+
+
+
+Wouter
+The truck movement with an engine:
+The engine gets the values from the steering wheel and pedals.
+	The steering wheel changes the rotation (v3 / quat)
+	The left pedal is for BrakeAndReverse (float between 0.0f and 1.0f)
+	The right pedal is for Accel (float between 0.0f and 1.0f)
+	The active is to start the motor and stop when crashed(button on steering wheel)
+
+
+Martijn
+The truck moves based on the values of the engine. 
