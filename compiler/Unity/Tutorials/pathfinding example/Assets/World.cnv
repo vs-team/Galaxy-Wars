@@ -3,12 +3,20 @@ module Game
 open "UnityEngine.dll"
 open UnityEngine
 
-worldEntity World = {
-    
-    Cnt : int
-    
+worldEntity World = {   
+    Landscapes : [Landscape]
+
     Create()={
-    Cnt = 1
+    Landscapes = [new Landscape(new Vector3(0.0f,0.0f,160.0f));new Landscape(new Vector3(0.0f,0.0f,80.0f));new Landscape(Vector3.zero);]
     }
+}
+entity Landscape = {
+  inherit UnityLandscape
+
+  Create(ps : Vector3) = 
+  let rand = 3
+  {
+    Base = UnityLandscape.Instantiate(ps, rand)
+  }
 
 }

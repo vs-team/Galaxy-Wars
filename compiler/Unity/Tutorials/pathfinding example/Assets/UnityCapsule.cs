@@ -16,4 +16,4 @@ public class UnityCapsule : MonoBehaviour {
     goal.position += new Vector3(Input.GetAxis("Horizontal") * 0.2f,0.0f, Input.GetAxis("Vertical") * 0.2f);
 	}
 }
-                                    
+                                                                                                                    
