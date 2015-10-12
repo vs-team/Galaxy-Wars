@@ -170,15 +170,14 @@ entity Light = { //flashlight
 }
 
 entity GUI = { //panel. Each wall contains the same info?
-  test : bool
+  inherit GUIBarScript
 
-  rule test = 
-    yield test
-    wait false
+  rule Value =
+    yield Mathf.Min(world.Jeep.CarHP2, Value)
 
   Create() = 
   {
-    test = false
+    Base = GUIBarScript.Find()
   }
 
 }

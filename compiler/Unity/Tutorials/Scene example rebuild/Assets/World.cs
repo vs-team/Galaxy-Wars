@@ -690,10 +690,79 @@ public bool JustEntered = true;
 public GUI()
 	{JustEntered = false;
  frame = World.frame;
-		test = false;
+		GUIBarScript = GUIBarScript.Find();
 		
 }
-		public System.Boolean test;
+		public UnityEngine.Texture2D Background{  get { return GUIBarScript.Background; }
+  set{GUIBarScript.Background = value; }
+ }
+	public System.Boolean DisplayText{  get { return GUIBarScript.DisplayText; }
+  set{GUIBarScript.DisplayText = value; }
+ }
+	public System.Single FadeFactor{  get { return GUIBarScript.FadeFactor; }
+  set{GUIBarScript.FadeFactor = value; }
+ }
+	public UnityEngine.Texture2D Foreground{  get { return GUIBarScript.Foreground; }
+  set{GUIBarScript.Foreground = value; }
+ }
+	public GUIBarScript GUIBarScript;
+	public System.Collections.Generic.List<UnityEngine.Color> GradientColors{  get { return GUIBarScript.GradientColors; }
+  set{GUIBarScript.GradientColors = value; }
+ }
+	public UnityEngine.Texture2D Mask{  get { return GUIBarScript.Mask; }
+  set{GUIBarScript.Mask = value; }
+ }
+	public System.Boolean OverRideTextColorWithGradient{  get { return GUIBarScript.OverRideTextColorWithGradient; }
+  set{GUIBarScript.OverRideTextColorWithGradient = value; }
+ }
+	public UnityEngine.Vector2 Position{  get { return GUIBarScript.Position; }
+  set{GUIBarScript.Position = value; }
+ }
+	public System.Single ScaleSize{  get { return GUIBarScript.ScaleSize; }
+  set{GUIBarScript.ScaleSize = value; }
+ }
+	public UnityEngine.Color TextColor{  get { return GUIBarScript.TextColor; }
+  set{GUIBarScript.TextColor = value; }
+ }
+	public UnityEngine.Font TextFont{  get { return GUIBarScript.TextFont; }
+  set{GUIBarScript.TextFont = value; }
+ }
+	public UnityEngine.Vector2 TextOffset{  get { return GUIBarScript.TextOffset; }
+  set{GUIBarScript.TextOffset = value; }
+ }
+	public System.Single TextSize{  get { return GUIBarScript.TextSize; }
+  set{GUIBarScript.TextSize = value; }
+ }
+	public System.String TextString{  get { return GUIBarScript.TextString; }
+  set{GUIBarScript.TextString = value; }
+ }
+	public System.Single Value{  get { return GUIBarScript.Value; }
+  set{GUIBarScript.Value = value; }
+ }
+	public UnityEngine.Texture2D ValueBar{  get { return GUIBarScript.ValueBar; }
+  set{GUIBarScript.ValueBar = value; }
+ }
+	public System.Boolean enabled{  get { return GUIBarScript.enabled; }
+  set{GUIBarScript.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return GUIBarScript.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return GUIBarScript.hideFlags; }
+  set{GUIBarScript.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return GUIBarScript.isActiveAndEnabled; }
+ }
+	public System.String name{  get { return GUIBarScript.name; }
+  set{GUIBarScript.name = value; }
+ }
+	public System.String tag{  get { return GUIBarScript.tag; }
+  set{GUIBarScript.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return GUIBarScript.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return GUIBarScript.useGUILayout; }
+  set{GUIBarScript.useGUILayout = value; }
+ }
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -711,19 +780,9 @@ frame = World.frame;
 	{
 
 	case -1:
-	test = test;
-	s0 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s0 = 0;
-return;	}else
-	{
-
+	Value = UnityEngine.Mathf.Min(world.Jeep.CarHP2,Value);
 	s0 = -1;
-return;	}	
+return;	
 	default: return;}}
 	
 
@@ -894,6 +953,9 @@ public Truck()
  }
 	public List<AxleInfo> AxleInfos;
 	public System.Single BrakeAndReverse{  get { return TruckScript.BrakeAndReverse; }
+ }
+	public System.Single CarHP2{  get { return TruckScript.CarHP2; }
+  set{TruckScript.CarHP2 = value; }
  }
 	public UnityEngine.Vector3 CenterOfMass{  get { return TruckScript.CenterOfMass; }
   set{TruckScript.CenterOfMass = value; }
@@ -1127,6 +1189,9 @@ public Engine()
  }
 	public System.Boolean Active;
 	public System.Single BrakeAndReverse{  get { return TruckScript.BrakeAndReverse; }
+ }
+	public System.Single CarHP2{  get { return TruckScript.CarHP2; }
+  set{TruckScript.CarHP2 = value; }
  }
 	public UnityEngine.Vector3 CenterOfMass{  get { return TruckScript.CenterOfMass; }
   set{TruckScript.CenterOfMass = value; }
@@ -1393,4 +1458,4 @@ return;
 
 
 }
-}                             
+}      

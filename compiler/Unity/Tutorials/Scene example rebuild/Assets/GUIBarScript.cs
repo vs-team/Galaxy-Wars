@@ -8,7 +8,7 @@ public class GUIBarScript : MonoBehaviour {
 
 	//for the CurrentValue, and the Value it will be after the update
 	private float CurrentValue;
-	public float Value;
+  public float Value;
 
 	//FadeValue is current amount the bar is faded 
 	private float FadeValue;
@@ -244,12 +244,11 @@ public class GUIBarScript : MonoBehaviour {
 		UpdateBar();
 	}
 
-  public static GUIBarScript Instantiate()
+  public static GUIBarScript Find()
   {
-    GameObject gui = GameObject.Find("DriveBar");
+    GameObject gui = GameObject.Find("HP Bar");
     GUIBarScript guiscript = gui.GetComponent<GUIBarScript>() as GUIBarScript;
     return guiscript;
   }
 
-}
-                                                                                                                                                                                                                                  
+}                                                                                                                    

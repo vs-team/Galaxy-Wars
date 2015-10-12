@@ -10,6 +10,7 @@ public class TruckScript : MonoBehaviour
   public WheelCollider RearLeftWheel;
   public WheelCollider RearRightWheel;
   public Light lampi;
+  private float CarHP = 1.0f;
 
   public static TruckScript Instantiate()
   {
@@ -59,7 +60,7 @@ public class TruckScript : MonoBehaviour
 
   public float Steering
   {
-    get { return Input.GetAxisRaw("SW_Joy0X"); }
+    get { return Input.GetAxis("SW_Joy0X"); }
   }
 
   public float BrakeAndReverse
@@ -81,14 +82,29 @@ public class TruckScript : MonoBehaviour
   {
     get
     {
-      if (Input.GetAxisRaw("SW_Joy0Y") <= 0.0f)
+      if (Input.GetAxisRaw("SW_Joy0Y") < 0.0f)
       {
         return 0.0f;
       }
       else
       {
-        return Input.GetAxisRaw("SW_Joy0Y");
+        return Input.GetAxis("SW_Joy0Y");
       }
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+  void OnCollisionEnter(Collision collision)
+  {
+    if(collision.relativeVelocity.magnitude > 15.0f)
+    {
+      CarHP = CarHP - collision.relativeVelocity.magnitude / 200;
+    }
+
+  }
+
+  public float CarHP2
+  {
+    get { return CarHP; }
+    set { CarHP2 = CarHP; }
+  }
+}                                                 

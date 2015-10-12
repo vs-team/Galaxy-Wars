@@ -263,7 +263,7 @@ GameObject:
   - 4: {fileID: 436726}
   - 114: {fileID: 11444364}
   m_Layer: 0
-  m_Name: DriveBar
+  m_Name: HP Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,8 +781,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143778}
-  m_LocalRotation: {x: .000435950467, y: .998675883, z: .0507222116, w: -.00858428515}
-  m_LocalPosition: {x: .407948256, y: -.120385647, z: -.0190754533}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 482400}
@@ -1956,7 +1956,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 188052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e23b930b324e23e4994933565ecd44d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 26f2d3796a07c4a4e9877e3fbdcb2103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11433664
@@ -1984,7 +1984,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 181432}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ace8bf50d2505e4c98b5bfaae13b538, type: 3}
+  m_Script: {fileID: 11500000, guid: a46c0f1a3352eed4ab4576e119e396ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_hand: 1
@@ -1996,20 +1996,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 143778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c95a157734574f82b4e53cba5dae53b, type: 3}
+  m_Script: {fileID: 11500000, guid: b4ab6c5eb77615f4bb6be89000d76bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 1
-  FadeFactor: 6
+  FadeFactor: 20
   Position: {x: 10, y: 10}
   ScaleSize: 1
   DisplayText: 0
   TextString: 100%
-  TextColor: {r: 0, g: 0, b: 0, a: 1}
+  TextColor: {r: 0, g: 0, b: 0, a: 0}
   OverRideTextColorWithGradient: 1
   TextFont: {fileID: 12800000, guid: 240a102734c6045e1a3e91655501fa0a, type: 3}
-  TextSize: 30.7999992
-  TextOffset: {x: 6.69999981, y: 68.1999969}
+  TextSize: 30
+  TextOffset: {x: 0, y: 0}
   Background: {fileID: 2800000, guid: 7e980bc7c35764f59b8cff4178e49fbf, type: 3}
   Mask: {fileID: 2800000, guid: 67065f8e8add54f348951792d1f16c2a, type: 3}
   ValueBar: {fileID: 2800000, guid: 179b80a7d990940c8b958af9da5224d1, type: 3}
@@ -2060,7 +2060,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 131766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ace8bf50d2505e4c98b5bfaae13b538, type: 3}
+  m_Script: {fileID: 11500000, guid: a46c0f1a3352eed4ab4576e119e396ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_hand: 2
@@ -2072,7 +2072,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 152912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e045be6f3521de44786bc54033b05cf0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6806b27e4512a3f4197ed9fa8aefeef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!120 &12036910
