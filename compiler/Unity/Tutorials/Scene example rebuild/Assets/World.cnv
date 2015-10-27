@@ -229,7 +229,7 @@ entity Truck = {
       maxMotorTorque = 250.0f
       maxSteeringAngle = 50.0f
       AxleInfos = [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)] // FWD
-      Fuel = 4000.0f // gas liters
+      Fuel = 40000.0f // gas liters
     }
 }
 
@@ -270,15 +270,27 @@ entity Engine = {
     cnvAccel : float // has to be a value between 0.0f and 1.0f
     Rotation : float // has to be a value between -1.0f and 1.0f
     Active : bool
+    Keyboard : bool
+
+    rule Keyboard = 
+      wait Input.GetKeyDown(KeyCode.P)
+      yield not Keyboard
 
     rule cnvAccel = 
-      if Acceleration <> 0.0f then 
-        yield Acceleration
+      if Keyboard then
+        yield Input.GetAxis("Vertical")
       else
-        yield BrakeAndReverse * -1.0f
+        if Acceleration <> 0.0f then 
+          yield Acceleration
+        else
+          yield BrakeAndReverse * -1.0f
 
     rule Rotation = 
-      yield Steering
+      Debug.Log(Keyboard)
+      if Keyboard then
+        yield Input.GetAxis("Horizontal")
+      else
+        yield Steering
 
 
     Create() = 
@@ -286,6 +298,7 @@ entity Engine = {
       cnvAccel = 0.0f
       Rotation = 0.0f
       Active = true
+      Keyboard = false;
 	}
 }
 

@@ -107,4 +107,4 @@ public class TruckScript : MonoBehaviour
     get { return CarHP; }
     set { CarHP2 = CarHP; }
   }
-}                                                 
+}                                                                                                                 

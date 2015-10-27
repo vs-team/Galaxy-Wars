@@ -942,7 +942,7 @@ public Truck()
 		maxSteeringAngle = 50f;
 		maxMotorTorque = 250f;
 		TruckScript = TruckScript.Instantiate();
-		Fuel = 4000f;
+		Fuel = 40000f;
 		DriveEngine = new Engine();
 		AxleInfos = (
 
@@ -1182,6 +1182,7 @@ public Engine()
 		cnvAccel = 0f;
 		TruckScript = new TruckScript();
 		Rotation = 0f;
+		Keyboard = false;
 		Active = true;
 		
 }
@@ -1204,6 +1205,7 @@ public Engine()
 	public UnityEngine.WheelCollider FrontRightWheel{  get { return TruckScript.FrontRightWheel; }
   set{TruckScript.FrontRightWheel = value; }
  }
+	public System.Boolean Keyboard;
 	public System.Boolean LightOn{  get { return TruckScript.LightOn; }
   set{TruckScript.LightOn = value; }
  }
@@ -1254,6 +1256,7 @@ frame = World.frame;
 
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
+		this.Rule2(dt, world);
 	}
 
 
@@ -1266,6 +1269,19 @@ frame = World.frame;
 	{
 
 	case -1:
+	UnityEngine.Debug.Log(Keyboard);
+	if(Keyboard)
+	{
+
+	goto case 3;	}else
+	{
+
+	goto case 4;	}
+	case 3:
+	Rotation = UnityEngine.Input.GetAxis("Horizontal");
+	s0 = -1;
+return;
+	case 4:
 	Rotation = Steering;
 	s0 = -1;
 return;	
@@ -1278,20 +1294,53 @@ return;
 	{
 
 	case -1:
+	if(Keyboard)
+	{
+
+	goto case 9;	}else
+	{
+
+	goto case 10;	}
+	case 9:
+	cnvAccel = UnityEngine.Input.GetAxis("Vertical");
+	s1 = -1;
+return;
+	case 10:
 	if(!(((Acceleration) == (0f))))
 	{
 
-	goto case 1;	}else
+	goto case 13;	}else
 	{
 
-	goto case 2;	}
-	case 1:
+	goto case 14;	}
+	case 13:
 	cnvAccel = Acceleration;
 	s1 = -1;
 return;
-	case 2:
+	case 14:
 	cnvAccel = ((BrakeAndReverse) * (-1f));
 	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	if(!(UnityEngine.Input.GetKeyDown(KeyCode.P)))
+	{
+
+	s2 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	Keyboard = !(Keyboard);
+	s2 = -1;
 return;	
 	default: return;}}
 	
@@ -1373,12 +1422,12 @@ frame = World.frame;
 	if(((0f) > (Life)))
 	{
 
-	goto case 7;	}else
+	goto case 3;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 7:
+	case 3:
 	shot = true;
 	dead2 = true;
 	s0 = -1;
@@ -1395,24 +1444,24 @@ return;
 	if(((OnMouseOver) && (world.Pistols.Head().GunController.Trigger)))
 	{
 
-	goto case 10;	}else
+	goto case 6;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 10:
+	case 6:
 	if(((Life) > (0.49f)))
 	{
 
-	goto case 11;	}else
+	goto case 7;	}else
 	{
 
-	goto case 12;	}
-	case 11:
+	goto case 8;	}
+	case 7:
 	Life = ((Life) - (40f));
 	s1 = -1;
 return;
-	case 12:
+	case 8:
 	Life = 0f;
 	s1 = -1;
 return;	
@@ -1458,4 +1507,4 @@ return;
 
 
 }
-}      
+}          
