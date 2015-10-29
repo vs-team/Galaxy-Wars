@@ -143,6 +143,11 @@ entity Gun = { //pistol
       yield InMagazine - 1
       wait (not GunController.Trigger) 
 
+  rule NotInMagazine = 
+    if world.ActiveBoR = "AmmoBox" then 
+      yield NotInMagazine + 50
+      Debug.Log("NotInMagazine = "+ NotInMagazine)
+
   rule Reloading, InMagazine, NotInMagazine = 
     if Input.GetKey(KeyCode.R) && NotInMagazine > 0 then // if reloading and available bullets
       yield true, InMagazine, NotInMagazine
@@ -251,6 +256,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
 
 entity PickUp = {
   BonusAndResources : [BonusAndResource]
+  name_of_Bonus_or_Resource : [string]
 
   rule BonusAndResources = 
     let amount = 
@@ -266,10 +272,12 @@ entity PickUp = {
   let p3 = pos - new Vector3(4.0f,0.0f,0.0f)
   let plist = [p0;p1;p2;p3]
   let AmountOfResources = 3
+  let NOBOR = ["AmmoBox";"Crossed Wrenches Red";"Medipack Red";"Battery Black";"Jerry Can Green";"Lightning Blue";"Arrows Green";"Bomb Red";"Shield Metal";"Star Red"]
   let BAR = 
     [for a in [0..AmountOfResources] do
      select (new BonusAndResource(plist.[a], a))]
   {
+    name_of_Bonus_or_Resource = NOBOR
     BonusAndResources = BAR
   }
 }
@@ -279,13 +287,13 @@ entity BonusAndResource = {
   Active : bool
 
   rule Active, Destroyed = 
-    if collids then
+    if collids then 
       yield true, false
       yield true, true
 
   Create(pos : Vector3, num : int) = 
-  let name_of_Bonus_or_Resource = ["Crossed Wrenches Red";"Medipack Red";"Battery Black";"Jerry Can Green";"Lightning Blue";"Arrows Green";"Bomb Red";"Shield Metal";"Star Red"]
-  let bor = name_of_Bonus_or_Resource.[num+2]
+  let nbr = ["AmmoBox";"Crossed Wrenches Red";"Medipack Red";"Battery Black";"Jerry Can Green";"Lightning Blue";"Arrows Green";"Bomb Red";"Shield Metal";"Star Red"]
+  let bor = nbr.[num+4]
   {
     Base = UnityBonusResource.Instantiate(pos,bor)
     NameOfBoR = bor
@@ -365,7 +373,7 @@ entity AxleInfo = {
   rightWheel : WheelCollider
   motor : bool
   steering : bool
-  
+
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
     let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.Rotation
@@ -374,9 +382,17 @@ entity AxleInfo = {
   rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel =
     if world.Jeep.Fuel > 0.99f then
       if (world.Jeep.Active && world.Jeep.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded) then
-        wait motor
+        let dir = world.Jeep.cnvAccel
         let speed = world.Jeep.maxMotorTorque * world.Jeep.cnvAccel * -1.0f
-        yield speed, speed, world.Jeep.Fuel - 1.0f
+        if (world.ActiveBoR = "Arrows Green") then 
+          yield leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel
+          .| (world.Jeep.cnvAccel <> dir) =>
+            yield speed, speed, world.Jeep.Fuel - 1.0f
+          .| _ =>
+            yield speed * 10.0f, speed * 10.0f, world.Jeep.Fuel
+            wait 2.0f
+        else
+          yield speed, speed, world.Jeep.Fuel - 1.0f
       else
         yield 0.0f,0.0f, world.Jeep.Fuel
     else

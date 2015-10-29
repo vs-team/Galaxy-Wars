@@ -567,6 +567,7 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		this.Rule3(dt, world);
 	}
 
 
@@ -656,7 +657,7 @@ return;
 	{
 
 	case -1:
-	if(((((GunController.Trigger) && (((InMagazine) > (0))))) && (((Reloading) == (false)))))
+	if(((world.ActiveBoR) == ("AmmoBox")))
 	{
 
 	goto case 15;	}else
@@ -665,18 +666,43 @@ return;
 	s2 = -1;
 return;	}
 	case 15:
-	InMagazine = ((InMagazine) - (1));
+	NotInMagazine = ((NotInMagazine) + (50));
 	s2 = 16;
 return;
 	case 16:
+	UnityEngine.Debug.Log(("NotInMagazine = ") + (NotInMagazine));
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(((((GunController.Trigger) && (((InMagazine) > (0))))) && (((Reloading) == (false)))))
+	{
+
+	goto case 19;	}else
+	{
+
+	s3 = -1;
+return;	}
+	case 19:
+	InMagazine = ((InMagazine) - (1));
+	s3 = 20;
+return;
+	case 20:
 	if(!(!(GunController.Trigger)))
 	{
 
-	s2 = 16;
+	s3 = 20;
 return;	}else
 	{
 
-	s2 = -1;
+	s3 = -1;
 return;	}	
 	default: return;}}
 	
@@ -723,15 +749,15 @@ frame = World.frame;
 	if(((Active) && (((Battery) > (0.49f)))))
 	{
 
-	goto case 18;	}else
+	goto case 22;	}else
 	{
 
-	goto case 19;	}
-	case 18:
+	goto case 23;	}
+	case 22:
 	Battery = ((Battery) - (0.5f));
 	s0 = -1;
 return;
-	case 19:
+	case 23:
 	Battery = Battery;
 	s0 = -1;
 return;	
@@ -747,12 +773,12 @@ return;
 	if(((world.ActiveBoR) == ("Battery Black")))
 	{
 
-	goto case 24;	}else
+	goto case 28;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 24:
+	case 28:
 	UnityEngine.Debug.Log(("Battery = ") + (Battery));
 	Battery = ((Battery) + (50f));
 	s1 = -1;
@@ -1102,16 +1128,22 @@ public PickUp(UnityEngine.Vector3 pos)
 (new Cons<UnityEngine.Vector3>(___p000,(new Cons<UnityEngine.Vector3>(___p100,(new Cons<UnityEngine.Vector3>(___p200,(new Cons<UnityEngine.Vector3>(___p300,(new Empty<UnityEngine.Vector3>()).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>()).ToList<UnityEngine.Vector3>();
 		System.Int32 ___AmountOfResources00;
 		___AmountOfResources00 = 3;
+		List<System.String> ___NOBOR00;
+		___NOBOR00 = (
+
+(new Cons<System.String>("AmmoBox",(new Cons<System.String>("Crossed Wrenches Red",(new Cons<System.String>("Medipack Red",(new Cons<System.String>("Battery Black",(new Cons<System.String>("Jerry Can Green",(new Cons<System.String>("Lightning Blue",(new Cons<System.String>("Arrows Green",(new Cons<System.String>("Bomb Red",(new Cons<System.String>("Shield Metal",(new Cons<System.String>("Star Red",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
 		List<BonusAndResource> ___BAR00;
 		___BAR00 = (
 
-(Enumerable.Range(0,(1) + ((___AmountOfResources00) - (0))).ToList<System.Int32>()).Select(__ContextSymbol49 => new { ___a010 = __ContextSymbol49 })
-.Select(__ContextSymbol50 => new BonusAndResource(___plist00[__ContextSymbol50.___a010],__ContextSymbol50.___a010))
+(Enumerable.Range(0,(1) + ((___AmountOfResources00) - (0))).ToList<System.Int32>()).Select(__ContextSymbol50 => new { ___a010 = __ContextSymbol50 })
+.Select(__ContextSymbol51 => new BonusAndResource(___plist00[__ContextSymbol51.___a010],__ContextSymbol51.___a010))
 .ToList<BonusAndResource>()).ToList<BonusAndResource>();
+		name_of_Bonus_or_Resource = ___NOBOR00;
 		BonusAndResources = ___BAR00;
 		
 }
 		public List<BonusAndResource> BonusAndResources;
+	public List<System.String> name_of_Bonus_or_Resource;
 	public List<BonusAndResource> ___amount00;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -1135,9 +1167,9 @@ frame = World.frame;
 	case -1:
 	___amount00 = (
 
-(BonusAndResources).Select(__ContextSymbol51 => new { ___a09 = __ContextSymbol51 })
-.Where(__ContextSymbol52 => ((__ContextSymbol52.___a09.Destroyed) == (false)))
-.Select(__ContextSymbol53 => __ContextSymbol53.___a09)
+(BonusAndResources).Select(__ContextSymbol52 => new { ___a09 = __ContextSymbol52 })
+.Where(__ContextSymbol53 => ((__ContextSymbol53.___a09.Destroyed) == (false)))
+.Select(__ContextSymbol54 => __ContextSymbol54.___a09)
 .ToList<BonusAndResource>()).ToList<BonusAndResource>();
 	BonusAndResources = ___amount00;
 	s0 = -1;
@@ -1160,12 +1192,12 @@ private System.Int32 num;
 public BonusAndResource(UnityEngine.Vector3 pos, System.Int32 num)
 	{JustEntered = false;
  frame = World.frame;
-		List<System.String> ___name_of_Bonus_or_Resource00;
-		___name_of_Bonus_or_Resource00 = (
+		List<System.String> ___nbr00;
+		___nbr00 = (
 
-(new Cons<System.String>("Crossed Wrenches Red",(new Cons<System.String>("Medipack Red",(new Cons<System.String>("Battery Black",(new Cons<System.String>("Jerry Can Green",(new Cons<System.String>("Lightning Blue",(new Cons<System.String>("Arrows Green",(new Cons<System.String>("Bomb Red",(new Cons<System.String>("Shield Metal",(new Cons<System.String>("Star Red",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
+(new Cons<System.String>("AmmoBox",(new Cons<System.String>("Crossed Wrenches Red",(new Cons<System.String>("Medipack Red",(new Cons<System.String>("Battery Black",(new Cons<System.String>("Jerry Can Green",(new Cons<System.String>("Lightning Blue",(new Cons<System.String>("Arrows Green",(new Cons<System.String>("Bomb Red",(new Cons<System.String>("Shield Metal",(new Cons<System.String>("Star Red",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
 		System.String ___bor00;
-		___bor00 = ___name_of_Bonus_or_Resource00[(num) + (2)];
+		___bor00 = ___nbr00[(num) + (4)];
 		UnityBonusResource = UnityBonusResource.Instantiate(pos,___bor00);
 		NameOfBoR = ___bor00;
 		Active = false;
@@ -1611,7 +1643,9 @@ public AxleInfo(UnityEngine.WheelCollider lW, UnityEngine.WheelCollider rW, Syst
 	public System.Boolean motor;
 	public UnityEngine.WheelCollider rightWheel;
 	public System.Boolean steering;
+	public System.Single ___dir00;
 	public System.Single ___speed00;
+	public System.Single count_down6;
 	public System.Single ___steeringAngle10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -1646,16 +1680,72 @@ frame = World.frame;
 
 	goto case 23;	}
 	case 22:
-	if(!(motor))
+	___dir00 = world.Jeep.cnvAccel;
+	___speed00 = ((((world.Jeep.maxMotorTorque) * (world.Jeep.cnvAccel))) * (-1f));
+	if(((world.ActiveBoR) == ("Arrows Green")))
 	{
 
-	s0 = 22;
-return;	}else
+	goto case 25;	}else
 	{
 
 	goto case 26;	}
+	case 25:
+	leftWheel.motorTorque = leftWheel.motorTorque;
+	rightWheel.motorTorque = rightWheel.motorTorque;
+	world.Jeep.Fuel = world.Jeep.Fuel;
+	s0 = 29;
+return;
+	case 29:
+	if(!(((!(((world.Jeep.cnvAccel) == (___dir00)))) || (true))))
+	{
+
+	s0 = 29;
+return;	}else
+	{
+
+	goto case 28;	}
+	case 28:
+	if(!(((world.Jeep.cnvAccel) == (___dir00))))
+	{
+
+	goto case 30;	}else
+	{
+
+	if(true)
+	{
+
+	goto case 31;	}else
+	{
+
+	s0 = 28;
+return;	}	}
+	case 30:
+	leftWheel.motorTorque = ___speed00;
+	rightWheel.motorTorque = ___speed00;
+	world.Jeep.Fuel = ((world.Jeep.Fuel) - (1f));
+	s0 = -1;
+return;
+	case 31:
+	leftWheel.motorTorque = ((___speed00) * (10f));
+	rightWheel.motorTorque = ((___speed00) * (10f));
+	world.Jeep.Fuel = world.Jeep.Fuel;
+	s0 = 33;
+return;
+	case 33:
+	count_down6 = 2f;
+	goto case 34;
+	case 34:
+	if(((count_down6) > (0f)))
+	{
+
+	count_down6 = ((count_down6) - (dt));
+	s0 = 34;
+return;	}else
+	{
+
+	s0 = -1;
+return;	}
 	case 26:
-	___speed00 = ((((world.Jeep.maxMotorTorque) * (world.Jeep.cnvAccel))) * (-1f));
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Fuel = ((world.Jeep.Fuel) - (1f));
@@ -1754,7 +1844,7 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean useGUILayout{  get { return UnityZombie.useGUILayout; }
   set{UnityZombie.useGUILayout = value; }
  }
-	public System.Single count_down6;
+	public System.Single count_down7;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1837,13 +1927,13 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	count_down6 = 3f;
+	count_down7 = 3f;
 	goto case 2;
 	case 2:
-	if(((count_down6) > (0f)))
+	if(((count_down7) > (0f)))
 	{
 
-	count_down6 = ((count_down6) - (dt));
+	count_down7 = ((count_down7) - (dt));
 	s2 = 2;
 return;	}else
 	{
@@ -1861,4 +1951,4 @@ return;
 
 
 }
-}        
+}      
