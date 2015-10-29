@@ -9,7 +9,8 @@ public class TruckScript : MonoBehaviour
   public WheelCollider FrontRightWheel;
   public WheelCollider RearLeftWheel;
   public WheelCollider RearRightWheel;
-  public Light lampi;
+  public Light HeadlightLeft;
+  public Light HeadlightRight;
   private float CarHP = 1.0f;
 
   public static TruckScript Instantiate()
@@ -21,7 +22,8 @@ public class TruckScript : MonoBehaviour
     truck.FrontRightWheel = GameObject.Find("SUV_wheel_front_right").GetComponent<WheelCollider>() as WheelCollider;
     truck.RearLeftWheel = GameObject.Find("SUV_wheel_rear_left").GetComponent<WheelCollider>() as WheelCollider;
     truck.RearRightWheel = GameObject.Find("SUV_wheel_rear_right").GetComponent<WheelCollider>() as WheelCollider;
-    truck.lampi = GameObject.Find("Hydra1 - Right").GetComponent<Light>() as Light;
+    truck.HeadlightLeft = GameObject.Find("LeftLight").GetComponent<Light>() as Light;
+    truck.HeadlightRight = GameObject.Find("RightLight").GetComponent<Light>() as Light;
     truck.truckRigidBody = jeepGameObject.GetComponent<Rigidbody>() as Rigidbody;
     return truck;
   }
@@ -52,10 +54,16 @@ public class TruckScript : MonoBehaviour
       truckRigidBody.MoveRotation(truckRigidBody.rotation * deltaRotation);
     }
   }
-  public bool LightOn
+  public bool HeadlightRightOn
   {
-    get { return lampi.enabled; }
-    set { lampi.enabled = value; }
+    get { return HeadlightRight.enabled; }
+    set { HeadlightRight.enabled = value; }
+  }
+
+  public bool HeadlightLeftOn
+  {
+    get { return HeadlightLeft.enabled; }
+    set { HeadlightLeft.enabled = value; }
   }
 
   public float Steering
@@ -99,7 +107,6 @@ public class TruckScript : MonoBehaviour
     {
       CarHP = CarHP - collision.relativeVelocity.magnitude / 200;
     }
-
   }
 
   public float CarHP2
@@ -107,4 +114,4 @@ public class TruckScript : MonoBehaviour
     get { return CarHP; }
     set { CarHP2 = CarHP; }
   }
-}                                                                                                                 
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

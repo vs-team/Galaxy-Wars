@@ -115,10 +115,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JustEntered: 1
+  ActiveBoR: 
   Health: 0
   UnityLandscape: {fileID: 0}
   ___Headpos00: {x: 0, y: 0, z: 0}
   ___randr00: 0
+  ___a12: []
+  ___resourcelist20: []
+  ___rnd20: 0
 --- !u!4 &250587981
 Transform:
   m_ObjectHideFlags: 0
@@ -228,6 +232,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 417812, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 181432, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 10885662, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

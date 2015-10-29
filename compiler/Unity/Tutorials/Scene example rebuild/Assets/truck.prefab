@@ -1826,13 +1826,13 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169022}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 6
   m_Type: 0
   m_Color: {r: .963235319, g: .904620647, b: .43203938, a: 1}
   m_Intensity: 1.70000005
   m_Range: 48
-  m_SpotAngle: 45
+  m_SpotAngle: 50
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -1890,13 +1890,13 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 166018}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 6
   m_Type: 0
-  m_Color: {r: .977941155, g: .94223541, b: .654357672, a: 1}
+  m_Color: {r: .960784316, g: .90196079, b: .431372553, a: 1}
   m_Intensity: 1.70000005
   m_Range: 48
-  m_SpotAngle: 45
+  m_SpotAngle: 50
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -1975,7 +1975,8 @@ MonoBehaviour:
   FrontRightWheel: {fileID: 0}
   RearLeftWheel: {fileID: 0}
   RearRightWheel: {fileID: 0}
-  lampi: {fileID: 0}
+  HeadlightLeft: {fileID: 0}
+  HeadlightRight: {fileID: 0}
 --- !u!114 &11435892
 MonoBehaviour:
   m_ObjectHideFlags: 1
