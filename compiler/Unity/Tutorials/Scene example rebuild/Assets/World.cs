@@ -1114,37 +1114,49 @@ private UnityEngine.Vector3 pos;
 public PickUp(UnityEngine.Vector3 pos)
 	{JustEntered = false;
  frame = World.frame;
-		UnityEngine.Vector3 ___p000;
-		___p000 = pos;
-		UnityEngine.Vector3 ___p100;
-		___p100 = (pos) - (new UnityEngine.Vector3(2f,0f,0f));
-		UnityEngine.Vector3 ___p200;
-		___p200 = (pos) + (new UnityEngine.Vector3(2f,0f,0f));
-		UnityEngine.Vector3 ___p300;
-		___p300 = (pos) - (new UnityEngine.Vector3(4f,0f,0f));
-		List<UnityEngine.Vector3> ___plist00;
-		___plist00 = (
+		UnityPickUp = new UnityPickUp();
+		BonusAndResources = (
 
-(new Cons<UnityEngine.Vector3>(___p000,(new Cons<UnityEngine.Vector3>(___p100,(new Cons<UnityEngine.Vector3>(___p200,(new Cons<UnityEngine.Vector3>(___p300,(new Empty<UnityEngine.Vector3>()).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>()).ToList<UnityEngine.Vector3>();
-		System.Int32 ___AmountOfResources00;
-		___AmountOfResources00 = 3;
-		List<System.String> ___NOBOR00;
-		___NOBOR00 = (
-
-(new Cons<System.String>("AmmoBox",(new Cons<System.String>("Crossed Wrenches Red",(new Cons<System.String>("Medipack Red",(new Cons<System.String>("Battery Black",(new Cons<System.String>("Jerry Can Green",(new Cons<System.String>("Lightning Blue",(new Cons<System.String>("Arrows Green",(new Cons<System.String>("Bomb Red",(new Cons<System.String>("Shield Metal",(new Cons<System.String>("Star Red",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
-		List<BonusAndResource> ___BAR00;
-		___BAR00 = (
-
-(Enumerable.Range(0,(1) + ((___AmountOfResources00) - (0))).ToList<System.Int32>()).Select(__ContextSymbol50 => new { ___a010 = __ContextSymbol50 })
-.Select(__ContextSymbol51 => new BonusAndResource(___plist00[__ContextSymbol51.___a010],__ContextSymbol51.___a010))
-.ToList<BonusAndResource>()).ToList<BonusAndResource>();
-		name_of_Bonus_or_Resource = ___NOBOR00;
-		BonusAndResources = ___BAR00;
+Enumerable.Empty<BonusAndResource>()).ToList<BonusAndResource>();
+		BARpos = pos;
 		
 }
-		public List<BonusAndResource> BonusAndResources;
-	public List<System.String> name_of_Bonus_or_Resource;
-	public List<BonusAndResource> ___amount00;
+		public UnityEngine.Vector3 BARpos;
+	public List<BonusAndResource> BonusAndResources;
+	public System.Collections.Generic.List<System.String> Shuffled{  get { return UnityPickUp.Shuffled; }
+  set{UnityPickUp.Shuffled = value; }
+ }
+	public UnityPickUp UnityPickUp;
+	public System.Boolean enabled{  get { return UnityPickUp.enabled; }
+  set{UnityPickUp.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return UnityPickUp.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return UnityPickUp.hideFlags; }
+  set{UnityPickUp.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return UnityPickUp.isActiveAndEnabled; }
+ }
+	public System.String name{  get { return UnityPickUp.name; }
+  set{UnityPickUp.name = value; }
+ }
+	public System.String tag{  get { return UnityPickUp.tag; }
+  set{UnityPickUp.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return UnityPickUp.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return UnityPickUp.useGUILayout; }
+  set{UnityPickUp.useGUILayout = value; }
+ }
+	public List<System.String> ___BARlist00;
+	public UnityEngine.Vector3 ___p010;
+	public UnityEngine.Vector3 ___p110;
+	public UnityEngine.Vector3 ___p210;
+	public UnityEngine.Vector3 ___p310;
+	public List<UnityEngine.Vector3> ___plist10;
+	public System.Collections.Generic.List<System.String> ___Slist10;
+	public List<BonusAndResource> ___BAR10;
+	public List<BonusAndResource> ___amount20;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1152,7 +1164,8 @@ frame = World.frame;
 			BonusAndResources[x0].Update(dt, world);
 		}
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
 	}
 
 
@@ -1165,18 +1178,86 @@ frame = World.frame;
 	{
 
 	case -1:
-	___amount00 = (
+	___BARlist00 = (
 
-(BonusAndResources).Select(__ContextSymbol52 => new { ___a09 = __ContextSymbol52 })
-.Where(__ContextSymbol53 => ((__ContextSymbol53.___a09.Destroyed) == (false)))
-.Select(__ContextSymbol54 => __ContextSymbol54.___a09)
-.ToList<BonusAndResource>()).ToList<BonusAndResource>();
-	BonusAndResources = ___amount00;
+(new Cons<System.String>("AmmoBox",(new Cons<System.String>("Crossed Wrenches Red",(new Cons<System.String>("Medipack Red",(new Cons<System.String>("Battery Black",(new Cons<System.String>("Jerry Can Green",(new Cons<System.String>("Lightning Blue",(new Cons<System.String>("Arrows Green",(new Cons<System.String>("Bomb Red",(new Cons<System.String>("Shield Metal",(new Cons<System.String>("Star Red",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
+	Shuffled = ___BARlist00;
+	s0 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s0 = 0;
+return;	}else
+	{
+
 	s0 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	if(!(((Shuffled.Count) > (0))))
+	{
+
+	s1 = -1;
+return;	}else
+	{
+
+	goto case 8;	}
+	case 8:
+	___p010 = BARpos;
+	___p110 = ((BARpos) - (new UnityEngine.Vector3(2f,0f,0f)));
+	___p210 = ((BARpos) + (new UnityEngine.Vector3(2f,0f,0f)));
+	___p310 = ((BARpos) - (new UnityEngine.Vector3(4f,0f,0f)));
+	___plist10 = (
+
+(new Cons<UnityEngine.Vector3>(___p010,(new Cons<UnityEngine.Vector3>(___p110,(new Cons<UnityEngine.Vector3>(___p210,(new Cons<UnityEngine.Vector3>(___p310,(new Empty<UnityEngine.Vector3>()).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>()).ToList<UnityEngine.Vector3>();
+	___Slist10 = Shuffled;
+	___BAR10 = (
+
+(Enumerable.Range(0,(1) + ((3) - (0))).ToList<System.Int32>()).Select(__ContextSymbol52 => new { ___a19 = __ContextSymbol52 })
+.Select(__ContextSymbol53 => new BonusAndResource(___plist10[__ContextSymbol53.___a19],___Slist10[__ContextSymbol53.___a19]))
+.ToList<BonusAndResource>()).ToList<BonusAndResource>();
+	BonusAndResources = ___BAR10;
+	s1 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s1 = 0;
+return;	}else
+	{
+
+	s1 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	___amount20 = (
+
+(BonusAndResources).Select(__ContextSymbol54 => new { ___a210 = __ContextSymbol54 })
+.Where(__ContextSymbol55 => ((__ContextSymbol55.___a210.Destroyed) == (false)))
+.Select(__ContextSymbol56 => __ContextSymbol56.___a210)
+.ToList<BonusAndResource>()).ToList<BonusAndResource>();
+	BonusAndResources = ___amount20;
+	s2 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -1187,19 +1268,13 @@ public class BonusAndResource{
 public int frame;
 public bool JustEntered = true;
 private UnityEngine.Vector3 pos;
-private System.Int32 num;
+private System.String bonus;
 	public int ID;
-public BonusAndResource(UnityEngine.Vector3 pos, System.Int32 num)
+public BonusAndResource(UnityEngine.Vector3 pos, System.String bonus)
 	{JustEntered = false;
  frame = World.frame;
-		List<System.String> ___nbr00;
-		___nbr00 = (
-
-(new Cons<System.String>("AmmoBox",(new Cons<System.String>("Crossed Wrenches Red",(new Cons<System.String>("Medipack Red",(new Cons<System.String>("Battery Black",(new Cons<System.String>("Jerry Can Green",(new Cons<System.String>("Lightning Blue",(new Cons<System.String>("Arrows Green",(new Cons<System.String>("Bomb Red",(new Cons<System.String>("Shield Metal",(new Cons<System.String>("Star Red",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
-		System.String ___bor00;
-		___bor00 = ___nbr00[(num) + (4)];
-		UnityBonusResource = UnityBonusResource.Instantiate(pos,___bor00);
-		NameOfBoR = ___bor00;
+		UnityBonusResource = UnityBonusResource.Instantiate(pos,bonus);
+		NameOfBoR = bonus;
 		Active = false;
 		
 }
@@ -1360,6 +1435,9 @@ public Truck()
 	public System.Single maxSteeringAngle;
 	public System.String name{  get { return TruckScript.name; }
   set{TruckScript.name = value; }
+ }
+	public UnityEngine.Collider shield{  get { return TruckScript.shield; }
+  set{TruckScript.shield = value; }
  }
 	public System.String tag{  get { return TruckScript.tag; }
   set{TruckScript.tag = value; }
@@ -1951,4 +2029,4 @@ return;
 
 
 }
-}      
+}     

@@ -12,6 +12,7 @@ public class TruckScript : MonoBehaviour
   public Light HeadlightLeft;
   public Light HeadlightRight;
   private float CarHP = 1.0f;
+  public Collider shield;
 
   public static TruckScript Instantiate()
   {
@@ -25,6 +26,7 @@ public class TruckScript : MonoBehaviour
     truck.HeadlightLeft = GameObject.Find("LeftLight").GetComponent<Light>() as Light;
     truck.HeadlightRight = GameObject.Find("RightLight").GetComponent<Light>() as Light;
     truck.truckRigidBody = jeepGameObject.GetComponent<Rigidbody>() as Rigidbody;
+    truck.shield = GameObject.Find("Shield").GetComponent<Collider>() as Collider;
     return truck;
   }
   public Vector3 Position
@@ -114,4 +116,8 @@ public class TruckScript : MonoBehaviour
     get { return CarHP; }
     set { CarHP2 = CarHP; }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+  void Update()
+  { 
+    //Physics.IgnoreCollision(shield, UnityPlane.planeBox, true);
+  }
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
