@@ -306,7 +306,9 @@ public class CameraRig {
 		if (path.Length != 0)
 		{
 			byte[] b = Encoding.ASCII.GetBytes(sw.ToString());
+#if !UNITY_WEBPLAYER
 			File.WriteAllBytes(path, b);
+#endif
 			// Tell Unity to scan for modified or new assets
 			AssetDatabase.Refresh();
 			return path;
