@@ -337,6 +337,12 @@ entity Truck = {
      yield new Vector3(1.0f,0.0f,-1.5f)
      wait false
 
+   rule InMag, NotInMag = 
+     yield world.Pistols.Head.InMagazine, world.Pistols.Head.NotInMagazine
+
+   rule MagazineGUI = 
+     yield MagazineGUI
+
    rule Keyboard = 
       wait Input.GetKeyDown(KeyCode.P)
       yield not Keyboard

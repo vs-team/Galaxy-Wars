@@ -13,6 +13,7 @@ public class TruckScript : MonoBehaviour
   public Light HeadlightRight;
   private float CarHP = 1.0f;
   public Collider shield;
+  private TextMesh MagazineBox;
 
   public static TruckScript Instantiate()
   {
@@ -27,11 +28,19 @@ public class TruckScript : MonoBehaviour
     truck.HeadlightRight = GameObject.Find("RightLight").GetComponent<Light>() as Light;
     truck.truckRigidBody = jeepGameObject.GetComponent<Rigidbody>() as Rigidbody;
     truck.shield = GameObject.Find("Shield").GetComponent<Collider>() as Collider;
+    truck.MagazineBox = GameObject.Find("Bullets").GetComponent<TextMesh>() as TextMesh;
     return truck;
   }
   public Vector3 Position
   {
     get { return this.transform.position; }
+  }
+  public int InMag;
+  public int NotInMag;
+  public string MagazineGUI
+  {
+    get { return MagazineBox.text; }
+    set { MagazineBox.text = InMag + "/" + NotInMag; }
   }
 
   public Vector3 CenterOfMass
@@ -120,4 +129,4 @@ public class TruckScript : MonoBehaviour
   { 
     //Physics.IgnoreCollision(shield, UnityPlane.planeBox, true);
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
