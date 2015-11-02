@@ -1405,7 +1405,16 @@ public Truck()
 	public System.Boolean HeadlightRightOn{  get { return TruckScript.HeadlightRightOn; }
   set{TruckScript.HeadlightRightOn = value; }
  }
+	public System.Int32 InMag{  get { return TruckScript.InMag; }
+  set{TruckScript.InMag = value; }
+ }
 	public System.Boolean Keyboard;
+	public System.String MagazineGUI{  get { return TruckScript.MagazineGUI; }
+  set{TruckScript.MagazineGUI = value; }
+ }
+	public System.Int32 NotInMag{  get { return TruckScript.NotInMag; }
+  set{TruckScript.NotInMag = value; }
+ }
 	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
  }
 	public UnityEngine.WheelCollider RearLeftWheel{  get { return TruckScript.RearLeftWheel; }
@@ -1466,6 +1475,8 @@ frame = World.frame;
 		this.Rule3(dt, world);
 		this.Rule4(dt, world);
 		this.Rule5(dt, world);
+		this.Rule6(dt, world);
+		this.Rule7(dt, world);
 	}
 
 
@@ -1581,25 +1592,50 @@ return;
 	{
 
 	case -1:
-	CenterOfMass = new UnityEngine.Vector3(1f,0f,-1.5f);
-	s4 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s4 = 0;
-return;	}else
-	{
-
+	MagazineGUI = MagazineGUI;
 	s4 = -1;
-return;	}	
+return;	
 	default: return;}}
 	
 
 	int s5=-1;
 	public void Rule5(float dt, World world){ 
 	switch (s5)
+	{
+
+	case -1:
+	InMag = world.Pistols.Head().InMagazine;
+	NotInMag = world.Pistols.Head().NotInMagazine;
+	s5 = -1;
+return;	
+	default: return;}}
+	
+
+	int s6=-1;
+	public void Rule6(float dt, World world){ 
+	switch (s6)
+	{
+
+	case -1:
+	CenterOfMass = new UnityEngine.Vector3(1f,0f,-1.5f);
+	s6 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s6 = 0;
+return;	}else
+	{
+
+	s6 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s7=-1;
+	public void Rule7(float dt, World world){ 
+	switch (s7)
 	{
 
 	case -1:
@@ -1613,7 +1649,7 @@ return;	}
 	case 2:
 	HeadlightLeftOn = true;
 	HeadlightRightOn = true;
-	s5 = 15;
+	s7 = 15;
 return;
 	case 15:
 	count_down5 = 5f;
@@ -1623,7 +1659,7 @@ return;
 	{
 
 	count_down5 = ((count_down5) - (dt));
-	s5 = 16;
+	s7 = 16;
 return;	}else
 	{
 
@@ -1631,7 +1667,7 @@ return;	}else
 	case 14:
 	HeadlightLeftOn = false;
 	HeadlightRightOn = false;
-	s5 = 12;
+	s7 = 12;
 return;
 	case 12:
 	count_down4 = 0.2f;
@@ -1641,7 +1677,7 @@ return;
 	{
 
 	count_down4 = ((count_down4) - (dt));
-	s5 = 13;
+	s7 = 13;
 return;	}else
 	{
 
@@ -1649,7 +1685,7 @@ return;	}else
 	case 11:
 	HeadlightLeftOn = true;
 	HeadlightRightOn = true;
-	s5 = 9;
+	s7 = 9;
 return;
 	case 9:
 	count_down3 = 0.1f;
@@ -1659,7 +1695,7 @@ return;
 	{
 
 	count_down3 = ((count_down3) - (dt));
-	s5 = 10;
+	s7 = 10;
 return;	}else
 	{
 
@@ -1667,7 +1703,7 @@ return;	}else
 	case 8:
 	HeadlightLeftOn = false;
 	HeadlightRightOn = false;
-	s5 = 6;
+	s7 = 6;
 return;
 	case 6:
 	count_down2 = 0.3f;
@@ -1677,7 +1713,7 @@ return;
 	{
 
 	count_down2 = ((count_down2) - (dt));
-	s5 = 7;
+	s7 = 7;
 return;	}else
 	{
 
@@ -1685,12 +1721,12 @@ return;	}else
 	case 5:
 	HeadlightLeftOn = true;
 	HeadlightRightOn = true;
-	s5 = -1;
+	s7 = -1;
 return;
 	case 3:
 	HeadlightLeftOn = false;
 	HeadlightRightOn = false;
-	s5 = -1;
+	s7 = -1;
 return;	
 	default: return;}}
 	
@@ -2029,4 +2065,4 @@ return;
 
 
 }
-}     
+}          
