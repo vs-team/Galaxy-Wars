@@ -24,14 +24,16 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 
 (new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-160f),1),(new Cons<Landscape>(new Landscape(new UnityEngine.Vector3(0f,0f,-80f),4),(new Cons<Landscape>(new Landscape(Vector3.zero,2),(new Empty<Landscape>()).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>())).ToList<Landscape>()).ToList<Landscape>();
 		Jeep = new Truck();
-		Health = 10f;
+		Health = 100f;
 		GUIpanel = new GUI();
 		Flashs = (
 
 (new Cons<Light>(new Light(),(new Empty<Light>()).ToList<Light>())).ToList<Light>()).ToList<Light>();
+		ActiveBoR = "";
 		
 }
-		public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
+		public System.String ActiveBoR;
+	public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
  }
 	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
   set{UnityLandscape.Destroyed = value; }
@@ -84,11 +86,14 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public List<Landscape> ___ls00;
 	public UnityEngine.Vector3 ___Headpos00;
 	public System.Int32 ___randr00;
-	public List<Zombie> ___zmbies20;
-	public List<GroupZombie> ___groups30;
-	public List<Zombie> ___zombiegroup30;
-	public List<Zombie> ___groupleader30;
-	public List<Zombie> ___group30;
+	public List<System.String> ___a12;
+	public List<System.String> ___resourcelist20;
+	public System.Int32 ___rnd20;
+	public List<Zombie> ___zmbies40;
+	public List<GroupZombie> ___groups50;
+	public List<Zombie> ___zombiegroup50;
+	public List<Zombie> ___groupleader50;
+	public List<Zombie> ___group50;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -112,6 +117,8 @@ var t = System.DateTime.Now;
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
+		this.Rule4(dt, world);
+		this.Rule5(dt, world);
 	}
 
 
@@ -162,19 +169,33 @@ return;	}
 	{
 
 	case -1:
-	Health = Health;
-	s1 = 0;
-return;
-	case 0:
-	if(!(false))
+	___a12 = (
+
+(Landscapes).Select(__ContextSymbol6 => new { ___a11 = __ContextSymbol6 })
+.SelectMany(__ContextSymbol7=> (__ContextSymbol7.___a11.PickUps).Select(__ContextSymbol8 => new { ___b10 = __ContextSymbol8,
+                                                      prev = __ContextSymbol7 })
+.SelectMany(__ContextSymbol9=> (__ContextSymbol9.___b10.BonusAndResources).Select(__ContextSymbol10 => new { ___c10 = __ContextSymbol10,
+                                                      prev = __ContextSymbol9 })
+.Where(__ContextSymbol11 => __ContextSymbol11.___c10.Active)
+.Select(__ContextSymbol12 => __ContextSymbol12.___c10.NameOfBoR)
+.ToList<System.String>()))).ToList<System.String>();
+	if(((___a12.Count) > (0)))
 	{
 
-	s1 = 0;
-return;	}else
+	goto case 8;	}else
 	{
 
 	s1 = -1;
-return;	}	
+return;	}
+	case 8:
+	UnityEngine.Debug.Log(___a12.Head());
+	ActiveBoR = ___a12.Head();
+	s1 = 9;
+return;
+	case 9:
+	ActiveBoR = "";
+	s1 = -1;
+return;	
 	default: return;}}
 	
 
@@ -184,13 +205,20 @@ return;	}
 	{
 
 	case -1:
-	___zmbies20 = (
+	if(((ActiveBoR) == ("Crossed Wrenches Red")))
+	{
 
-(Zombies).Select(__ContextSymbol6 => new { ___a21 = __ContextSymbol6 })
-.Where(__ContextSymbol7 => ((__ContextSymbol7.___a21.Destroyed) == (false)))
-.Select(__ContextSymbol8 => __ContextSymbol8.___a21)
-.ToList<Zombie>()).ToList<Zombie>();
-	Zombies = ___zmbies20;
+	goto case 14;	}else
+	{
+
+	s2 = -1;
+return;	}
+	case 14:
+	___resourcelist20 = (
+
+(new Cons<System.String>("Medipack Red",(new Cons<System.String>("Battery Black",(new Cons<System.String>("Jerry Can Green",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
+	___rnd20 = UnityEngine.Random.Range(0,3);
+	ActiveBoR = (___resourcelist20)[___rnd20];
 	s2 = -1;
 return;	
 	default: return;}}
@@ -202,39 +230,82 @@ return;
 	{
 
 	case -1:
-	___groups30 = (
+	if(((ActiveBoR) == ("Medipack Red")))
+	{
 
-(Landscapes).Select(__ContextSymbol9 => new { ___a32 = __ContextSymbol9 })
-.SelectMany(__ContextSymbol10=> (__ContextSymbol10.___a32.Group).Select(__ContextSymbol11 => new { ___b30 = __ContextSymbol11,
-                                                      prev = __ContextSymbol10 })
-.Select(__ContextSymbol12 => __ContextSymbol12.___b30)
-.ToList<GroupZombie>())).ToList<GroupZombie>();
-	___zombiegroup30 = (
+	goto case 19;	}else
+	{
 
-(___groups30).Select(__ContextSymbol13 => new { ___a33 = __ContextSymbol13 })
-.SelectMany(__ContextSymbol14=> (__ContextSymbol14.___a33.ZombieFollowers).Select(__ContextSymbol15 => new { ___c30 = __ContextSymbol15,
-                                                      prev = __ContextSymbol14 })
-.Select(__ContextSymbol16 => __ContextSymbol16.___c30)
-.ToList<Zombie>())).ToList<Zombie>();
-	___groupleader30 = (
+	s3 = -1;
+return;	}
+	case 19:
+	Health = ((Health) + (20f));
+	s3 = 20;
+return;
+	case 20:
+	UnityEngine.Debug.Log(Health);
+	s3 = -1;
+return;	
+	default: return;}}
+	
 
-(___groups30).Select(__ContextSymbol17 => new { ___a34 = __ContextSymbol17 })
-.Where(__ContextSymbol18 => __ContextSymbol18.___a34.ZombieLeader.IsSome)
-.Select(__ContextSymbol19 => new {___z30 = __ContextSymbol19.___a34.ZombieLeader.Value, prev = __ContextSymbol19 })
-.Select(__ContextSymbol20 => __ContextSymbol20.___z30)
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	___zmbies40 = (
+
+(Zombies).Select(__ContextSymbol14 => new { ___a43 = __ContextSymbol14 })
+.Where(__ContextSymbol15 => ((__ContextSymbol15.___a43.Destroyed) == (false)))
+.Select(__ContextSymbol16 => __ContextSymbol16.___a43)
 .ToList<Zombie>()).ToList<Zombie>();
-	___group30 = (___groupleader30).Concat(___zombiegroup30).ToList<Zombie>();
-	if(((___group30.Count) > (0)))
+	Zombies = ___zmbies40;
+	s4 = -1;
+return;	
+	default: return;}}
+	
+
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
+	{
+
+	case -1:
+	___groups50 = (
+
+(Landscapes).Select(__ContextSymbol17 => new { ___a54 = __ContextSymbol17 })
+.SelectMany(__ContextSymbol18=> (__ContextSymbol18.___a54.Group).Select(__ContextSymbol19 => new { ___b51 = __ContextSymbol19,
+                                                      prev = __ContextSymbol18 })
+.Select(__ContextSymbol20 => __ContextSymbol20.___b51)
+.ToList<GroupZombie>())).ToList<GroupZombie>();
+	___zombiegroup50 = (
+
+(___groups50).Select(__ContextSymbol21 => new { ___a55 = __ContextSymbol21 })
+.SelectMany(__ContextSymbol22=> (__ContextSymbol22.___a55.ZombieFollowers).Select(__ContextSymbol23 => new { ___c51 = __ContextSymbol23,
+                                                      prev = __ContextSymbol22 })
+.Select(__ContextSymbol24 => __ContextSymbol24.___c51)
+.ToList<Zombie>())).ToList<Zombie>();
+	___groupleader50 = (
+
+(___groups50).Select(__ContextSymbol25 => new { ___a56 = __ContextSymbol25 })
+.Where(__ContextSymbol26 => __ContextSymbol26.___a56.ZombieLeader.IsSome)
+.Select(__ContextSymbol27 => new {___z50 = __ContextSymbol27.___a56.ZombieLeader.Value, prev = __ContextSymbol27 })
+.Select(__ContextSymbol28 => __ContextSymbol28.___z50)
+.ToList<Zombie>()).ToList<Zombie>();
+	___group50 = (___groupleader50).Concat(___zombiegroup50).ToList<Zombie>();
+	if(((___group50.Count) > (0)))
 	{
 
 	goto case 3;	}else
 	{
 
-	s3 = -1;
+	s5 = -1;
 return;	}
 	case 3:
-	Zombies = (___group30).Concat(Zombies).ToList<Zombie>();
-	s3 = -1;
+	Zombies = (___group50).Concat(Zombies).ToList<Zombie>();
+	s5 = -1;
 return;	
 	default: return;}}
 	
@@ -313,8 +384,8 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	case -1:
 	___z01 = (
 
-(U_Zombies).Select(__ContextSymbol23 => new { ___a05 = __ContextSymbol23 })
-.Select(__ContextSymbol24 => new Zombie(__ContextSymbol24.___a05))
+(U_Zombies).Select(__ContextSymbol31 => new { ___a07 = __ContextSymbol31 })
+.Select(__ContextSymbol32 => new Zombie(__ContextSymbol32.___a07))
 .ToList<Zombie>()).ToList<Zombie>();
 	ZombieFollowers = ___z01;
 	s0 = 1;
@@ -496,6 +567,7 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		this.Rule3(dt, world);
 	}
 
 
@@ -585,7 +657,7 @@ return;
 	{
 
 	case -1:
-	if(((((GunController.Trigger) && (((InMagazine) > (0))))) && (((Reloading) == (false)))))
+	if(((world.ActiveBoR) == ("AmmoBox")))
 	{
 
 	goto case 15;	}else
@@ -594,18 +666,43 @@ return;
 	s2 = -1;
 return;	}
 	case 15:
-	InMagazine = ((InMagazine) - (1));
+	NotInMagazine = ((NotInMagazine) + (50));
 	s2 = 16;
 return;
 	case 16:
+	UnityEngine.Debug.Log(("NotInMagazine = ") + (NotInMagazine));
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(((((GunController.Trigger) && (((InMagazine) > (0))))) && (((Reloading) == (false)))))
+	{
+
+	goto case 19;	}else
+	{
+
+	s3 = -1;
+return;	}
+	case 19:
+	InMagazine = ((InMagazine) - (1));
+	s3 = 20;
+return;
+	case 20:
 	if(!(!(GunController.Trigger)))
 	{
 
-	s2 = 16;
+	s3 = 20;
 return;	}else
 	{
 
-	s2 = -1;
+	s3 = -1;
 return;	}	
 	default: return;}}
 	
@@ -636,6 +733,7 @@ frame = World.frame;
 		LightController.Update(dt, world);
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
+		this.Rule2(dt, world);
 	}
 
 
@@ -651,15 +749,15 @@ frame = World.frame;
 	if(((Active) && (((Battery) > (0.49f)))))
 	{
 
-	goto case 18;	}else
+	goto case 22;	}else
 	{
 
-	goto case 19;	}
-	case 18:
+	goto case 23;	}
+	case 22:
 	Battery = ((Battery) - (0.5f));
 	s0 = -1;
 return;
-	case 19:
+	case 23:
 	Battery = Battery;
 	s0 = -1;
 return;	
@@ -672,8 +770,30 @@ return;
 	{
 
 	case -1:
-	Active = LightController.Trigger;
+	if(((world.ActiveBoR) == ("Battery Black")))
+	{
+
+	goto case 28;	}else
+	{
+
 	s1 = -1;
+return;	}
+	case 28:
+	UnityEngine.Debug.Log(("Battery = ") + (Battery));
+	Battery = ((Battery) + (50f));
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	Active = LightController.Trigger;
+	s2 = -1;
 return;	
 	default: return;}}
 	
@@ -805,6 +925,9 @@ public Landscape(UnityEngine.Vector3 pos, System.Int32 ps)
 		Spawnpoints = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
+		PickUps = (
+
+Enumerable.Empty<PickUp>()).ToList<PickUp>();
 		Group = (
 
 Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
@@ -816,6 +939,7 @@ Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
   set{UnityLandscape.Destroyed = value; }
  }
 	public List<GroupZombie> Group;
+	public List<PickUp> PickUps;
 	public UnityEngine.Vector3 Position{  get { return UnityLandscape.Position; }
  }
 	public List<UnityEngine.Transform> Spawnpoints;
@@ -845,13 +969,23 @@ Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
  }
 	public List<UnityEngine.Transform> ___sps00;
 	public System.Int32 ___random_spawnp10;
+	public System.Int32 ___random_pickup10;
 	public UnityEngine.Transform ___sps11;
 	public UnityEngine.Vector3 ___sps_pos10;
+	public UnityEngine.Transform ___rpu10;
+	public UnityEngine.Vector3 ___rpu_pos10;
+	public UnityEngine.Transform ___sps110;
+	public UnityEngine.Vector3 ___sps_pos110;
+	public UnityEngine.Transform ___rpu110;
+	public UnityEngine.Vector3 ___rpu_pos110;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		for(int x0 = 0; x0 < Group.Count; x0++) { 
 			Group[x0].Update(dt, world);
+		}
+		for(int x0 = 0; x0 < PickUps.Count; x0++) { 
+			PickUps[x0].Update(dt, world);
 		}
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
@@ -869,8 +1003,8 @@ frame = World.frame;
 	case -1:
 	___sps00 = (
 
-(Spawnpoints2).Select(__ContextSymbol30 => new { ___a06 = __ContextSymbol30 })
-.Select(__ContextSymbol31 => __ContextSymbol31.___a06)
+(Spawnpoints2).Select(__ContextSymbol40 => new { ___a08 = __ContextSymbol40 })
+.Select(__ContextSymbol41 => __ContextSymbol41.___a08)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	Spawnpoints = ___sps00;
 	s0 = 0;
@@ -901,24 +1035,64 @@ return;	}
 return;	}else
 	{
 
-	goto case 4;	}
-	case 4:
+	goto case 16;	}
+	case 16:
 	___random_spawnp10 = UnityEngine.Random.Range(0,4);
+	___random_pickup10 = UnityEngine.Random.Range(0,4);
+	if(!(((___random_spawnp10) == (___random_pickup10))))
+	{
+
+	goto case 0;	}else
+	{
+
+	goto case 1;	}
+	case 0:
 	___sps11 = (Spawnpoints)[___random_spawnp10];
 	___sps_pos10 = ___sps11.position;
+	___rpu10 = (Spawnpoints)[___random_pickup10];
+	___rpu_pos10 = ___rpu10.position;
 	Group = (
 
 (new Cons<GroupZombie>(new GroupZombie(___sps_pos10),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
+	PickUps = (
+
+(new Cons<PickUp>(new PickUp(___rpu_pos10),(new Empty<PickUp>()).ToList<PickUp>())).ToList<PickUp>()).ToList<PickUp>();
 	Spawnpoints = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
-	s1 = 0;
+	s1 = 3;
 return;
-	case 0:
+	case 3:
 	if(!(false))
 	{
 
-	s1 = 0;
+	s1 = 3;
+return;	}else
+	{
+
+	s1 = -1;
+return;	}
+	case 1:
+	___sps110 = (Spawnpoints)[1];
+	___sps_pos110 = ___sps110.position;
+	___rpu110 = (Spawnpoints)[2];
+	___rpu_pos110 = ___rpu110.position;
+	Group = (
+
+(new Cons<GroupZombie>(new GroupZombie(___sps_pos110),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
+	PickUps = (
+
+(new Cons<PickUp>(new PickUp(___rpu_pos110),(new Empty<PickUp>()).ToList<PickUp>())).ToList<PickUp>()).ToList<PickUp>();
+	Spawnpoints = (
+
+Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
+	s1 = 9;
+return;
+	case 9:
+	if(!(false))
+	{
+
+	s1 = 9;
 return;	}else
 	{
 
@@ -932,98 +1106,66 @@ return;	}
 
 
 }
-public class Truck{
+public class PickUp{
 public int frame;
 public bool JustEntered = true;
+private UnityEngine.Vector3 pos;
 	public int ID;
-public Truck()
+public PickUp(UnityEngine.Vector3 pos)
 	{JustEntered = false;
  frame = World.frame;
-		maxSteeringAngle = 50f;
-		maxMotorTorque = 250f;
-		TruckScript = TruckScript.Instantiate();
-		Fuel = 40000f;
-		DriveEngine = new Engine();
-		AxleInfos = (
+		UnityPickUp = new UnityPickUp();
+		BonusAndResources = (
 
-(new Cons<AxleInfo>(new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true),(new Cons<AxleInfo>(new AxleInfo(RearLeftWheel,RearRightWheel,true,false),(new Empty<AxleInfo>()).ToList<AxleInfo>())).ToList<AxleInfo>())).ToList<AxleInfo>()).ToList<AxleInfo>();
+Enumerable.Empty<BonusAndResource>()).ToList<BonusAndResource>();
+		BARpos = pos;
 		
 }
-		public System.Single Acceleration{  get { return TruckScript.Acceleration; }
+		public UnityEngine.Vector3 BARpos;
+	public List<BonusAndResource> BonusAndResources;
+	public System.Collections.Generic.List<System.String> Shuffled{  get { return UnityPickUp.Shuffled; }
+  set{UnityPickUp.Shuffled = value; }
  }
-	public List<AxleInfo> AxleInfos;
-	public System.Single BrakeAndReverse{  get { return TruckScript.BrakeAndReverse; }
+	public UnityPickUp UnityPickUp;
+	public System.Boolean enabled{  get { return UnityPickUp.enabled; }
+  set{UnityPickUp.enabled = value; }
  }
-	public System.Single CarHP2{  get { return TruckScript.CarHP2; }
-  set{TruckScript.CarHP2 = value; }
+	public UnityEngine.GameObject gameObject{  get { return UnityPickUp.gameObject; }
  }
-	public UnityEngine.Vector3 CenterOfMass{  get { return TruckScript.CenterOfMass; }
-  set{TruckScript.CenterOfMass = value; }
+	public UnityEngine.HideFlags hideFlags{  get { return UnityPickUp.hideFlags; }
+  set{UnityPickUp.hideFlags = value; }
  }
-	public Engine DriveEngine;
-	public System.Single Frce{  set{TruckScript.Frce = value; }
+	public System.Boolean isActiveAndEnabled{  get { return UnityPickUp.isActiveAndEnabled; }
  }
-	public UnityEngine.WheelCollider FrontLeftWheel{  get { return TruckScript.FrontLeftWheel; }
-  set{TruckScript.FrontLeftWheel = value; }
+	public System.String name{  get { return UnityPickUp.name; }
+  set{UnityPickUp.name = value; }
  }
-	public UnityEngine.WheelCollider FrontRightWheel{  get { return TruckScript.FrontRightWheel; }
-  set{TruckScript.FrontRightWheel = value; }
+	public System.String tag{  get { return UnityPickUp.tag; }
+  set{UnityPickUp.tag = value; }
  }
-	public System.Single Fuel;
-	public System.Boolean LightOn{  get { return TruckScript.LightOn; }
-  set{TruckScript.LightOn = value; }
+	public UnityEngine.Transform transform{  get { return UnityPickUp.transform; }
  }
-	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
+	public System.Boolean useGUILayout{  get { return UnityPickUp.useGUILayout; }
+  set{UnityPickUp.useGUILayout = value; }
  }
-	public UnityEngine.WheelCollider RearLeftWheel{  get { return TruckScript.RearLeftWheel; }
-  set{TruckScript.RearLeftWheel = value; }
- }
-	public UnityEngine.WheelCollider RearRightWheel{  get { return TruckScript.RearRightWheel; }
-  set{TruckScript.RearRightWheel = value; }
- }
-	public System.Single Steering{  get { return TruckScript.Steering; }
- }
-	public UnityEngine.Vector3 Trque{  set{TruckScript.Trque = value; }
- }
-	public TruckScript TruckScript;
-	public System.Boolean enabled{  get { return TruckScript.enabled; }
-  set{TruckScript.enabled = value; }
- }
-	public UnityEngine.GameObject gameObject{  get { return TruckScript.gameObject; }
- }
-	public UnityEngine.HideFlags hideFlags{  get { return TruckScript.hideFlags; }
-  set{TruckScript.hideFlags = value; }
- }
-	public System.Boolean isActiveAndEnabled{  get { return TruckScript.isActiveAndEnabled; }
- }
-	public UnityEngine.Light lampi{  get { return TruckScript.lampi; }
-  set{TruckScript.lampi = value; }
- }
-	public System.Single maxMotorTorque;
-	public System.Single maxSteeringAngle;
-	public System.String name{  get { return TruckScript.name; }
-  set{TruckScript.name = value; }
- }
-	public System.String tag{  get { return TruckScript.tag; }
-  set{TruckScript.tag = value; }
- }
-	public UnityEngine.Transform transform{  get { return TruckScript.transform; }
- }
-	public UnityEngine.Rigidbody truckRigidBody{  get { return TruckScript.truckRigidBody; }
-  set{TruckScript.truckRigidBody = value; }
- }
-	public System.Boolean useGUILayout{  get { return TruckScript.useGUILayout; }
-  set{TruckScript.useGUILayout = value; }
- }
+	public List<System.String> ___BARlist00;
+	public UnityEngine.Vector3 ___p010;
+	public UnityEngine.Vector3 ___p110;
+	public UnityEngine.Vector3 ___p210;
+	public UnityEngine.Vector3 ___p310;
+	public List<UnityEngine.Vector3> ___plist10;
+	public System.Collections.Generic.List<System.String> ___Slist10;
+	public List<BonusAndResource> ___BAR10;
+	public List<BonusAndResource> ___amount20;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-		for(int x0 = 0; x0 < AxleInfos.Count; x0++) { 
-			AxleInfos[x0].Update(dt, world);
+		for(int x0 = 0; x0 < BonusAndResources.Count; x0++) { 
+			BonusAndResources[x0].Update(dt, world);
 		}
-		DriveEngine.Update(dt, world);
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
 	}
 
 
@@ -1036,7 +1178,10 @@ frame = World.frame;
 	{
 
 	case -1:
-	CenterOfMass = new UnityEngine.Vector3(1f,0f,-1.5f);
+	___BARlist00 = (
+
+(new Cons<System.String>("AmmoBox",(new Cons<System.String>("Crossed Wrenches Red",(new Cons<System.String>("Medipack Red",(new Cons<System.String>("Battery Black",(new Cons<System.String>("Jerry Can Green",(new Cons<System.String>("Lightning Blue",(new Cons<System.String>("Arrows Green",(new Cons<System.String>("Bomb Red",(new Cons<System.String>("Shield Metal",(new Cons<System.String>("Star Red",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
+	Shuffled = ___BARlist00;
 	s0 = 0;
 return;
 	case 0:
@@ -1052,6 +1197,503 @@ return;	}
 	default: return;}}
 	
 
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	if(!(((Shuffled.Count) > (0))))
+	{
+
+	s1 = -1;
+return;	}else
+	{
+
+	goto case 8;	}
+	case 8:
+	___p010 = BARpos;
+	___p110 = ((BARpos) - (new UnityEngine.Vector3(2f,0f,0f)));
+	___p210 = ((BARpos) + (new UnityEngine.Vector3(2f,0f,0f)));
+	___p310 = ((BARpos) - (new UnityEngine.Vector3(4f,0f,0f)));
+	___plist10 = (
+
+(new Cons<UnityEngine.Vector3>(___p010,(new Cons<UnityEngine.Vector3>(___p110,(new Cons<UnityEngine.Vector3>(___p210,(new Cons<UnityEngine.Vector3>(___p310,(new Empty<UnityEngine.Vector3>()).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>())).ToList<UnityEngine.Vector3>()).ToList<UnityEngine.Vector3>();
+	___Slist10 = Shuffled;
+	___BAR10 = (
+
+(Enumerable.Range(0,(1) + ((3) - (0))).ToList<System.Int32>()).Select(__ContextSymbol52 => new { ___a19 = __ContextSymbol52 })
+.Select(__ContextSymbol53 => new BonusAndResource(___plist10[__ContextSymbol53.___a19],___Slist10[__ContextSymbol53.___a19]))
+.ToList<BonusAndResource>()).ToList<BonusAndResource>();
+	BonusAndResources = ___BAR10;
+	s1 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s1 = 0;
+return;	}else
+	{
+
+	s1 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	___amount20 = (
+
+(BonusAndResources).Select(__ContextSymbol54 => new { ___a210 = __ContextSymbol54 })
+.Where(__ContextSymbol55 => ((__ContextSymbol55.___a210.Destroyed) == (false)))
+.Select(__ContextSymbol56 => __ContextSymbol56.___a210)
+.ToList<BonusAndResource>()).ToList<BonusAndResource>();
+	BonusAndResources = ___amount20;
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+
+
+
+
+}
+public class BonusAndResource{
+public int frame;
+public bool JustEntered = true;
+private UnityEngine.Vector3 pos;
+private System.String bonus;
+	public int ID;
+public BonusAndResource(UnityEngine.Vector3 pos, System.String bonus)
+	{JustEntered = false;
+ frame = World.frame;
+		UnityBonusResource = UnityBonusResource.Instantiate(pos,bonus);
+		NameOfBoR = bonus;
+		Active = false;
+		
+}
+		public System.Boolean Active;
+	public System.Boolean Destroyed{  get { return UnityBonusResource.Destroyed; }
+  set{UnityBonusResource.Destroyed = value; }
+ }
+	public System.String NameOfBoR;
+	public UnityBonusResource UnityBonusResource;
+	public System.Boolean collids{  get { return UnityBonusResource.collids; }
+  set{UnityBonusResource.collids = value; }
+ }
+	public System.Boolean enabled{  get { return UnityBonusResource.enabled; }
+  set{UnityBonusResource.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return UnityBonusResource.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return UnityBonusResource.hideFlags; }
+  set{UnityBonusResource.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return UnityBonusResource.isActiveAndEnabled; }
+ }
+	public System.String name{  get { return UnityBonusResource.name; }
+  set{UnityBonusResource.name = value; }
+ }
+	public System.String tag{  get { return UnityBonusResource.tag; }
+  set{UnityBonusResource.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return UnityBonusResource.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return UnityBonusResource.useGUILayout; }
+  set{UnityBonusResource.useGUILayout = value; }
+ }
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+		this.Rule0(dt, world);
+
+	}
+
+
+
+
+
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	if(collids)
+	{
+
+	goto case 3;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 3:
+	Active = true;
+	Destroyed = false;
+	s0 = 4;
+return;
+	case 4:
+	Active = true;
+	Destroyed = true;
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+
+
+
+
+
+}
+public class Truck{
+public int frame;
+public bool JustEntered = true;
+	public int ID;
+public Truck()
+	{JustEntered = false;
+ frame = World.frame;
+		maxSteeringAngle = 50f;
+		maxMotorTorque = 250f;
+		cnvAccel = 0f;
+		TruckScript = TruckScript.Instantiate();
+		Rotation = 0f;
+		Keyboard = false;
+		Fuel = 4000f;
+		AxleInfos = (
+
+(new Cons<AxleInfo>(new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true),(new Cons<AxleInfo>(new AxleInfo(RearLeftWheel,RearRightWheel,true,false),(new Empty<AxleInfo>()).ToList<AxleInfo>())).ToList<AxleInfo>())).ToList<AxleInfo>()).ToList<AxleInfo>();
+		Active = true;
+		
+}
+		public System.Single Acceleration{  get { return TruckScript.Acceleration; }
+ }
+	public System.Boolean Active;
+	public List<AxleInfo> AxleInfos;
+	public System.Single BrakeAndReverse{  get { return TruckScript.BrakeAndReverse; }
+ }
+	public System.Single CarHP2{  get { return TruckScript.CarHP2; }
+  set{TruckScript.CarHP2 = value; }
+ }
+	public UnityEngine.Vector3 CenterOfMass{  get { return TruckScript.CenterOfMass; }
+  set{TruckScript.CenterOfMass = value; }
+ }
+	public System.Single Frce{  set{TruckScript.Frce = value; }
+ }
+	public UnityEngine.WheelCollider FrontLeftWheel{  get { return TruckScript.FrontLeftWheel; }
+  set{TruckScript.FrontLeftWheel = value; }
+ }
+	public UnityEngine.WheelCollider FrontRightWheel{  get { return TruckScript.FrontRightWheel; }
+  set{TruckScript.FrontRightWheel = value; }
+ }
+	public System.Single Fuel;
+	public UnityEngine.Light HeadlightLeft{  get { return TruckScript.HeadlightLeft; }
+  set{TruckScript.HeadlightLeft = value; }
+ }
+	public System.Boolean HeadlightLeftOn{  get { return TruckScript.HeadlightLeftOn; }
+  set{TruckScript.HeadlightLeftOn = value; }
+ }
+	public UnityEngine.Light HeadlightRight{  get { return TruckScript.HeadlightRight; }
+  set{TruckScript.HeadlightRight = value; }
+ }
+	public System.Boolean HeadlightRightOn{  get { return TruckScript.HeadlightRightOn; }
+  set{TruckScript.HeadlightRightOn = value; }
+ }
+	public System.Boolean Keyboard;
+	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
+ }
+	public UnityEngine.WheelCollider RearLeftWheel{  get { return TruckScript.RearLeftWheel; }
+  set{TruckScript.RearLeftWheel = value; }
+ }
+	public UnityEngine.WheelCollider RearRightWheel{  get { return TruckScript.RearRightWheel; }
+  set{TruckScript.RearRightWheel = value; }
+ }
+	public System.Single Rotation;
+	public System.Single Steering{  get { return TruckScript.Steering; }
+ }
+	public UnityEngine.Vector3 Trque{  set{TruckScript.Trque = value; }
+ }
+	public TruckScript TruckScript;
+	public System.Single cnvAccel;
+	public System.Boolean enabled{  get { return TruckScript.enabled; }
+  set{TruckScript.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return TruckScript.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return TruckScript.hideFlags; }
+  set{TruckScript.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return TruckScript.isActiveAndEnabled; }
+ }
+	public System.Single maxMotorTorque;
+	public System.Single maxSteeringAngle;
+	public System.String name{  get { return TruckScript.name; }
+  set{TruckScript.name = value; }
+ }
+	public UnityEngine.Collider shield{  get { return TruckScript.shield; }
+  set{TruckScript.shield = value; }
+ }
+	public System.String tag{  get { return TruckScript.tag; }
+  set{TruckScript.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return TruckScript.transform; }
+ }
+	public UnityEngine.Rigidbody truckRigidBody{  get { return TruckScript.truckRigidBody; }
+  set{TruckScript.truckRigidBody = value; }
+ }
+	public System.Boolean useGUILayout{  get { return TruckScript.useGUILayout; }
+  set{TruckScript.useGUILayout = value; }
+ }
+	public System.Single count_down5;
+	public System.Single count_down4;
+	public System.Single count_down3;
+	public System.Single count_down2;
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+		for(int x0 = 0; x0 < AxleInfos.Count; x0++) { 
+			AxleInfos[x0].Update(dt, world);
+		}
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
+		this.Rule3(dt, world);
+		this.Rule4(dt, world);
+		this.Rule5(dt, world);
+	}
+
+
+
+
+
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	if(((world.ActiveBoR) == ("Jerry Can Green")))
+	{
+
+	goto case 7;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 7:
+	UnityEngine.Debug.Log(("Fuel = ") + (Fuel));
+	Fuel = ((Fuel) + (2000f));
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	if(Keyboard)
+	{
+
+	goto case 10;	}else
+	{
+
+	goto case 11;	}
+	case 10:
+	Rotation = UnityEngine.Input.GetAxis("Horizontal");
+	s1 = -1;
+return;
+	case 11:
+	Rotation = Steering;
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	if(Keyboard)
+	{
+
+	goto case 15;	}else
+	{
+
+	goto case 16;	}
+	case 15:
+	cnvAccel = UnityEngine.Input.GetAxis("Vertical");
+	s2 = -1;
+return;
+	case 16:
+	if(!(((Acceleration) == (0f))))
+	{
+
+	goto case 19;	}else
+	{
+
+	goto case 20;	}
+	case 19:
+	cnvAccel = Acceleration;
+	s2 = -1;
+return;
+	case 20:
+	cnvAccel = ((BrakeAndReverse) * (-1f));
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(!(UnityEngine.Input.GetKeyDown(KeyCode.P)))
+	{
+
+	s3 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	Keyboard = !(Keyboard);
+	s3 = -1;
+return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	CenterOfMass = new UnityEngine.Vector3(1f,0f,-1.5f);
+	s4 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s4 = 0;
+return;	}else
+	{
+
+	s4 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
+	{
+
+	case -1:
+	if(((world.ActiveBoR) == ("Lightning Blue")))
+	{
+
+	goto case 2;	}else
+	{
+
+	goto case 3;	}
+	case 2:
+	HeadlightLeftOn = true;
+	HeadlightRightOn = true;
+	s5 = 15;
+return;
+	case 15:
+	count_down5 = 5f;
+	goto case 16;
+	case 16:
+	if(((count_down5) > (0f)))
+	{
+
+	count_down5 = ((count_down5) - (dt));
+	s5 = 16;
+return;	}else
+	{
+
+	goto case 14;	}
+	case 14:
+	HeadlightLeftOn = false;
+	HeadlightRightOn = false;
+	s5 = 12;
+return;
+	case 12:
+	count_down4 = 0.2f;
+	goto case 13;
+	case 13:
+	if(((count_down4) > (0f)))
+	{
+
+	count_down4 = ((count_down4) - (dt));
+	s5 = 13;
+return;	}else
+	{
+
+	goto case 11;	}
+	case 11:
+	HeadlightLeftOn = true;
+	HeadlightRightOn = true;
+	s5 = 9;
+return;
+	case 9:
+	count_down3 = 0.1f;
+	goto case 10;
+	case 10:
+	if(((count_down3) > (0f)))
+	{
+
+	count_down3 = ((count_down3) - (dt));
+	s5 = 10;
+return;	}else
+	{
+
+	goto case 8;	}
+	case 8:
+	HeadlightLeftOn = false;
+	HeadlightRightOn = false;
+	s5 = 6;
+return;
+	case 6:
+	count_down2 = 0.3f;
+	goto case 7;
+	case 7:
+	if(((count_down2) > (0f)))
+	{
+
+	count_down2 = ((count_down2) - (dt));
+	s5 = 7;
+return;	}else
+	{
+
+	goto case 5;	}
+	case 5:
+	HeadlightLeftOn = true;
+	HeadlightRightOn = true;
+	s5 = -1;
+return;
+	case 3:
+	HeadlightLeftOn = false;
+	HeadlightRightOn = false;
+	s5 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -1079,7 +1721,9 @@ public AxleInfo(UnityEngine.WheelCollider lW, UnityEngine.WheelCollider rW, Syst
 	public System.Boolean motor;
 	public UnityEngine.WheelCollider rightWheel;
 	public System.Boolean steering;
+	public System.Single ___dir00;
 	public System.Single ___speed00;
+	public System.Single count_down6;
 	public System.Single ___steeringAngle10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -1101,41 +1745,97 @@ frame = World.frame;
 	if(((world.Jeep.Fuel) > (0.99f)))
 	{
 
-	goto case 2;	}else
+	goto case 19;	}else
 	{
 
-	goto case 3;	}
-	case 2:
-	if(((((world.Jeep.DriveEngine.Active) && (!(((world.Jeep.DriveEngine.cnvAccel) == (0f)))))) && (((leftWheel.isGrounded) || (rightWheel.isGrounded)))))
+	goto case 20;	}
+	case 19:
+	if(((((world.Jeep.Active) && (!(((world.Jeep.cnvAccel) == (0f)))))) && (((leftWheel.isGrounded) || (rightWheel.isGrounded)))))
 	{
 
-	goto case 5;	}else
+	goto case 22;	}else
 	{
 
-	goto case 6;	}
-	case 5:
-	if(!(motor))
+	goto case 23;	}
+	case 22:
+	___dir00 = world.Jeep.cnvAccel;
+	___speed00 = ((((world.Jeep.maxMotorTorque) * (world.Jeep.cnvAccel))) * (-1f));
+	if(((world.ActiveBoR) == ("Arrows Green")))
 	{
 
-	s0 = 5;
+	goto case 25;	}else
+	{
+
+	goto case 26;	}
+	case 25:
+	leftWheel.motorTorque = leftWheel.motorTorque;
+	rightWheel.motorTorque = rightWheel.motorTorque;
+	world.Jeep.Fuel = world.Jeep.Fuel;
+	s0 = 29;
+return;
+	case 29:
+	if(!(((!(((world.Jeep.cnvAccel) == (___dir00)))) || (true))))
+	{
+
+	s0 = 29;
 return;	}else
 	{
 
-	goto case 9;	}
-	case 9:
-	___speed00 = ((((world.Jeep.maxMotorTorque) * (world.Jeep.DriveEngine.cnvAccel))) * (-1f));
+	goto case 28;	}
+	case 28:
+	if(!(((world.Jeep.cnvAccel) == (___dir00))))
+	{
+
+	goto case 30;	}else
+	{
+
+	if(true)
+	{
+
+	goto case 31;	}else
+	{
+
+	s0 = 28;
+return;	}	}
+	case 30:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Fuel = ((world.Jeep.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 6:
+	case 31:
+	leftWheel.motorTorque = ((___speed00) * (10f));
+	rightWheel.motorTorque = ((___speed00) * (10f));
+	world.Jeep.Fuel = world.Jeep.Fuel;
+	s0 = 33;
+return;
+	case 33:
+	count_down6 = 2f;
+	goto case 34;
+	case 34:
+	if(((count_down6) > (0f)))
+	{
+
+	count_down6 = ((count_down6) - (dt));
+	s0 = 34;
+return;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 26:
+	leftWheel.motorTorque = ___speed00;
+	rightWheel.motorTorque = ___speed00;
+	world.Jeep.Fuel = ((world.Jeep.Fuel) - (1f));
+	s0 = -1;
+return;
+	case 23:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Fuel = world.Jeep.Fuel;
 	s0 = -1;
 return;
-	case 3:
+	case 20:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Fuel = 0f;
@@ -1159,188 +1859,10 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	___steeringAngle10 = ((world.Jeep.maxSteeringAngle) * (world.Jeep.DriveEngine.Rotation));
+	___steeringAngle10 = ((world.Jeep.maxSteeringAngle) * (world.Jeep.Rotation));
 	leftWheel.steerAngle = ___steeringAngle10;
 	rightWheel.steerAngle = ___steeringAngle10;
 	s1 = -1;
-return;	
-	default: return;}}
-	
-
-
-
-
-
-}
-public class Engine{
-public int frame;
-public bool JustEntered = true;
-	public int ID;
-public Engine()
-	{JustEntered = false;
- frame = World.frame;
-		cnvAccel = 0f;
-		TruckScript = new TruckScript();
-		Rotation = 0f;
-		Keyboard = false;
-		Active = true;
-		
-}
-		public System.Single Acceleration{  get { return TruckScript.Acceleration; }
- }
-	public System.Boolean Active;
-	public System.Single BrakeAndReverse{  get { return TruckScript.BrakeAndReverse; }
- }
-	public System.Single CarHP2{  get { return TruckScript.CarHP2; }
-  set{TruckScript.CarHP2 = value; }
- }
-	public UnityEngine.Vector3 CenterOfMass{  get { return TruckScript.CenterOfMass; }
-  set{TruckScript.CenterOfMass = value; }
- }
-	public System.Single Frce{  set{TruckScript.Frce = value; }
- }
-	public UnityEngine.WheelCollider FrontLeftWheel{  get { return TruckScript.FrontLeftWheel; }
-  set{TruckScript.FrontLeftWheel = value; }
- }
-	public UnityEngine.WheelCollider FrontRightWheel{  get { return TruckScript.FrontRightWheel; }
-  set{TruckScript.FrontRightWheel = value; }
- }
-	public System.Boolean Keyboard;
-	public System.Boolean LightOn{  get { return TruckScript.LightOn; }
-  set{TruckScript.LightOn = value; }
- }
-	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
- }
-	public UnityEngine.WheelCollider RearLeftWheel{  get { return TruckScript.RearLeftWheel; }
-  set{TruckScript.RearLeftWheel = value; }
- }
-	public UnityEngine.WheelCollider RearRightWheel{  get { return TruckScript.RearRightWheel; }
-  set{TruckScript.RearRightWheel = value; }
- }
-	public System.Single Rotation;
-	public System.Single Steering{  get { return TruckScript.Steering; }
- }
-	public UnityEngine.Vector3 Trque{  set{TruckScript.Trque = value; }
- }
-	public TruckScript TruckScript;
-	public System.Single cnvAccel;
-	public System.Boolean enabled{  get { return TruckScript.enabled; }
-  set{TruckScript.enabled = value; }
- }
-	public UnityEngine.GameObject gameObject{  get { return TruckScript.gameObject; }
- }
-	public UnityEngine.HideFlags hideFlags{  get { return TruckScript.hideFlags; }
-  set{TruckScript.hideFlags = value; }
- }
-	public System.Boolean isActiveAndEnabled{  get { return TruckScript.isActiveAndEnabled; }
- }
-	public UnityEngine.Light lampi{  get { return TruckScript.lampi; }
-  set{TruckScript.lampi = value; }
- }
-	public System.String name{  get { return TruckScript.name; }
-  set{TruckScript.name = value; }
- }
-	public System.String tag{  get { return TruckScript.tag; }
-  set{TruckScript.tag = value; }
- }
-	public UnityEngine.Transform transform{  get { return TruckScript.transform; }
- }
-	public UnityEngine.Rigidbody truckRigidBody{  get { return TruckScript.truckRigidBody; }
-  set{TruckScript.truckRigidBody = value; }
- }
-	public System.Boolean useGUILayout{  get { return TruckScript.useGUILayout; }
-  set{TruckScript.useGUILayout = value; }
- }
-	public void Update(float dt, World world) {
-frame = World.frame;
-
-		this.Rule0(dt, world);
-		this.Rule1(dt, world);
-		this.Rule2(dt, world);
-	}
-
-
-
-
-
-	int s0=-1;
-	public void Rule0(float dt, World world){ 
-	switch (s0)
-	{
-
-	case -1:
-	UnityEngine.Debug.Log(Keyboard);
-	if(Keyboard)
-	{
-
-	goto case 3;	}else
-	{
-
-	goto case 4;	}
-	case 3:
-	Rotation = UnityEngine.Input.GetAxis("Horizontal");
-	s0 = -1;
-return;
-	case 4:
-	Rotation = Steering;
-	s0 = -1;
-return;	
-	default: return;}}
-	
-
-	int s1=-1;
-	public void Rule1(float dt, World world){ 
-	switch (s1)
-	{
-
-	case -1:
-	if(Keyboard)
-	{
-
-	goto case 9;	}else
-	{
-
-	goto case 10;	}
-	case 9:
-	cnvAccel = UnityEngine.Input.GetAxis("Vertical");
-	s1 = -1;
-return;
-	case 10:
-	if(!(((Acceleration) == (0f))))
-	{
-
-	goto case 13;	}else
-	{
-
-	goto case 14;	}
-	case 13:
-	cnvAccel = Acceleration;
-	s1 = -1;
-return;
-	case 14:
-	cnvAccel = ((BrakeAndReverse) * (-1f));
-	s1 = -1;
-return;	
-	default: return;}}
-	
-
-	int s2=-1;
-	public void Rule2(float dt, World world){ 
-	switch (s2)
-	{
-
-	case -1:
-	if(!(UnityEngine.Input.GetKeyDown(KeyCode.P)))
-	{
-
-	s2 = -1;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
-	Keyboard = !(Keyboard);
-	s2 = -1;
 return;	
 	default: return;}}
 	
@@ -1400,7 +1922,7 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean useGUILayout{  get { return UnityZombie.useGUILayout; }
   set{UnityZombie.useGUILayout = value; }
  }
-	public System.Single count_down2;
+	public System.Single count_down7;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1422,12 +1944,12 @@ frame = World.frame;
 	if(((0f) > (Life)))
 	{
 
-	goto case 3;	}else
+	goto case 4;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 3:
+	case 4:
 	shot = true;
 	dead2 = true;
 	s0 = -1;
@@ -1444,24 +1966,24 @@ return;
 	if(((OnMouseOver) && (world.Pistols.Head().GunController.Trigger)))
 	{
 
-	goto case 6;	}else
+	goto case 7;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 6:
+	case 7:
 	if(((Life) > (0.49f)))
 	{
 
-	goto case 7;	}else
+	goto case 8;	}else
 	{
 
-	goto case 8;	}
-	case 7:
+	goto case 9;	}
+	case 8:
 	Life = ((Life) - (40f));
 	s1 = -1;
 return;
-	case 8:
+	case 9:
 	Life = 0f;
 	s1 = -1;
 return;	
@@ -1483,13 +2005,13 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	count_down2 = 3f;
+	count_down7 = 3f;
 	goto case 2;
 	case 2:
-	if(((count_down2) > (0f)))
+	if(((count_down7) > (0f)))
 	{
 
-	count_down2 = ((count_down2) - (dt));
+	count_down7 = ((count_down7) - (dt));
 	s2 = 2;
 return;	}else
 	{
@@ -1507,4 +2029,4 @@ return;
 
 
 }
-}          
+}     

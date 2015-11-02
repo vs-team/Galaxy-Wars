@@ -12,6 +12,7 @@ worldEntity World = {
   Flashs : [Light]
   GUIpanel : GUI
   Health : float
+  ActiveBoR : string
 
   rule Zombies = 
     let groups = 
@@ -40,8 +41,27 @@ worldEntity World = {
     yield zmbies
 
   rule Health = 
-    yield Health
-    wait false
+    if ActiveBoR = "Medipack Red" then
+      yield Health + 20.0f
+      Debug.Log(Health)
+
+  rule ActiveBoR = 
+    if ActiveBoR = "Crossed Wrenches Red" then
+      let resourcelist = ["Medipack Red";"Battery Black";"Jerry Can Green"]
+      let rnd = Random.Range(0,3)
+      yield resourcelist.[rnd]
+  
+  rule ActiveBoR = 
+    let a = 
+      [for a in Landscapes do
+       for b in a.PickUps do
+       for c in b.BonusAndResources do
+       where c.Active
+       select (c.NameOfBoR)]
+    if a.Count > 0 then
+      Debug.Log(a.Head)
+      yield a.Head
+      yield ""
 
   rule Landscapes = 
     let ls = 
@@ -61,7 +81,8 @@ worldEntity World = {
      Pistols = [new Gun()]
      Flashs = [new Light()]
      GUIpanel = new GUI()
-     Health = 10.0f
+     Health = 100.0f
+     ActiveBoR = ""
     }
 }
 
@@ -122,6 +143,11 @@ entity Gun = { //pistol
       yield InMagazine - 1
       wait (not GunController.Trigger) 
 
+  rule NotInMagazine = 
+    if world.ActiveBoR = "AmmoBox" then 
+      yield NotInMagazine + 50
+      Debug.Log("NotInMagazine = "+ NotInMagazine)
+
   rule Reloading, InMagazine, NotInMagazine = 
     if Input.GetKey(KeyCode.R) && NotInMagazine > 0 then // if reloading and available bullets
       yield true, InMagazine, NotInMagazine
@@ -153,6 +179,11 @@ entity Light = { //flashlight
   
   rule Active =
     yield LightController.Trigger
+
+  rule Battery = 
+     if world.ActiveBoR = "Battery Black" then 
+       Debug.Log("Battery = "+Battery)
+       yield Battery + 50.0f
     
   rule Battery = 
     //Debug.Log("Battery: " + Battery)
@@ -185,15 +216,27 @@ entity GUI = { //panel. Each wall contains the same info?
 entity Landscape = { //here are the zombies created and destroyed after a frame
   inherit UnityLandscape
   Group : [GroupZombie]
+  PickUps : [PickUp]
   Spawnpoints : [Transform]
 
-  rule Group, Spawnpoints = 
+  rule Group, PickUps, Spawnpoints = // spawning multiple groups on a single landscape
     wait Spawnpoints.Count > 0
-    let random_spawnp = Random.Range(0,4) // Spawnpoint index
-    let sps = Spawnpoints.[random_spawnp]
-    let sps_pos = sps.position
-    yield [new GroupZombie(sps_pos)], []
-    wait false
+    let random_spawnp = Random.Range(0,4) 
+    let random_pickup = Random.Range(0,4)
+    if random_spawnp <> random_pickup then
+      let sps = Spawnpoints.[random_spawnp]
+      let sps_pos = sps.position
+      let rpu = Spawnpoints.[random_pickup]
+      let rpu_pos = rpu.position
+      yield [new GroupZombie(sps_pos)], [new PickUp(rpu_pos)], []
+      wait false
+    else 
+      let sps1 = Spawnpoints.[1]
+      let sps_pos1 = sps1.position
+      let rpu1 = Spawnpoints.[2]
+      let rpu_pos1 = rpu1.position
+      yield [new GroupZombie(sps_pos1)], [new PickUp(rpu_pos1)], []
+      wait false
 
   rule Spawnpoints = 
     let sps = //[Transform of each Spawnpoint]
@@ -207,29 +250,128 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
   Base = UnityLandscape.Instantiate(pos, ps)
   Spawnpoints = []
   Group = []
+  PickUps = []
   }
 }
 
+entity PickUp = {
+  inherit UnityPickUp
+  BonusAndResources : [BonusAndResource]
+  BARpos : Vector3
+
+  rule BonusAndResources = 
+    let amount = 
+      [for a in BonusAndResources do
+       where (a.Destroyed = false)
+       select a]
+    yield amount
+
+  rule BonusAndResources = 
+    wait Shuffled.Count > 0
+    let p0 = BARpos
+    let p1 = BARpos - new Vector3(2.0f,0.0f,0.0f)
+    let p2 = BARpos + new Vector3(2.0f,0.0f,0.0f)
+    let p3 = BARpos - new Vector3(4.0f,0.0f,0.0f)
+    let plist = [p0;p1;p2;p3]
+    let Slist = Shuffled
+    let BAR = 
+      [for a in [0..3] do
+       select (new BonusAndResource(plist.[a], Slist.[a]))]
+    yield BAR
+    wait false
+
+  rule Shuffled = 
+    let BARlist = ["AmmoBox";"Crossed Wrenches Red";"Medipack Red";"Battery Black";"Jerry Can Green";"Lightning Blue";"Arrows Green";"Bomb Red";"Shield Metal";"Star Red"]
+    yield BARlist
+    wait false
+
+  Create(pos : Vector3) = 
+  {
+    BARpos = pos
+    BonusAndResources = []
+  }
+}
+entity BonusAndResource = {
+  inherit UnityBonusResource
+  NameOfBoR : string
+  Active : bool
+
+  rule Active, Destroyed = 
+    if collids then 
+      yield true, false
+      yield true, true
+
+  Create(pos : Vector3, bonus : string) = 
+  {
+    Base = UnityBonusResource.Instantiate(pos,bonus)
+    NameOfBoR = bonus
+    Active = false;
+  }
+}
 entity Truck = {
    inherit TruckScript
-   DriveEngine : Engine
    Fuel : float
    AxleInfos : [AxleInfo]
    maxMotorTorque : float
    maxSteeringAngle : float
+   cnvAccel : float // has to be a value between 0.0f and 1.0f
+   Rotation : float // has to be a value between -1.0f and 1.0f
+   Active : bool
+   Keyboard : bool
+
+   rule HeadlightLeftOn, HeadlightRightOn = 
+     if world.ActiveBoR = "Lightning Blue" then
+       yield true, true
+       wait 5.0f
+       yield false, false
+       wait 0.2f
+       yield true, true
+       wait 0.1f
+       yield false, false
+       wait 0.3f
+       yield true, true
+     else 
+       yield false, false
    
    rule CenterOfMass = 
      yield new Vector3(1.0f,0.0f,-1.5f)
      wait false
 
+   rule Keyboard = 
+      wait Input.GetKeyDown(KeyCode.P)
+      yield not Keyboard
+
+   rule cnvAccel = 
+      if Keyboard then
+        yield Input.GetAxis("Vertical")
+      else
+        if Acceleration <> 0.0f then 
+          yield Acceleration
+        else
+          yield BrakeAndReverse * -1.0f
+
+   rule Rotation = 
+      if Keyboard then
+        yield Input.GetAxis("Horizontal")
+      else
+        yield Steering
+
+   rule Fuel = 
+     if world.ActiveBoR = "Jerry Can Green" then 
+       Debug.Log("Fuel = "+Fuel)
+       yield Fuel + 2000.0f
+
    Create()=
     {
       Base = TruckScript.Instantiate()
-      DriveEngine = new Engine()
       maxMotorTorque = 250.0f
       maxSteeringAngle = 50.0f
       AxleInfos = [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)] // FWD
-      Fuel = 40000.0f // gas liters
+      Fuel = 4000.0f // gas liters
+      cnvAccel = 0.0f
+      Rotation = 0.0f
+      Active = true;
+      Keyboard = false;
     }
 }
 
@@ -239,22 +381,30 @@ entity AxleInfo = {
   rightWheel : WheelCollider
   motor : bool
   steering : bool
-  
+
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
-    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.DriveEngine.Rotation
+    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.Rotation
     yield steeringAngle, steeringAngle
 
   rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel =
     if world.Jeep.Fuel > 0.99f then
-      if (world.Jeep.DriveEngine.Active && world.Jeep.DriveEngine.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded) then
-        wait motor
-        let speed = world.Jeep.maxMotorTorque * world.Jeep.DriveEngine.cnvAccel * -1.0f
-        yield speed, speed, world.Jeep.Fuel - 1.0f
+      if (world.Jeep.Active && world.Jeep.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded) then
+        let dir = world.Jeep.cnvAccel
+        let speed = world.Jeep.maxMotorTorque * world.Jeep.cnvAccel * -1.0f
+        if (world.ActiveBoR = "Arrows Green") then 
+          yield leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel
+          .| (world.Jeep.cnvAccel <> dir) =>
+            yield speed, speed, world.Jeep.Fuel - 1.0f
+          .| _ =>
+            yield speed * 10.0f, speed * 10.0f, world.Jeep.Fuel
+            wait 2.0f
+        else
+          yield speed, speed, world.Jeep.Fuel - 1.0f
       else
         yield 0.0f,0.0f, world.Jeep.Fuel
     else
-      yield 0.0f,0.0f, 0.0f
+      yield 0.0f,0.0f,0.0f
 
   Create(lW : WheelCollider, rW : WheelCollider, m : bool, s: bool)=
   {
@@ -263,43 +413,6 @@ entity AxleInfo = {
     motor = m
     steering = s
   }
-}
-
-entity Engine = {
-    inherit TruckScript
-    cnvAccel : float // has to be a value between 0.0f and 1.0f
-    Rotation : float // has to be a value between -1.0f and 1.0f
-    Active : bool
-    Keyboard : bool
-
-    rule Keyboard = 
-      wait Input.GetKeyDown(KeyCode.P)
-      yield not Keyboard
-
-    rule cnvAccel = 
-      if Keyboard then
-        yield Input.GetAxis("Vertical")
-      else
-        if Acceleration <> 0.0f then 
-          yield Acceleration
-        else
-          yield BrakeAndReverse * -1.0f
-
-    rule Rotation = 
-      Debug.Log(Keyboard)
-      if Keyboard then
-        yield Input.GetAxis("Horizontal")
-      else
-        yield Steering
-
-
-    Create() = 
-	{
-      cnvAccel = 0.0f
-      Rotation = 0.0f
-      Active = true
-      Keyboard = false;
-	}
 }
 
 entity Zombie = {
@@ -324,7 +437,6 @@ entity Zombie = {
 
   Create(trans : Transform) = 
   {
-  // UnityZombie = UnityZombie.Instantiate(num,pos)
   Base = UnityZombie.Find(trans)
   Life = 100.0f // healthpoints
   }
