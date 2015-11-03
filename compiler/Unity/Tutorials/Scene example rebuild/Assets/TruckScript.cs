@@ -122,17 +122,17 @@ public class TruckScript : MonoBehaviour
   {
     if(collision.relativeVelocity.magnitude > 15.0f)
     {
-      CarHP = CarHP - collision.relativeVelocity.magnitude / 200;
+      CarHP -= collision.relativeVelocity.magnitude / 200;
     }
   }
 
   public float CarHP2
   {
     get { return CarHP; }
-    set { CarHP2 = CarHP; }
+    set { CarHP = value; }
   }
   void Update()
   { 
     //Physics.IgnoreCollision(shield, UnityPlane.planeBox, true);
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

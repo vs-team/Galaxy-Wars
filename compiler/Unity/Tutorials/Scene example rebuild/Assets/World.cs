@@ -925,7 +925,7 @@ frame = World.frame;
 	{
 
 	case -1:
-	Value = UnityEngine.Mathf.Min(world.Jeep.CarHP2,Value);
+	Value = world.Jeep.CarHP2;
 	s0 = -1;
 return;	
 	default: return;}}
@@ -1388,8 +1388,8 @@ public Truck()
 		maxMotorTorque = 250f;
 		cnvAccel = 0f;
 		TruckScript = TruckScript.Instantiate();
-		Rotation = 0f;
-		KeyboardControl = false;
+		Keyboard = false;
+		JRotation = 0f;
 		Fuel = 4000f;
 		AxleInfos = (
 
@@ -1433,7 +1433,8 @@ public Truck()
 	public System.Int32 InMag{  get { return TruckScript.InMag; }
   set{TruckScript.InMag = value; }
  }
-	public System.Boolean KeyboardControl;
+	public System.Single JRotation;
+	public System.Boolean Keyboard;
 	public System.String MagazineGUI{  get { return TruckScript.MagazineGUI; }
   set{TruckScript.MagazineGUI = value; }
  }
@@ -1448,7 +1449,8 @@ public Truck()
 	public UnityEngine.WheelCollider RearRightWheel{  get { return TruckScript.RearRightWheel; }
   set{TruckScript.RearRightWheel = value; }
  }
-	public System.Single Rotation;
+	public System.Single RotationY{  get { return TruckScript.RotationY; }
+ }
 	public System.Single Steering{  get { return TruckScript.Steering; }
  }
 	public UnityEngine.Vector3 Trque{  set{TruckScript.Trque = value; }
@@ -1536,7 +1538,7 @@ return;
 	{
 
 	case -1:
-	if(KeyboardControl)
+	if(Keyboard)
 	{
 
 	goto case 10;	}else
@@ -1544,11 +1546,11 @@ return;
 
 	goto case 11;	}
 	case 10:
-	Rotation = UnityEngine.Input.GetAxis("Horizontal");
+	JRotation = UnityEngine.Input.GetAxis("Horizontal");
 	s1 = -1;
 return;
 	case 11:
-	Rotation = Steering;
+	JRotation = Steering;
 	s1 = -1;
 return;	
 	default: return;}}
@@ -1560,7 +1562,7 @@ return;
 	{
 
 	case -1:
-	if(KeyboardControl)
+	if(Keyboard)
 	{
 
 	goto case 15;	}else
@@ -1605,7 +1607,7 @@ return;	}else
 
 	goto case 0;	}
 	case 0:
-	KeyboardControl = !(KeyboardControl);
+	Keyboard = !(Keyboard);
 	s3 = -1;
 return;	
 	default: return;}}
@@ -1918,9 +1920,57 @@ return;
 return;	}else
 	{
 
-	goto case 1;	}
+	goto case 14;	}
+	case 14:
+	___steeringAngle10 = ((world.Jeep.maxSteeringAngle) * (world.Jeep.JRotation));
+	if(((world.Jeep.cnvAccel) > (0f)))
+	{
+
+	goto case 8;	}else
+	{
+
+	goto case 0;	}
+	case 8:
+	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.RotationY) > (30f))) && (((120f) > (world.Jeep.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.RotationY) > (200f))) && (((330f) > (world.Jeep.RotationY)))))))))
+	{
+
+	goto case 9;	}else
+	{
+
+	goto case 10;	}
+	case 9:
+	leftWheel.steerAngle = 0f;
+	rightWheel.steerAngle = 0f;
+	s1 = 0;
+return;
+	case 10:
+	leftWheel.steerAngle = ___steeringAngle10;
+	rightWheel.steerAngle = ___steeringAngle10;
+	s1 = 0;
+return;
+	case 0:
+	if(((0f) > (world.Jeep.cnvAccel)))
+	{
+
+	goto case 1;	}else
+	{
+
+	s1 = -1;
+return;	}
 	case 1:
-	___steeringAngle10 = ((world.Jeep.maxSteeringAngle) * (world.Jeep.Rotation));
+	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.RotationY) > (200f))) && (((330f) > (world.Jeep.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.RotationY) > (30f))) && (((120f) > (world.Jeep.RotationY)))))))))
+	{
+
+	goto case 2;	}else
+	{
+
+	goto case 3;	}
+	case 2:
+	leftWheel.steerAngle = 0f;
+	rightWheel.steerAngle = 0f;
+	s1 = -1;
+return;
+	case 3:
 	leftWheel.steerAngle = ___steeringAngle10;
 	rightWheel.steerAngle = ___steeringAngle10;
 	s1 = -1;
@@ -1945,8 +1995,14 @@ public Zombie(UnityEngine.Transform trans)
 		Life = 100f;
 		
 }
-		public System.Boolean Destroyed{  get { return UnityZombie.Destroyed; }
+		public System.Single CollisionDamage{  get { return UnityZombie.CollisionDamage; }
+  set{UnityZombie.CollisionDamage = value; }
+ }
+	public System.Boolean Destroyed{  get { return UnityZombie.Destroyed; }
   set{UnityZombie.Destroyed = value; }
+ }
+	public System.Boolean HasCollided{  get { return UnityZombie.HasCollided; }
+  set{UnityZombie.HasCollided = value; }
  }
 	public System.Boolean IsHit{  get { return UnityZombie.IsHit; }
  }
@@ -1990,6 +2046,8 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		this.Rule3(dt, world);
+		this.Rule4(dt, world);
 	}
 
 
@@ -2005,12 +2063,12 @@ frame = World.frame;
 	if(((0f) > (Life)))
 	{
 
-	goto case 4;	}else
+	goto case 17;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 4:
+	case 17:
 	shot = true;
 	dead2 = true;
 	s0 = -1;
@@ -2027,24 +2085,24 @@ return;
 	if(((OnMouseOver) && (((world.Pistols.Head().GunController.Trigger) || (UnityEngine.Input.GetMouseButtonDown(0))))))
 	{
 
-	goto case 7;	}else
+	goto case 20;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 7:
+	case 20:
 	if(((Life) > (0.49f)))
 	{
 
-	goto case 8;	}else
+	goto case 21;	}else
 	{
 
-	goto case 9;	}
-	case 8:
+	goto case 22;	}
+	case 21:
 	Life = ((Life) - (40f));
 	s1 = -1;
 return;
-	case 9:
+	case 22:
 	Life = 0f;
 	s1 = -1;
 return;	
@@ -2057,10 +2115,49 @@ return;
 	{
 
 	case -1:
+	CollisionDamage = CollisionDamage;
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(!(((CollisionDamage) == (0f))))
+	{
+
+	goto case 2;	}else
+	{
+
+	s3 = -1;
+return;	}
+	case 2:
+	UnityEngine.Debug.Log(("Collided zombie HP before:") + (Life));
+	Life = ((Life) - (((CollisionDamage) * (4f))));
+	CollisionDamage = 0f;
+	s3 = 3;
+return;
+	case 3:
+	UnityEngine.Debug.Log(("Collided zombie HP after:") + (Life));
+	s3 = -1;
+return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
 	if(!(dead2))
 	{
 
-	s2 = -1;
+	s4 = -1;
 return;	}else
 	{
 
@@ -2073,14 +2170,14 @@ return;	}else
 	{
 
 	count_down7 = ((count_down7) - (dt));
-	s2 = 2;
+	s4 = 2;
 return;	}else
 	{
 
 	goto case 0;	}
 	case 0:
 	Destroyed = true;
-	s2 = -1;
+	s4 = -1;
 return;	
 	default: return;}}
 	
@@ -2090,4 +2187,4 @@ return;
 
 
 }
-}                             
+}         
