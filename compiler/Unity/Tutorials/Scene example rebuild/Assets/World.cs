@@ -1895,40 +1895,57 @@ return;
 return;	}else
 	{
 
-	goto case 10;	}
-	case 10:
+	goto case 14;	}
+	case 14:
 	___steeringAngle10 = ((world.Jeep.maxSteeringAngle) * (world.Jeep.JRotation));
-	if(((((((world.Jeep.cnvAccel) > (0f))) && (((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.RotationY) > (30f))) && (((120f) > (world.Jeep.RotationY))))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.RotationY) > (200f))) && (((330f) > (world.Jeep.RotationY)))))))))
+	if(((world.Jeep.cnvAccel) > (0f)))
 	{
 
-	goto case 5;	}else
+	goto case 8;	}else
 	{
 
-	goto case 6;	}
-	case 5:
+	goto case 0;	}
+	case 8:
+	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.RotationY) > (30f))) && (((120f) > (world.Jeep.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.RotationY) > (200f))) && (((330f) > (world.Jeep.RotationY)))))))))
+	{
+
+	goto case 9;	}else
+	{
+
+	goto case 10;	}
+	case 9:
 	leftWheel.steerAngle = 0f;
 	rightWheel.steerAngle = 0f;
-	s1 = 2;
+	s1 = 0;
 return;
-	case 6:
+	case 10:
 	leftWheel.steerAngle = ___steeringAngle10;
 	rightWheel.steerAngle = ___steeringAngle10;
-	s1 = 2;
+	s1 = 0;
 return;
-	case 2:
-	if(((((((0f) > (world.Jeep.cnvAccel))) && (((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.RotationY) > (200f))) && (((330f) > (world.Jeep.RotationY))))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.RotationY) > (30f))) && (((120f) > (world.Jeep.RotationY)))))))))
-	{
-
-	goto case 0;	}else
-	{
-
-	goto case 1;	}
 	case 0:
+	if(((0f) > (world.Jeep.cnvAccel)))
+	{
+
+	goto case 1;	}else
+	{
+
+	s1 = -1;
+return;	}
+	case 1:
+	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.RotationY) > (200f))) && (((330f) > (world.Jeep.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.RotationY) > (30f))) && (((120f) > (world.Jeep.RotationY)))))))))
+	{
+
+	goto case 2;	}else
+	{
+
+	goto case 3;	}
+	case 2:
 	leftWheel.steerAngle = 0f;
 	rightWheel.steerAngle = 0f;
 	s1 = -1;
 return;
-	case 1:
+	case 3:
 	leftWheel.steerAngle = ___steeringAngle10;
 	rightWheel.steerAngle = ___steeringAngle10;
 	s1 = -1;
@@ -2013,12 +2030,12 @@ frame = World.frame;
 	if(((0f) > (Life)))
 	{
 
-	goto case 13;	}else
+	goto case 17;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 13:
+	case 17:
 	shot = true;
 	dead2 = true;
 	s0 = -1;
@@ -2035,24 +2052,24 @@ return;
 	if(((OnMouseOver) && (world.Pistols.Head().GunController.Trigger)))
 	{
 
-	goto case 16;	}else
+	goto case 20;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 16:
+	case 20:
 	if(((Life) > (0.49f)))
 	{
 
-	goto case 17;	}else
+	goto case 21;	}else
 	{
 
-	goto case 18;	}
-	case 17:
+	goto case 22;	}
+	case 21:
 	Life = ((Life) - (40f));
 	s1 = -1;
 return;
-	case 18:
+	case 22:
 	Life = 0f;
 	s1 = -1;
 return;	
@@ -2098,4 +2115,4 @@ return;
 
 
 }
-}      
+}        

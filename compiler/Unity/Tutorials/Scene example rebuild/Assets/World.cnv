@@ -391,15 +391,15 @@ entity AxleInfo = {
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
     let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.JRotation
-    if (world.Jeep.cnvAccel > 0.0f &&
-          (steeringAngle > 0.001f  && (world.Jeep.RotationY > 30.0f  && world.Jeep.RotationY < 120.0f)) || 
+    if world.Jeep.cnvAccel > 0.0f then
+      if ((steeringAngle > 0.001f  && (world.Jeep.RotationY > 30.0f  && world.Jeep.RotationY < 120.0f)) || 
           (steeringAngle < -0.001f && (world.Jeep.RotationY > 200.0f && world.Jeep.RotationY < 330.0f))) then 
         yield 0.0f,0.0f
       else
         yield steeringAngle, steeringAngle
-    if (world.Jeep.cnvAccel < 0.0f &&
-          (steeringAngle > 0.001f  && (world.Jeep.RotationY > 200.0f && world.Jeep.RotationY < 330.0f)) || 
-          (steeringAngle < -0.001f && (world.Jeep.RotationY > 30.0f  && world.Jeep.RotationY < 120.0f))) then 
+    if world.Jeep.cnvAccel < 0.0f then
+      if ((steeringAngle > 0.001f && (world.Jeep.RotationY > 200.0f && world.Jeep.RotationY < 330.0f)) || 
+          (steeringAngle < -0.001f && (world.Jeep.RotationY > 30.0f && world.Jeep.RotationY < 120.0f))) then 
         yield 0.0f,0.0f
       else
         yield steeringAngle, steeringAngle
