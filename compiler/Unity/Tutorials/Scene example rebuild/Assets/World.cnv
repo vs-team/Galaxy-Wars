@@ -315,7 +315,7 @@ entity Truck = {
    maxMotorTorque : float
    maxSteeringAngle : float
    cnvAccel : float // has to be a value between 0.0f and 1.0f
-   Rotation : float // has to be a value between -1.0f and 1.0f
+   JRotation : float // has to be a value between -1.0f and 1.0f
    Active : bool
    Keyboard : bool
 
@@ -356,7 +356,7 @@ entity Truck = {
         else
           yield BrakeAndReverse * -1.0f
 
-   rule Rotation = 
+   rule JRotation = 
       if Keyboard then
         yield Input.GetAxis("Horizontal")
       else
@@ -375,7 +375,7 @@ entity Truck = {
       AxleInfos = [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)] // FWD
       Fuel = 4000.0f // gas liters
       cnvAccel = 0.0f
-      Rotation = 0.0f
+      JRotation = 0.0f
       Active = true;
       Keyboard = false;
     }
@@ -390,8 +390,19 @@ entity AxleInfo = {
 
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
-    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.Rotation
-    yield steeringAngle, steeringAngle
+    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.JRotation
+    if (world.Jeep.cnvAccel > 0.0f &&
+          (steeringAngle > 0.001f  && (world.Jeep.RotationY > 30.0f  && world.Jeep.RotationY < 120.0f)) || 
+          (steeringAngle < -0.001f && (world.Jeep.RotationY > 200.0f && world.Jeep.RotationY < 330.0f))) then 
+        yield 0.0f,0.0f
+      else
+        yield steeringAngle, steeringAngle
+    if (world.Jeep.cnvAccel < 0.0f &&
+          (steeringAngle > 0.001f  && (world.Jeep.RotationY > 200.0f && world.Jeep.RotationY < 330.0f)) || 
+          (steeringAngle < -0.001f && (world.Jeep.RotationY > 30.0f  && world.Jeep.RotationY < 120.0f))) then 
+        yield 0.0f,0.0f
+      else
+        yield steeringAngle, steeringAngle
 
   rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel =
     if world.Jeep.Fuel > 0.99f then

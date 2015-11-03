@@ -35,6 +35,13 @@ public class TruckScript : MonoBehaviour
   {
     get { return this.transform.position; }
   }
+  public float RotationY
+  {
+    get
+    {
+      return this.transform.eulerAngles.y;
+    }
+  }
   public int InMag;
   public int NotInMag;
   public string MagazineGUI
@@ -48,7 +55,6 @@ public class TruckScript : MonoBehaviour
     get { return truckRigidBody.centerOfMass; }
     set { truckRigidBody.centerOfMass = value; }
   }
-
 
   public float Frce
   {
@@ -129,4 +135,4 @@ public class TruckScript : MonoBehaviour
   { 
     //Physics.IgnoreCollision(shield, UnityPlane.planeBox, true);
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
