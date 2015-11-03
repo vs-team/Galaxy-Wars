@@ -195,55 +195,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!1 &963826976 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 187824, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
-  m_PrefabInternal: {fileID: 1233737373}
---- !u!102 &963826978
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 963826976}
-  m_Text: 20/250
-  m_OffsetZ: 0
-  m_CharacterSize: 15
-  m_LineSpacing: 1
-  m_Anchor: 4
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 0}
-  m_Color:
-    serializedVersion: 2
-    rgba: 4294967295
---- !u!23 &963826980
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 963826976}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
-  m_ProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
 --- !u!1001 &1233737373
 Prefab:
   m_ObjectHideFlags: 0
@@ -283,28 +234,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 187824, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
-      propertyPath: m_Name
-      value: Bullets
-      objectReference: {fileID: 0}
-    - target: {fileID: 11414776, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
-      propertyPath: m_Text
-      value: InMagazine / NotInMagazine
-      objectReference: {fileID: 0}
-    - target: {fileID: 11414776, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 22445402, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22445402, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 9
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11414776, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5b00775c9412ad843812e3451e1a0d4f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2109732167

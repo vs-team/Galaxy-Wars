@@ -467,6 +467,9 @@ public ControllerRazor(System.String joystickName)
  }
 	public System.Boolean RaycastBool{  get { return SixenseHand.RaycastBool; }
  }
+	public System.Boolean Shot{  get { return SixenseHand.Shot; }
+  set{SixenseHand.Shot = value; }
+ }
 	public SixenseHand SixenseHand;
 	public System.Boolean Trigger{  get { return SixenseHand.Trigger; }
   set{SixenseHand.Trigger = value; }
@@ -503,6 +506,7 @@ frame = World.frame;
 
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
+		this.Rule2(dt, world);
 	}
 
 
@@ -529,6 +533,27 @@ return;
 	case -1:
 	Trigger = Trigger;
 	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	if(((Trigger) || (UnityEngine.Input.GetMouseButtonDown(0))))
+	{
+
+	goto case 2;	}else
+	{
+
+	s2 = -1;
+return;	}
+	case 2:
+	Shot = true;
+	s2 = -1;
 return;	
 	default: return;}}
 	
@@ -583,12 +608,12 @@ frame = World.frame;
 	if(UnityEngine.Input.GetKey(KeyCode.C))
 	{
 
-	goto case 2;	}else
+	goto case 5;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 2:
+	case 5:
 	Reloading = false;
 	s0 = -1;
 return;	
@@ -604,45 +629,45 @@ return;
 	if(((UnityEngine.Input.GetKey(KeyCode.R)) && (((NotInMagazine) > (0)))))
 	{
 
-	goto case 5;	}else
+	goto case 8;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 5:
+	case 8:
 	Reloading = true;
 	InMagazine = InMagazine;
 	NotInMagazine = NotInMagazine;
-	s1 = 11;
+	s1 = 14;
 return;
-	case 11:
+	case 14:
 	count_down1 = ReloadDuration;
-	goto case 12;
-	case 12:
+	goto case 15;
+	case 15:
 	if(((count_down1) > (0f)))
 	{
 
 	count_down1 = ((count_down1) - (dt));
-	s1 = 12;
+	s1 = 15;
 return;	}else
 	{
 
-	goto case 8;	}
-	case 8:
+	goto case 11;	}
+	case 11:
 	if(((MagazineSize) > (NotInMagazine)))
 	{
 
-	goto case 6;	}else
+	goto case 9;	}else
 	{
 
-	goto case 7;	}
-	case 6:
+	goto case 10;	}
+	case 9:
 	Reloading = false;
 	InMagazine = NotInMagazine;
 	NotInMagazine = 0;
 	s1 = -1;
 return;
-	case 7:
+	case 10:
 	Reloading = false;
 	InMagazine = MagazineSize;
 	NotInMagazine = ((NotInMagazine) - (MagazineSize));
@@ -660,16 +685,16 @@ return;
 	if(((world.ActiveBoR) == ("AmmoBox")))
 	{
 
-	goto case 15;	}else
+	goto case 18;	}else
 	{
 
 	s2 = -1;
 return;	}
-	case 15:
+	case 18:
 	NotInMagazine = ((NotInMagazine) + (50));
-	s2 = 16;
+	s2 = 19;
 return;
-	case 16:
+	case 19:
 	UnityEngine.Debug.Log(("NotInMagazine = ") + (NotInMagazine));
 	s2 = -1;
 return;	
@@ -685,20 +710,20 @@ return;
 	if(((((GunController.Trigger) && (((InMagazine) > (0))))) && (((Reloading) == (false)))))
 	{
 
-	goto case 19;	}else
+	goto case 22;	}else
 	{
 
 	s3 = -1;
 return;	}
-	case 19:
+	case 22:
 	InMagazine = ((InMagazine) - (1));
-	s3 = 20;
+	s3 = 23;
 return;
-	case 20:
+	case 23:
 	if(!(!(GunController.Trigger)))
 	{
 
-	s3 = 20;
+	s3 = 23;
 return;	}else
 	{
 
@@ -749,15 +774,15 @@ frame = World.frame;
 	if(((Active) && (((Battery) > (0.49f)))))
 	{
 
-	goto case 22;	}else
+	goto case 25;	}else
 	{
 
-	goto case 23;	}
-	case 22:
+	goto case 26;	}
+	case 25:
 	Battery = ((Battery) - (0.5f));
 	s0 = -1;
 return;
-	case 23:
+	case 26:
 	Battery = Battery;
 	s0 = -1;
 return;	
@@ -773,12 +798,12 @@ return;
 	if(((world.ActiveBoR) == ("Battery Black")))
 	{
 
-	goto case 28;	}else
+	goto case 31;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 28:
+	case 31:
 	UnityEngine.Debug.Log(("Battery = ") + (Battery));
 	Battery = ((Battery) + (50f));
 	s1 = -1;
@@ -1364,7 +1389,7 @@ public Truck()
 		cnvAccel = 0f;
 		TruckScript = TruckScript.Instantiate();
 		Rotation = 0f;
-		Keyboard = false;
+		KeyboardControl = false;
 		Fuel = 4000f;
 		AxleInfos = (
 
@@ -1408,7 +1433,7 @@ public Truck()
 	public System.Int32 InMag{  get { return TruckScript.InMag; }
   set{TruckScript.InMag = value; }
  }
-	public System.Boolean Keyboard;
+	public System.Boolean KeyboardControl;
 	public System.String MagazineGUI{  get { return TruckScript.MagazineGUI; }
   set{TruckScript.MagazineGUI = value; }
  }
@@ -1511,7 +1536,7 @@ return;
 	{
 
 	case -1:
-	if(Keyboard)
+	if(KeyboardControl)
 	{
 
 	goto case 10;	}else
@@ -1535,7 +1560,7 @@ return;
 	{
 
 	case -1:
-	if(Keyboard)
+	if(KeyboardControl)
 	{
 
 	goto case 15;	}else
@@ -1580,7 +1605,7 @@ return;	}else
 
 	goto case 0;	}
 	case 0:
-	Keyboard = !(Keyboard);
+	KeyboardControl = !(KeyboardControl);
 	s3 = -1;
 return;	
 	default: return;}}
@@ -1999,7 +2024,7 @@ return;
 	{
 
 	case -1:
-	if(((OnMouseOver) && (world.Pistols.Head().GunController.Trigger)))
+	if(((OnMouseOver) && (((world.Pistols.Head().GunController.Trigger) || (UnityEngine.Input.GetMouseButtonDown(0))))))
 	{
 
 	goto case 7;	}else
@@ -2041,7 +2066,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	count_down7 = 3f;
+	count_down7 = 0.8f;
 	goto case 2;
 	case 2:
 	if(((count_down7) > (0f)))
@@ -2065,4 +2090,4 @@ return;
 
 
 }
-}          
+}                             

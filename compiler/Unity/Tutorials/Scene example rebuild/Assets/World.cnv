@@ -117,6 +117,10 @@ entity GroupZombie = {
 entity ControllerRazor= { // one hand
   inherit SixenseHand
   
+  rule Shot = 
+    if (Trigger || Input.GetMouseButtonDown(0)) then
+      yield true
+
   rule Trigger =
     yield Trigger
 
@@ -317,7 +321,7 @@ entity Truck = {
    cnvAccel : float // has to be a value between 0.0f and 1.0f
    Rotation : float // has to be a value between -1.0f and 1.0f
    Active : bool
-   Keyboard : bool
+   KeyboardControl : bool
 
    rule HeadlightLeftOn, HeadlightRightOn = 
      if world.ActiveBoR = "Lightning Blue" then
@@ -343,12 +347,12 @@ entity Truck = {
    rule MagazineGUI = 
      yield MagazineGUI
 
-   rule Keyboard = 
+   rule KeyboardControl = 
       wait Input.GetKeyDown(KeyCode.P)
-      yield not Keyboard
+      yield not KeyboardControl
 
    rule cnvAccel = 
-      if Keyboard then
+      if KeyboardControl then
         yield Input.GetAxis("Vertical")
       else
         if Acceleration <> 0.0f then 
@@ -357,7 +361,7 @@ entity Truck = {
           yield BrakeAndReverse * -1.0f
 
    rule Rotation = 
-      if Keyboard then
+      if KeyboardControl then
         yield Input.GetAxis("Horizontal")
       else
         yield Steering
@@ -377,7 +381,7 @@ entity Truck = {
       cnvAccel = 0.0f
       Rotation = 0.0f
       Active = true;
-      Keyboard = false;
+      KeyboardControl = false;
     }
 }
 
@@ -427,15 +431,15 @@ entity Zombie = {
 
   rule Destroyed = 
     wait dead2
-    wait 3.0f
+    wait 0.8f
     yield true
 
   rule Life = 
-    if (OnMouseOver && world.Pistols.Head.GunController.Trigger) then
+    if (OnMouseOver && (world.Pistols.Head.GunController.Trigger || Input.GetMouseButtonDown(0))) then
       if Life > 0.49f then 
         yield Life - 40.0f
       else
-	      yield 0.0f
+        yield 0.0f
 
   rule shot, dead2 = 
     if Life < 0.0f then

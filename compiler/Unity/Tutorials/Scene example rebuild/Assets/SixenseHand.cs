@@ -16,11 +16,13 @@ public class SixenseHand : MonoBehaviour
 	float 		m_fLastTriggerVal;
 	Vector3		m_initialPosition;
 	Quaternion 	m_initialRotation;
+  AudioSource gunShot;
 
   public static SixenseHand Instantiate(string joystickName)
   {
     GameObject Razer = GameObject.Find(joystickName);
     SixenseHand handScript = Razer.GetComponent<SixenseHand>();
+    handScript.gunShot = Razer.GetComponent<AudioSource>();
     return handScript;
   }
 
@@ -66,8 +68,18 @@ public class SixenseHand : MonoBehaviour
       Debug.Log("Rotation: " + transform.rotation.ToString("F2"));
     }
   }
-
-
+  bool shot;
+  public bool Shot
+  {
+    get { return shot; }
+    set
+    {
+      shot = value;
+      if (shot)
+        gunShot.Play();
+        shot = false;
+    }
+  }
   
   public bool Trigger {
     get {
@@ -95,4 +107,4 @@ public class SixenseHand : MonoBehaviour
   public Quaternion InitialRotation { get { return m_initialRotation; } }
 	
 	public Vector3 InitialPosition { get { return m_initialPosition; } }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+}                                                                                                                                       

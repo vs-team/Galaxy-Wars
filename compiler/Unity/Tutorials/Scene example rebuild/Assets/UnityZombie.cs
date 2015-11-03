@@ -56,24 +56,22 @@ public class UnityZombie : MonoBehaviour
   public bool OnMouseOver
   {
     get { 
-
-      return false;
-      //RaycastHit hit;
-      //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-      //int layermask = 1 << 8;
-      //if (Physics.Raycast(ray, out hit, 100, layermask))
-      //{
-      //  if (this.gameObject == hit.collider.gameObject)
-      //  {
-      //    return true;
-      //  }
-      //  else
-      //  {
-      //    return false;
-      //  }
-      //}
-      //else
-      //  return false;
+      RaycastHit hit;
+      var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+      int layermask = 1 << 8;
+      if (Physics.Raycast(ray, out hit, 100, layermask))
+      {
+        if (this.gameObject == hit.collider.gameObject)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+      else
+        return false;
     }
   }
   public Vector3 Position
@@ -92,4 +90,4 @@ public class UnityZombie : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
