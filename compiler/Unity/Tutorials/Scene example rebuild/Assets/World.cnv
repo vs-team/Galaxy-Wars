@@ -208,7 +208,7 @@ entity GUI = { //panel. Each wall contains the same info?
   inherit GUIBarScript
 
   rule Value =
-    yield Mathf.Min(world.Jeep.CarHP2, Value)
+    yield world.Jeep.CarHP2
 
   Create() = 
   {
@@ -444,6 +444,16 @@ entity Zombie = {
     wait dead2
     wait 0.8f
     yield true
+
+
+  rule Life, CollisionDamage =
+    if (CollisionDamage <> 0.0f) then
+      Debug.Log("Collided zombie HP before:" + Life)
+      yield Life - (CollisionDamage * 4.0f), 0.0f
+      Debug.Log("Collided zombie HP after:" + Life)
+
+  rule CollisionDamage =
+    yield CollisionDamage
 
   rule Life = 
     if (OnMouseOver && (world.Pistols.Head.GunController.Trigger || Input.GetMouseButtonDown(0))) then

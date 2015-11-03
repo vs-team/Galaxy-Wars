@@ -13,6 +13,9 @@ public class UnityZombie : MonoBehaviour
   }
 
   private Animator motor1;
+  bool destroyed;
+  bool hasCollided = false;
+  float collisionDamage;
 
   public bool shot
   {
@@ -41,7 +44,7 @@ public class UnityZombie : MonoBehaviour
     }
 
   }
-  bool destroyed;
+  
     public bool Destroyed
     {
         get { return destroyed; }
@@ -78,6 +81,12 @@ public class UnityZombie : MonoBehaviour
   {
     get { return this.transform.position; }
   }
+
+  public bool HasCollided
+  {
+    get { return hasCollided; }
+    set { hasCollided = value; }
+  }
   public bool IsHit
   {
     get
@@ -90,4 +99,19 @@ public class UnityZombie : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+  public float CollisionDamage
+  {
+    get { return collisionDamage; }
+    set { collisionDamage = value; }
+  }
+
+  void OnCollisionEnter(Collision collision)
+  {
+    if (collision.relativeVelocity.magnitude > 15.0f)
+    {
+      Debug.Log("zombie has been collided with");
+      collisionDamage = collision.relativeVelocity.magnitude;
+    }
+  }
+
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
