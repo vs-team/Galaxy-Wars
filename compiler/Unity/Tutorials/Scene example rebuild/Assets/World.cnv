@@ -319,9 +319,9 @@ entity Truck = {
    maxMotorTorque : float
    maxSteeringAngle : float
    cnvAccel : float // has to be a value between 0.0f and 1.0f
-   Rotation : float // has to be a value between -1.0f and 1.0f
+   JRotation : float // has to be a value between -1.0f and 1.0f
    Active : bool
-   KeyboardControl : bool
+   Keyboard : bool
 
    rule HeadlightLeftOn, HeadlightRightOn = 
      if world.ActiveBoR = "Lightning Blue" then
@@ -347,12 +347,12 @@ entity Truck = {
    rule MagazineGUI = 
      yield MagazineGUI
 
-   rule KeyboardControl = 
+   rule Keyboard = 
       wait Input.GetKeyDown(KeyCode.P)
-      yield not KeyboardControl
+      yield not Keyboard
 
    rule cnvAccel = 
-      if KeyboardControl then
+      if Keyboard then
         yield Input.GetAxis("Vertical")
       else
         if Acceleration <> 0.0f then 
@@ -360,8 +360,8 @@ entity Truck = {
         else
           yield BrakeAndReverse * -1.0f
 
-   rule Rotation = 
-      if KeyboardControl then
+   rule JRotation = 
+      if Keyboard then
         yield Input.GetAxis("Horizontal")
       else
         yield Steering
@@ -379,9 +379,9 @@ entity Truck = {
       AxleInfos = [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)] // FWD
       Fuel = 4000.0f // gas liters
       cnvAccel = 0.0f
-      Rotation = 0.0f
+      JRotation = 0.0f
       Active = true;
-      KeyboardControl = false;
+      Keyboard = false;
     }
 }
 
@@ -394,7 +394,18 @@ entity AxleInfo = {
 
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
-    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.Rotation
+    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.JRotation
+    if world.Jeep.cnvAccel > 0.0f then
+      if ((steeringAngle > 0.001f  && (world.Jeep.RotationY > 30.0f  && world.Jeep.RotationY < 120.0f)) || 
+          (steeringAngle < -0.001f && (world.Jeep.RotationY > 200.0f && world.Jeep.RotationY < 330.0f))) then 
+        yield 0.0f,0.0f
+      else
+        yield steeringAngle, steeringAngle
+    if world.Jeep.cnvAccel < 0.0f then
+      if ((steeringAngle > 0.001f && (world.Jeep.RotationY > 200.0f && world.Jeep.RotationY < 330.0f)) || 
+          (steeringAngle < -0.001f && (world.Jeep.RotationY > 30.0f && world.Jeep.RotationY < 120.0f))) then 
+        yield 0.0f,0.0f
+      else
     yield steeringAngle, steeringAngle
 
   rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel =
@@ -439,7 +450,7 @@ entity Zombie = {
       if Life > 0.49f then 
         yield Life - 40.0f
       else
-        yield 0.0f
+	      yield 0.0f
 
   rule shot, dead2 = 
     if Life < 0.0f then
