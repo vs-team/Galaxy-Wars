@@ -13,6 +13,8 @@ worldEntity World = {
   GUIpanel : GUI
   Health : float
   ActiveBoR : string
+  Counter : int
+  Gasstations : [Gasstation]
 
   rule Zombies = 
     let groups = 
@@ -63,19 +65,37 @@ worldEntity World = {
       yield a.Head
       yield ""
 
-  rule Landscapes = 
+  rule Landscapes, Counter, Gasstations  = 
     let ls = 
       [for a in Landscapes do
        select a]
-    if ls.Count > 0 then
-      let Headpos = ls.Head.Position
+    let gs = 
+      [for b in Gasstations do
+       select b]
+    if (ls.Count > 0) then
       let randr = Random.Range(1,5) 
-      yield (new Landscape(new Vector3(0.0f,0.0f,Headpos.z - 80.0f), randr)) :: Landscapes
-      wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
+      if gs.Count > 0 then 
+        let Headpos = if (ls.Head.Position.z < gs.Head.Position.z) then ls.Head.Position else gs.Head.Position
+        if Counter > 7 then
+          yield Landscapes, 0, new Gasstation(new Vector3(0.0f,0.0f, Headpos.z - 80.0f)) :: Gasstations
+          wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
+        else
+          yield (new Landscape(new Vector3(0.0f,0.0f,Headpos.z - 80.0f), randr)) :: Landscapes, Counter + 1, Gasstations
+          yield Landscapes, Counter, Gasstations
+          wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
+      else 
+        let Headpos = ls.Head.Position
+        if Counter > 7 then
+          yield Landscapes, 0, new Gasstation(new Vector3(0.0f,0.0f, Headpos.z - 80.0f)) :: Gasstations
+          wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
+        else
+          yield (new Landscape(new Vector3(0.0f,0.0f,Headpos.z - 80.0f), randr)) :: Landscapes, Counter + 1, Gasstations
+          yield Landscapes, Counter, Gasstations
+          wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
 
   Create() =
     {
-     Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape(new Vector3(0.0f,0.0f,-80.0f), (4)); new Landscape((Vector3.zero), (2))]
+     Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape(new Vector3(0.0f,0.0f,-80.0f), (4)); new Landscape((Vector3.zero), (2))] 
      Jeep = new Truck()
      Zombies = []
      Pistols = [new Gun()]
@@ -83,7 +103,18 @@ worldEntity World = {
      GUIpanel = new GUI()
      Health = 100.0f
      ActiveBoR = ""
+     Counter = 3
+     Gasstations = []
     }
+}
+entity Gasstation = {
+  inherit UnityGasstation
+
+
+  Create(ps : Vector3) = {
+  Base = UnityGasstation.Instantiate(ps)
+  }
+
 }
 
 entity GroupZombie = { 
@@ -118,8 +149,9 @@ entity ControllerRazor= { // one hand
   inherit SixenseHand
   
   rule Shot = 
-    if (Trigger || Input.GetMouseButtonDown(0)) then
+    if (Trigger || Input.GetMouseButtonDown(0) && (world.Pistols.Head.InMagazine > 0 && not (world.Pistols.Head.Reloading))) then
       yield true
+      yield false
 
   rule Trigger =
     yield Trigger
@@ -142,10 +174,10 @@ entity Gun = { //pistol
   MagazineSize : int
 
   rule InMagazine = 
-    //Debug.Log("InMagazine left = "+ InMagazine)
-    if GunController.Trigger && InMagazine > 0 && (Reloading = false) then
+    Debug.Log("InMagazine left = "+ InMagazine)
+    if GunController.Shot && InMagazine > 0 && (Reloading = false) then
       yield InMagazine - 1
-      wait (not GunController.Trigger) 
+      wait (not GunController.Shot) 
 
   rule NotInMagazine = 
     if world.ActiveBoR = "AmmoBox" then 
@@ -153,7 +185,7 @@ entity Gun = { //pistol
       Debug.Log("NotInMagazine = "+ NotInMagazine)
 
   rule Reloading, InMagazine, NotInMagazine = 
-    if Input.GetKey(KeyCode.R) && NotInMagazine > 0 then // if reloading and available bullets
+    if ((Input.GetKey(KeyCode.R) || InMagazine = 0) && NotInMagazine > 0) then
       yield true, InMagazine, NotInMagazine
       wait (ReloadDuration)
       if MagazineSize > NotInMagazine then // clip can't be fulled completely
@@ -170,7 +202,7 @@ entity Gun = { //pistol
     GunController = new ControllerRazor("Hydra1 - Right")//righthand
     NotInMagazine = 200 //amount of bullets
     Reloading = false
-    MagazineSize = 80
+    MagazineSize = 90
     InMagazine = 20
     ReloadDuration = 4.0f
   }

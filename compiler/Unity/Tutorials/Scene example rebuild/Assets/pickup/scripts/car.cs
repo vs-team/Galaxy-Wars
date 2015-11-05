@@ -9,7 +9,6 @@ public class car : MonoBehaviour {
 	public Camera[] cam;
 
 	public GameObject[] backLights;
-	public GameObject hands;
 	public Color color;
 	
 	public float Cdrag=0.2f;
@@ -52,7 +51,6 @@ public class car : MonoBehaviour {
 		GetComponent<Rigidbody>().centerOfMass = centerOfMass.localPosition;
 		color=backLights[0].GetComponent<Renderer>().material.GetColor("_TintColor");
 		rot=steerWheel.transform.rotation;
-		hands.SetActive(false);
 	}
 
 	void Update () {
@@ -126,7 +124,8 @@ public class car : MonoBehaviour {
 		model.transform.rotation=quart;
 	}
 
-	void HandBrake(){
+  void HandBrake(){
+  /*
 		if(Input.GetButton ("Jump") || (Input.GetAxis("Vertical")==0 && (int)speed==0)){
 			braked=true;
 		}
@@ -145,6 +144,7 @@ public class car : MonoBehaviour {
 			WheelRearRight.brakeTorque = 0;
 			color.a=0.5f;
 		}
+  */
 	}
 
 	void CameraSwitch(){
@@ -156,7 +156,6 @@ public class car : MonoBehaviour {
 				i=0;
 			cam[i].enabled=true;
 			cam[i].GetComponent<AudioListener>().enabled=true;
-			hands.SetActive(i==1);
 		}
 
 	}
