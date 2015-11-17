@@ -11,7 +11,6 @@ worldEntity World = {
   Pistols : [Gun]
   Flashs : [Light]
   GUIpanel : GUI
-  Health : float
   ActiveBoR : string
   Counter : int
   Gasstations : [Gasstation]
@@ -41,11 +40,6 @@ worldEntity World = {
        select a]
     //Debug.Log("zombies count = "+zmbies.Count)
     yield zmbies
-
-  rule Health = 
-    if ActiveBoR = "Medipack Red" then
-      yield Health + 20.0f
-      Debug.Log(Health)
 
   rule ActiveBoR = 
     if ActiveBoR = "Crossed Wrenches Red" then
@@ -95,12 +89,15 @@ worldEntity World = {
 
   rule Pistols, Flashs = 
     wait Jeep.Value.Active
-    yield [new Gun()], [new Light()]
-    wait not Jeep.Value.Active
-    yield [] , []
+    yield [new Gun("MachineGun",0)], [new Light()] // new Gun(Pistol) first time. new Gun(Random) after
+    wait false
+    //wait not Jeep.Value.Active
+    //yield [] , []
+    // wait false and remove 2 lines above. Create the pistols and flashs in rule where new jeep is created in gasstation
+
 
   Create() =
-    let truk = new Truck("truck1", new Vector3(0.0f,-6.0f,0.0f), false)
+    let truk = new Truck("zpickup", new Vector3(0.0f,-6.0f,0.0f), false)
     {
      Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape((Vector3.zero), (2))] 
      Jeep = Some truk
@@ -108,7 +105,6 @@ worldEntity World = {
      Pistols = []
      Flashs = []
      GUIpanel = new GUI()
-     Health = 100.0f
      ActiveBoR = ""
      Counter = 3
      Gasstations = [new Gasstation(new Vector3(0.0f,0.0f, -80.0f))]
@@ -204,9 +200,16 @@ entity ControllerRazor= { // one hand
   inherit SixenseHand
   
   rule Shot = 
-    if (Trigger || Input.GetMouseButtonDown(0) && (world.Pistols.Head.InMagazine > 0 && not (world.Pistols.Head.Reloading))) then
-      yield true
-      yield false
+    if (world.Pistols.Head.InMagazine > 0 && not (world.Pistols.Head.Reloading)) then
+      Debug.Log(Input.GetMouseButton(0))
+      if (not world.Pistols.Head.Automatic && (Trigger || Input.GetMouseButtonDown(0))) then
+        yield true
+        yield false
+      if (world.Pistols.Head.Automatic && (Trigger || Input.GetMouseButton(0))) then
+        while Input.GetMouseButton(0) do 
+          yield true
+          yield false
+          wait 0.05f
 
   rule Trigger =
     yield Trigger
@@ -220,19 +223,20 @@ entity ControllerRazor= { // one hand
   }
 }
 
-entity Gun = { //pistol
+entity Gun = {
+  inherit UnityGun
   GunController : ControllerRazor
   NotInMagazine : int
   Reloading : bool
   ReloadDuration : float
   InMagazine : int
   MagazineSize : int
+  Automatic : bool
+  DamagePerBullet : float
 
   rule InMagazine = 
-    //Debug.Log("InMagazine left = "+ InMagazine)
-    if GunController.Shot && InMagazine > 0 && (Reloading = false) then
+    if (GunController.Shot && InMagazine > 0 && (Reloading = false)) then
       yield InMagazine - 1
-      wait (not GunController.Shot) 
 
   rule NotInMagazine = 
     if world.ActiveBoR = "AmmoBox" then 
@@ -243,7 +247,6 @@ entity Gun = { //pistol
     if ((Input.GetKey(KeyCode.R) || InMagazine = 0) && NotInMagazine > 0) then
       yield true, NotInMagazine, InMagazine
       wait (ReloadDuration)
-      Debug.Log("notinmag = "+NotInMagazine + " inmag = " + InMagazine)
       if MagazineSize > NotInMagazine then // clip can't be fulled completely
         yield false, 0, NotInMagazine
       else 
@@ -251,32 +254,36 @@ entity Gun = { //pistol
         Debug.Log("changed = "+changed)
         yield false, NotInMagazine - changed, MagazineSize // fill clip completely
 
-  rule world.Jeep.Value.InMag, world.Jeep.Value.NotInMag = 
-     wait Reloading
-     wait not Reloading
-     yield InMagazine, NotInMagazine
+  rule MagazineGUI = 
+    if world.Pistols.Count > 0 then
+      yield MagazineGUI
 
-  rule world.Jeep.Value.InMag, world.Jeep.Value.NotInMag = 
-     let z = 
-       [for a in world.Gasstations do
-        where a.Updating
-        select a]
-     if z.Count = 0 then
-       yield InMagazine, NotInMagazine
-       wait GunController.Shot
+  rule InMag, NotInMag = 
+    if world.Pistols.Count > 0 then
+      yield InMagazine, NotInMagazine
 
   rule Reloading = 
     if Input.GetKey(KeyCode.C) then
       yield false
 
-  Create() = 
+  Create(st : string, ind : int) = 
+  let autom = if (st <> "MachineGun") then false else true
+  //                        Light Machine Gun ; Pistol; ShotGun ; Revolver; Bazooka
+  let InMagList =           [50               ; 20 ;    5       ; 6       ; 1]
+  let NotInMagList = [       850              ; 200 ;   60      ; 90      ; 15]
+  let ClipSizeList = [       150              ; 20 ;    5       ; 6       ; 1]
+  let ReloadDurationList = [ 7.0f             ; 3.0f ;  4.0f    ; 2.0f    ; 5.0f]
+  let DamageList = [         40.0f            ; 75.0f ; 135.0f  ; 100.0f  ; 400.0f]
   {
+    Base = UnityGun.Instantiate(st)
     GunController = new ControllerRazor("Hydra1 - Right")//righthand
-    NotInMagazine = 200 //amount of bullets
+    NotInMagazine = NotInMagList.[ind]
     Reloading = false
-    MagazineSize = 90
-    InMagazine = 20
-    ReloadDuration = 4.0f
+    MagazineSize = ClipSizeList.[ind]
+    InMagazine = InMagList.[ind]
+    ReloadDuration = ReloadDurationList.[ind]
+    Automatic = autom
+    DamagePerBullet = DamageList.[ind]
   }
 }
 
@@ -310,9 +317,6 @@ entity Light = { //flashlight
 
 entity GUI = { //panel. Each wall contains the same info?
   inherit GUIBarScript
-
-  rule Value =
-    yield world.Jeep.Value.CarHP2
 
   Create() = 
   {
@@ -416,6 +420,47 @@ entity BonusAndResource = {
     Active = false;
   }
 }
+entity TruckStats = {
+  Health : float
+  Weapons : [float] // change float to list of weapon
+  MaxSpeed : float
+  MaxSteering : float
+  Hull : float
+  Fuel : float
+  isModel : bool
+
+  rule Health, world.Jeep.Value.CarHP2 = 
+    if world.ActiveBoR = "Medipack Red" && isModel <> true then
+      yield Health + 20.0f, ((Health) / 100.0f)
+
+  rule world.Jeep.Value.CarHP2, Health, world.GUIpanel.HPValue = 
+    if isModel <> true then
+      let z = world.Jeep.Value.CarHP2
+      if (z <> (Health / 100.0f)) then
+        yield world.Jeep.Value.CarHP2, (world.Jeep.Value.CarHP2 * 100.0f), world.Jeep.Value.CarHP2
+      else
+        yield (Health / 100.0f), (world.Jeep.Value.CarHP2 * 100.0f), world.Jeep.Value.CarHP2
+
+  Create(bs : bool) = 
+  let rnd = Random.Range(0,6)
+  let HealthList = [50.0f; 60.0f; 75.0f; 80.0f; 100.0f]
+  // let WeaponList = [new Gun("Machine_Gun"); new Gun("Ray_Gun"); new Gun("Pistol"); new Gun("ShotGun"); new Gun("Revolver")]
+  let MaxSpeedList = [10.0f; 10.0f; 10.0f; 15.0f; 20.0f]
+  let MaxSteeringList = [5.0f; 10.0f; 10.0f; 20.0f; 15.0f]
+  let HullList = [8.0f; 5.0f ; 3.0f ; 4.0f ; 2.0f]
+  let FuelList = [12000.0f ; 8000.0f ; 15000.0f ; 6000.0f ; 10000.0f]
+  {
+    Health = HealthList.[rnd]
+    Weapons = []  // WeaponList.[rnd]
+    MaxSpeed = MaxSpeedList.[rnd]
+    MaxSteering = MaxSteeringList.[rnd]
+    Hull = HullList.[rnd] //damage taken by hull
+    Fuel = FuelList.[rnd]
+    isModel = bs
+  }
+
+}
+
 entity Truck = {
    inherit TruckScript
    Fuel : float
@@ -427,6 +472,7 @@ entity Truck = {
    Keyboard : bool
    isModel : bool
    Active : bool
+   Stats : TruckStats
 
    rule HeadlightLeftOn, HeadlightRightOn = 
      let z = 
@@ -446,20 +492,6 @@ entity Truck = {
          yield true, true
          wait 0.1f
          yield false, false
-   
-   rule MagazineGUI = 
-     if world.Pistols.Count > 0 then
-       if world.Pistols.Head.GunController.Shot then 
-         yield ""
-
-   rule CenterOfMass =
-     let z = 
-       [for a in world.Gasstations do
-        where a.Updating
-        select a]
-     if z.Count = 0 then
-       yield new Vector3(1.0f,0.0f,-1.5f)
-       wait false
 
    rule Keyboard = 
       wait Input.GetKeyDown(KeyCode.P)
@@ -481,9 +513,10 @@ entity Truck = {
         yield Steering
 
    rule Fuel = 
-     if world.ActiveBoR = "Jerry Can Green" then 
-       Debug.Log("Fuel = "+Fuel)
-       yield Fuel + 2000.0f
+     if not isModel then 
+       if world.ActiveBoR = "Jerry Can Green" then 
+         Debug.Log("Fuel = "+Fuel)
+         yield Fuel + 2000.0f
 
    rule Active = 
      yield true
@@ -516,10 +549,11 @@ entity Truck = {
       maxMotorTorque = 250.0f
       maxSteeringAngle = 50.0f
       AxleInfos = []
-      Fuel = 4000.0f // gas liters
+      Fuel = 80000.0f // gas liters
       cnvAccel = 0.0f
       JRotation = 0.0f
       Keyboard = false;
+      Stats = new TruckStats(ModelIs)
     }
 }
 
@@ -539,7 +573,7 @@ entity AxleInfo = {
        [for a in world.Gasstations do
         where a.Updating
         select a]
-    if z.Count = 0 then
+    if z.Count = 0 && not world.Jeep.Value.isModel then
       let steeringAngle = world.Jeep.Value.maxSteeringAngle * world.Jeep.Value.JRotation
       if world.Jeep.Value.cnvAccel > 0.0f then
         if ((steeringAngle > 0.001f  && (world.Jeep.Value.RotationY > 30.0f  && world.Jeep.Value.RotationY < 120.0f)) || 
@@ -559,7 +593,7 @@ entity AxleInfo = {
        [for a in world.Gasstations do
         where a.Updating
         select a]
-    if z.Count = 0 then
+    if z.Count = 0 && not world.Jeep.Value.isModel then
       if world.Jeep.Value.Fuel > 0.99f then
         if ((world.Jeep.Value.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded)) then
           let dir = world.Jeep.Value.cnvAccel
@@ -608,11 +642,19 @@ entity Zombie = {
   rule Life = 
     wait world.Jeep.IsSome
     if (world.Jeep.Value.Active) then
-      if (OnMouseOver && (world.Pistols.Head.GunController.Trigger || Input.GetMouseButtonDown(0))) then
-        if Life > 0.49f then 
-          yield Life - 40.0f
+      if OnMouseOver then
+        if (not world.Pistols.Head.Automatic) then
+          if (world.Pistols.Head.GunController.Trigger || Input.GetMouseButtonDown(0)) then
+            if Life > 0.49f then 
+              yield Life - world.Pistols.Head.DamagePerBullet
+            else
+	            yield 0.0f
         else
-	        yield 0.0f
+          if (world.Pistols.Head.GunController.Shot) then
+            if Life > 0.49f then
+              yield Life - world.Pistols.Head.DamagePerBullet
+            else
+              yield 0.0f
 
   rule shot, dead2 = 
     if Life < 0.0f then

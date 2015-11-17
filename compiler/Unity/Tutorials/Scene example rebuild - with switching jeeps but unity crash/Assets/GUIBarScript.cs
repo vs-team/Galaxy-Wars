@@ -6,9 +6,9 @@ public class GUIBarScript : MonoBehaviour {
 
 	//Declare variables
 
-	//for the CurrentValue, and the Value it will be after the update
+	//for the CurrentValue, and the HPValue it will be after the update
 	private float CurrentValue;
-  public float Value;
+  public float HPValue;
 
 	//FadeValue is current amount the bar is faded 
 	private float FadeValue;
@@ -49,7 +49,7 @@ public class GUIBarScript : MonoBehaviour {
 
 		//UpdateBar is a very large function so i'm only excuting it when i have to.
 		if (
-			Mathf.Round(CurrentValue * 100f) != Mathf.Round(Value * 100f)
+			Mathf.Round(CurrentValue * 100f) != Mathf.Round(HPValue * 100f)
 			)
 		{
 			UpdateBar();
@@ -77,7 +77,7 @@ public class GUIBarScript : MonoBehaviour {
 
 			if (OverRideTextColorWithGradient)
 			{
-				Color MaxGradientColor = new Color(g.Evaluate(Value * 0.99f).r,g.Evaluate(Value * 0.99f).g,g.Evaluate(Value * 0.99f).b,1.0f);
+				Color MaxGradientColor = new Color(g.Evaluate(HPValue * 0.99f).r,g.Evaluate(HPValue * 0.99f).g,g.Evaluate(HPValue * 0.99f).b,1.0f);
 				LabelStyle.normal.textColor = MaxGradientColor;
 			}
 			else
@@ -87,7 +87,7 @@ public class GUIBarScript : MonoBehaviour {
 			LabelStyle.fontSize = (int)TextSize;
 			LabelStyle.font = TextFont;
 
-			TextString = ((int)(Value * 100)).ToString() + "%";
+			TextString = ((int)(HPValue * 100)).ToString() + "%";
 
 			GUI.Label(new Rect(Position.x + TextOffset.x,Position.y + TextOffset.y,ValueBar.width * ScaleSize,ValueBar.height * ScaleSize),TextString,LabelStyle);
 
@@ -139,11 +139,11 @@ public class GUIBarScript : MonoBehaviour {
 			return;
 		}
 
-		//set the new value
-		CurrentValue = Value;
+		//set the new HPValue
+		CurrentValue = HPValue;
 
         //the FadeFactor is used to set the FadeValue, see ReadMe document for more Info
-		FadeValue = ((Mathf.Sin ((Value) * 3.14f))/FadeFactor) ;
+		FadeValue = ((Mathf.Sin ((HPValue) * 3.14f))/FadeFactor) ;
 
 		if (FadeFactor == 0)
 		{
@@ -153,7 +153,7 @@ public class GUIBarScript : MonoBehaviour {
 		//clamping values of variables
 		FadeFactor = Mathf.Clamp(FadeFactor,-1f,20f);
 		CurrentValue = Mathf.Clamp(CurrentValue,0f,1f);
-		Value = Mathf.Clamp(Value,0f,1f);
+		HPValue = Mathf.Clamp(HPValue,0f,1f);
 		FadeValue = Mathf.Clamp(FadeValue,0.0001f,1f);
         
         //create variable to store the colors for the gradient
@@ -221,22 +221,22 @@ public class GUIBarScript : MonoBehaviour {
 
 	public void SetNewValue(float V)
 	{
-		Value = V;
+		HPValue = V;
 	}	
 
 	public void SetNewValue(double V)
 	{
-		Value = (float)V;
+		HPValue = (float)V;
 	}
 
 	public void SetNewValue(float V, float MV)
 	{
-		Value = V/MV;
+		HPValue = V/MV;
 	}
 
 	public void SetNewValue(double V, double MV)
 	{
-		Value = (float)V / (float)MV;
+		HPValue = (float)V / (float)MV;
 	}
 
 	public void ForceUpdate()
@@ -251,4 +251,4 @@ public class GUIBarScript : MonoBehaviour {
     return guiscript;
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
