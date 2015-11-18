@@ -1,0 +1,14 @@
+module Game
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity World = {
+    
+    Cnt : int
+    
+    Create()={
+    Cnt = 1
+    }
+
+}
