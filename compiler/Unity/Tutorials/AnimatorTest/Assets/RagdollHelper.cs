@@ -207,4 +207,4 @@ public class RagdollHelper : MonoBehaviour {
 		}
 	}
 	
-}
+}                                
