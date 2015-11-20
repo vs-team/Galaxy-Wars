@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TruckScript : MonoBehaviour
 {
@@ -13,24 +14,37 @@ public class TruckScript : MonoBehaviour
   public Light HeadlightRight;
   private float CarHP = 1.0f;
   public Collider shield;
-  private TextMesh MagazineBox;
 
-  public static TruckScript Instantiate()
+  public static TruckScript Instantiate(string nm, Vector3 pos)
   {
-    GameObject jeepGameObject = GameObject.Find("truck");
+    GameObject jeepGameObject = GameObject.Instantiate(Resources.Load("Jeeps/" + nm), pos, Quaternion.identity) as GameObject;
     TruckScript truck = jeepGameObject.GetComponent<TruckScript>() as TruckScript;
-
-    truck.FrontLeftWheel = GameObject.Find("SUV_wheel_front_left").GetComponent<WheelCollider>() as WheelCollider;
-    truck.FrontRightWheel = GameObject.Find("SUV_wheel_front_right").GetComponent<WheelCollider>() as WheelCollider;
-    truck.RearLeftWheel = GameObject.Find("SUV_wheel_rear_left").GetComponent<WheelCollider>() as WheelCollider;
-    truck.RearRightWheel = GameObject.Find("SUV_wheel_rear_right").GetComponent<WheelCollider>() as WheelCollider;
-    truck.HeadlightLeft = GameObject.Find("LeftLight").GetComponent<Light>() as Light;
-    truck.HeadlightRight = GameObject.Find("RightLight").GetComponent<Light>() as Light;
     truck.truckRigidBody = jeepGameObject.GetComponent<Rigidbody>() as Rigidbody;
-    truck.shield = GameObject.Find("Shield").GetComponent<Collider>() as Collider;
-    truck.MagazineBox = GameObject.Find("Bullets").GetComponent<TextMesh>() as TextMesh;
+
+    truck.FrontLeftWheel = truck.transform.Find("SUV_wheel_front_left").GetComponent<WheelCollider>() as WheelCollider;
+    truck.FrontRightWheel = truck.transform.Find("SUV_wheel_front_right").GetComponent<WheelCollider>() as WheelCollider;
+    truck.RearLeftWheel = truck.transform.Find("SUV_wheel_rear_left").GetComponent<WheelCollider>() as WheelCollider;
+    truck.RearRightWheel = truck.transform.Find("SUV_wheel_rear_right").GetComponent<WheelCollider>() as WheelCollider;
+
+    truck.HeadlightLeft = truck.transform.Find("LeftLight").GetComponent<Light>() as Light;
+    truck.HeadlightRight = truck.transform.Find("RightLight").GetComponent<Light>() as Light;
+
+    truck.shield = truck.transform.Find("Shield").GetComponent<Collider>() as Collider;
     return truck;
   }
+  bool destroyed;
+
+  public bool Destroyed
+  {
+    get { return destroyed; }
+    set
+    {
+      destroyed = value;
+      if (destroyed)
+        GameObject.Destroy(gameObject);
+    }
+  }
+
   public Vector3 Position
   {
     get { return this.transform.position; }
@@ -42,12 +56,10 @@ public class TruckScript : MonoBehaviour
       return this.transform.eulerAngles.y;
     }
   }
-  public int InMag;
-  public int NotInMag;
-  public string MagazineGUI
+  public Vector3 COM
   {
-    get { return MagazineBox.text; }
-    set { MagazineBox.text = InMag + "/" + NotInMag; }
+    get { return COM; }
+    set { truckRigidBody.centerOfMass = value; } 
   }
 
   public Vector3 CenterOfMass
@@ -117,22 +129,33 @@ public class TruckScript : MonoBehaviour
       }
     }
   }
-
+  private bool CollWithModel;
+  public bool CollisionWithModel
+  {
+    get { return CollWithModel; }
+    set { CollWithModel = value; }
+  }
   void OnCollisionEnter(Collision collision)
   {
-    if(collision.relativeVelocity.magnitude > 15.0f)
+    string a = collision.gameObject.name;
+    if (collision.gameObject.tag == "TruckModel")
     {
-      CarHP -= collision.relativeVelocity.magnitude / 200;
+      CollWithModel = true;
+    }
+    if(collision.relativeVelocity.magnitude > 10.0f)
+    {
+      CarHP -= collision.relativeVelocity.magnitude / 100;
     }
   }
 
   public float CarHP2
   {
-    get { return CarHP; }
+    get {
+      return CarHP; }
     set { CarHP = value; }
   }
   void Update()
   { 
     //Physics.IgnoreCollision(shield, UnityPlane.planeBox, true);
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

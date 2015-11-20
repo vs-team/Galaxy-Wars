@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Spawnpoint
   - Zombie
+  - Parkingspot
+  - TruckModel
+  - Bullets
   layers:
   - Default
   - TransparentFX

@@ -2,19 +2,29 @@ module Game
 
 open "UnityEngine.dll"
 open UnityEngine
-
+// !!!!BEFORE!!!! compiling, make sure to comment the specified lines in UnityZombie2.cs. When CNV has compiled, uncomment these lines again.
 worldEntity World = {
   inherit UnityLandscape
   Landscapes : [Landscape]
-  Jeep : Truck
+  Jeep : Option<Truck>
   Zombies : [Zombie] // are created in the landscape in groups
   Pistols : [Gun]
   Flashs : [Light]
   GUIpanel : GUI
-  Health : float
   ActiveBoR : string
   Counter : int
   Gasstations : [Gasstation]
+  Bullets : [Bullet]
+  Controllers : [ControllerRazor]
+  (*
+  rule Bullets = 
+    if (Pistols.Head.GunController.Shot && Pistols.Head.TypeWeapon = "Bazooka") then
+      Debug.Log("Bazooka shot")
+      let posi = Pistols.Head.Position
+      let rota = Pistols.Head.Rotation
+      yield [new Bullet(posi, rota)]
+  *)
+
 
   rule Zombies = 
     let groups = 
@@ -41,11 +51,6 @@ worldEntity World = {
        select a]
     //Debug.Log("zombies count = "+zmbies.Count)
     yield zmbies
-
-  rule Health = 
-    if ActiveBoR = "Medipack Red" then
-      yield Health + 20.0f
-      Debug.Log(Health)
 
   rule ActiveBoR = 
     if ActiveBoR = "Crossed Wrenches Red" then
@@ -78,41 +83,124 @@ worldEntity World = {
         let Headpos = if (ls.Head.Position.z < gs.Head.Position.z) then ls.Head.Position else gs.Head.Position
         if Counter > 7 then
           yield Landscapes, 0, new Gasstation(new Vector3(0.0f,0.0f, Headpos.z - 80.0f)) :: Gasstations
-          wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
+          wait (Vector3.Distance(Headpos, Jeep.Value.Position) < 200.0f)
         else
           yield (new Landscape(new Vector3(0.0f,0.0f,Headpos.z - 80.0f), randr)) :: Landscapes, Counter + 1, Gasstations
           yield Landscapes, Counter, Gasstations
-          wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
+          wait (Vector3.Distance(Headpos, Jeep.Value.Position) < 200.0f)
       else 
         let Headpos = ls.Head.Position
         if Counter > 7 then
           yield Landscapes, 0, new Gasstation(new Vector3(0.0f,0.0f, Headpos.z - 80.0f)) :: Gasstations
-          wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
+          wait (Vector3.Distance(Headpos, Jeep.Value.Position) < 200.0f)
         else
           yield (new Landscape(new Vector3(0.0f,0.0f,Headpos.z - 80.0f), randr)) :: Landscapes, Counter + 1, Gasstations
           yield Landscapes, Counter, Gasstations
-          wait (Vector3.Distance(Headpos, Jeep.Position) < 200.0f)
+          wait (Vector3.Distance(Headpos, Jeep.Value.Position) < 200.0f)
+
+  rule Pistols, Flashs = 
+    wait Jeep.Value.Active
+    yield [new Gun("Pistol",1, Controllers.[0])], [new Light(Controllers.[1])] // new Gun(Pistol) first time. new Gun(Random) after
+    wait false
+
+  rule Controllers = 
+    wait Jeep.Value.Active
+    yield [new ControllerRazor("Hydra1 - Right"); new ControllerRazor("Hydra1 - Left")]
+    wait false
 
   Create() =
+    let truk = new Truck("zpickup", new Vector3(0.0f,-6.0f,0.0f), false)
     {
-     Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape(new Vector3(0.0f,0.0f,-80.0f), (4)); new Landscape((Vector3.zero), (2))] 
-     Jeep = new Truck()
+     Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape((Vector3.zero), (2))] 
+     Jeep = Some truk
      Zombies = []
-     Pistols = [new Gun()]
-     Flashs = [new Light()]
+     Pistols = []
+     Flashs = []
      GUIpanel = new GUI()
-     Health = 100.0f
      ActiveBoR = ""
      Counter = 3
-     Gasstations = []
+     Gasstations = [new Gasstation(new Vector3(0.0f,0.0f, -80.0f))]
+     Bullets = []
+     Controllers = []
     }
 }
+entity Bullet = {
+  inherit UnityBullet
+  Dir : Vector3
+  cnt : float 
+
+  rule Frce, cnt = 
+    while cnt < 40.0f do
+      yield 1.0f, cnt + 10.0f
+    wait false
+
+  rule Rotat = 
+    //Debug.Log(Dir)
+    yield Dir
+
+  Create(pos : Vector3, dir : Vector3) = 
+  {
+    Base= UnityBullet.Instantiate(pos, "bullet")
+    Dir = dir
+    cnt = 0.0f
+  }
+}
+
 entity Gasstation = {
   inherit UnityGasstation
+  ParkingSpotPositions : [Vector3]
+  ParkedJeep : Option<Truck>
+  PJpos : Vector3
+  Updating : bool
 
+  rule world.Jeep.Value.Active = 
+    wait Updating
+    wait not Updating
+    yield false
+    yield true
+
+  rule world.Jeep, Updating = 
+    if ParkedJeep.IsNone then
+      let pos = new Vector3((PJpos.x - 5.0f),PJpos.y, PJpos.z)
+      let z = new Truck("truck1", pos, false)
+      yield Some z, true
+      yield world.Jeep, false
+      wait false
+      
+  rule ParkedJeep.Value.Destroyed, ParkedJeep = 
+    if world.Jeep.IsNone then 
+      yield true, None
+
+  rule world.Jeep.Value.Destroyed, world.Jeep, Updating = 
+    if world.Jeep.IsSome then
+      wait 3.0f
+      wait world.Jeep.Value.CollisionWithModel
+      yield true, None, true
+     
+  rule ParkedJeep, ParkingSpotPositions, PJpos = 
+    wait ParkingSpotPositions.Count > 0
+    let z = 
+      [for a in Jeeps do
+       select a]
+    let PSPH = ParkingSpotPositions.Head 
+    let PSPH2 = new Vector3(PSPH.x,PSPH.y,(PSPH.z + 32.5f))
+    let p = (new Truck(z.Head + "model", PSPH2, true))
+    yield Some p, ParkingSpotPositions, PSPH2
+    yield ParkedJeep, [], PSPH2
+
+  rule ParkingSpotPositions = 
+    let z = 
+      [for a in ParkingSpotList do
+       select (a.position)]
+    yield z
+    wait false
 
   Create(ps : Vector3) = {
   Base = UnityGasstation.Instantiate(ps)
+  ParkingSpotPositions = []
+  ParkedJeep = None
+  PJpos = Vector3.zero
+  Updating = false
   }
 
 }
@@ -136,7 +224,6 @@ entity GroupZombie = {
     yield []
     wait false
 
-
   Create(sps : Vector3) =
   {
     Base = UnityGroup.Instantiate(sps)
@@ -145,13 +232,19 @@ entity GroupZombie = {
   }
 }
 
-entity ControllerRazor= { // one hand
+entity ControllerRazor= {
   inherit SixenseHand
   
   rule Shot = 
-    if (Trigger || Input.GetMouseButtonDown(0) && (world.Pistols.Head.InMagazine > 0 && not (world.Pistols.Head.Reloading))) then
-      yield true
-      yield false
+    if (world.Pistols.Head.InMagazine > 0 && not (world.Pistols.Head.Reloading)) then
+      if (not world.Pistols.Head.Automatic && (Trigger || Input.GetMouseButtonDown(0))) then
+        yield true
+        yield false
+      if (world.Pistols.Head.Automatic && (Trigger || Input.GetMouseButton(0))) then
+        while Input.GetMouseButton(0) do 
+          yield true
+          yield false
+          wait 0.05f
 
   rule Trigger =
     yield Trigger
@@ -165,50 +258,71 @@ entity ControllerRazor= { // one hand
   }
 }
 
-entity Gun = { //pistol
+entity Gun = {
+  inherit UnityGun
   GunController : ControllerRazor
   NotInMagazine : int
   Reloading : bool
   ReloadDuration : float
   InMagazine : int
   MagazineSize : int
+  Automatic : bool
+  DamagePerBullet : float
+  TypeWeapon : string
 
   rule InMagazine = 
-    Debug.Log("InMagazine left = "+ InMagazine)
-    if GunController.Shot && InMagazine > 0 && (Reloading = false) then
+    if (GunController.Shot && InMagazine > 0 && (Reloading = false)) then
       yield InMagazine - 1
-      wait (not GunController.Shot) 
 
   rule NotInMagazine = 
     if world.ActiveBoR = "AmmoBox" then 
       yield NotInMagazine + 50
-      Debug.Log("NotInMagazine = "+ NotInMagazine)
 
-  rule Reloading, InMagazine, NotInMagazine = 
+  rule Reloading, NotInMagazine, InMagazine = 
     if ((Input.GetKey(KeyCode.R) || InMagazine = 0) && NotInMagazine > 0) then
-      yield true, InMagazine, NotInMagazine
+      yield true, NotInMagazine, InMagazine
       wait (ReloadDuration)
       if MagazineSize > NotInMagazine then // clip can't be fulled completely
-        yield false, NotInMagazine, 0
+        yield false, 0, NotInMagazine
       else 
-        yield false, MagazineSize, NotInMagazine - MagazineSize // fill clip completely
+        let changed = (MagazineSize - InMagazine)
+        yield false, NotInMagazine - changed, MagazineSize // fill clip completely
+
+  rule MagazineGUI = 
+    if world.Pistols.Count > 0 then
+      yield MagazineGUI
+
+  rule InMag, NotInMag = 
+    if world.Pistols.Count > 0 then
+      yield InMagazine, NotInMagazine
 
   rule Reloading = 
     if Input.GetKey(KeyCode.C) then
       yield false
 
-  Create() = 
+  Create(st : string, ind : int, GC : ControllerRazor) = 
+  let autom = if (st <> "MachineGun") then false else true
+  //                        MachineGun ; Pistol; ShotGun ; Revolver; Bazooka
+  let InMagList =           [50        ; 20 ;    5       ; 6       ; 0]
+  let NotInMagList = [       850       ; 200 ;   60      ; 90      ; 16]
+  let ClipSizeList = [       150       ; 20 ;    5       ; 6       ; 1]
+  let ReloadDurationList = [ 7.0f      ; 3.0f ;  4.0f    ; 2.0f    ; 5.0f]
+  let DamageList = [         40.0f     ; 75.0f ; 135.0f  ; 100.0f  ; 400.0f]
   {
-    GunController = new ControllerRazor("Hydra1 - Right")//righthand
-    NotInMagazine = 200 //amount of bullets
+    Base = UnityGun.Instantiate(st)
+    TypeWeapon = st
+    GunController = GC
+    NotInMagazine = NotInMagList.[ind]
     Reloading = false
-    MagazineSize = 90
-    InMagazine = 20
-    ReloadDuration = 4.0f
+    MagazineSize = ClipSizeList.[ind]
+    InMagazine = InMagList.[ind]
+    ReloadDuration = ReloadDurationList.[ind]
+    Automatic = autom
+    DamagePerBullet = DamageList.[ind]
   }
 }
 
-entity Light = { //flashlight
+entity Light = {
   LightController : ControllerRazor
   Battery : float
   Active : bool
@@ -228,9 +342,9 @@ entity Light = { //flashlight
     else
       yield Battery
 
-  Create() = 
+  Create(LC : ControllerRazor) = 
   {
-    LightController = new ControllerRazor("Hydra1 - Left")//lefthand
+    LightController = LC
     Battery = 100.0f
     Active = false
   }
@@ -238,9 +352,6 @@ entity Light = { //flashlight
 
 entity GUI = { //panel. Each wall contains the same info?
   inherit GUIBarScript
-
-  rule Value =
-    yield world.Jeep.CarHP2
 
   Create() = 
   {
@@ -344,6 +455,44 @@ entity BonusAndResource = {
     Active = false;
   }
 }
+entity TruckStats = {
+  Health : float
+  MaxSpeed : float
+  MaxSteering : float
+  Hull : float
+  Fuel : float
+  isModel : bool
+
+  rule Health, world.Jeep.Value.CarHP2 = 
+    if world.ActiveBoR = "Medipack Red" && isModel <> true then
+      yield Health + 20.0f, ((Health) / 100.0f)
+
+  rule world.Jeep.Value.CarHP2, Health, world.GUIpanel.HPValue = 
+    if isModel <> true then
+      let z = world.Jeep.Value.CarHP2
+      if (z <> (Health / 100.0f)) then
+        yield world.Jeep.Value.CarHP2, (world.Jeep.Value.CarHP2 * 100.0f), world.Jeep.Value.CarHP2
+      else
+        yield (Health / 100.0f), (world.Jeep.Value.CarHP2 * 100.0f), world.Jeep.Value.CarHP2
+
+  Create(bs : bool) = 
+  let rnd = Random.Range(0,5)
+  let HealthList = [50.0f; 60.0f; 75.0f; 80.0f; 100.0f]
+  let MaxSpeedList = [10.0f; 10.0f; 10.0f; 15.0f; 20.0f]
+  let MaxSteeringList = [5.0f; 10.0f; 10.0f; 20.0f; 15.0f]
+  let HullList = [8.0f; 5.0f ; 3.0f ; 4.0f ; 2.0f]
+  let FuelList = [12000.0f ; 8000.0f ; 15000.0f ; 6000.0f ; 10000.0f]
+  {
+    Health = HealthList.[rnd]
+    MaxSpeed = MaxSpeedList.[rnd]
+    MaxSteering = MaxSteeringList.[rnd]
+    Hull = HullList.[rnd] //damage taken by hull
+    Fuel = FuelList.[rnd]
+    isModel = bs
+  }
+
+}
+
 entity Truck = {
    inherit TruckScript
    Fuel : float
@@ -352,32 +501,29 @@ entity Truck = {
    maxSteeringAngle : float
    cnvAccel : float // has to be a value between 0.0f and 1.0f
    JRotation : float // has to be a value between -1.0f and 1.0f
-   Active : bool
    Keyboard : bool
+   isModel : bool
+   Active : bool
+   Stats : TruckStats
 
    rule HeadlightLeftOn, HeadlightRightOn = 
-     if world.ActiveBoR = "Lightning Blue" then
-       yield true, true
-       wait 5.0f
-       yield false, false
-       wait 0.2f
-       yield true, true
-       wait 0.1f
-       yield false, false
-       wait 0.3f
-       yield true, true
-     else 
-       yield false, false
-   
-   rule CenterOfMass = 
-     yield new Vector3(1.0f,0.0f,-1.5f)
-     wait false
-
-   rule InMag, NotInMag = 
-     yield world.Pistols.Head.InMagazine, world.Pistols.Head.NotInMagazine
-
-   rule MagazineGUI = 
-     yield MagazineGUI
+     let z = 
+       [for a in world.Gasstations do
+        where a.Updating
+        select a]
+     if z.Count = 0 then
+       if world.ActiveBoR = "Lightning Blue" then
+         yield true, true
+         wait 5.0f
+         yield false, false
+         wait 0.2f
+         yield true, true
+         wait 0.1f
+         yield false, false
+         wait 0.3f
+         yield true, true
+         wait 0.1f
+         yield false, false
 
    rule Keyboard = 
       wait Input.GetKeyDown(KeyCode.P)
@@ -399,21 +545,47 @@ entity Truck = {
         yield Steering
 
    rule Fuel = 
-     if world.ActiveBoR = "Jerry Can Green" then 
-       Debug.Log("Fuel = "+Fuel)
-       yield Fuel + 2000.0f
+     if not isModel then 
+       if world.ActiveBoR = "Jerry Can Green" then 
+         Debug.Log("Fuel = "+Fuel)
+         yield Fuel + 2000.0f
 
-   Create()=
+   rule Active = 
+     yield true
+     wait false
+
+   rule AxleInfos = 
+     if isModel then 
+       yield []
+       wait false
+     else 
+       yield [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)]
+       wait false
+
+   rule AxleInfos = 
+     let p = 
+       [for a in AxleInfos do
+        select a]
+     let z = 
+       [for a in world.Gasstations do
+        where a.Updating
+        select a]
+     if z.Count > 0 then
+       yield []
+
+   Create(nm : string, pos : Vector3, ModelIs : bool) = 
     {
-      Base = TruckScript.Instantiate()
+      Active = false
+      isModel = ModelIs
+      Base = TruckScript.Instantiate(nm, pos)
       maxMotorTorque = 250.0f
       maxSteeringAngle = 50.0f
-      AxleInfos = [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)] // FWD
-      Fuel = 4000.0f // gas liters
+      AxleInfos = []
+      Fuel = 80000.0f // gas liters
       cnvAccel = 0.0f
       JRotation = 0.0f
-      Active = true;
       Keyboard = false;
+      Stats = new TruckStats(ModelIs)
     }
 }
 
@@ -424,40 +596,53 @@ entity AxleInfo = {
   motor : bool
   steering : bool
 
+  rule steering = 
+    yield steering
+
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
-    let steeringAngle = world.Jeep.maxSteeringAngle * world.Jeep.JRotation
-    if world.Jeep.cnvAccel > 0.0f then
-      if ((steeringAngle > 0.001f  && (world.Jeep.RotationY > 30.0f  && world.Jeep.RotationY < 120.0f)) || 
-          (steeringAngle < -0.001f && (world.Jeep.RotationY > 200.0f && world.Jeep.RotationY < 330.0f))) then 
-        yield 0.0f,0.0f
-      else
-        yield steeringAngle, steeringAngle
-    if world.Jeep.cnvAccel < 0.0f then
-      if ((steeringAngle > 0.001f && (world.Jeep.RotationY > 200.0f && world.Jeep.RotationY < 330.0f)) || 
-          (steeringAngle < -0.001f && (world.Jeep.RotationY > 30.0f && world.Jeep.RotationY < 120.0f))) then 
-        yield 0.0f,0.0f
-      else
-    yield steeringAngle, steeringAngle
-
-  rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel =
-    if world.Jeep.Fuel > 0.99f then
-      if (world.Jeep.Active && world.Jeep.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded) then
-        let dir = world.Jeep.cnvAccel
-        let speed = world.Jeep.maxMotorTorque * world.Jeep.cnvAccel * -1.0f
-        if (world.ActiveBoR = "Arrows Green") then 
-          yield leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Fuel
-          .| (world.Jeep.cnvAccel <> dir) =>
-            yield speed, speed, world.Jeep.Fuel - 1.0f
-          .| _ =>
-            yield speed * 10.0f, speed * 10.0f, world.Jeep.Fuel
-            wait 2.0f
+    let z = 
+       [for a in world.Gasstations do
+        where a.Updating
+        select a]
+    if z.Count = 0 && not world.Jeep.Value.isModel then
+      let steeringAngle = world.Jeep.Value.maxSteeringAngle * world.Jeep.Value.JRotation
+      if world.Jeep.Value.cnvAccel > 0.0f then
+        if ((steeringAngle > 0.001f  && (world.Jeep.Value.RotationY > 30.0f  && world.Jeep.Value.RotationY < 120.0f)) || 
+            (steeringAngle < -0.001f && (world.Jeep.Value.RotationY > 200.0f && world.Jeep.Value.RotationY < 330.0f))) then 
+          yield 0.0f,0.0f
         else
-          yield speed, speed, world.Jeep.Fuel - 1.0f
+          yield steeringAngle, steeringAngle
+      if world.Jeep.Value.cnvAccel < 0.0f then
+        if ((steeringAngle > 0.001f && (world.Jeep.Value.RotationY > 200.0f && world.Jeep.Value.RotationY < 330.0f)) || 
+            (steeringAngle < -0.001f && (world.Jeep.Value.RotationY > 30.0f && world.Jeep.Value.RotationY < 120.0f))) then 
+          yield 0.0f,0.0f
+        else
+          yield steeringAngle, steeringAngle
+
+  rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Value.Fuel =
+    let z = 
+       [for a in world.Gasstations do
+        where a.Updating
+        select a]
+    if z.Count = 0 && not world.Jeep.Value.isModel then
+      if world.Jeep.Value.Fuel > 0.99f then
+        if ((world.Jeep.Value.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded)) then
+          let dir = world.Jeep.Value.cnvAccel
+          let speed = world.Jeep.Value.maxMotorTorque * world.Jeep.Value.cnvAccel * -1.0f
+          if (world.ActiveBoR = "Arrows Green") then 
+            yield leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Value.Fuel
+            .| (world.Jeep.Value.cnvAccel <> dir) =>
+              yield speed, speed, world.Jeep.Value.Fuel - 1.0f
+            .| _ =>
+              yield speed * 10.0f, speed * 10.0f, world.Jeep.Value.Fuel
+              wait 2.0f
+          else
+            yield speed, speed, world.Jeep.Value.Fuel - 1.0f
+        else
+          yield 0.0f,0.0f, world.Jeep.Value.Fuel
       else
-        yield 0.0f,0.0f, world.Jeep.Fuel
-    else
-      yield 0.0f,0.0f,0.0f
+        yield 0.0f,0.0f,0.0f
 
   Create(lW : WheelCollider, rW : WheelCollider, m : bool, s: bool)=
   {
@@ -469,14 +654,13 @@ entity AxleInfo = {
 }
 
 entity Zombie = {
-  inherit UnityZombie
-  Life : float
+  inherit UnityZombie2
+  Life : float 
 
-  rule Destroyed = 
+  (*rule Destroyed = 
     wait dead2
     wait 0.8f
-    yield true
-
+    yield true*)
 
   rule Life, CollisionDamage =
     if (CollisionDamage <> 0.0f) then
@@ -488,19 +672,41 @@ entity Zombie = {
     yield CollisionDamage
 
   rule Life = 
-    if (OnMouseOver && (world.Pistols.Head.GunController.Trigger || Input.GetMouseButtonDown(0))) then
-      if Life > 0.49f then 
-        yield Life - 40.0f
-      else
-	      yield 0.0f
+    wait (world.Pistols.Head.TypeWeapon = "Bazooka")
+    yield Life 
 
-  rule shot, dead2 = 
+  rule Life = 
+    wait world.Jeep.IsSome
+    if (world.Jeep.Value.Active) then
+      if OnMouseOver then
+        Debug.Log("OnMouseOver = true")
+        if (not world.Pistols.Head.Automatic) then
+          if (world.Pistols.Head.GunController.Trigger || Input.GetMouseButtonDown(0)) then
+            Debug.Log(world.Pistols.Head.DamagePerBullet)
+            if Life > 0.49f then 
+              yield Life - world.Pistols.Head.DamagePerBullet
+            else
+	            yield 0.0f
+        else
+          if (world.Pistols.Head.GunController.Shot) then
+            if Life > 0.49f then
+              yield Life - world.Pistols.Head.DamagePerBullet
+            else
+              yield 0.0f   
+
+  rule Dead = 
+    if (Life < 0.0f) then
+      Debug.Log("Zombie is dead")
+      yield true
+      wait false
+
+  (*rule shot, dead2 = 
     if Life < 0.0f then
-      yield true, true
+      yield true, true*)
 
   Create(trans : Transform) = 
   {
-  Base = UnityZombie.Find(trans)
+  Base = UnityZombie2.Find(trans)
   Life = 100.0f // healthpoints
   }
 }
