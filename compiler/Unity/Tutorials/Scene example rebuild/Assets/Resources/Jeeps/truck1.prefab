@@ -403,7 +403,7 @@ GameObject:
   - 23: {fileID: 2359220}
   m_Layer: 0
   m_Name: truck
-  m_TagString: Untagged
+  m_TagString: Trucks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2278,8 +2278,6 @@ MonoBehaviour:
   HeadlightLeft: {fileID: 0}
   HeadlightRight: {fileID: 0}
   shield: {fileID: 0}
-  InMag: 0
-  NotInMag: 0
 --- !u!114 &11435892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2303,7 +2301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ab6c5eb77615f4bb6be89000d76bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 1
+  HPValue: 0
   FadeFactor: 20
   Position: {x: 10, y: 10}
   ScaleSize: 1
@@ -2689,6 +2687,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Trucks
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
