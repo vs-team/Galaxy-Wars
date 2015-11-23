@@ -2988,9 +2988,6 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean Destroyed{  get { return UnityZombie2.Destroyed; }
   set{UnityZombie2.Destroyed = value; }
  }
-	public System.Boolean HasCollided{  get { return UnityZombie2.HasCollided; }
-  set{UnityZombie2.HasCollided = value; }
- }
 	public System.Boolean IsHit{  get { return UnityZombie2.IsHit; }
  }
 	public System.Single Life;
@@ -3049,7 +3046,6 @@ frame = World.frame;
 	s0 = -1;
 return;	}
 	case 2:
-	UnityEngine.Debug.Log("Zombie is dead");
 	Dead = true;
 	s0 = 3;
 return;
@@ -3099,7 +3095,6 @@ return;	}
 	s1 = -1;
 return;	}
 	case 3:
-	UnityEngine.Debug.Log("OnMouseOver = true");
 	if(!(world.Pistols.Head().Automatic))
 	{
 
@@ -3226,4 +3221,4 @@ return;
 
 
 }
-}     
+}          

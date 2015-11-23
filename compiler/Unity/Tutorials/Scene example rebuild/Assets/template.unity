@@ -118,12 +118,12 @@ MonoBehaviour:
   ActiveBoR: 
   Counter: 0
   UnityLandscape: {fileID: 0}
-  ___randr10: 0
-  ___Headpos10: {x: 0, y: 0, z: 0}
-  ___Headpos11: {x: 0, y: 0, z: 0}
-  ___a22: []
-  ___resourcelist30: []
-  ___rnd30: 0
+  ___randr20: 0
+  ___Headpos20: {x: 0, y: 0, z: 0}
+  ___Headpos21: {x: 0, y: 0, z: 0}
+  ___a32: []
+  ___resourcelist40: []
+  ___rnd40: 0
 --- !u!4 &250587981
 Transform:
   m_ObjectHideFlags: 0

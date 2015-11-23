@@ -679,7 +679,6 @@ entity Zombie = {
     wait world.Jeep.IsSome
     if (world.Jeep.Value.Active) then
       if OnMouseOver then
-        Debug.Log("OnMouseOver = true")
         if (not world.Pistols.Head.Automatic) then
           if (world.Pistols.Head.GunController.Trigger || Input.GetMouseButtonDown(0)) then
             Debug.Log(world.Pistols.Head.DamagePerBullet)
@@ -696,7 +695,6 @@ entity Zombie = {
 
   rule Dead = 
     if (Life < 0.0f) then
-      Debug.Log("Zombie is dead")
       yield true
       wait false
 
