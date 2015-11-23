@@ -942,7 +942,6 @@ public Gun(System.String st, System.Int32 ind, ControllerRazor GC)
 (new Cons<System.Single>(40f,(new Cons<System.Single>(75f,(new Cons<System.Single>(135f,(new Cons<System.Single>(100f,(new Cons<System.Single>(400f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
 		UnityGun = UnityGun.Instantiate(st);
 		TypeWeapon = st;
-		Shoot = false;
 		Reloading = false;
 		ReloadDuration = ___ReloadDurationList00[ind];
 		NotInMagazine = ___NotInMagList00[ind];
@@ -973,7 +972,9 @@ public Gun(System.String st, System.Int32 ind, ControllerRazor GC)
 	public System.Int32 NotInMagazine;
 	public System.Single ReloadDuration;
 	public System.Boolean Reloading;
-	public System.Boolean Shoot;
+	public System.Boolean Shoot{  get { return UnityGun.Shoot; }
+  set{UnityGun.Shoot = value; }
+ }
 	public System.String TypeWeapon;
 	public UnityGun UnityGun;
 	public System.Boolean enabled{  get { return UnityGun.enabled; }
@@ -1053,8 +1054,6 @@ return;
 	s1 = -1;
 return;	}
 	case 10:
-	UnityEngine.Debug.Log(("InMagazine") + (InMagazine));
-	UnityEngine.Debug.Log(("NotInMagazine") + (NotInMagazine));
 	InMag = InMagazine;
 	NotInMag = NotInMagazine;
 	s1 = -1;
@@ -1071,13 +1070,12 @@ return;
 	if(((world.Pistols.Count) > (0)))
 	{
 
-	goto case 15;	}else
+	goto case 13;	}else
 	{
 
 	s2 = -1;
 return;	}
-	case 15:
-	UnityEngine.Debug.Log(("MagazineGUI") + (MagazineGUI));
+	case 13:
 	MagazineGUI = MagazineGUI;
 	s2 = -1;
 return;	
@@ -1093,45 +1091,45 @@ return;
 	if(((((UnityEngine.Input.GetKey(KeyCode.R)) || (((InMagazine) == (0))))) && (((NotInMagazine) > (0)))))
 	{
 
-	goto case 19;	}else
+	goto case 16;	}else
 	{
 
 	s3 = -1;
 return;	}
-	case 19:
+	case 16:
 	Reloading = true;
 	NotInMagazine = NotInMagazine;
 	InMagazine = InMagazine;
-	s3 = 26;
+	s3 = 23;
 return;
-	case 26:
+	case 23:
 	count_down1 = ReloadDuration;
-	goto case 27;
-	case 27:
+	goto case 24;
+	case 24:
 	if(((count_down1) > (0f)))
 	{
 
 	count_down1 = ((count_down1) - (dt));
-	s3 = 27;
+	s3 = 24;
 return;	}else
 	{
 
-	goto case 22;	}
-	case 22:
+	goto case 19;	}
+	case 19:
 	if(((MagazineSize) > (NotInMagazine)))
 	{
 
-	goto case 20;	}else
+	goto case 17;	}else
 	{
 
-	goto case 21;	}
-	case 20:
+	goto case 18;	}
+	case 17:
 	Reloading = false;
 	NotInMagazine = 0;
 	InMagazine = NotInMagazine;
 	s3 = -1;
 return;
-	case 21:
+	case 18:
 	___changed30 = ((MagazineSize) - (InMagazine));
 	Reloading = false;
 	NotInMagazine = ((NotInMagazine) - (___changed30));
@@ -1150,12 +1148,12 @@ return;
 	if(((world.ActiveBoR) == ("AmmoBox")))
 	{
 
-	goto case 30;	}else
+	goto case 27;	}else
 	{
 
 	s4 = -1;
 return;	}
-	case 30:
+	case 27:
 	NotInMagazine = ((NotInMagazine) + (50));
 	s4 = -1;
 return;	
@@ -1171,12 +1169,12 @@ return;
 	if(Shoot)
 	{
 
-	goto case 33;	}else
+	goto case 30;	}else
 	{
 
 	s5 = -1;
 return;	}
-	case 33:
+	case 30:
 	InMagazine = ((InMagazine) - (1));
 	s5 = -1;
 return;	
@@ -1207,7 +1205,6 @@ return;	}else
 	s6 = -1;
 return;	}
 	case 1:
-	UnityEngine.Debug.Log(Automatic);
 	if(((!(Automatic)) && (((GunController.Trigger) || (UnityEngine.Input.GetMouseButtonDown(0))))))
 	{
 
@@ -1309,15 +1306,15 @@ frame = World.frame;
 	if(((Active) && (((Battery) > (0.49f)))))
 	{
 
-	goto case 16;	}else
+	goto case 15;	}else
 	{
 
-	goto case 17;	}
-	case 16:
+	goto case 16;	}
+	case 15:
 	Battery = ((Battery) - (0.5f));
 	s0 = -1;
 return;
-	case 17:
+	case 16:
 	Battery = Battery;
 	s0 = -1;
 return;	
@@ -1333,12 +1330,12 @@ return;
 	if(((world.ActiveBoR) == ("Battery Black")))
 	{
 
-	goto case 22;	}else
+	goto case 21;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 22:
+	case 21:
 	UnityEngine.Debug.Log(("Battery = ") + (Battery));
 	Battery = ((Battery) + (50f));
 	s1 = -1;
@@ -2938,4 +2935,4 @@ return;
 
 
 }
-}           
+}                    

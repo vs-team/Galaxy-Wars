@@ -213,12 +213,10 @@ entity Gun = {
   Automatic : bool
   DamagePerBullet : float
   TypeWeapon : string
-  Shoot : bool
 
   rule Shoot = 
    wait GunController.Shot
    if (InMagazine > 0 && not Reloading) then
-     Debug.Log(Automatic)
      if (not Automatic && (GunController.Trigger || Input.GetMouseButtonDown(0))) then
        yield true
        yield false
@@ -248,13 +246,10 @@ entity Gun = {
 
   rule MagazineGUI = 
     if world.Pistols.Count > 0 then
-      Debug.Log("MagazineGUI"+MagazineGUI)
       yield MagazineGUI
 
   rule InMag, NotInMag = 
     if world.Pistols.Count > 0 then
-      Debug.Log("InMagazine"+InMagazine)
-      Debug.Log("NotInMagazine"+NotInMagazine)
       yield InMagazine, NotInMagazine
 
   rule Reloading = 
@@ -280,7 +275,6 @@ entity Gun = {
     ReloadDuration = ReloadDurationList.[ind]
     Automatic = autom
     DamagePerBullet = DamageList.[ind]
-    Shoot = false
   }
 }
 
