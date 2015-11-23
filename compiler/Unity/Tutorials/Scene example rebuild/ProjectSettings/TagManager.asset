@@ -9,6 +9,8 @@ TagManager:
   - Parkingspot
   - TruckModel
   - Bullets
+  - Truck
+  - Gun
   layers:
   - Default
   - TransparentFX

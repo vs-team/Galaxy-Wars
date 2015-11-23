@@ -25,7 +25,6 @@ worldEntity World = {
       yield [new Bullet(posi, rota)]
   *)
 
-
   rule Zombies = 
     let groups = 
       [for a in Landscapes do
@@ -100,7 +99,7 @@ worldEntity World = {
 
   rule Pistols, Flashs = 
     wait Jeep.Value.Active
-    yield [new Gun("Pistol",1, Controllers.[0])], [new Light(Controllers.[1])] // new Gun(Pistol) first time. new Gun(Random) after
+    yield [new Gun("Bazooka",4, Controllers.[0])], [new Light(Controllers.[1])] // new Gun(Pistol) first time. new Gun(Random) after
     wait false
 
   rule Controllers = 
@@ -148,59 +147,9 @@ entity Bullet = {
 
 entity Gasstation = {
   inherit UnityGasstation
-  ParkingSpotPositions : [Vector3]
-  ParkedJeep : Option<Truck>
-  PJpos : Vector3
-  Updating : bool
-
-  rule world.Jeep.Value.Active = 
-    wait Updating
-    wait not Updating
-    yield false
-    yield true
-
-  rule world.Jeep, Updating = 
-    if ParkedJeep.IsNone then
-      let pos = new Vector3((PJpos.x - 5.0f),PJpos.y, PJpos.z)
-      let z = new Truck("truck1", pos, false)
-      yield Some z, true
-      yield world.Jeep, false
-      wait false
-      
-  rule ParkedJeep.Value.Destroyed, ParkedJeep = 
-    if world.Jeep.IsNone then 
-      yield true, None
-
-  rule world.Jeep.Value.Destroyed, world.Jeep, Updating = 
-    if world.Jeep.IsSome then
-      wait 3.0f
-      wait world.Jeep.Value.CollisionWithModel
-      yield true, None, true
-     
-  rule ParkedJeep, ParkingSpotPositions, PJpos = 
-    wait ParkingSpotPositions.Count > 0
-    let z = 
-      [for a in Jeeps do
-       select a]
-    let PSPH = ParkingSpotPositions.Head 
-    let PSPH2 = new Vector3(PSPH.x,PSPH.y,(PSPH.z + 32.5f))
-    let p = (new Truck(z.Head + "model", PSPH2, true))
-    yield Some p, ParkingSpotPositions, PSPH2
-    yield ParkedJeep, [], PSPH2
-
-  rule ParkingSpotPositions = 
-    let z = 
-      [for a in ParkingSpotList do
-       select (a.position)]
-    yield z
-    wait false
 
   Create(ps : Vector3) = {
   Base = UnityGasstation.Instantiate(ps)
-  ParkingSpotPositions = []
-  ParkedJeep = None
-  PJpos = Vector3.zero
-  Updating = false
   }
 
 }
@@ -236,15 +185,10 @@ entity ControllerRazor= {
   inherit SixenseHand
   
   rule Shot = 
-    if (world.Pistols.Head.InMagazine > 0 && not (world.Pistols.Head.Reloading)) then
-      if (not world.Pistols.Head.Automatic && (Trigger || Input.GetMouseButtonDown(0))) then
-        yield true
-        yield false
-      if (world.Pistols.Head.Automatic && (Trigger || Input.GetMouseButton(0))) then
-        while Input.GetMouseButton(0) do 
-          yield true
-          yield false
-          wait 0.05f
+    if (Trigger || Input.GetMouseButtonDown(0)) then
+      yield true
+    else
+      yield false
 
   rule Trigger =
     yield Trigger
@@ -269,9 +213,23 @@ entity Gun = {
   Automatic : bool
   DamagePerBullet : float
   TypeWeapon : string
+  Shoot : bool
+
+  rule Shoot = 
+   wait GunController.Shot
+   if (InMagazine > 0 && not Reloading) then
+     Debug.Log(Automatic)
+     if (not Automatic && (GunController.Trigger || Input.GetMouseButtonDown(0))) then
+       yield true
+       yield false
+     if (Automatic && (GunController.Trigger || Input.GetMouseButton(0))) then
+       while Input.GetMouseButton(0) do 
+         yield true
+         yield false
+         wait 0.05f
 
   rule InMagazine = 
-    if (GunController.Shot && InMagazine > 0 && (Reloading = false)) then
+    if Shoot then
       yield InMagazine - 1
 
   rule NotInMagazine = 
@@ -290,10 +248,13 @@ entity Gun = {
 
   rule MagazineGUI = 
     if world.Pistols.Count > 0 then
+      Debug.Log("MagazineGUI"+MagazineGUI)
       yield MagazineGUI
 
   rule InMag, NotInMag = 
     if world.Pistols.Count > 0 then
+      Debug.Log("InMagazine"+InMagazine)
+      Debug.Log("NotInMagazine"+NotInMagazine)
       yield InMagazine, NotInMagazine
 
   rule Reloading = 
@@ -319,6 +280,7 @@ entity Gun = {
     ReloadDuration = ReloadDurationList.[ind]
     Automatic = autom
     DamagePerBullet = DamageList.[ind]
+    Shoot = false
   }
 }
 
@@ -507,23 +469,18 @@ entity Truck = {
    Stats : TruckStats
 
    rule HeadlightLeftOn, HeadlightRightOn = 
-     let z = 
-       [for a in world.Gasstations do
-        where a.Updating
-        select a]
-     if z.Count = 0 then
-       if world.ActiveBoR = "Lightning Blue" then
-         yield true, true
-         wait 5.0f
-         yield false, false
-         wait 0.2f
-         yield true, true
-         wait 0.1f
-         yield false, false
-         wait 0.3f
-         yield true, true
-         wait 0.1f
-         yield false, false
+     if world.ActiveBoR = "Lightning Blue" then
+       yield true, true
+       wait 5.0f
+       yield false, false
+       wait 0.2f
+       yield true, true
+       wait 0.1f
+       yield false, false
+       wait 0.3f
+       yield true, true
+       wait 0.1f
+       yield false, false
 
    rule Keyboard = 
       wait Input.GetKeyDown(KeyCode.P)
@@ -555,23 +512,7 @@ entity Truck = {
      wait false
 
    rule AxleInfos = 
-     if isModel then 
-       yield []
-       wait false
-     else 
-       yield [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)]
-       wait false
-
-   rule AxleInfos = 
-     let p = 
-       [for a in AxleInfos do
-        select a]
-     let z = 
-       [for a in world.Gasstations do
-        where a.Updating
-        select a]
-     if z.Count > 0 then
-       yield []
+     yield [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)]
 
    Create(nm : string, pos : Vector3, ModelIs : bool) = 
     {
@@ -601,11 +542,7 @@ entity AxleInfo = {
 
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
-    let z = 
-       [for a in world.Gasstations do
-        where a.Updating
-        select a]
-    if z.Count = 0 && not world.Jeep.Value.isModel then
+    if not world.Jeep.Value.isModel then
       let steeringAngle = world.Jeep.Value.maxSteeringAngle * world.Jeep.Value.JRotation
       if world.Jeep.Value.cnvAccel > 0.0f then
         if ((steeringAngle > 0.001f  && (world.Jeep.Value.RotationY > 30.0f  && world.Jeep.Value.RotationY < 120.0f)) || 
@@ -621,11 +558,7 @@ entity AxleInfo = {
           yield steeringAngle, steeringAngle
 
   rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Value.Fuel =
-    let z = 
-       [for a in world.Gasstations do
-        where a.Updating
-        select a]
-    if z.Count = 0 && not world.Jeep.Value.isModel then
+    if not world.Jeep.Value.isModel then
       if world.Jeep.Value.Fuel > 0.99f then
         if ((world.Jeep.Value.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded)) then
           let dir = world.Jeep.Value.cnvAccel
