@@ -56,7 +56,7 @@ public class UnityZombie2 : MonoBehaviour
       dead = value;
       if (dead)
       {
-        //*                                                                          // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
+        /*                                                                          // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
         if (this.gameObject.GetComponent<RagdollHelper>() == hit.collider.GetComponentInParent<RagdollHelper>() && this.gameObject.name == hit.collider.GetComponentInParent<RagdollHelper>().name)
         {
           RagdollHelper helper = hit.collider.GetComponentInParent<RagdollHelper>();
@@ -214,4 +214,4 @@ public class UnityZombie2 : MonoBehaviour
   }
 }*/
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
