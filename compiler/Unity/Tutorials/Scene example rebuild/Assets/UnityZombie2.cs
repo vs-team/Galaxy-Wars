@@ -15,7 +15,7 @@ public class UnityZombie2 : MonoBehaviour
   private Animator motor1;
   bool destroyed;
   bool dead;
-  bool hasCollided = false;
+  //bool hasCollided = false;
   float collisionDamage;
   RaycastHit hit;
   Ray ray;
@@ -56,8 +56,8 @@ public class UnityZombie2 : MonoBehaviour
       dead = value;
       if (dead)
       {
-        /*                                                                          // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
-        if (this.gameObject.GetComponent<RagdollHelper>() == hit.collider.GetComponentInParent<RagdollHelper>() && this.gameObject.name == hit.collider.GetComponentInParent<RagdollHelper>().name) ;
+        //*                                                                          // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
+        if (this.gameObject.GetComponent<RagdollHelper>() == hit.collider.GetComponentInParent<RagdollHelper>() && this.gameObject.name == hit.collider.GetComponentInParent<RagdollHelper>().name)
         {
           RagdollHelper helper = hit.collider.GetComponentInParent<RagdollHelper>();
           helper.ragdolled = true;
@@ -71,7 +71,6 @@ public class UnityZombie2 : MonoBehaviour
           impactEndTime = Time.time + 0.25f;
         }
         //*/
-        Debug.Log("afterward");
       }
     }
   }
@@ -90,7 +89,6 @@ public class UnityZombie2 : MonoBehaviour
   {
     get
     {
-      //Debug.Log(hit.collider.GetComponentsInParent<RagdollHelper>());
       ray = Camera.main.ScreenPointToRay(Input.mousePosition);
       int layermask = 1 << 8;
       if (Physics.Raycast(ray, out hit, 100, layermask))
@@ -113,11 +111,11 @@ public class UnityZombie2 : MonoBehaviour
     get { return this.transform.position; }
   }
 
-  public bool HasCollided
+  /*public bool HasCollided
   {
     get { return hasCollided; }
     set { hasCollided = value; }
-  }
+  }*/
   public bool IsHit
   {
     get
@@ -140,7 +138,7 @@ public class UnityZombie2 : MonoBehaviour
   {
     if (collision.relativeVelocity.magnitude > 15.0f)
     {
-      Debug.Log("zombie has been collided with");
+      Debug.Log(collisionDamage);
       collisionDamage = collision.relativeVelocity.magnitude;
     }
   }
@@ -216,4 +214,4 @@ public class UnityZombie2 : MonoBehaviour
   }
 }*/
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
