@@ -16,14 +16,12 @@ worldEntity World = {
   Gasstations : [Gasstation]
   Bullets : [Bullet]
   Controllers : [ControllerRazor]
-  (*
+  
   rule Bullets = 
-    if (Pistols.Head.GunController.Shot && Pistols.Head.TypeWeapon = "Bazooka") then
+    if (Pistols.Head.Shoot && Pistols.Head.TypeWeapon = "Bazooka") then
       Debug.Log("Bazooka shot")
-      let posi = Pistols.Head.Position
-      let rota = Pistols.Head.Rotation
-      yield [new Bullet(posi, rota)]
-  *)
+      let Bazpos = Pistols.Head.WorldPos
+      yield [new Bullet(Bazpos, Pistols.Head.directio)]
 
   rule Zombies = 
     let groups = 
@@ -125,23 +123,20 @@ worldEntity World = {
 }
 entity Bullet = {
   inherit UnityBullet
-  Dir : Vector3
   cnt : float 
+  transforw : Vector3
 
   rule Frce, cnt = 
     while cnt < 40.0f do
-      yield 1.0f, cnt + 10.0f
+      yield transforw, cnt + 10.0f
     wait false
 
-  rule Rotat = 
-    //Debug.Log(Dir)
-    yield Dir
 
-  Create(pos : Vector3, dir : Vector3) = 
+  Create(pos : Vector3, directi : Vector3) = 
   {
     Base= UnityBullet.Instantiate(pos, "bullet")
-    Dir = dir
     cnt = 0.0f
+    transforw = directi
   }
 }
 
@@ -217,6 +212,7 @@ entity Gun = {
   rule Shoot = 
    wait GunController.Shot
    if (InMagazine > 0 && not Reloading) then
+     Debug.Log("attempting shot")
      if (not Automatic && (GunController.Trigger || Input.GetMouseButtonDown(0))) then
        yield true
        yield false
@@ -254,7 +250,12 @@ entity Gun = {
 
   rule Reloading = 
     if Input.GetKey(KeyCode.C) then
+      let a = Position
+      let b = Rotation
       yield false
+
+  rule Rotation, Position = 
+    yield Vector3.zero, Vector3.zero  
 
   Create(st : string, ind : int, GC : ControllerRazor) = 
   let autom = if (st <> "MachineGun") then false else true
