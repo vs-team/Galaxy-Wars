@@ -116,15 +116,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JustEntered: 1
   ActiveBoR: 
+  ActiveGunInTruck: 0
   Counter: 0
   UnityLandscape: {fileID: 0}
-  ___randr20: 0
-  ___Headpos20: {x: 0, y: 0, z: 0}
-  ___Headpos21: {x: 0, y: 0, z: 0}
-  ___a32: []
-  ___resourcelist40: []
-  ___rnd40: 0
-  ___Bazpos70: {x: 0, y: 0, z: 0}
+  ___z20: 
+  ___randr30: 0
+  ___Headpos30: {x: 0, y: 0, z: 0}
+  ___Headpos31: {x: 0, y: 0, z: 0}
+  ___a45: []
+  ___resourcelist50: []
+  ___rnd50: 0
+  ___Bazpos80: {x: 0, y: 0, z: 0}
 --- !u!4 &250587981
 Transform:
   m_ObjectHideFlags: 0

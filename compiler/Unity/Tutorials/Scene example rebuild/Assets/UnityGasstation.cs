@@ -32,11 +32,15 @@ public class UnityGasstation : MonoBehaviour
         a.Add(c.name);
       }
     }
-    component.modely = GameObject.Instantiate(Resources.Load("JeepModels/" + a[0] + "1"), parkingspots[0].transform.position, Quaternion.identity) as GameObject;
+    var x = gs.transform;
+    var dir = parkingspots[0].transform.position;
+    var p = x.TransformPoint(dir);
+    Debug.Log(p);
+    component.modely = GameObject.Instantiate(Resources.Load("JeepModels/" + a[0] + "1"), p, Quaternion.identity) as GameObject;
     return component;
   }
   public Vector3 Position
   {
     get { return this.transform.position; }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

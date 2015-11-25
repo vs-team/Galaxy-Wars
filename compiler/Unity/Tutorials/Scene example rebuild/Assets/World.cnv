@@ -16,6 +16,7 @@ worldEntity World = {
   Gasstations : [Gasstation]
   Bullets : [Bullet]
   Controllers : [ControllerRazor]
+  ActiveGunInTruck : int
   
   rule Bullets = 
     if (Pistols.Head.Shoot && Pistols.Head.TypeWeapon = "Bazooka") then
@@ -95,10 +96,35 @@ worldEntity World = {
           yield Landscapes, Counter, Gasstations
           wait (Vector3.Distance(Headpos, Jeep.Value.Position) < 200.0f)
 
+  rule Pistols, Flashs, ActiveGunInTruck = 
+    let ps = 
+      [for a in Controllers do
+       where (a.ChangeToSame)
+       select (a)]
+    let pz = 
+      [for a in Controllers do
+       where a.ChangeToOther
+       select a]
+    if ps.Count > 0 then
+      let z = ps.Head.JoystickName
+      Debug.Log("ChangeToSame  "+ z)
+      let cur = 
+        [for a in Controllers do
+         where (a.JoystickName = z)
+         let typ = Jeep.Value.Stats.TypeWeapon.
+         let zts = typ.[((ActiveGunInTruck + 1)%Jeep.Value.Stats.AmountOfGunsInTruck)]
+         let p = new Gun(zts, a)
+         select (p)]
+      Debug.Log(cur.Head.TypeWeapon)
+      yield cur, Flashs, ActiveGunInTruck + 1
+    if pz.Count > 0 then
+      Debug.Log("ChangeToOther  "+pz.Head.JoystickName)
+      yield Pistols, Flashs, ActiveGunInTruck
+
   rule Pistols, Flashs = 
-    wait Jeep.Value.Active
-    yield [new Gun("Bazooka",4, Controllers.[0])], [new Light(Controllers.[1])] // new Gun(Pistol) first time. new Gun(Random) after
-    wait false
+    wait Controllers.Count > 0
+    yield [new Gun(4, Controllers.[0])], [new Light(Controllers.[1])] // new Gun(Pistol) first time. new Gun(Random) after
+    wait false // Gun Change. Get values from gun and store them. Change pistols and flashs list afterwards
 
   rule Controllers = 
     wait Jeep.Value.Active
@@ -106,7 +132,7 @@ worldEntity World = {
     wait false
 
   Create() =
-    let truk = new Truck("zpickup", new Vector3(0.0f,-6.0f,0.0f), false)
+    let truk = new Truck("zpickup", new Vector3(0.0f,-6.0f,0.0f), false, [4;2;1;3])
     {
      Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape((Vector3.zero), (2))] 
      Jeep = Some truk
@@ -119,6 +145,7 @@ worldEntity World = {
      Gasstations = [new Gasstation(new Vector3(0.0f,0.0f, -80.0f))]
      Bullets = []
      Controllers = []
+     ActiveGunInTruck = 0
     }
 }
 entity Bullet = {
@@ -178,7 +205,10 @@ entity GroupZombie = {
 
 entity ControllerRazor= {
   inherit SixenseHand
-  
+  ChangeToOther : bool
+  ChangeToSame : bool
+  JoystickName : string
+
   rule Shot = 
     if (Trigger || Input.GetMouseButtonDown(0)) then
       yield true
@@ -191,22 +221,40 @@ entity ControllerRazor= {
   rule Bumper =
     yield Bumper
 
+  rule ChangeToOther = 
+    wait Drie
+    yield true
+    yield true
+    yield false
+    wait not Drie
+
+  rule ChangeToSame = 
+    wait Vier
+    yield true
+    yield true
+    yield false
+    wait not Vier
+
   Create(joystickName : string) = 
   {
     Base = SixenseHand.Instantiate(joystickName)
+    JoystickName = joystickName
+    ChangeToOther = false
+    ChangeToSame = false
+
   }
 }
 
 entity Gun = {
   inherit UnityGun
   GunController : ControllerRazor
-  NotInMagazine : int
   Reloading : bool
   ReloadDuration : float
-  InMagazine : int
   MagazineSize : int
   Automatic : bool
   DamagePerBullet : float
+  NotInMagazine : int
+  InMagazine : int
   TypeWeapon : string
 
   rule Shoot = 
@@ -257,17 +305,18 @@ entity Gun = {
   rule Rotation, Position = 
     yield Vector3.zero, Vector3.zero  
 
-  Create(st : string, ind : int, GC : ControllerRazor) = 
-  let autom = if (st <> "MachineGun") then false else true
-  //                        MachineGun ; Pistol; ShotGun ; Revolver; Bazooka
-  let InMagList =           [50        ; 20 ;    5       ; 6       ; 0]
-  let NotInMagList = [       850       ; 200 ;   60      ; 90      ; 16]
-  let ClipSizeList = [       150       ; 20 ;    5       ; 6       ; 1]
-  let ReloadDurationList = [ 7.0f      ; 3.0f ;  4.0f    ; 2.0f    ; 5.0f]
-  let DamageList = [         40.0f     ; 75.0f ; 135.0f  ; 100.0f  ; 400.0f]
+  Create(ind : int, GC : ControllerRazor) = 
+  let autom = if (ind <> 0) then false else true
+  let stlist =             ["MachineGun";"Pistol" ;"ShotGun";"Revolver" ; "Bazooka"]
+  let InMagList =          [50          ; 20      ;    5    ; 6         ; 0]
+  let NotInMagList =       [850         ; 200     ;   60    ; 90        ; 16]
+  let ClipSizeList =       [150         ; 20      ;    5    ; 6         ; 1]
+  let ReloadDurationList = [7.0f        ; 3.0f    ;  4.0f   ; 2.0f      ; 5.0f]
+  let DamageList =         [40.0f       ; 75.0f   ; 135.0f  ; 100.0f    ; 400.0f]
+  let nam = stlist.[ind]
   {
-    Base = UnityGun.Instantiate(st)
-    TypeWeapon = st
+    Base = UnityGun.Instantiate(nam)
+    TypeWeapon = nam
     GunController = GC
     NotInMagazine = NotInMagList.[ind]
     Reloading = false
@@ -284,9 +333,6 @@ entity Light = {
   Battery : float
   Active : bool
   
-  rule Active =
-    yield LightController.Trigger
-
   rule Battery = 
      if world.ActiveBoR = "Battery Black" then 
        Debug.Log("Battery = "+Battery)
@@ -298,6 +344,9 @@ entity Light = {
       yield Battery - 0.5f
     else
       yield Battery
+
+  rule Active =
+    yield LightController.Trigger
 
   Create(LC : ControllerRazor) = 
   {
@@ -419,6 +468,13 @@ entity TruckStats = {
   Hull : float
   Fuel : float
   isModel : bool
+  NotInMagazine : [int]
+  InMagazine : [int]
+  TypeWeapon : [int]
+  AmountOfGunsInTruck : int
+
+  rule AmountOfGunsInTruck =
+    yield TypeWeapon.Count
 
   rule Health, world.Jeep.Value.CarHP2 = 
     if world.ActiveBoR = "Medipack Red" && isModel <> true then
@@ -432,13 +488,15 @@ entity TruckStats = {
       else
         yield (Health / 100.0f), (world.Jeep.Value.CarHP2 * 100.0f), world.Jeep.Value.CarHP2
 
-  Create(bs : bool) = 
+  Create(bs : bool, sts : [int]) = 
   let rnd = Random.Range(0,5)
   let HealthList = [50.0f; 60.0f; 75.0f; 80.0f; 100.0f]
   let MaxSpeedList = [10.0f; 10.0f; 10.0f; 15.0f; 20.0f]
   let MaxSteeringList = [5.0f; 10.0f; 10.0f; 20.0f; 15.0f]
   let HullList = [8.0f; 5.0f ; 3.0f ; 4.0f ; 2.0f]
   let FuelList = [12000.0f ; 8000.0f ; 15000.0f ; 6000.0f ; 10000.0f]
+  let InMagList =           [50        ; 20 ;    5       ; 6       ; 0]
+  let NotInMagList = [       850       ; 200 ;   60      ; 90      ; 16]
   {
     Health = HealthList.[rnd]
     MaxSpeed = MaxSpeedList.[rnd]
@@ -446,6 +504,11 @@ entity TruckStats = {
     Hull = HullList.[rnd] //damage taken by hull
     Fuel = FuelList.[rnd]
     isModel = bs
+    TypeWeapon = sts
+    NotInMagazine = NotInMagList
+    InMagazine = InMagList
+    AmountOfGunsInTruck = 0
+  
   }
 
 }
@@ -509,7 +572,7 @@ entity Truck = {
    rule AxleInfos = 
      yield [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)]
 
-   Create(nm : string, pos : Vector3, ModelIs : bool) = 
+   Create(nm : string, pos : Vector3, ModelIs : bool, ints : [int]) = 
     {
       Active = false
       isModel = ModelIs
@@ -521,7 +584,7 @@ entity Truck = {
       cnvAccel = 0.0f
       JRotation = 0.0f
       Keyboard = false;
-      Stats = new TruckStats(ModelIs)
+      Stats = new TruckStats(ModelIs, ints)
     }
 }
 
@@ -598,10 +661,6 @@ entity Zombie = {
 
   rule CollisionDamage =
     yield CollisionDamage
-
-  rule Life = 
-    wait (world.Pistols.Head.TypeWeapon = "Bazooka")
-    yield Life 
 
   rule Life = 
     wait world.Jeep.IsSome
