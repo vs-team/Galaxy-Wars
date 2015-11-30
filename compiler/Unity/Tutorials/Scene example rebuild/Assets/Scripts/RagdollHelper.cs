@@ -102,7 +102,7 @@ public class RagdollHelper : MonoBehaviour {
 	List<BodyPart> bodyParts=new List<BodyPart>();
 	
 	//Declare an Animator member variable, initialized in Start to point to this gameobject's Animator component.
-	Animator anim;
+	public Animator anim;
 	
 	//A helper function to set the isKinematc property of all RigidBodies in the children of the 
 	//game object that this script is attached to

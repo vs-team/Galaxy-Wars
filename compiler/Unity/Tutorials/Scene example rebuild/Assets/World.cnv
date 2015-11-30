@@ -15,7 +15,7 @@ worldEntity World = {
   Counter : int
   Gasstations : [Gasstation]
   Bullets : [Bullet]
-  Controllers : [ControllerRazor]
+  Controllers : [ControllerRazor] 
   (*
   rule Bullets = 
     if (Pistols.Head.GunController.Shot && Pistols.Head.TypeWeapon = "Bazooka") then
@@ -28,7 +28,7 @@ worldEntity World = {
   rule Zombies = 
     let groups = 
       [for a in Landscapes do
-       for b in a.Group do
+       for b in a.Group do 
        select b]
     let zombiegroup = 
       [for a in groups do
@@ -49,7 +49,7 @@ worldEntity World = {
        where (a.Destroyed = false)
        select a]
     //Debug.Log("zombies count = "+zmbies.Count)
-    yield zmbies
+    yield zmbies 
 
   rule ActiveBoR = 
     if ActiveBoR = "Crossed Wrenches Red" then
@@ -99,8 +99,8 @@ worldEntity World = {
 
   rule Pistols, Flashs = 
     wait Jeep.Value.Active
-    yield [new Gun("Bazooka",4, Controllers.[0])], [new Light(Controllers.[1])] // new Gun(Pistol) first time. new Gun(Random) after
-    wait false
+    yield [new Gun("MachineGun",0, Controllers.[0])], [new Light(Controllers.[1])] // new Gun(Pistol) first time. new Gun(Random) after
+    wait false 
 
   rule Controllers = 
     wait Jeep.Value.Active
@@ -108,13 +108,13 @@ worldEntity World = {
     wait false
 
   Create() =
-    let truk = new Truck("zpickup", new Vector3(0.0f,-6.0f,0.0f), false)
+    let truk = new Truck("zpickup", new Vector3(0.0f,-6.0f,0.0f), false) 
     {
      Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape((Vector3.zero), (2))] 
      Jeep = Some truk
      Zombies = []
      Pistols = []
-     Flashs = []
+     Flashs = [] 
      GUIpanel = new GUI()
      ActiveBoR = ""
      Counter = 3
@@ -177,7 +177,7 @@ entity GroupZombie = {
   {
     Base = UnityGroup.Instantiate(sps)
     ZombieFollowers = []
-    ZombieLeader = None
+    ZombieLeader = None 
   }
 }
 
@@ -213,22 +213,19 @@ entity Gun = {
   Automatic : bool
   DamagePerBullet : float
   TypeWeapon : string
-
-  rule Shoot = 
+  GunPower : float 
+   
+  rule Shoot, InMagazine = 
    wait GunController.Shot
    if (InMagazine > 0 && not Reloading) then
-     if (not Automatic && (GunController.Trigger || Input.GetMouseButtonDown(0))) then
-       yield true
-       yield false
-     if (Automatic && (GunController.Trigger || Input.GetMouseButton(0))) then
-       while Input.GetMouseButton(0) do 
-         yield true
-         yield false
-         wait 0.05f
-
-  rule InMagazine = 
-    if Shoot then
-      yield InMagazine - 1
+     if (not Automatic) then
+       yield true, InMagazine - 1
+       yield false, InMagazine
+     else
+       while (GunController.Shot && InMagazine > 0) do
+         yield true, InMagazine - 1
+         yield false, InMagazine
+         wait 0.05f // Rate of fire
 
   rule NotInMagazine = 
     if world.ActiveBoR = "AmmoBox" then 
@@ -241,7 +238,7 @@ entity Gun = {
       if MagazineSize > NotInMagazine then // clip can't be fulled completely
         yield false, 0, NotInMagazine
       else 
-        let changed = (MagazineSize - InMagazine)
+        let changed = (MagazineSize - InMagazine) 
         yield false, NotInMagazine - changed, MagazineSize // fill clip completely
 
   rule MagazineGUI = 
@@ -256,14 +253,20 @@ entity Gun = {
     if Input.GetKey(KeyCode.C) then
       yield false
 
-  Create(st : string, ind : int, GC : ControllerRazor) = 
+  rule GunForce =
+    Debug.Log(GunForce)
+    yield GunPower 
+    wait false
+
+  Create(st : string, ind : int, GC : ControllerRazor) =
   let autom = if (st <> "MachineGun") then false else true
-  //                        MachineGun ; Pistol; ShotGun ; Revolver; Bazooka
-  let InMagList =           [50        ; 20 ;    5       ; 6       ; 0]
-  let NotInMagList = [       850       ; 200 ;   60      ; 90      ; 16]
-  let ClipSizeList = [       150       ; 20 ;    5       ; 6       ; 1]
-  let ReloadDurationList = [ 7.0f      ; 3.0f ;  4.0f    ; 2.0f    ; 5.0f]
-  let DamageList = [         40.0f     ; 75.0f ; 135.0f  ; 100.0f  ; 400.0f]
+  //                       MachineGun; Pistol; ShotGun; Revolver; Bazooka
+  let InMagList =          [50       ; 20    ; 5      ; 6       ; 0     ]
+  let NotInMagList =       [850      ; 200   ; 60     ; 90      ; 16    ]
+  let ClipSizeList =       [150      ; 20    ; 5      ; 6       ; 1     ]
+  let ReloadDurationList = [7.0f     ; 3.0f  ; 4.0f   ; 2.0f    ; 5.0f  ]
+  let DamageList =         [40.0f    ; 40.0f ; 135.0f ; 100.0f  ; 400.0f]
+  let GunPowerList =       [2.4f     ; 0.8f  ; 2.4f   ; 1.8f    ; 5.0f  ]
   {
     Base = UnityGun.Instantiate(st)
     TypeWeapon = st
@@ -275,6 +278,7 @@ entity Gun = {
     ReloadDuration = ReloadDurationList.[ind]
     Automatic = autom
     DamagePerBullet = DamageList.[ind]
+    GunPower = GunPowerList.[ind]
   }
 }
 
@@ -323,7 +327,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
   Spawnpoints : [Transform]
 
   rule Group, PickUps, Spawnpoints = // spawning multiple groups on a single landscape
-    wait Spawnpoints.Count > 0
+    wait Spawnpoints.Count > 0 && world.Pistols.Count > 0
     let random_spawnp = Random.Range(0,4) 
     let random_pickup = Random.Range(0,4)
     if random_spawnp <> random_pickup then
@@ -592,42 +596,28 @@ entity Zombie = {
   rule Life, CollisionDamage =
     if (CollisionDamage <> 0.0f) then
       Debug.Log("Collided zombie HP before:" + Life)
-      yield Life - (CollisionDamage * 4.0f), 0.0f
+      yield Life - (CollisionDamage * 6.0f), 0.0f
       Debug.Log("Collided zombie HP after:" + Life)
 
-  rule CollisionDamage =
-    yield CollisionDamage
+  rule CollisionDamage = 
+    yield CollisionDamage 
 
-  rule Life = 
-    wait (world.Pistols.Head.TypeWeapon = "Bazooka")
-    yield Life 
-
-  rule Life = 
-    wait world.Jeep.IsSome
+  rule IsHitByBullet = 
+    wait world.Jeep.IsSome 
     if (world.Jeep.Value.Active) then
       if OnMouseOver then
-        if (not world.Pistols.Head.Automatic) then
-          if (world.Pistols.Head.GunController.Trigger || Input.GetMouseButtonDown(0)) then
-            Debug.Log(world.Pistols.Head.DamagePerBullet)
-            if Life > 0.49f then 
-              yield Life - world.Pistols.Head.DamagePerBullet
-            else
-	            yield 0.0f
-        else
-          if (world.Pistols.Head.GunController.Shot) then
-            if Life > 0.49f then
-              yield Life - world.Pistols.Head.DamagePerBullet
-            else
-              yield 0.0f   
+        if (world.Pistols.Head.Shoot) then
+          yield true 
+          yield false
+
+  rule Life =
+    wait IsHitByBullet
+    yield Life - world.Pistols.Head.DamagePerBullet * BodyPartMultiplier
 
   rule Dead = 
-    if (Life < 0.0f) then
+    if (Life <= 0.0f) then
       yield true
       wait false
-
-  (*rule shot, dead2 = 
-    if Life < 0.0f then
-      yield true, true*)
 
   Create(trans : Transform) = 
   {

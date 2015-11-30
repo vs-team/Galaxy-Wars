@@ -38,6 +38,19 @@ public class UnityGun : MonoBehaviour
       MagazineBox.text = InTheMag + "/" + NotInTheMag;
     }
   }
+  private float gunPower; //Used to determine the impactForce on ragdolls
+  public float GunForce
+  {
+    get
+    {
+      return gunPower;
+    }
+    set
+    {
+      Debug.Log("insideGunForceSet gunForce: " + value);
+      gunPower = value;
+    }
+  }
   private bool shot;
   public bool Shoot
   {
@@ -49,4 +62,4 @@ public class UnityGun : MonoBehaviour
         gunShot.Play();
     }
   }
-}                                                      
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
