@@ -208,7 +208,7 @@ entity ControllerRazor= {
   ChangeToOther : bool
   ChangeToSame : bool
   JoystickName : string
-
+  
   rule Shot = 
     if (Trigger || Input.GetMouseButtonDown(0)) then
       yield true
@@ -256,23 +256,19 @@ entity Gun = {
   NotInMagazine : int
   InMagazine : int
   TypeWeapon : string
+  GunPower : float 
 
-  rule Shoot = 
+  rule Shoot, InMagazine = 
    wait GunController.Shot
    if (InMagazine > 0 && not Reloading) then
-     Debug.Log("attempting shot")
-     if (not Automatic && (GunController.Trigger || Input.GetMouseButtonDown(0))) then
-       yield true
-       yield false
-     if (Automatic && (GunController.Trigger || Input.GetMouseButton(0))) then
-       while Input.GetMouseButton(0) do 
-         yield true
-         yield false
-         wait 0.05f
-
-  rule InMagazine = 
-    if Shoot then
-      yield InMagazine - 1
+     if (not Automatic) then
+       yield true, InMagazine - 1
+       yield false, InMagazine
+     else
+       while (GunController.Shot && InMagazine > 0) do
+         yield true, InMagazine - 1
+         yield false, InMagazine
+         wait 0.05f // Rate of fire
 
   rule NotInMagazine = 
     if world.ActiveBoR = "AmmoBox" then 
@@ -302,8 +298,10 @@ entity Gun = {
       let b = Rotation
       yield false
 
-  rule Rotation, Position = 
-    yield Vector3.zero, Vector3.zero  
+  rule GunForce =
+    Debug.Log(GunForce)
+    yield GunPower 
+    wait false
 
   Create(ind : int, GC : ControllerRazor) = 
   let autom = if (ind <> 0) then false else true
@@ -313,6 +311,7 @@ entity Gun = {
   let ClipSizeList =       [150         ; 20      ;    5    ; 6         ; 1]
   let ReloadDurationList = [7.0f        ; 3.0f    ;  4.0f   ; 2.0f      ; 5.0f]
   let DamageList =         [40.0f       ; 75.0f   ; 135.0f  ; 100.0f    ; 400.0f]
+  let GunPowerList =       [2.4f     ; 0.8f  ; 2.4f   ; 1.8f    ; 5.0f  ]
   let nam = stlist.[ind]
   {
     Base = UnityGun.Instantiate(nam)
@@ -325,6 +324,7 @@ entity Gun = {
     ReloadDuration = ReloadDurationList.[ind]
     Automatic = autom
     DamagePerBullet = DamageList.[ind]
+    GunPower = GunPowerList.[ind]
   }
 }
 
@@ -656,38 +656,28 @@ entity Zombie = {
   rule Life, CollisionDamage =
     if (CollisionDamage <> 0.0f) then
       Debug.Log("Collided zombie HP before:" + Life)
-      yield Life - (CollisionDamage * 4.0f), 0.0f
+      yield Life - (CollisionDamage * 6.0f), 0.0f
       Debug.Log("Collided zombie HP after:" + Life)
 
   rule CollisionDamage =
     yield CollisionDamage
 
-  rule Life = 
+  rule IsHitByBullet = 
     wait world.Jeep.IsSome
     if (world.Jeep.Value.Active) then
       if OnMouseOver then
-        if (not world.Pistols.Head.Automatic) then
-          if (world.Pistols.Head.GunController.Trigger || Input.GetMouseButtonDown(0)) then
-            Debug.Log(world.Pistols.Head.DamagePerBullet)
-            if Life > 0.49f then 
-              yield Life - world.Pistols.Head.DamagePerBullet
-            else
-	            yield 0.0f
-        else
-          if (world.Pistols.Head.GunController.Shot) then
-            if Life > 0.49f then
-              yield Life - world.Pistols.Head.DamagePerBullet
-            else
-              yield 0.0f   
+        if (world.Pistols.Head.Shoot) then
+          yield true 
+          yield false
+
+  rule Life =
+    wait IsHitByBullet
+    yield Life - world.Pistols.Head.DamagePerBullet * BodyPartMultiplier
 
   rule Dead = 
-    if (Life < 0.0f) then
+    if (Life <= 0.0f) then
       yield true
       wait false
-
-  (*rule shot, dead2 = 
-    if Life < 0.0f then
-      yield true, true*)
 
   Create(trans : Transform) = 
   {

@@ -21,26 +21,26 @@ public class UnityGasstation : MonoBehaviour
         parkingspots.Add(toAdd);
       }
     }
-    List<string> a = new List<string>();
+      List<string> a = new List<string>();
     Object[] models = Resources.LoadAll("JeepModels");
-    if (models.Length > 0)
-    {
-      Debug.Log("Jeepies list filled");
-      foreach (Object c in models)
+      if (models.Length > 0)
       {
+        Debug.Log("Jeepies list filled");
+        foreach (Object c in models)
+        {
         //Debug.Log(c.name);
-        a.Add(c.name);
+          a.Add(c.name);
+        }
       }
-    }
     var x = gs.transform;
     var dir = parkingspots[0].transform.position;
     var p = x.TransformPoint(dir);
     Debug.Log(p);
     component.modely = GameObject.Instantiate(Resources.Load("JeepModels/" + a[0] + "1"), p, Quaternion.identity) as GameObject;
     return component;
-  }
+    }
   public Vector3 Position
   {
     get { return this.transform.position; }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+}

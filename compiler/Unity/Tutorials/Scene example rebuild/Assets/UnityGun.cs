@@ -47,6 +47,19 @@ public class UnityGun : MonoBehaviour
       MagazineBox.text = InTheMag + "/" + NotInTheMag;
     }
   }
+  private float gunPower; //Used to determine the impactForce on ragdolls
+  public float GunForce
+  {
+    get
+    {
+      return gunPower;
+    }
+    set
+    {
+      Debug.Log("insideGunForceSet gunForce: " + value);
+      gunPower = value;
+    }
+  }
   public Vector3 directio;
   public Vector3 WorldPos;
   private bool shot;
@@ -72,8 +85,8 @@ public class UnityGun : MonoBehaviour
       //Debug.Log("SixHandTF.position" + SixHandTF.position);
       var x = new Vector3(SixHandTF.position.x, SixHandTF.position.y + 1.7f, SixHandTF.position.z-1.9f);
       this.transform.localPosition = x;
-    }
   }
+}                                                      
   public Vector3 Rotation
   {
     get {

@@ -1,0 +1,30 @@
+entity Truck = {
+  NAs : [Gun]
+  AG : [Gun]
+  NAG : Option<Gun>
+  GunsToBeSwitched : [Gun]
+
+  rule GunsToBeSwitched =
+    let gunsToBeSwitched =
+      [for a in ActiveGuns do
+       where a.GunController.Value.JoyStickName = world.ControllerSwitchName
+       select a]
+    yield gunsToBeSwitched
+
+  rule NAs, AG, NAG =
+    wait world.ControllersSwitchButton == "Next" || world.ControllersSwitchButton == "Prev"
+    if(world.ControllersSwitchButton == "Next") then
+      NAG = Some NAs.Head
+      let nonActiveGuns = 
+        [for a in [1..NAs.Count - 1] do
+         select NAs.[a]] :: AG.[correctGun]
+      yield nonActiveGuns, NAG.Value :: AG, None
+    else
+      NAG = Some nonActiveGuns.[NAs.Count - 1]
+      let nonActiveGuns =
+        [for a in [0..NAs.Count - 2] do
+         select NAs.[a]]
+      let newNonActiveGuns = AG.[correctGun] :: nonActiveGuns
+      yield newNonActiveGuns, AG :: NAG.Value, None
+
+}
