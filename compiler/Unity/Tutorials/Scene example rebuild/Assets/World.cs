@@ -440,16 +440,12 @@ public Equipment(List<System.Int32> bulls, System.Int32 flashs)
 		NotActiveGuns = (
 
 Enumerable.Empty<Gun>()).ToList<Gun>();
-		FlashBatt = flashs;
-		Bullets = bulls;
 		ActiveGuns = (
 
 Enumerable.Empty<Gun>()).ToList<Gun>();
 		
 }
 		public List<Gun> ActiveGuns;
-	public List<System.Int32> Bullets;
-	public System.Int32 FlashBatt;
 	public System.Collections.Generic.List<System.String> HL{  get { return UnityEquipment.HL; }
   set{UnityEquipment.HL = value; }
  }
@@ -485,7 +481,6 @@ Enumerable.Empty<Gun>()).ToList<Gun>();
 	public System.Boolean useGUILayout{  get { return UnityEquipment.useGUILayout; }
   set{UnityEquipment.useGUILayout = value; }
  }
-	public System.Collections.Generic.List<System.String> ___stlist00;
 	public ControllerRazor ___pl00;
 	public List<Gun> ___AG00;
 	public List<Gun> ___NAG00;
@@ -494,9 +489,6 @@ frame = World.frame;
 
 		for(int x0 = 0; x0 < ActiveGuns.Count; x0++) { 
 			ActiveGuns[x0].Update(dt, world);
-		}
-		for(int x0 = 0; x0 < NotActiveGuns.Count; x0++) { 
-			NotActiveGuns[x0].Update(dt, world);
 		}
 		this.Rule0(dt, world);
 
@@ -512,7 +504,6 @@ frame = World.frame;
 	{
 
 	case -1:
-	___stlist00 = HR;
 	___pl00 = world.Players.Head().Controllers.Head();
 	___AG00 = (
 
@@ -521,11 +512,16 @@ frame = World.frame;
 .ToList<Gun>()).ToList<Gun>();
 	___NAG00 = (
 
-(Enumerable.Range(1,(1) + (((___stlist00.Count) - (1)) - (1))).ToList<System.Int32>()).Select(__ContextSymbol42 => new { ___a08 = __ContextSymbol42 })
+(Enumerable.Range(1,(1) + (((HR.Count) - (1)) - (1))).ToList<System.Int32>()).Select(__ContextSymbol42 => new { ___a08 = __ContextSymbol42 })
 .Select(__ContextSymbol43 => new Gun(__ContextSymbol43.___a08,___pl00,TransformHR.name))
 .ToList<Gun>()).ToList<Gun>();
-	UnityEngine.Debug.Log(___AG00);
-	Bullets = Bullets;
+	ActiveGuns = ___AG00;
+	NotActiveGuns = ___NAG00;
+	s0 = 1;
+return;
+	case 1:
+	ActiveGuns = ActiveGuns;
+	NotActiveGuns = NotActiveGuns;
 	s0 = 0;
 return;
 	case 0:
@@ -565,8 +561,8 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr)
 			{
 			___autom00 = true;
 			}
-		List<System.String> ___stlist01;
-		___stlist01 = (
+		List<System.String> ___stlist00;
+		___stlist00 = (
 
 (new Cons<System.String>("MachineGun",(new Cons<System.String>("Pistol",(new Cons<System.String>("ShotGun",(new Cons<System.String>("Revolver",(new Cons<System.String>("Bazooka",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
 		List<System.Int32> ___InMagList00;
@@ -594,7 +590,7 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr)
 
 (new Cons<System.Single>(2.4f,(new Cons<System.Single>(0.8f,(new Cons<System.Single>(2.4f,(new Cons<System.Single>(1.8f,(new Cons<System.Single>(5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
 		System.String ___nam00;
-		___nam00 = ___stlist01[ind];
+		___nam00 = ___stlist00[ind];
 		UnityGun = UnityGun.Instantiate(___nam00,tr);
 		TypeWeapon = ___nam00;
 		Reloading = false;
@@ -641,17 +637,8 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr)
 	public System.Boolean Shoot{  get { return UnityGun.Shoot; }
   set{UnityGun.Shoot = value; }
  }
-	public UnityEngine.Transform SixHandTF{  get { return UnityGun.SixHandTF; }
-  set{UnityGun.SixHandTF = value; }
- }
 	public System.String TypeWeapon;
 	public UnityGun UnityGun;
-	public UnityEngine.Vector3 WorldPos{  get { return UnityGun.WorldPos; }
-  set{UnityGun.WorldPos = value; }
- }
-	public UnityEngine.Vector3 directio{  get { return UnityGun.directio; }
-  set{UnityGun.directio = value; }
- }
 	public System.Boolean enabled{  get { return UnityGun.enabled; }
   set{UnityGun.enabled = value; }
  }
@@ -676,7 +663,7 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr)
 	public UnityEngine.Vector3 ___a19;
 	public UnityEngine.Vector3 ___b13;
 	public System.Single count_down1;
-	public System.Int32 ___changed20;
+	public System.Int32 ___changed40;
 	public System.Single count_down2;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -687,6 +674,8 @@ frame = World.frame;
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
 		this.Rule4(dt, world);
+		this.Rule5(dt, world);
+		this.Rule6(dt, world);
 	}
 
 
@@ -745,52 +734,8 @@ return;
 	{
 
 	case -1:
-	if(((((UnityEngine.Input.GetKey(KeyCode.R)) || (((InMagazine) == (0))))) && (((NotInMagazine) > (0)))))
-	{
-
-	goto case 9;	}else
-	{
-
-	s2 = -1;
-return;	}
-	case 9:
-	Reloading = true;
-	NotInMagazine = NotInMagazine;
-	InMagazine = InMagazine;
-	s2 = 16;
-return;
-	case 16:
-	count_down1 = ReloadDuration;
-	goto case 17;
-	case 17:
-	if(((count_down1) > (0f)))
-	{
-
-	count_down1 = ((count_down1) - (dt));
-	s2 = 17;
-return;	}else
-	{
-
-	goto case 12;	}
-	case 12:
-	if(((MagazineSize) > (NotInMagazine)))
-	{
-
-	goto case 10;	}else
-	{
-
-	goto case 11;	}
-	case 10:
-	Reloading = false;
-	NotInMagazine = 0;
-	InMagazine = NotInMagazine;
-	s2 = -1;
-return;
-	case 11:
-	___changed20 = ((MagazineSize) - (InMagazine));
-	Reloading = false;
-	NotInMagazine = ((NotInMagazine) - (___changed20));
-	InMagazine = MagazineSize;
+	InMag = InMagazine;
+	NotInMag = NotInMagazine;
 	s2 = -1;
 return;	
 	default: return;}}
@@ -802,16 +747,7 @@ return;
 	{
 
 	case -1:
-	if(((world.ActiveBoR) == ("AmmoBox")))
-	{
-
-	goto case 20;	}else
-	{
-
-	s3 = -1;
-return;	}
-	case 20:
-	NotInMagazine = ((NotInMagazine) + (50));
+	MagazineGUI = "";
 	s3 = -1;
 return;	
 	default: return;}}
@@ -823,10 +759,88 @@ return;
 	{
 
 	case -1:
-	if(!(GunController.Shot))
+	if(((((UnityEngine.Input.GetKey(KeyCode.R)) || (((InMagazine) == (0))))) && (((NotInMagazine) > (0)))))
+	{
+
+	goto case 2;	}else
 	{
 
 	s4 = -1;
+return;	}
+	case 2:
+	Reloading = true;
+	NotInMagazine = NotInMagazine;
+	InMagazine = InMagazine;
+	s4 = 9;
+return;
+	case 9:
+	count_down1 = ReloadDuration;
+	goto case 10;
+	case 10:
+	if(((count_down1) > (0f)))
+	{
+
+	count_down1 = ((count_down1) - (dt));
+	s4 = 10;
+return;	}else
+	{
+
+	goto case 5;	}
+	case 5:
+	if(((MagazineSize) > (NotInMagazine)))
+	{
+
+	goto case 3;	}else
+	{
+
+	goto case 4;	}
+	case 3:
+	Reloading = false;
+	NotInMagazine = 0;
+	InMagazine = NotInMagazine;
+	s4 = -1;
+return;
+	case 4:
+	___changed40 = ((MagazineSize) - (InMagazine));
+	Reloading = false;
+	NotInMagazine = ((NotInMagazine) - (___changed40));
+	InMagazine = MagazineSize;
+	s4 = -1;
+return;	
+	default: return;}}
+	
+
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
+	{
+
+	case -1:
+	if(((world.ActiveBoR) == ("AmmoBox")))
+	{
+
+	goto case 13;	}else
+	{
+
+	s5 = -1;
+return;	}
+	case 13:
+	NotInMagazine = ((NotInMagazine) + (50));
+	s5 = -1;
+return;	
+	default: return;}}
+	
+
+	int s6=-1;
+	public void Rule6(float dt, World world){ 
+	switch (s6)
+	{
+
+	case -1:
+	if(!(GunController.Shot))
+	{
+
+	s6 = -1;
 return;	}else
 	{
 
@@ -838,7 +852,7 @@ return;	}else
 	goto case 1;	}else
 	{
 
-	s4 = -1;
+	s6 = -1;
 return;	}
 	case 1:
 	if(!(Automatic))
@@ -851,18 +865,18 @@ return;	}
 	case 2:
 	Shoot = true;
 	InMagazine = ((InMagazine) - (1));
-	s4 = 5;
+	s6 = 5;
 return;
 	case 5:
 	Shoot = false;
 	InMagazine = InMagazine;
-	s4 = -1;
+	s6 = -1;
 return;
 	case 3:
 	if(!(((GunController.Shot) && (((InMagazine) > (0))))))
 	{
 
-	s4 = -1;
+	s6 = -1;
 return;	}else
 	{
 
@@ -870,12 +884,12 @@ return;	}else
 	case 8:
 	Shoot = true;
 	InMagazine = ((InMagazine) - (1));
-	s4 = 11;
+	s6 = 11;
 return;
 	case 11:
 	Shoot = false;
 	InMagazine = InMagazine;
-	s4 = 9;
+	s6 = 9;
 return;
 	case 9:
 	count_down2 = 0.05f;
@@ -885,11 +899,11 @@ return;
 	{
 
 	count_down2 = ((count_down2) - (dt));
-	s4 = 10;
+	s6 = 10;
 return;	}else
 	{
 
-	s4 = 3;
+	s6 = 3;
 return;	}	
 	default: return;}}
 	
@@ -1180,19 +1194,20 @@ private System.String joystickName;
 public ControllerRazor(System.String joystickName)
 	{JustEntered = false;
  frame = World.frame;
+		prev = false;
+		other = false;
+		next = false;
 		SixenseHand = SixenseHand.Instantiate(joystickName);
 		JoystickName = joystickName;
-		ChangeToSame = false;
-		ChangeToOther = false;
+		ECB = "";
 		
 }
 		public System.Boolean Bumper{  get { return SixenseHand.Bumper; }
   set{SixenseHand.Bumper = value; }
  }
-	public System.Boolean ChangeToOther;
-	public System.Boolean ChangeToSame;
 	public System.Boolean Drie{  get { return SixenseHand.Drie; }
  }
+	public System.String ECB;
 	public UnityEngine.Vector3 Forward{  get { return SixenseHand.Forward; }
  }
 	public SixenseHands Hand{  get { return SixenseHand.Hand; }
@@ -1234,6 +1249,9 @@ public ControllerRazor(System.String joystickName)
 	public System.String name{  get { return SixenseHand.name; }
   set{SixenseHand.name = value; }
  }
+	public System.Boolean next;
+	public System.Boolean other;
+	public System.Boolean prev;
 	public System.String tag{  get { return SixenseHand.tag; }
   set{SixenseHand.tag = value; }
  }
@@ -1250,6 +1268,7 @@ frame = World.frame;
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
 		this.Rule4(dt, world);
+		this.Rule5(dt, world);
 	}
 
 
@@ -1271,15 +1290,15 @@ return;	}else
 
 	goto case 3;	}
 	case 3:
-	ChangeToSame = true;
+	next = true;
 	s0 = 2;
 return;
 	case 2:
-	ChangeToSame = true;
+	next = true;
 	s0 = 1;
 return;
 	case 1:
-	ChangeToSame = false;
+	next = false;
 	s0 = 0;
 return;
 	case 0:
@@ -1310,15 +1329,15 @@ return;	}else
 
 	goto case 3;	}
 	case 3:
-	ChangeToOther = true;
+	prev = true;
 	s1 = 2;
 return;
 	case 2:
-	ChangeToOther = true;
+	prev = true;
 	s1 = 1;
 return;
 	case 1:
-	ChangeToOther = false;
+	prev = false;
 	s1 = 0;
 return;
 	case 0:
@@ -1340,7 +1359,37 @@ return;	}
 	{
 
 	case -1:
-	Bumper = Bumper;
+	if(!(((prev) || (next))))
+	{
+
+	s2 = -1;
+return;	}else
+	{
+
+	goto case 3;	}
+	case 3:
+	if(prev)
+	{
+
+	goto case 4;	}else
+	{
+
+	goto case 0;	}
+	case 4:
+	ECB = "prev";
+	s2 = 0;
+return;
+	case 0:
+	if(next)
+	{
+
+	goto case 1;	}else
+	{
+
+	s2 = -1;
+return;	}
+	case 1:
+	ECB = "next";
 	s2 = -1;
 return;	
 	default: return;}}
@@ -1352,7 +1401,7 @@ return;
 	{
 
 	case -1:
-	Trigger = Trigger;
+	Bumper = Bumper;
 	s3 = -1;
 return;	
 	default: return;}}
@@ -1361,6 +1410,18 @@ return;
 	int s4=-1;
 	public void Rule4(float dt, World world){ 
 	switch (s4)
+	{
+
+	case -1:
+	Trigger = Trigger;
+	s4 = -1;
+return;	
+	default: return;}}
+	
+
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
 	{
 
 	case -1:
@@ -1373,11 +1434,11 @@ return;
 	goto case 2;	}
 	case 1:
 	Shot = true;
-	s4 = -1;
+	s5 = -1;
 return;
 	case 2:
 	Shot = false;
-	s4 = -1;
+	s5 = -1;
 return;	
 	default: return;}}
 	
@@ -2979,4 +3040,4 @@ return;
 
 
 }
-}                                                                                                                                                     
+}      

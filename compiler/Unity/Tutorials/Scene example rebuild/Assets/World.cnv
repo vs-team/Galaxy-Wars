@@ -114,29 +114,24 @@ entity Player = {
 
 entity Equipment = {
   inherit UnityEquipment
-  Bullets : [int]
-  FlashBatt : int
   ActiveGuns : [Gun]
-  NotActiveGuns : [Gun]
+  ref NotActiveGuns : [Gun]
 
-  rule Bullets = 
-    let stlist = HR // ["MachineGun";"Pistol" ;"ShotGun";"Revolver" ; "Bazooka"]
+  rule ActiveGuns, NotActiveGuns = 
     let pl = world.Players.Head.Controllers.Head
     let AG = 
       [for a in [0..0] do
        select (new Gun(a,pl, TransformHR.name))]
     let NAG = 
-      [for a in [1..(stlist.Count - 1)] do
+      [for a in [1..(HR.Count - 1)] do
        select (new Gun(a,pl, TransformHR.name))]
-    Debug.Log(AG)
-    yield Bullets
+    yield AG, NAG
+    yield ActiveGuns, NotActiveGuns
     wait false
 
   Create(bulls : [int], flashs : int) = 
   {
     Base = UnityEquipment.Instantiate()
-    Bullets = bulls
-    FlashBatt = flashs
     ActiveGuns = []
     NotActiveGuns = []
   }
@@ -180,6 +175,12 @@ entity Gun = {
       else 
         let changed = (MagazineSize - InMagazine)
         yield false, NotInMagazine - changed, MagazineSize // fill clip completely
+
+  rule MagazineGUI = 
+    yield ""
+
+  rule InMag, NotInMag = 
+    yield InMagazine, NotInMagazine
 
   rule Reloading = 
     if Input.GetKey(KeyCode.C) then
@@ -273,9 +274,11 @@ entity GroupZombie = {
 
 entity ControllerRazor= {
   inherit SixenseHand
-  ChangeToOther : bool
-  ChangeToSame : bool
+  other : bool
+  next : bool
+  prev : bool
   JoystickName : string
+  ECB : string
   
   rule Shot = 
     if (Trigger || Input.GetMouseButtonDown(0)) then
@@ -289,14 +292,21 @@ entity ControllerRazor= {
   rule Bumper =
     yield Bumper
 
-  rule ChangeToOther = 
+  rule ECB = 
+    wait prev || next
+    if prev then
+      yield "prev"
+    if next then
+      yield "next"
+
+  rule prev = 
     wait Drie
     yield true
     yield true
     yield false
     wait not Drie
 
-  rule ChangeToSame = 
+  rule next = 
     wait Vier
     yield true
     yield true
@@ -307,9 +317,10 @@ entity ControllerRazor= {
   {
     Base = SixenseHand.Instantiate(joystickName)
     JoystickName = joystickName
-    ChangeToOther = false
-    ChangeToSame = false
-
+    next = false
+    other = false
+    prev = false
+    ECB = ""
   }
 }
 
