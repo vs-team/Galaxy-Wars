@@ -8,21 +8,28 @@ public class UnityGun : MonoBehaviour
   public TextMesh MagazineBox;
   private AudioSource gunShot;
   public Transform SixHandTF;
-  private Transform GunTsf;
 
-  public static UnityGun Instantiate(string nm)
+  public static UnityGun Instantiate(string nm, string j)
   {
-    GameObject pap = GameObject.FindWithTag("Gun") as GameObject;
+    GameObject pap = GameObject.Find("Input/RazerJoysticks/" + j + "/" + nm) as GameObject;
+    Debug.Log(pap.name);
     UnityGun wap = pap.GetComponent<UnityGun>() as UnityGun;
 
-    // pos GunTransform && Hydra Transform
-    wap.SixHandTF = GameObject.Find("Hydra1 - Right").GetComponent<Transform>() as Transform;
-    wap.GunTsf = GameObject.Find("Gun").GetComponent<Transform>() as Transform;
-
     //textmesh
-    GameObject Bullet = GameObject.FindGameObjectWithTag("Bullets") as GameObject;
-    TextMesh tesla = Bullet.GetComponent<TextMesh>() as TextMesh;
-    wap.MagazineBox = tesla;
+    Transform a = pap.GetComponent<Transform>();
+    Debug.Log(a.name);
+    List<TextMesh> tesla = new List<TextMesh>();
+    foreach (Transform z in a)
+    {
+      Debug.Log("helle no bullet check yet");
+      if (z.name == "Canvas")
+      {
+        TextMesh Bullet = z.GetComponentInChildren<TextMesh>() as TextMesh;
+        tesla.Add(Bullet);
+      }
+    }
+    Debug.Log(tesla[0]);
+    wap.MagazineBox = tesla[0];
 
     wap.gunShot = pap.GetComponent<AudioSource>() as AudioSource;
     return wap;
@@ -96,4 +103,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 

@@ -81,7 +81,7 @@ GameObject:
   - 4: {fileID: 417812}
   - 23: {fileID: 2359220}
   m_Layer: 0
-  m_Name: truckmodel
+  m_Name: truckmodel1
   m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
