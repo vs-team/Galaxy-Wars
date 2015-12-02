@@ -114,17 +114,95 @@ entity Player = {
 
 entity Equipment = {
   inherit UnityEquipment
+  ref AllGuns : [Gun]
   ActiveGuns : [Gun]
   ref NotActiveGuns : [Gun]
+  GunControllerPressed : Option<Gun>
+
+  rule NotActiveGuns = 
+    wait GunControllerPressed.IsSome
+    let r = 
+      [for a in AllGuns do
+       where (not ActiveGuns.Contains(a))
+       select a]
+    yield r
+
+  rule ActiveGuns = 
+    wait GunControllerPressed.IsSome
+    let jsn = GunControllerPressed.Value.GunController.JoystickName
+    let oper = GunControllerPressed.Value.GunController.ECB
+    let numg = GunControllerPressed.Value.GunNumber
+    if oper = "next" then
+      Debug.Log("next")
+      let j = // guns that are of the specific controller that wants to change
+        [for a in AllGuns do
+         where (a.GunController.JoystickName = jsn)
+         select a]
+      let w = //GunNumbers that are active
+        [for a in ActiveGuns do
+         select (a.GunNumber)]
+      let aw = w.Head
+      let bw = w.[1]
+      Debug.Log("left "+aw)
+      Debug.Log("right "+bw)
+      let q = //GunNumbers inactive
+        [for a in [0..(j.Count - 1)] do
+         where (not w.Contains(a))
+         select a]
+      let nextGunNumber = (numg + 1) % 5
+      let t = 
+        [for a in j do 
+         where (a.GunNumber = nextGunNumber)
+         select a]
+      let z = 
+        [for a in ActiveGuns do
+         where (a.GunController.ECB = "")
+         select a]
+      if jsn = TransformHR.name then
+        yield [t.Head;z.Head] // left ; right
+      else 
+        yield [z.Head;t.Head] // left ; right
+
+  rule GunControllerPressed = 
+    let q = 
+      [for a in ActiveGuns do
+       where (a.GunController.ECB <> "")
+       select a]
+    if q.Count > 0 then
+      yield Some q.Head
+    else
+      yield None
+
+  rule AllGuns = 
+    let pl = world.Players.Head.Controllers
+    let j = [TransformHR.name;TransformHL.name]
+    let x = 
+      [for a in [0..(HR.Count - 1)] do
+       select (new Gun(a,pl.Head,j.Head))]
+    let y = 
+      [for a in [0..(HR.Count - 1)] do
+       select (new Gun(a,pl.[1],j.[1]))]
+    let z = x @ y
+    yield z
+    yield AllGuns
+    wait false
 
   rule ActiveGuns, NotActiveGuns = 
-    let pl = world.Players.Head.Controllers.Head
-    let AG = 
-      [for a in [0..0] do
-       select (new Gun(a,pl, TransformHR.name))]
-    let NAG = 
-      [for a in [1..(HR.Count - 1)] do
-       select (new Gun(a,pl, TransformHR.name))]
+    let pl = world.Players.Head.Controllers
+    let j = [TransformHR.name;TransformHL.name]
+    let x = 
+      [for a in [0..(HR.Count - 1)] do
+       select (new Gun(a,pl.Head,j.Head))]
+    let y = 
+      [for a in [0..(HR.Count - 1)] do
+       select (new Gun(a,pl.[1],j.[1]))]
+    let NAG = x @ y
+    let AG = [NAG.[0];NAG.[(HR.Count + 1)]]
+    Debug.Log(AG.Count)
+    let NotAG = 
+      [for a in NAG do
+       where (not AG.Contains(a))
+       select a]
     yield AG, NAG
     yield ActiveGuns, NotActiveGuns
     wait false
@@ -134,6 +212,61 @@ entity Equipment = {
     Base = UnityEquipment.Instantiate()
     ActiveGuns = []
     NotActiveGuns = []
+    GunControllerPressed = None
+    AllGuns = []
+  }
+}
+
+entity ControllerRazor= {
+  inherit SixenseHand
+  other : bool
+  next : bool
+  prev : bool
+  JoystickName : string
+  ECB : string
+  
+  rule Shot = 
+    if (Trigger || Input.GetMouseButtonDown(0)) then
+      yield true
+    else
+      yield false
+
+  rule Trigger =
+    yield Trigger
+
+  rule Bumper =
+    yield Bumper
+
+  rule ECB = 
+    if prev then
+      yield "prev"
+    if next then
+      yield "next"
+    else
+      yield ""
+
+  rule prev = 
+    wait Drie
+    yield true
+    yield true
+    yield false
+    wait not Drie
+
+  rule next = 
+    wait Vier
+    yield true
+    yield true
+    yield false
+    wait not Vier
+
+  Create(joystickName : string) = 
+  {
+    Base = SixenseHand.Instantiate(joystickName)
+    JoystickName = joystickName
+    next = false
+    other = false
+    prev = false
+    ECB = ""
   }
 }
 
@@ -149,6 +282,7 @@ entity Gun = {
   InMagazine : int
   TypeWeapon : string
   GunPower : float 
+  GunNumber : int
 
   rule Shoot, InMagazine = 
    wait GunController.Shot
@@ -177,6 +311,7 @@ entity Gun = {
         yield false, NotInMagazine - changed, MagazineSize // fill clip completely
 
   rule MagazineGUI = 
+    //Debug.Log("GunNumber = "+GunNumber)
     yield ""
 
   rule InMag, NotInMag = 
@@ -184,12 +319,10 @@ entity Gun = {
 
   rule Reloading = 
     if Input.GetKey(KeyCode.C) then
-      let a = Position
-      let b = Rotation
       yield false
 
   rule GunForce =
-    Debug.Log(GunForce)
+    //Debug.Log(GunForce)
     yield GunPower 
     wait false
 
@@ -215,6 +348,7 @@ entity Gun = {
     Automatic = autom
     DamagePerBullet = DamageList.[ind]
     GunPower = GunPowerList.[ind]
+    GunNumber = ind
   }
 }
 
@@ -271,59 +405,6 @@ entity GroupZombie = {
     ZombieLeader = None
   }
 }
-
-entity ControllerRazor= {
-  inherit SixenseHand
-  other : bool
-  next : bool
-  prev : bool
-  JoystickName : string
-  ECB : string
-  
-  rule Shot = 
-    if (Trigger || Input.GetMouseButtonDown(0)) then
-      yield true
-    else
-      yield false
-
-  rule Trigger =
-    yield Trigger
-
-  rule Bumper =
-    yield Bumper
-
-  rule ECB = 
-    wait prev || next
-    if prev then
-      yield "prev"
-    if next then
-      yield "next"
-
-  rule prev = 
-    wait Drie
-    yield true
-    yield true
-    yield false
-    wait not Drie
-
-  rule next = 
-    wait Vier
-    yield true
-    yield true
-    yield false
-    wait not Vier
-
-  Create(joystickName : string) = 
-  {
-    Base = SixenseHand.Instantiate(joystickName)
-    JoystickName = joystickName
-    next = false
-    other = false
-    prev = false
-    ECB = ""
-  }
-}
-
 
 entity Light = {
   LightController : ControllerRazor

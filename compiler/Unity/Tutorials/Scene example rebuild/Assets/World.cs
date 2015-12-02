@@ -440,12 +440,18 @@ public Equipment(List<System.Int32> bulls, System.Int32 flashs)
 		NotActiveGuns = (
 
 Enumerable.Empty<Gun>()).ToList<Gun>();
+		GunControllerPressed = (new Nothing<Gun>());
+		AllGuns = (
+
+Enumerable.Empty<Gun>()).ToList<Gun>();
 		ActiveGuns = (
 
 Enumerable.Empty<Gun>()).ToList<Gun>();
 		
 }
 		public List<Gun> ActiveGuns;
+	public List<Gun> AllGuns;
+	public Option<Gun> GunControllerPressed;
 	public System.Collections.Generic.List<System.String> HL{  get { return UnityEquipment.HL; }
   set{UnityEquipment.HL = value; }
  }
@@ -481,17 +487,44 @@ Enumerable.Empty<Gun>()).ToList<Gun>();
 	public System.Boolean useGUILayout{  get { return UnityEquipment.useGUILayout; }
   set{UnityEquipment.useGUILayout = value; }
  }
-	public ControllerRazor ___pl00;
-	public List<Gun> ___AG00;
+	public List<ControllerRazor> ___pl00;
+	public List<System.String> ___j00;
+	public List<Gun> ___x00;
+	public List<Gun> ___y00;
 	public List<Gun> ___NAG00;
+	public List<Gun> ___AG00;
+	public List<Gun> ___NotAG00;
+	public List<ControllerRazor> ___pl11;
+	public List<System.String> ___j11;
+	public List<Gun> ___x11;
+	public List<Gun> ___y11;
+	public List<Gun> ___z11;
+	public List<Gun> ___q20;
+	public System.String ___jsn30;
+	public System.String ___oper30;
+	public System.Int32 ___numg30;
+	public List<Gun> ___j32;
+	public List<System.Int32> ___w30;
+	public System.Int32 ___aw30;
+	public System.Int32 ___bw30;
+	public List<System.Int32> ___q31;
+	public System.Int32 ___nextGunNumber30;
+	public List<Gun> ___t30;
+	public List<Gun> ___z32;
+	public List<Gun> ___r40;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		for(int x0 = 0; x0 < ActiveGuns.Count; x0++) { 
 			ActiveGuns[x0].Update(dt, world);
 		}
+if(GunControllerPressed.IsSome){ 		GunControllerPressed.Value.Update(dt, world);
+ } 
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
+		this.Rule3(dt, world);
+		this.Rule4(dt, world);
 	}
 
 
@@ -504,16 +537,30 @@ frame = World.frame;
 	{
 
 	case -1:
-	___pl00 = world.Players.Head().Controllers.Head();
+	___pl00 = world.Players.Head().Controllers;
+	___j00 = (
+
+(new Cons<System.String>(TransformHR.name,(new Cons<System.String>(TransformHL.name,(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
+	___x00 = (
+
+(Enumerable.Range(0,(1) + (((HR.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol43 => new { ___a07 = __ContextSymbol43 })
+.Select(__ContextSymbol44 => new Gun(__ContextSymbol44.___a07,___pl00.Head(),___j00.Head()))
+.ToList<Gun>()).ToList<Gun>();
+	___y00 = (
+
+(Enumerable.Range(0,(1) + (((HR.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol45 => new { ___a08 = __ContextSymbol45 })
+.Select(__ContextSymbol46 => new Gun(__ContextSymbol46.___a08,___pl00[1],___j00[1]))
+.ToList<Gun>()).ToList<Gun>();
+	___NAG00 = (___x00).Concat(___y00).ToList<Gun>();
 	___AG00 = (
 
-(Enumerable.Range(0,(1) + ((0) - (0))).ToList<System.Int32>()).Select(__ContextSymbol40 => new { ___a07 = __ContextSymbol40 })
-.Select(__ContextSymbol41 => new Gun(__ContextSymbol41.___a07,___pl00,TransformHR.name))
-.ToList<Gun>()).ToList<Gun>();
-	___NAG00 = (
+(new Cons<Gun>(___NAG00[0],(new Cons<Gun>(___NAG00[(HR.Count) + (1)],(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();
+	UnityEngine.Debug.Log(___AG00.Count);
+	___NotAG00 = (
 
-(Enumerable.Range(1,(1) + (((HR.Count) - (1)) - (1))).ToList<System.Int32>()).Select(__ContextSymbol42 => new { ___a08 = __ContextSymbol42 })
-.Select(__ContextSymbol43 => new Gun(__ContextSymbol43.___a08,___pl00,TransformHR.name))
+(___NAG00).Select(__ContextSymbol48 => new { ___a09 = __ContextSymbol48 })
+.Where(__ContextSymbol49 => !(___AG00.Contains(__ContextSymbol49.___a09)))
+.Select(__ContextSymbol50 => __ContextSymbol50.___a09)
 .ToList<Gun>()).ToList<Gun>();
 	ActiveGuns = ___AG00;
 	NotActiveGuns = ___NAG00;
@@ -537,6 +584,443 @@ return;	}
 	default: return;}}
 	
 
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	___pl11 = world.Players.Head().Controllers;
+	___j11 = (
+
+(new Cons<System.String>(TransformHR.name,(new Cons<System.String>(TransformHL.name,(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
+	___x11 = (
+
+(Enumerable.Range(0,(1) + (((HR.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol52 => new { ___a110 = __ContextSymbol52 })
+.Select(__ContextSymbol53 => new Gun(__ContextSymbol53.___a110,___pl11.Head(),___j11.Head()))
+.ToList<Gun>()).ToList<Gun>();
+	___y11 = (
+
+(Enumerable.Range(0,(1) + (((HR.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol54 => new { ___a111 = __ContextSymbol54 })
+.Select(__ContextSymbol55 => new Gun(__ContextSymbol55.___a111,___pl11[1],___j11[1]))
+.ToList<Gun>()).ToList<Gun>();
+	___z11 = (___x11).Concat(___y11).ToList<Gun>();
+	AllGuns = ___z11;
+	s1 = 1;
+return;
+	case 1:
+	AllGuns = AllGuns;
+	s1 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s1 = 0;
+return;	}else
+	{
+
+	s1 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	___q20 = (
+
+(ActiveGuns).Select(__ContextSymbol56 => new { ___a212 = __ContextSymbol56 })
+.Where(__ContextSymbol57 => !(((__ContextSymbol57.___a212.GunController.ECB) == (""))))
+.Select(__ContextSymbol58 => __ContextSymbol58.___a212)
+.ToList<Gun>()).ToList<Gun>();
+	if(((___q20.Count) > (0)))
+	{
+
+	goto case 8;	}else
+	{
+
+	goto case 9;	}
+	case 8:
+	GunControllerPressed = (new Just<Gun>(___q20.Head()));
+	s2 = -1;
+return;
+	case 9:
+	GunControllerPressed = (new Nothing<Gun>());
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(!(GunControllerPressed.IsSome))
+	{
+
+	s3 = -1;
+return;	}else
+	{
+
+	goto case 20;	}
+	case 20:
+	___jsn30 = GunControllerPressed.Value.GunController.JoystickName;
+	___oper30 = GunControllerPressed.Value.GunController.ECB;
+	___numg30 = GunControllerPressed.Value.GunNumber;
+	if(((___oper30) == ("next")))
+	{
+
+	goto case 1;	}else
+	{
+
+	s3 = -1;
+return;	}
+	case 1:
+	UnityEngine.Debug.Log("next");
+	___j32 = (
+
+(AllGuns).Select(__ContextSymbol59 => new { ___a313 = __ContextSymbol59 })
+.Where(__ContextSymbol60 => ((__ContextSymbol60.___a313.GunController.JoystickName) == (___jsn30)))
+.Select(__ContextSymbol61 => __ContextSymbol61.___a313)
+.ToList<Gun>()).ToList<Gun>();
+	___w30 = (
+
+(ActiveGuns).Select(__ContextSymbol62 => new { ___a314 = __ContextSymbol62 })
+.Select(__ContextSymbol63 => __ContextSymbol63.___a314.GunNumber)
+.ToList<System.Int32>()).ToList<System.Int32>();
+	___aw30 = ___w30.Head();
+	___bw30 = (___w30)[1];
+	UnityEngine.Debug.Log(("left ") + (___aw30));
+	UnityEngine.Debug.Log(("right ") + (___bw30));
+	___q31 = (
+
+(Enumerable.Range(0,(1) + (((___j32.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol64 => new { ___a315 = __ContextSymbol64 })
+.Where(__ContextSymbol65 => !(___w30.Contains(__ContextSymbol65.___a315)))
+.Select(__ContextSymbol66 => __ContextSymbol66.___a315)
+.ToList<System.Int32>()).ToList<System.Int32>();
+	___nextGunNumber30 = ((((___numg30) + (1))) % (5));
+	___t30 = (
+
+(___j32).Select(__ContextSymbol67 => new { ___a316 = __ContextSymbol67 })
+.Where(__ContextSymbol68 => ((__ContextSymbol68.___a316.GunNumber) == (___nextGunNumber30)))
+.Select(__ContextSymbol69 => __ContextSymbol69.___a316)
+.ToList<Gun>()).ToList<Gun>();
+	___z32 = (
+
+(ActiveGuns).Select(__ContextSymbol70 => new { ___a317 = __ContextSymbol70 })
+.Where(__ContextSymbol71 => ((__ContextSymbol71.___a317.GunController.ECB) == ("")))
+.Select(__ContextSymbol72 => __ContextSymbol72.___a317)
+.ToList<Gun>()).ToList<Gun>();
+	if(((___jsn30) == (TransformHR.name)))
+	{
+
+	goto case 2;	}else
+	{
+
+	goto case 3;	}
+	case 2:
+	ActiveGuns = (
+
+(new Cons<Gun>(___t30.Head(),(new Cons<Gun>(___z32.Head(),(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();
+	s3 = -1;
+return;
+	case 3:
+	ActiveGuns = (
+
+(new Cons<Gun>(___z32.Head(),(new Cons<Gun>(___t30.Head(),(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();
+	s3 = -1;
+return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	if(!(GunControllerPressed.IsSome))
+	{
+
+	s4 = -1;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	___r40 = (
+
+(AllGuns).Select(__ContextSymbol75 => new { ___a418 = __ContextSymbol75 })
+.Where(__ContextSymbol76 => !(ActiveGuns.Contains(__ContextSymbol76.___a418)))
+.Select(__ContextSymbol77 => __ContextSymbol77.___a418)
+.ToList<Gun>()).ToList<Gun>();
+	NotActiveGuns = ___r40;
+	s4 = -1;
+return;	
+	default: return;}}
+	
+
+
+
+
+
+}
+public class ControllerRazor{
+public int frame;
+public bool JustEntered = true;
+private System.String joystickName;
+	public int ID;
+public ControllerRazor(System.String joystickName)
+	{JustEntered = false;
+ frame = World.frame;
+		prev = false;
+		other = false;
+		next = false;
+		SixenseHand = SixenseHand.Instantiate(joystickName);
+		JoystickName = joystickName;
+		ECB = "";
+		
+}
+		public System.Boolean Bumper{  get { return SixenseHand.Bumper; }
+  set{SixenseHand.Bumper = value; }
+ }
+	public System.Boolean Drie{  get { return SixenseHand.Drie; }
+ }
+	public System.String ECB;
+	public UnityEngine.Vector3 Forward{  get { return SixenseHand.Forward; }
+ }
+	public SixenseHands Hand{  get { return SixenseHand.Hand; }
+ }
+	public UnityEngine.Vector3 InitialPosition{  get { return SixenseHand.InitialPosition; }
+ }
+	public UnityEngine.Quaternion InitialRotation{  get { return SixenseHand.InitialRotation; }
+ }
+	public System.String JoystickName;
+	public UnityEngine.Vector3 Position{  get { return SixenseHand.Position; }
+ }
+	public System.Boolean RaycastBool{  get { return SixenseHand.RaycastBool; }
+ }
+	public System.Boolean Shot{  get { return SixenseHand.Shot; }
+  set{SixenseHand.Shot = value; }
+ }
+	public SixenseHand SixenseHand;
+	public System.Boolean Trigger{  get { return SixenseHand.Trigger; }
+  set{SixenseHand.Trigger = value; }
+ }
+	public System.Boolean Vier{  get { return SixenseHand.Vier; }
+ }
+	public System.Boolean enabled{  get { return SixenseHand.enabled; }
+  set{SixenseHand.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return SixenseHand.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return SixenseHand.hideFlags; }
+  set{SixenseHand.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return SixenseHand.isActiveAndEnabled; }
+ }
+	public Controller m_controller{  get { return SixenseHand.m_controller; }
+  set{SixenseHand.m_controller = value; }
+ }
+	public SixenseHands m_hand{  get { return SixenseHand.m_hand; }
+  set{SixenseHand.m_hand = value; }
+ }
+	public System.String name{  get { return SixenseHand.name; }
+  set{SixenseHand.name = value; }
+ }
+	public System.Boolean next;
+	public System.Boolean other;
+	public System.Boolean prev;
+	public System.String tag{  get { return SixenseHand.tag; }
+  set{SixenseHand.tag = value; }
+ }
+	public UnityEngine.Transform transform{  get { return SixenseHand.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return SixenseHand.useGUILayout; }
+  set{SixenseHand.useGUILayout = value; }
+ }
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
+		this.Rule2(dt, world);
+		this.Rule3(dt, world);
+		this.Rule4(dt, world);
+		this.Rule5(dt, world);
+	}
+
+
+
+
+
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	if(!(Vier))
+	{
+
+	s0 = -1;
+return;	}else
+	{
+
+	goto case 3;	}
+	case 3:
+	next = true;
+	s0 = 2;
+return;
+	case 2:
+	next = true;
+	s0 = 1;
+return;
+	case 1:
+	next = false;
+	s0 = 0;
+return;
+	case 0:
+	if(!(!(Vier)))
+	{
+
+	s0 = 0;
+return;	}else
+	{
+
+	s0 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	if(!(Drie))
+	{
+
+	s1 = -1;
+return;	}else
+	{
+
+	goto case 3;	}
+	case 3:
+	prev = true;
+	s1 = 2;
+return;
+	case 2:
+	prev = true;
+	s1 = 1;
+return;
+	case 1:
+	prev = false;
+	s1 = 0;
+return;
+	case 0:
+	if(!(!(Drie)))
+	{
+
+	s1 = 0;
+return;	}else
+	{
+
+	s1 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	if(prev)
+	{
+
+	goto case 11;	}else
+	{
+
+	goto case 7;	}
+	case 11:
+	ECB = "prev";
+	s2 = 7;
+return;
+	case 7:
+	if(next)
+	{
+
+	goto case 5;	}else
+	{
+
+	goto case 6;	}
+	case 5:
+	ECB = "next";
+	s2 = -1;
+return;
+	case 6:
+	ECB = "";
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	Bumper = Bumper;
+	s3 = -1;
+return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	Trigger = Trigger;
+	s4 = -1;
+return;	
+	default: return;}}
+	
+
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
+	{
+
+	case -1:
+	if(((Trigger) || (UnityEngine.Input.GetMouseButtonDown(0))))
+	{
+
+	goto case 1;	}else
+	{
+
+	goto case 2;	}
+	case 1:
+	Shot = true;
+	s5 = -1;
+return;
+	case 2:
+	Shot = false;
+	s5 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -599,6 +1083,7 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr)
 		MagazineSize = ___ClipSizeList00[ind];
 		InMagazine = ___InMagList00[ind];
 		GunPower = ___GunPowerList00[ind];
+		GunNumber = ind;
 		GunController = GC;
 		DamagePerBullet = ___DamageList00[ind];
 		Automatic = ___autom00;
@@ -610,6 +1095,7 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr)
 	public System.Single GunForce{  get { return UnityGun.GunForce; }
   set{UnityGun.GunForce = value; }
  }
+	public System.Int32 GunNumber;
 	public System.Single GunPower;
 	public System.Int32 InMag{  get { return UnityGun.InMag; }
   set{UnityGun.InMag = value; }
@@ -660,8 +1146,6 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr)
 	public System.Boolean useGUILayout{  get { return UnityGun.useGUILayout; }
   set{UnityGun.useGUILayout = value; }
  }
-	public UnityEngine.Vector3 ___a19;
-	public UnityEngine.Vector3 ___b13;
 	public System.Single count_down1;
 	public System.Int32 ___changed40;
 	public System.Single count_down2;
@@ -688,7 +1172,6 @@ frame = World.frame;
 	{
 
 	case -1:
-	UnityEngine.Debug.Log(GunForce);
 	GunForce = GunPower;
 	s0 = 0;
 return;
@@ -714,14 +1197,12 @@ return;	}
 	if(UnityEngine.Input.GetKey(KeyCode.C))
 	{
 
-	goto case 4;	}else
+	goto case 3;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 4:
-	___a19 = Position;
-	___b13 = Rotation;
+	case 3:
 	Reloading = false;
 	s1 = -1;
 return;	
@@ -1103,7 +1584,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Boolean useGUILayout{  get { return UnityGroup.useGUILayout; }
   set{UnityGroup.useGUILayout = value; }
  }
-	public List<Zombie> ___z01;
+	public List<Zombie> ___z03;
 	public Zombie ___leader10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -1127,12 +1608,12 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	{
 
 	case -1:
-	___z01 = (
+	___z03 = (
 
-(U_Zombies).Select(__ContextSymbol53 => new { ___a010 = __ContextSymbol53 })
-.Select(__ContextSymbol54 => new Zombie(__ContextSymbol54.___a010))
+(U_Zombies).Select(__ContextSymbol87 => new { ___a019 = __ContextSymbol87 })
+.Select(__ContextSymbol88 => new Zombie(__ContextSymbol88.___a019))
 .ToList<Zombie>()).ToList<Zombie>();
-	ZombieFollowers = ___z01;
+	ZombieFollowers = ___z03;
 	s0 = 1;
 return;
 	case 1:
@@ -1178,268 +1659,6 @@ return;	}else
 
 	s1 = -1;
 return;	}	
-	default: return;}}
-	
-
-
-
-
-
-}
-public class ControllerRazor{
-public int frame;
-public bool JustEntered = true;
-private System.String joystickName;
-	public int ID;
-public ControllerRazor(System.String joystickName)
-	{JustEntered = false;
- frame = World.frame;
-		prev = false;
-		other = false;
-		next = false;
-		SixenseHand = SixenseHand.Instantiate(joystickName);
-		JoystickName = joystickName;
-		ECB = "";
-		
-}
-		public System.Boolean Bumper{  get { return SixenseHand.Bumper; }
-  set{SixenseHand.Bumper = value; }
- }
-	public System.Boolean Drie{  get { return SixenseHand.Drie; }
- }
-	public System.String ECB;
-	public UnityEngine.Vector3 Forward{  get { return SixenseHand.Forward; }
- }
-	public SixenseHands Hand{  get { return SixenseHand.Hand; }
- }
-	public UnityEngine.Vector3 InitialPosition{  get { return SixenseHand.InitialPosition; }
- }
-	public UnityEngine.Quaternion InitialRotation{  get { return SixenseHand.InitialRotation; }
- }
-	public System.String JoystickName;
-	public UnityEngine.Vector3 Position{  get { return SixenseHand.Position; }
- }
-	public System.Boolean RaycastBool{  get { return SixenseHand.RaycastBool; }
- }
-	public System.Boolean Shot{  get { return SixenseHand.Shot; }
-  set{SixenseHand.Shot = value; }
- }
-	public SixenseHand SixenseHand;
-	public System.Boolean Trigger{  get { return SixenseHand.Trigger; }
-  set{SixenseHand.Trigger = value; }
- }
-	public System.Boolean Vier{  get { return SixenseHand.Vier; }
- }
-	public System.Boolean enabled{  get { return SixenseHand.enabled; }
-  set{SixenseHand.enabled = value; }
- }
-	public UnityEngine.GameObject gameObject{  get { return SixenseHand.gameObject; }
- }
-	public UnityEngine.HideFlags hideFlags{  get { return SixenseHand.hideFlags; }
-  set{SixenseHand.hideFlags = value; }
- }
-	public System.Boolean isActiveAndEnabled{  get { return SixenseHand.isActiveAndEnabled; }
- }
-	public Controller m_controller{  get { return SixenseHand.m_controller; }
-  set{SixenseHand.m_controller = value; }
- }
-	public SixenseHands m_hand{  get { return SixenseHand.m_hand; }
-  set{SixenseHand.m_hand = value; }
- }
-	public System.String name{  get { return SixenseHand.name; }
-  set{SixenseHand.name = value; }
- }
-	public System.Boolean next;
-	public System.Boolean other;
-	public System.Boolean prev;
-	public System.String tag{  get { return SixenseHand.tag; }
-  set{SixenseHand.tag = value; }
- }
-	public UnityEngine.Transform transform{  get { return SixenseHand.transform; }
- }
-	public System.Boolean useGUILayout{  get { return SixenseHand.useGUILayout; }
-  set{SixenseHand.useGUILayout = value; }
- }
-	public void Update(float dt, World world) {
-frame = World.frame;
-
-		this.Rule0(dt, world);
-		this.Rule1(dt, world);
-		this.Rule2(dt, world);
-		this.Rule3(dt, world);
-		this.Rule4(dt, world);
-		this.Rule5(dt, world);
-	}
-
-
-
-
-
-	int s0=-1;
-	public void Rule0(float dt, World world){ 
-	switch (s0)
-	{
-
-	case -1:
-	if(!(Vier))
-	{
-
-	s0 = -1;
-return;	}else
-	{
-
-	goto case 3;	}
-	case 3:
-	next = true;
-	s0 = 2;
-return;
-	case 2:
-	next = true;
-	s0 = 1;
-return;
-	case 1:
-	next = false;
-	s0 = 0;
-return;
-	case 0:
-	if(!(!(Vier)))
-	{
-
-	s0 = 0;
-return;	}else
-	{
-
-	s0 = -1;
-return;	}	
-	default: return;}}
-	
-
-	int s1=-1;
-	public void Rule1(float dt, World world){ 
-	switch (s1)
-	{
-
-	case -1:
-	if(!(Drie))
-	{
-
-	s1 = -1;
-return;	}else
-	{
-
-	goto case 3;	}
-	case 3:
-	prev = true;
-	s1 = 2;
-return;
-	case 2:
-	prev = true;
-	s1 = 1;
-return;
-	case 1:
-	prev = false;
-	s1 = 0;
-return;
-	case 0:
-	if(!(!(Drie)))
-	{
-
-	s1 = 0;
-return;	}else
-	{
-
-	s1 = -1;
-return;	}	
-	default: return;}}
-	
-
-	int s2=-1;
-	public void Rule2(float dt, World world){ 
-	switch (s2)
-	{
-
-	case -1:
-	if(!(((prev) || (next))))
-	{
-
-	s2 = -1;
-return;	}else
-	{
-
-	goto case 3;	}
-	case 3:
-	if(prev)
-	{
-
-	goto case 4;	}else
-	{
-
-	goto case 0;	}
-	case 4:
-	ECB = "prev";
-	s2 = 0;
-return;
-	case 0:
-	if(next)
-	{
-
-	goto case 1;	}else
-	{
-
-	s2 = -1;
-return;	}
-	case 1:
-	ECB = "next";
-	s2 = -1;
-return;	
-	default: return;}}
-	
-
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
-	{
-
-	case -1:
-	Bumper = Bumper;
-	s3 = -1;
-return;	
-	default: return;}}
-	
-
-	int s4=-1;
-	public void Rule4(float dt, World world){ 
-	switch (s4)
-	{
-
-	case -1:
-	Trigger = Trigger;
-	s4 = -1;
-return;	
-	default: return;}}
-	
-
-	int s5=-1;
-	public void Rule5(float dt, World world){ 
-	switch (s5)
-	{
-
-	case -1:
-	if(((Trigger) || (UnityEngine.Input.GetMouseButtonDown(0))))
-	{
-
-	goto case 1;	}else
-	{
-
-	goto case 2;	}
-	case 1:
-	Shot = true;
-	s5 = -1;
-return;
-	case 2:
-	Shot = false;
-	s5 = -1;
-return;	
 	default: return;}}
 	
 
@@ -1729,8 +1948,8 @@ frame = World.frame;
 	case -1:
 	___sps00 = (
 
-(Spawnpoints2).Select(__ContextSymbol62 => new { ___a011 = __ContextSymbol62 })
-.Select(__ContextSymbol63 => __ContextSymbol63.___a011)
+(Spawnpoints2).Select(__ContextSymbol96 => new { ___a020 = __ContextSymbol96 })
+.Select(__ContextSymbol97 => __ContextSymbol97.___a020)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	Spawnpoints = ___sps00;
 	s0 = 0;
@@ -1948,8 +2167,8 @@ return;	}else
 	___Slist10 = Shuffled;
 	___BAR10 = (
 
-(Enumerable.Range(0,(1) + ((3) - (0))).ToList<System.Int32>()).Select(__ContextSymbol74 => new { ___a112 = __ContextSymbol74 })
-.Select(__ContextSymbol75 => new BonusAndResource(___plist10[__ContextSymbol75.___a112],___Slist10[__ContextSymbol75.___a112]))
+(Enumerable.Range(0,(1) + ((3) - (0))).ToList<System.Int32>()).Select(__ContextSymbol108 => new { ___a121 = __ContextSymbol108 })
+.Select(__ContextSymbol109 => new BonusAndResource(___plist10[__ContextSymbol109.___a121],___Slist10[__ContextSymbol109.___a121]))
 .ToList<BonusAndResource>()).ToList<BonusAndResource>();
 	BonusAndResources = ___BAR10;
 	s1 = 0;
@@ -1975,9 +2194,9 @@ return;	}
 	case -1:
 	___amount20 = (
 
-(BonusAndResources).Select(__ContextSymbol76 => new { ___a213 = __ContextSymbol76 })
-.Where(__ContextSymbol77 => ((__ContextSymbol77.___a213.Destroyed) == (false)))
-.Select(__ContextSymbol78 => __ContextSymbol78.___a213)
+(BonusAndResources).Select(__ContextSymbol110 => new { ___a222 = __ContextSymbol110 })
+.Where(__ContextSymbol111 => ((__ContextSymbol111.___a222.Destroyed) == (false)))
+.Select(__ContextSymbol112 => __ContextSymbol112.___a222)
 .ToList<BonusAndResource>()).ToList<BonusAndResource>();
 	BonusAndResources = ___amount20;
 	s2 = -1;
@@ -2139,7 +2358,7 @@ public TruckStats(System.Boolean bs, List<System.Int32> sts)
 	public List<System.Int32> NotInMagazine;
 	public List<System.Int32> TypeWeapon;
 	public System.Boolean isModel;
-	public System.Single ___z02;
+	public System.Single ___z04;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -2167,8 +2386,8 @@ frame = World.frame;
 	s0 = -1;
 return;	}
 	case 7:
-	___z02 = world.Jeep.Value.CarHP2;
-	if(!(((___z02) == (((Health) / (100f))))))
+	___z04 = world.Jeep.Value.CarHP2;
+	if(!(((___z04) == (((Health) / (100f))))))
 	{
 
 	goto case 8;	}else
@@ -3040,4 +3259,4 @@ return;
 
 
 }
-}      
+}                       
