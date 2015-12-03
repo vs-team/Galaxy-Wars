@@ -133,7 +133,6 @@ entity Equipment = {
     let oper = GunControllerPressed.Value.GunController.ECB
     let numg = GunControllerPressed.Value.GunNumber
     if oper = "next" then
-      Debug.Log("next")
       let j = // guns that are of the specific controller that wants to change
         [for a in AllGuns do
          where (a.GunController.JoystickName = jsn)
@@ -141,27 +140,38 @@ entity Equipment = {
       let w = //GunNumbers that are active
         [for a in ActiveGuns do
          select (a.GunNumber)]
-      let aw = w.Head
-      let bw = w.[1]
-      Debug.Log("left "+aw)
-      Debug.Log("right "+bw)
       let q = //GunNumbers inactive
         [for a in [0..(j.Count - 1)] do
          where (not w.Contains(a))
          select a]
+      let z = //OldActiveGUn
+        [for a in ActiveGuns do
+         where (a.GunController.JoystickName <> jsn)
+         select a]
       let nextGunNumber = (numg + 1) % 5
-      let t = 
-        [for a in j do 
+      let ch = 
+        [for a in ActiveGuns do
          where (a.GunNumber = nextGunNumber)
          select a]
-      let z = 
-        [for a in ActiveGuns do
-         where (a.GunController.ECB = "")
-         select a]
-      if jsn = TransformHR.name then
-        yield [t.Head;z.Head] // left ; right
-      else 
-        yield [z.Head;t.Head] // left ; right
+      if ch.Count > 0 then
+        let othernumber = (numg + 2) % 5
+        let t = //newActiveGun
+          [for a in j do 
+           where (a.GunNumber = othernumber)
+           select a]
+        if jsn = TransformHR.name then
+          yield [t.Head;z.Head] // left ; right
+        else 
+          yield [z.Head;t.Head] // left ; right
+      else
+        let t = //newActiveGun
+          [for a in j do 
+           where (a.GunNumber = nextGunNumber)
+           select a]
+        if jsn = TransformHR.name then
+          yield [t.Head;z.Head]
+        else 
+          yield [z.Head;t.Head]
 
   rule GunControllerPressed = 
     let q = 
@@ -173,38 +183,23 @@ entity Equipment = {
     else
       yield None
 
-  rule AllGuns = 
+  rule ActiveGuns, NotActiveGuns, AllGuns = 
     let pl = world.Players.Head.Controllers
     let j = [TransformHR.name;TransformHL.name]
     let x = 
       [for a in [0..(HR.Count - 1)] do
        select (new Gun(a,pl.Head,j.Head))]
     let y = 
-      [for a in [0..(HR.Count - 1)] do
+      [for a in [0..(HL.Count - 1)] do
        select (new Gun(a,pl.[1],j.[1]))]
-    let z = x @ y
-    yield z
-    yield AllGuns
-    wait false
-
-  rule ActiveGuns, NotActiveGuns = 
-    let pl = world.Players.Head.Controllers
-    let j = [TransformHR.name;TransformHL.name]
-    let x = 
-      [for a in [0..(HR.Count - 1)] do
-       select (new Gun(a,pl.Head,j.Head))]
-    let y = 
-      [for a in [0..(HR.Count - 1)] do
-       select (new Gun(a,pl.[1],j.[1]))]
-    let NAG = x @ y
-    let AG = [NAG.[0];NAG.[(HR.Count + 1)]]
-    Debug.Log(AG.Count)
+    let AllGunslist = x @ y
+    let AG = [AllGunslist.[0];AllGunslist.[(HR.Count + 1)]]
     let NotAG = 
-      [for a in NAG do
+      [for a in AllGunslist do
        where (not AG.Contains(a))
        select a]
-    yield AG, NAG
-    yield ActiveGuns, NotActiveGuns
+    yield AG, NotAG, AllGunslist
+    yield ActiveGuns, NotActiveGuns, AllGuns
     wait false
 
   Create(bulls : [int], flashs : int) = 
@@ -311,7 +306,6 @@ entity Gun = {
         yield false, NotInMagazine - changed, MagazineSize // fill clip completely
 
   rule MagazineGUI = 
-    //Debug.Log("GunNumber = "+GunNumber)
     yield ""
 
   rule InMag, NotInMag = 
