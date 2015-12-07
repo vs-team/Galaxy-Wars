@@ -118,73 +118,190 @@ entity Equipment = {
   ActiveGuns : [Gun]
   ref NotActiveGuns : [Gun]
   GunControllerPressed : Option<Gun>
+  ActiveFlashs : [Light]
+  ref NotActiveFlashs : [Light]
+  ref AllFlashs : [Light]
+  LightControllerPressed : Option<Light>
 
-  rule NotActiveGuns = 
-    wait GunControllerPressed.IsSome
+  rule NotActiveFlashs, sap = 
+    wait GunControllerPressed.IsSome || LightControllerPressed.IsSome
+    let j = 
+      [for a in AllFlashs do
+       where (not ActiveFlashs.Contains(a))
+       select a]
+    let rig = 
+      [for a in ActiveFlashs do
+       where (a.LightController.JoystickName <> "Hydra1 - Left")
+       select a]
+    let right = if rig.Count > 0 then true else false
+    let lef = 
+      [for a in ActiveFlashs do
+       where (a.LightController.JoystickName <> "Hydra1 - Right")
+       select a]
+    let left = if lef.Count > 0 then true else false
+    yield j, [right;left]
+
+  rule NotActiveGuns, asdf = 
+    wait GunControllerPressed.IsSome || LightControllerPressed.IsSome
     let r = 
       [for a in AllGuns do
        where (not ActiveGuns.Contains(a))
        select a]
-    yield r
+    let fdsa = 
+      [for a in r do
+       select ("Nummer:" + a.GunNumber + " Controller:" + a.GunController.JoystickName)]
+    yield r, fdsa
 
-  rule ActiveGuns = 
-    wait GunControllerPressed.IsSome
-    let jsn = GunControllerPressed.Value.GunController.JoystickName
-    let oper = GunControllerPressed.Value.GunController.ECB
-    let numg = GunControllerPressed.Value.GunNumber
-    if oper = "next" then
-      let j = // guns that are of the specific controller that wants to change
+  rule ActiveGuns, ActiveFlashs = 
+    wait GunControllerPressed.IsSome || LightControllerPressed.IsSome
+    let Joystickname = if (GunControllerPressed.IsSome) then GunControllerPressed.Value.GunController.JoystickName else LightControllerPressed.Value.LightController.JoystickName
+    let Operation = if (GunControllerPressed.IsSome) then GunControllerPressed.Value.GunController.ECB else LightControllerPressed.Value.LightController.ECB
+    let GunNumber = if (GunControllerPressed.IsSome) then GunControllerPressed.Value.GunNumber else 0
+    let OldActiveGun = 
+      [for a in ActiveGuns do
+       where (a.GunController.JoystickName <> Joystickname)
+       select a]
+    let OldActiveFlash = 
+      [for a in ActiveFlashs do
+       where (a.LightController.JoystickName <> Joystickname)
+       select a]
+    if GunControllerPressed.IsSome then
+      let changingjoystick = 
         [for a in AllGuns do
-         where (a.GunController.JoystickName = jsn)
-         select a]
-      let w = //GunNumbers that are active
-        [for a in ActiveGuns do
-         select (a.GunNumber)]
-      let q = //GunNumbers inactive
-        [for a in [0..(j.Count - 1)] do
-         where (not w.Contains(a))
-         select a]
-      let z = //OldActiveGUn
-        [for a in ActiveGuns do
-         where (a.GunController.JoystickName <> jsn)
-         select a]
-      let nextGunNumber = (numg + 1) % 5
-      let ch = 
-        [for a in ActiveGuns do
-         where (a.GunNumber = nextGunNumber)
-         select a]
-      if ch.Count > 0 then
-        let othernumber = (numg + 2) % 5
-        let t = //newActiveGun
-          [for a in j do 
-           where (a.GunNumber = othernumber)
+        where (a.GunController.JoystickName = Joystickname)
+        select a]
+      let Listsize = changingjoystick.Count
+      
+      if Operation = "other" then
+        let changingLight = 
+          [for a in AllFlashs do
+           where (a.LightController.JoystickName = Joystickname)
            select a]
-        if jsn = TransformHR.name then
-          yield [t.Head;z.Head] // left ; right
-        else 
-          yield [z.Head;t.Head] // left ; right
-      else
-        let t = //newActiveGun
-          [for a in j do 
+        if OldActiveFlash.Count > 0 then
+          Debug.Log("Max 1 flashlight allowed")
+          yield ActiveGuns, [OldActiveFlash.Head]
+        else
+          let NewActiveFlash = changingLight.Head
+          yield OldActiveGun, [NewActiveFlash]
+
+      if Operation = "next" then
+        let nextGunNumber = (GunNumber + 1) % Listsize
+        let check = 
+          [for a in ActiveGuns do
            where (a.GunNumber = nextGunNumber)
            select a]
-        if jsn = TransformHR.name then
-          yield [t.Head;z.Head]
-        else 
-          yield [z.Head;t.Head]
+        if check.Count > 0 then
+          let othernumber = (GunNumber + 2) % Listsize
+          let newActiveGun = //newActiveGun
+            [for a in changingjoystick do 
+             where (a.GunNumber = othernumber)
+             select a]
+          if Joystickname = TransformHR.name then
+            if OldActiveGun.Count > 0 then
+              yield [newActiveGun.Head;OldActiveGun.Head], ActiveFlashs
+            else
+              yield [newActiveGun.Head], ActiveFlashs
+          else 
+            if OldActiveGun.Count > 0 then
+              yield [OldActiveGun.Head;newActiveGun.Head], ActiveFlashs
+            else
+              yield [newActiveGun.Head], ActiveFlashs
+        else
+          let newActiveGun = //newActiveGun
+            [for a in changingjoystick do 
+             where (a.GunNumber = nextGunNumber)
+             select a]
+          if Joystickname = TransformHR.name then
+            if OldActiveGun.Count > 0 then
+              yield [newActiveGun.Head;OldActiveGun.Head], ActiveFlashs
+            else
+              yield [newActiveGun.Head], ActiveFlashs
+          else 
+            if OldActiveGun.Count > 0 then
+              yield [OldActiveGun.Head;newActiveGun.Head], ActiveFlashs
+            else
+              yield [newActiveGun.Head], ActiveFlashs
 
-  rule GunControllerPressed = 
+      if Operation = "prev" then
+        let prevGunNumber = ((GunNumber + Listsize) - 1) % Listsize
+        let check = 
+          [for a in ActiveGuns do
+           where (a.GunNumber = prevGunNumber)
+           select a]
+        if check.Count > 0 then
+          let othernumber = ((GunNumber + Listsize) - 2) % Listsize
+          let newActiveGun = 
+            [for a in changingjoystick do 
+             where (a.GunNumber = othernumber)
+             select a]
+          if Joystickname = TransformHR.name then
+            if OldActiveGun.Count > 0 then
+              yield [newActiveGun.Head;OldActiveGun.Head], ActiveFlashs
+            else
+              yield [newActiveGun.Head], ActiveFlashs
+          else 
+            if OldActiveGun.Count > 0 then
+              yield [OldActiveGun.Head;newActiveGun.Head], ActiveFlashs
+            else
+              yield [newActiveGun.Head], ActiveFlashs
+        else
+          let newActiveGun = 
+            [for a in changingjoystick do 
+             where (a.GunNumber = prevGunNumber)
+             select a]
+          if Joystickname = TransformHR.name then
+            if OldActiveGun.Count > 0 then
+              yield [newActiveGun.Head;OldActiveGun.Head], ActiveFlashs
+            else
+              yield [newActiveGun.Head], ActiveFlashs
+          else 
+            if OldActiveGun.Count > 0 then
+              yield [OldActiveGun.Head;newActiveGun.Head], ActiveFlashs
+            else
+              yield [newActiveGun.Head], ActiveFlashs
+
+    if LightControllerPressed.IsSome then
+      let changingjoystick = 
+        [for a in AllFlashs do
+        where (a.LightController.JoystickName = Joystickname)
+        select a]
+      let currActiveGunNumber = 
+        [for a in ActiveGuns do
+         select a.GunNumber]
+      if currActiveGunNumber.Count > 0 then
+        let newActiveGun = 
+          [for a in NotActiveGuns do
+           where ((a.GunController.JoystickName = Joystickname) && a.GunNumber <> currActiveGunNumber.Head)
+           select a]
+        yield [OldActiveGun.Head;newActiveGun.Head], []
+      else 
+        let NAG = 
+          [for a in NotActiveGuns do
+           where (a.GunController.JoystickName = Joystickname)
+           select a]
+        yield [NAG.Head], [OldActiveFlash.Head]
+
+  rule GunControllerPressed, LightControllerPressed = 
     let q = 
       [for a in ActiveGuns do
        where (a.GunController.ECB <> "")
        select a]
-    if q.Count > 0 then
-      yield Some q.Head
+    // Light can only change to gun. no other flashlights possible
+    let j = 
+      [for a in ActiveFlashs do
+       where (a.LightController.ECB = "other")
+       select a]
+    if q.Count > 0 && not (j.Count > 0) then
+      yield Some q.Head, None
+    if j.Count > 0 && not (q.Count > 0) then
+      yield None, Some j.Head
     else
-      yield None
+      yield None, None
 
-  rule ActiveGuns, NotActiveGuns, AllGuns = 
+  rule ActiveGuns, NotActiveGuns, AllGuns, asdf, ActiveFlashs, NotActiveFlashs, AllFlashs = // start!! gun is right, flash is left
     let pl = world.Players.Head.Controllers
+    
+    // guns
     let j = [TransformHR.name;TransformHL.name]
     let x = 
       [for a in [0..(HR.Count - 1)] do
@@ -193,13 +310,24 @@ entity Equipment = {
       [for a in [0..(HL.Count - 1)] do
        select (new Gun(a,pl.[1],j.[1]))]
     let AllGunslist = x @ y
-    let AG = [AllGunslist.[0];AllGunslist.[(HR.Count + 1)]]
+    let AG = [AllGunslist.[0]]
     let NotAG = 
       [for a in AllGunslist do
        where (not AG.Contains(a))
        select a]
-    yield AG, NotAG, AllGunslist
-    yield ActiveGuns, NotActiveGuns, AllGuns
+
+    // flashlights
+    let z = [flashL.name;flashR.name]
+    let AF = [new Light(pl.[1],z.[1])]
+    let NAF = [new Light(pl.[0],z.[0])]
+    let AllF = AF @ NAF
+
+    // yields
+    yield AG, NotAG, AllGunslist, [], AF, NAF, AllF
+    let fdsa = 
+      [for a in NotAG do
+       select ("Nummer:" + a.GunNumber + " Controller:" + a.GunController.JoystickName)]
+    yield ActiveGuns, NotActiveGuns, AllGuns, fdsa, ActiveFlashs, NotActiveFlashs, AllFlashs
     wait false
 
   Create(bulls : [int], flashs : int) = 
@@ -208,7 +336,11 @@ entity Equipment = {
     ActiveGuns = []
     NotActiveGuns = []
     GunControllerPressed = None
+    LightControllerPressed = None
     AllGuns = []
+    ActiveFlashs = []
+    NotActiveFlashs = []
+    AllFlashs = []
   }
 }
 
@@ -237,8 +369,17 @@ entity ControllerRazor= {
       yield "prev"
     if next then
       yield "next"
+    if other then
+      yield "other"
     else
       yield ""
+
+  rule other = 
+    wait Twee
+    yield true
+    yield true
+    yield false
+    wait not Twee
 
   rule prev = 
     wait Drie
@@ -420,7 +561,7 @@ entity Light = {
   rule Active =
     yield LightController.Trigger
 
-  Create(LC : ControllerRazor) = 
+  Create(LC : ControllerRazor, tr : string) = 
   {
     LightController = LC
     Battery = 100.0f
