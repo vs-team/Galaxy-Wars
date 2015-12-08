@@ -103,6 +103,12 @@ entity Player = {
   Num : int
   Equip : Equipment
   ref Controllers : [ControllerRazor]
+  // bullets and battery
+
+  rule Equip = 
+    wait world.Jeep.Value.CollisionWithModel
+    yield new Equipment([20;30], 40)
+    yield Equip
 
   Create(id : int) = 
   {
@@ -511,6 +517,9 @@ entity Bullet = {
 entity Gasstation = {
   inherit UnityGasstation
 
+  //new equipment when new jeep
+  //wait world.Jeep.Value.CollisionWithModel
+
   rule world.Jeep.Value.Destroyed, world.Jeep, world.Jeep.Value.CollisionWithModel, Destroyed = 
     wait world.Jeep.Value.CollisionWithModel
     let pos = modely.transform.position
@@ -617,7 +626,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
       wait false
 
   rule Spawnpoints = 
-    let sps = //[Transform of each Spawnpoint]
+    let sps = 
       [for a in Spawnpoints2 do
        select a]
     yield sps
@@ -646,10 +655,10 @@ entity PickUp = {
 
   rule BonusAndResources = 
     wait Shuffled.Count > 0
-    let p0 = BARpos
-    let p1 = BARpos - new Vector3(2.0f,0.0f,0.0f)
-    let p2 = BARpos + new Vector3(2.0f,0.0f,0.0f)
-    let p3 = BARpos - new Vector3(4.0f,0.0f,0.0f)
+    let p0 = BARpos + new Vector3(0.0f,1.0f,0.0f)
+    let p1 = BARpos - new Vector3(2.0f,-1.0f,0.0f)
+    let p2 = BARpos + new Vector3(2.0f,1.0f,0.0f)
+    let p3 = BARpos - new Vector3(4.0f,-1.0f,0.0f)
     let plist = [p0;p1;p2;p3]
     let Slist = Shuffled
     let BAR = 

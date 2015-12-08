@@ -109,4 +109,4 @@ public class UnityEquipment : MonoBehaviour
     set { transform.localPosition = value; }
   }
 }
-                                                                                                                                          
+                                                                                                                                                                                   
