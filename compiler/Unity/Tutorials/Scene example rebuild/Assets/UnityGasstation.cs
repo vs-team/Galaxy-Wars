@@ -17,31 +17,40 @@ public class UnityGasstation : MonoBehaviour
     {
       if (child.tag == "Parkingspot")
       {
-        Transform toAdd = child.gameObject.GetComponent<Transform>();
+        Transform toAdd = child.FindChild("truckspawnpoint");
         parkingspots.Add(toAdd);
       }
     }
-      List<string> a = new List<string>();
+    List<string> a = new List<string>();
     Object[] models = Resources.LoadAll("JeepModels");
-      if (models.Length > 0)
+    if (models.Length > 0)
+    {
+      Debug.Log("Jeepies list filled");
+      foreach (Object c in models)
       {
-        Debug.Log("Jeepies list filled");
-        foreach (Object c in models)
-        {
         //Debug.Log(c.name);
-          a.Add(c.name);
-        }
+        a.Add(c.name);
       }
-    var x = gs.transform;
-    var dir = parkingspots[0].transform.position;
-    var p = x.TransformPoint(dir);
-    Debug.Log(p);
-    component.modely = GameObject.Instantiate(Resources.Load("JeepModels/" + a[0] + "1"), p, Quaternion.identity) as GameObject;
-    return component;
     }
+    var x = gs.transform;
+    var dir = parkingspots[0].transform;
+    component.modely = GameObject.Instantiate(Resources.Load("JeepModels/" + a[0] + "1"), dir.position, Quaternion.identity) as GameObject;
+    return component;
+  }
+  private bool destroyed;
+  public bool Destroyed
+  {
+    get { return destroyed; }
+    set
+    {
+      destroyed = value;
+      if (destroyed)
+        GameObject.Destroy(modely);
+    }
+  }
   public Vector3 Position
   {
     get { return this.transform.position; }
   }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                            

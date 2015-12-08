@@ -61,7 +61,7 @@ GameObject:
   - 224: {fileID: 22466084}
   m_Layer: 0
   m_Name: zpickup1
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,7 @@ GameObject:
   - 108: {fileID: 10803620}
   m_Layer: 0
   m_Name: LeftLight
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,7 +227,7 @@ GameObject:
   - 146: {fileID: 14697624}
   m_Layer: 0
   m_Name: SUV_wheel_front_left
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,7 +245,7 @@ GameObject:
   - 146: {fileID: 14600936}
   m_Layer: 0
   m_Name: SUV_wheel_front_right
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,7 +298,7 @@ GameObject:
   - 146: {fileID: 14649350}
   m_Layer: 0
   m_Name: SUV_wheel_rear_right
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -316,7 +316,7 @@ GameObject:
   - 146: {fileID: 14652684}
   m_Layer: 0
   m_Name: SUV_wheel_rear_left
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -478,7 +478,7 @@ GameObject:
   - 4: {fileID: 402870}
   m_Layer: 0
   m_Name: glasses
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -494,7 +494,7 @@ GameObject:
   - 108: {fileID: 10882880}
   m_Layer: 0
   m_Name: RightLight
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -624,7 +624,7 @@ GameObject:
   - 4: {fileID: 430302}
   m_Layer: 0
   m_Name: Meches
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2321,6 +2321,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalRotation.w
       value: -1.62920685e-07
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: TruckModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

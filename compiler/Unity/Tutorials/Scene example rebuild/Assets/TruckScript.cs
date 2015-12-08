@@ -61,7 +61,7 @@ public class TruckScript : MonoBehaviour
   public Vector3 COM
   {
     get { return COM; }
-    set { truckRigidBody.centerOfMass = value; } 
+    set { truckRigidBody.centerOfMass = value; }
   }
 
   public Vector3 CenterOfMass
@@ -139,38 +139,52 @@ public class TruckScript : MonoBehaviour
   }
   void OnCollisionEnter(Collision collision)
   {
-    UnityZombie2 hitZombie = collision.transform.GetComponentInParent<UnityZombie2>();
-    if (!collidedWithThisFrame.Contains(hitZombie))
+    Debug.Log(collision.gameObject.name);
+    if (collision.gameObject.tag == "TruckModel")
     {
-      collidedWithThisFrame.Add(hitZombie);
-      if (collision.relativeVelocity.magnitude > 10.0f)
+      CollWithModel = true;
+    }
+    else if (collision.transform.root.tag == "Zombiegroup")
+    {
+      UnityZombie2 hitZombie = collision.transform.GetComponentInParent<UnityZombie2>();
+      if (!collidedWithThisFrame.Contains(hitZombie))
       {
-        hitZombie.CollisionDamage = collision.relativeVelocity.magnitude;
-        hitZombie.impactTargets.Add(collision.rigidbody);
-        hitZombie.impacts.Add(collision.relativeVelocity.normalized * collision.relativeVelocity.magnitude);
-        hitZombie.impactEndTimes.Add(Time.time + 0.3f);
-        if (!hitZombie.Dead)
+        collidedWithThisFrame.Add(hitZombie);
+        if (collision.relativeVelocity.magnitude > 10.0f)
+        {
+          hitZombie.CollisionDamage = collision.relativeVelocity.magnitude;
+          hitZombie.impactTargets.Add(collision.rigidbody);
+          hitZombie.impacts.Add(collision.relativeVelocity.normalized * collision.relativeVelocity.magnitude);
+          hitZombie.impactEndTimes.Add(Time.time + 0.3f);
+          if (!hitZombie.Dead)
+          {
+            CarHP -= collision.relativeVelocity.magnitude / 100;
+          }
+        }
+      }
+    }
+    else if (collision.relativeVelocity.magnitude > 10.0f)
     {
       CarHP -= collision.relativeVelocity.magnitude / 100;
-    }
-  }
     }
   }
 
   public float CarHP2
   {
-    get {
-      return CarHP; }
+    get
+    {
+      return CarHP;
+    }
     set { CarHP = value; }
   }
   void Update()
-  { 
+  {
     //Physics.IgnoreCollision(shield, UnityPlane.planeBox, true);
   }
 
   void LateUpdate()
   {
-    if(collidedWithThisFrame.Count > 0)
+    if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}                                

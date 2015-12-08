@@ -338,6 +338,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &137016
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 497798}
+  m_Layer: 0
+  m_Name: truckspawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &137154
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +609,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &167376
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 493086}
+  m_Layer: 0
+  m_Name: truckspawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &169426
 GameObject:
   m_ObjectHideFlags: 1
@@ -757,6 +787,7 @@ Transform:
   m_LocalPosition: {x: -24.8299999, y: -2.57999992, z: -19.2000008}
   m_LocalScale: {x: 70, y: 70, z: 70}
   m_Children:
+  - {fileID: 493086}
   - {fileID: 402294}
   - {fileID: 427026}
   - {fileID: 495184}
@@ -773,7 +804,7 @@ Transform:
   m_LocalScale: {x: .925373197, y: .925373197, z: .925373316}
   m_Children: []
   m_Father: {fileID: 401608}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &402754
 Transform:
   m_ObjectHideFlags: 1
@@ -787,6 +818,7 @@ Transform:
   - {fileID: 443178}
   - {fileID: 430780}
   - {fileID: 498912}
+  - {fileID: 497798}
   m_Father: {fileID: 431032}
   m_RootOrder: 0
 --- !u!4 &402756
@@ -914,7 +946,7 @@ Transform:
   m_LocalScale: {x: 1.7912854, y: 1.73395491, z: 1.54312944}
   m_Children: []
   m_Father: {fileID: 401608}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &430780
 Transform:
   m_ObjectHideFlags: 1
@@ -1270,6 +1302,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 406802}
   m_RootOrder: 0
+--- !u!4 &493086
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167376}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0744000003, y: -.0544000007, z: -.448000014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 401608}
+  m_RootOrder: 0
 --- !u!4 &495184
 Transform:
   m_ObjectHideFlags: 1
@@ -1281,7 +1325,19 @@ Transform:
   m_LocalScale: {x: 1.7912854, y: 1.73395491, z: 1.54312944}
   m_Children: []
   m_Father: {fileID: 401608}
-  m_RootOrder: 2
+  m_RootOrder: 3
+--- !u!4 &497798
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0834999979, y: -.0544000007, z: -.448000014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 402754}
+  m_RootOrder: 3
 --- !u!4 &498912
 Transform:
   m_ObjectHideFlags: 1
@@ -2652,6 +2708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c01e057390d25b49a4de7c43f7ed622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  modely: {fileID: 0}
 --- !u!114 &11466080
 MonoBehaviour:
   m_ObjectHideFlags: 1

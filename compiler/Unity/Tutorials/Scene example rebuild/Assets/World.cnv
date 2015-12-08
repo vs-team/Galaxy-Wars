@@ -508,10 +508,19 @@ entity Bullet = {
 entity Gasstation = {
   inherit UnityGasstation
 
+  rule world.Jeep.Value.Destroyed, world.Jeep, world.Jeep.Value.CollisionWithModel, Destroyed = 
+    wait world.Jeep.Value.CollisionWithModel
+    let pos = modely.transform.position
+    let newt = new Truck("zpickup", pos, false, [4;2;1;3])
+    yield true, Some (newt), false, true
+    yield world.Jeep.Value.Destroyed, world.Jeep, world.Jeep.Value.CollisionWithModel, Destroyed
+
+  rule world.Jeep.Value.CollisionWithModel = 
+    yield world.Jeep.Value.CollisionWithModel
+
   Create(ps : Vector3) = {
   Base = UnityGasstation.Instantiate(ps)
   }
-
 }
 
 entity GroupZombie = { 

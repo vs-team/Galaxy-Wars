@@ -13,7 +13,7 @@ GameObject:
   - 146: {fileID: 14657186}
   m_Layer: 0
   m_Name: SUV_wheel_rear_right
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ GameObject:
   - 146: {fileID: 14635980}
   m_Layer: 0
   m_Name: SUV_wheel_front_right
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +49,7 @@ GameObject:
   - 146: {fileID: 14661220}
   m_Layer: 0
   m_Name: SUV_wheel_rear_left
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +66,7 @@ GameObject:
   - 23: {fileID: 2339198}
   m_Layer: 0
   m_Name: JeepKM_FrontWindow
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,7 +82,7 @@ GameObject:
   - 23: {fileID: 2359220}
   m_Layer: 0
   m_Name: truck11
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   - 108: {fileID: 10841758}
   m_Layer: 0
   m_Name: LeftLight
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +116,7 @@ GameObject:
   - 65: {fileID: 6596842}
   m_Layer: 0
   m_Name: Jeep_KM_body
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,7 @@ GameObject:
   - 108: {fileID: 10820480}
   m_Layer: 0
   m_Name: RightLight
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,7 +150,7 @@ GameObject:
   - 146: {fileID: 14617144}
   m_Layer: 0
   m_Name: SUV_wheel_front_left
-  m_TagString: Untagged
+  m_TagString: TruckModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -699,6 +699,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: TruckModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

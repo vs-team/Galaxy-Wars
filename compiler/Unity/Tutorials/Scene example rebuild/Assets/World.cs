@@ -2024,7 +2024,10 @@ public Gasstation(UnityEngine.Vector3 ps)
 		UnityGasstation = UnityGasstation.Instantiate(ps);
 		
 }
-		public UnityEngine.Vector3 Position{  get { return UnityGasstation.Position; }
+		public System.Boolean Destroyed{  get { return UnityGasstation.Destroyed; }
+  set{UnityGasstation.Destroyed = value; }
+ }
+	public UnityEngine.Vector3 Position{  get { return UnityGasstation.Position; }
  }
 	public UnityGasstation UnityGasstation;
 	public System.Boolean enabled{  get { return UnityGasstation.enabled; }
@@ -2051,18 +2054,65 @@ public Gasstation(UnityEngine.Vector3 ps)
 	public System.Boolean useGUILayout{  get { return UnityGasstation.useGUILayout; }
   set{UnityGasstation.useGUILayout = value; }
  }
+	public UnityEngine.Vector3 ___pos10;
+	public Truck ___newt10;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
-
-
+		this.Rule0(dt, world);
+		this.Rule1(dt, world);
 	}
 
 
 
 
 
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
 
+	case -1:
+	world.Jeep.Value.CollisionWithModel = world.Jeep.Value.CollisionWithModel;
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
+	{
+
+	case -1:
+	if(!(world.Jeep.Value.CollisionWithModel))
+	{
+
+	s1 = -1;
+return;	}else
+	{
+
+	goto case 3;	}
+	case 3:
+	___pos10 = modely.transform.position;
+	___newt10 = new Truck("zpickup",___pos10,false,(
+
+(new Cons<System.Int32>(4,(new Cons<System.Int32>(2,(new Cons<System.Int32>(1,(new Cons<System.Int32>(3,(new Empty<System.Int32>()).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>()).ToList<System.Int32>());
+	world.Jeep.Value.Destroyed = true;
+	world.Jeep = (new Just<Truck>(___newt10));
+	world.Jeep.Value.CollisionWithModel = false;
+	Destroyed = true;
+	s1 = 0;
+return;
+	case 0:
+	world.Jeep.Value.Destroyed = world.Jeep.Value.Destroyed;
+	world.Jeep = world.Jeep;
+	world.Jeep.Value.CollisionWithModel = world.Jeep.Value.CollisionWithModel;
+	Destroyed = Destroyed;
+	s1 = -1;
+return;	
+	default: return;}}
+	
 
 
 
@@ -2138,8 +2188,8 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	case -1:
 	___z02 = (
 
-(U_Zombies).Select(__ContextSymbol156 => new { ___a032 = __ContextSymbol156 })
-.Select(__ContextSymbol157 => new Zombie(__ContextSymbol157.___a032))
+(U_Zombies).Select(__ContextSymbol157 => new { ___a032 = __ContextSymbol157 })
+.Select(__ContextSymbol158 => new Zombie(__ContextSymbol158.___a032))
 .ToList<Zombie>()).ToList<Zombie>();
 	ZombieFollowers = ___z02;
 	s0 = 1;
@@ -2477,8 +2527,8 @@ frame = World.frame;
 	case -1:
 	___sps00 = (
 
-(Spawnpoints2).Select(__ContextSymbol165 => new { ___a033 = __ContextSymbol165 })
-.Select(__ContextSymbol166 => __ContextSymbol166.___a033)
+(Spawnpoints2).Select(__ContextSymbol166 => new { ___a033 = __ContextSymbol166 })
+.Select(__ContextSymbol167 => __ContextSymbol167.___a033)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	Spawnpoints = ___sps00;
 	s0 = 0;
@@ -2696,8 +2746,8 @@ return;	}else
 	___Slist10 = Shuffled;
 	___BAR10 = (
 
-(Enumerable.Range(0,(1) + ((3) - (0))).ToList<System.Int32>()).Select(__ContextSymbol177 => new { ___a134 = __ContextSymbol177 })
-.Select(__ContextSymbol178 => new BonusAndResource(___plist10[__ContextSymbol178.___a134],___Slist10[__ContextSymbol178.___a134]))
+(Enumerable.Range(0,(1) + ((3) - (0))).ToList<System.Int32>()).Select(__ContextSymbol178 => new { ___a134 = __ContextSymbol178 })
+.Select(__ContextSymbol179 => new BonusAndResource(___plist10[__ContextSymbol179.___a134],___Slist10[__ContextSymbol179.___a134]))
 .ToList<BonusAndResource>()).ToList<BonusAndResource>();
 	BonusAndResources = ___BAR10;
 	s1 = 0;
@@ -2723,9 +2773,9 @@ return;	}
 	case -1:
 	___amount20 = (
 
-(BonusAndResources).Select(__ContextSymbol179 => new { ___a235 = __ContextSymbol179 })
-.Where(__ContextSymbol180 => ((__ContextSymbol180.___a235.Destroyed) == (false)))
-.Select(__ContextSymbol181 => __ContextSymbol181.___a235)
+(BonusAndResources).Select(__ContextSymbol180 => new { ___a235 = __ContextSymbol180 })
+.Where(__ContextSymbol181 => ((__ContextSymbol181.___a235.Destroyed) == (false)))
+.Select(__ContextSymbol182 => __ContextSymbol182.___a235)
 .ToList<BonusAndResource>()).ToList<BonusAndResource>();
 	BonusAndResources = ___amount20;
 	s2 = -1;
@@ -3788,4 +3838,4 @@ return;
 
 
 }
-}           
+}                                                                                                                              
