@@ -1,0 +1,61 @@
+module Zombie
+
+open "UnityEngine.dll"
+open UnityEngine
+
+entity GroupZombie = { 
+  inherit UnityGroup
+  ZombieFollowers : [Zombie]
+  ZombieLeader : Option<Zombie>
+
+  rule ZombieLeader = 
+    let leader = new Zombie(U_ZombieLeader)
+    yield Some leader
+    yield None
+    wait false
+
+  rule ZombieFollowers = 
+    let z = 
+      [for a in U_Zombies do
+       select (new Zombie(a))] 
+    yield z
+    yield []
+    wait false
+
+  Create(sps : Vector3) =
+  {
+    Base = UnityGroup.Instantiate(sps)
+    ZombieFollowers = []
+    ZombieLeader = None
+  }
+}
+
+entity Zombie = {
+  inherit UnityZombie2
+  Life : float 
+
+  (*rule Destroyed = 
+    wait dead2
+    wait 0.8f
+    yield true*)
+
+  rule Life, CollisionDamage =
+    if (CollisionDamage <> 0.0f) then
+      Debug.Log("Collided zombie HP before:" + Life)
+      yield Life - (CollisionDamage * 6.0f), 0.0f
+      Debug.Log("Collided zombie HP after:" + Life)
+
+  rule CollisionDamage =
+    yield CollisionDamage
+
+  rule Dead = 
+    if (Life <= 0.0f) then
+      yield true
+      wait false
+
+  Create(trans : Transform) = 
+  {
+  Base = UnityZombie2.Find(trans)
+  Life = 100.0f // healthpoints
+  }
+}
