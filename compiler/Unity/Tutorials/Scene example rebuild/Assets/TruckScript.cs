@@ -34,6 +34,11 @@ public class TruckScript : MonoBehaviour
     truck.collidedWithThisFrame = new List<UnityZombie2>();
     return truck;
   }
+  public Vector3 InputPosition
+  {
+    get { return transform.Find("InputPosition").position; }
+  }
+
   bool destroyed;
 
   public bool Destroyed
@@ -50,6 +55,10 @@ public class TruckScript : MonoBehaviour
   public Vector3 Position
   {
     get { return this.transform.position; }
+  }
+  public Quaternion Rotation
+  {
+    get { return this.transform.localRotation; }
   }
   public float RotationY
   {
@@ -187,4 +196,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                
+}                       

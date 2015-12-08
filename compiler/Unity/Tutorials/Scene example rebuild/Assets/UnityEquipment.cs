@@ -4,14 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class UnityEquipment : MonoBehaviour {
+public class UnityEquipment : MonoBehaviour
+{
 
   public List<string> HR;
   public List<string> HL;
   public Transform TransformHR;
   public Transform TransformHL;
-  public Transform flashL; 
-  public Transform flashR; 
+  public Transform flashL;
+  public Transform flashR;
 
   public static UnityEquipment Instantiate()
   {
@@ -28,7 +29,7 @@ public class UnityEquipment : MonoBehaviour {
       {
         equip.HR.Add(b.name);
       }
-      if(b.name == "flashlight")
+      if (b.name == "flashlight")
       {
         equip.flashR = b.gameObject.transform;
       }
@@ -80,7 +81,7 @@ public class UnityEquipment : MonoBehaviour {
       {
         string q = (a.Substring(7, 1));
         int ind = Int32.Parse(q);
-        var side = a.Substring(29,4);
+        var side = a.Substring(29, 4);
 
 
         if (side.Contains("Left"))
@@ -92,15 +93,20 @@ public class UnityEquipment : MonoBehaviour {
         }
         else
         {
-            //Debug.Log("right " + ind);
-            var p = HR[ind]; // list all guns left
-            Transform z = TransformHR.Find(p);
-            z.gameObject.SetActive(false);
+          //Debug.Log("right " + ind);
+          var p = HR[ind]; // list all guns left
+          Transform z = TransformHR.Find(p);
+          z.gameObject.SetActive(false);
         }
 
 
       }
     }
   }
+  public Vector3 Position
+  {
+    get { return transform.localPosition; }
+    set { transform.localPosition = value; }
+  }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                          

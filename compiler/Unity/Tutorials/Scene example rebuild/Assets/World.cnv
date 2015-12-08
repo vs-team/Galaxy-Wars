@@ -123,6 +123,9 @@ entity Equipment = {
   ref AllFlashs : [Light]
   LightControllerPressed : Option<Light>
 
+  rule Position = 
+    yield world.Jeep.Value.InputPosition
+
   rule NotActiveFlashs, sap = 
     wait GunControllerPressed.IsSome || LightControllerPressed.IsSome
     let j = 
@@ -301,7 +304,6 @@ entity Equipment = {
   rule ActiveGuns, NotActiveGuns, AllGuns, asdf, ActiveFlashs, NotActiveFlashs, AllFlashs = // start!! gun is right, flash is left
     let pl = world.Players.Head.Controllers
     
-    // guns
     let j = [TransformHR.name;TransformHL.name]
     let x = 
       [for a in [0..(HR.Count - 1)] do
@@ -316,13 +318,11 @@ entity Equipment = {
        where (not AG.Contains(a))
        select a]
 
-    // flashlights
     let z = [flashL.name;flashR.name]
     let AF = [new Light(pl.[1],z.[1])]
     let NAF = [new Light(pl.[0],z.[0])]
     let AllF = AF @ NAF
 
-    // yields
     yield AG, NotAG, AllGunslist, [], AF, NAF, AllF
     let fdsa = 
       [for a in NotAG do
@@ -352,6 +352,9 @@ entity ControllerRazor= {
   JoystickName : string
   ECB : string
   
+  rule m_initialRot = 
+    yield world.Jeep.Value.Rotation
+
   rule Shot = 
     if (Trigger || Input.GetMouseButtonDown(0)) then
       yield true
@@ -463,13 +466,13 @@ entity Gun = {
 
   Create(ind : int, GC : ControllerRazor, tr : string) = 
   let autom = if (ind <> 0) then false else true
-  let stlist =             ["MachineGun";"Pistol" ;"ShotGun";"Revolver" ; "Bazooka"]
-  let InMagList =          [50          ; 20      ;    5    ; 6         ; 0]
-  let NotInMagList =       [850         ; 200     ;   60    ; 90        ; 16]
-  let ClipSizeList =       [150         ; 20      ;    5    ; 6         ; 1]
-  let ReloadDurationList = [7.0f        ; 3.0f    ;  4.0f   ; 2.0f      ; 5.0f]
-  let DamageList =         [40.0f       ; 75.0f   ; 135.0f  ; 100.0f    ; 400.0f]
-  let GunPowerList =       [2.4f     ; 0.8f  ; 2.4f   ; 1.8f    ; 5.0f  ]
+  let stlist =             ["MachineGun";"Pistol" ;"ShotGun"; "Bazooka"]
+  let InMagList =          [50          ; 20      ;    5    ; 0]
+  let NotInMagList =       [850         ; 200     ;   60    ; 16]
+  let ClipSizeList =       [150         ; 20      ;    5    ; 1]
+  let ReloadDurationList = [7.0f        ; 3.0f    ;  4.0f   ; 5.0f]
+  let DamageList =         [40.0f       ; 75.0f   ; 135.0f  ; 400.0f]
+  let GunPowerList =       [2.4f        ; 0.8f    ; 2.4f    ; 5.0f  ]
   let nam = stlist.[ind]
   {
     Base = UnityGun.Instantiate(nam, tr)

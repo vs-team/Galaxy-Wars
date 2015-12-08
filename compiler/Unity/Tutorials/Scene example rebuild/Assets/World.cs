@@ -473,6 +473,9 @@ Enumerable.Empty<Light>()).ToList<Light>();
 	public Option<Light> LightControllerPressed;
 	public List<Light> NotActiveFlashs;
 	public List<Gun> NotActiveGuns;
+	public UnityEngine.Vector3 Position{  get { return UnityEquipment.Position; }
+  set{UnityEquipment.Position = value; }
+ }
 	public UnityEngine.Transform TransformHL{  get { return UnityEquipment.TransformHL; }
   set{UnityEquipment.TransformHL = value; }
  }
@@ -573,6 +576,7 @@ if(LightControllerPressed.IsSome){ 		LightControllerPressed.Value.Update(dt, wor
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
 		this.Rule4(dt, world);
+		this.Rule5(dt, world);
 	}
 
 
@@ -1240,6 +1244,18 @@ return;
 	default: return;}}
 	
 
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
+	{
+
+	case -1:
+	Position = world.Jeep.Value.InputPosition;
+	s5 = -1;
+return;	
+	default: return;}}
+	
+
 
 
 
@@ -1307,6 +1323,9 @@ public ControllerRazor(System.String joystickName)
 	public SixenseHands m_hand{  get { return SixenseHand.m_hand; }
   set{SixenseHand.m_hand = value; }
  }
+	public UnityEngine.Quaternion m_initialRot{  get { return SixenseHand.m_initialRot; }
+  set{SixenseHand.m_initialRot = value; }
+ }
 	public System.String name{  get { return SixenseHand.name; }
   set{SixenseHand.name = value; }
  }
@@ -1331,6 +1350,7 @@ frame = World.frame;
 		this.Rule4(dt, world);
 		this.Rule5(dt, world);
 		this.Rule6(dt, world);
+		this.Rule7(dt, world);
 	}
 
 
@@ -1550,6 +1570,18 @@ return;
 	default: return;}}
 	
 
+	int s7=-1;
+	public void Rule7(float dt, World world){ 
+	switch (s7)
+	{
+
+	case -1:
+	m_initialRot = world.Jeep.Value.Rotation;
+	s7 = -1;
+return;	
+	default: return;}}
+	
+
 
 
 
@@ -1576,31 +1608,31 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr)
 		List<System.String> ___stlist00;
 		___stlist00 = (
 
-(new Cons<System.String>("MachineGun",(new Cons<System.String>("Pistol",(new Cons<System.String>("ShotGun",(new Cons<System.String>("Revolver",(new Cons<System.String>("Bazooka",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
+(new Cons<System.String>("MachineGun",(new Cons<System.String>("Pistol",(new Cons<System.String>("ShotGun",(new Cons<System.String>("Bazooka",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
 		List<System.Int32> ___InMagList00;
 		___InMagList00 = (
 
-(new Cons<System.Int32>(50,(new Cons<System.Int32>(20,(new Cons<System.Int32>(5,(new Cons<System.Int32>(6,(new Cons<System.Int32>(0,(new Empty<System.Int32>()).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>()).ToList<System.Int32>();
+(new Cons<System.Int32>(50,(new Cons<System.Int32>(20,(new Cons<System.Int32>(5,(new Cons<System.Int32>(0,(new Empty<System.Int32>()).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>()).ToList<System.Int32>();
 		List<System.Int32> ___NotInMagList00;
 		___NotInMagList00 = (
 
-(new Cons<System.Int32>(850,(new Cons<System.Int32>(200,(new Cons<System.Int32>(60,(new Cons<System.Int32>(90,(new Cons<System.Int32>(16,(new Empty<System.Int32>()).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>()).ToList<System.Int32>();
+(new Cons<System.Int32>(850,(new Cons<System.Int32>(200,(new Cons<System.Int32>(60,(new Cons<System.Int32>(16,(new Empty<System.Int32>()).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>()).ToList<System.Int32>();
 		List<System.Int32> ___ClipSizeList00;
 		___ClipSizeList00 = (
 
-(new Cons<System.Int32>(150,(new Cons<System.Int32>(20,(new Cons<System.Int32>(5,(new Cons<System.Int32>(6,(new Cons<System.Int32>(1,(new Empty<System.Int32>()).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>()).ToList<System.Int32>();
+(new Cons<System.Int32>(150,(new Cons<System.Int32>(20,(new Cons<System.Int32>(5,(new Cons<System.Int32>(1,(new Empty<System.Int32>()).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>()).ToList<System.Int32>();
 		List<System.Single> ___ReloadDurationList00;
 		___ReloadDurationList00 = (
 
-(new Cons<System.Single>(7f,(new Cons<System.Single>(3f,(new Cons<System.Single>(4f,(new Cons<System.Single>(2f,(new Cons<System.Single>(5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
+(new Cons<System.Single>(7f,(new Cons<System.Single>(3f,(new Cons<System.Single>(4f,(new Cons<System.Single>(5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
 		List<System.Single> ___DamageList00;
 		___DamageList00 = (
 
-(new Cons<System.Single>(40f,(new Cons<System.Single>(75f,(new Cons<System.Single>(135f,(new Cons<System.Single>(100f,(new Cons<System.Single>(400f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
+(new Cons<System.Single>(40f,(new Cons<System.Single>(75f,(new Cons<System.Single>(135f,(new Cons<System.Single>(400f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
 		List<System.Single> ___GunPowerList00;
 		___GunPowerList00 = (
 
-(new Cons<System.Single>(2.4f,(new Cons<System.Single>(0.8f,(new Cons<System.Single>(2.4f,(new Cons<System.Single>(1.8f,(new Cons<System.Single>(5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
+(new Cons<System.Single>(2.4f,(new Cons<System.Single>(0.8f,(new Cons<System.Single>(2.4f,(new Cons<System.Single>(5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
 		System.String ___nam00;
 		___nam00 = ___stlist00[ind];
 		UnityGun = UnityGun.Instantiate(___nam00,tr);
@@ -3095,6 +3127,8 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.Boolean HeadlightRightOn{  get { return TruckScript.HeadlightRightOn; }
   set{TruckScript.HeadlightRightOn = value; }
  }
+	public UnityEngine.Vector3 InputPosition{  get { return TruckScript.InputPosition; }
+ }
 	public System.Single JRotation;
 	public System.Boolean Keyboard;
 	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
@@ -3104,6 +3138,8 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
  }
 	public UnityEngine.WheelCollider RearRightWheel{  get { return TruckScript.RearRightWheel; }
   set{TruckScript.RearRightWheel = value; }
+ }
+	public UnityEngine.Quaternion Rotation{  get { return TruckScript.Rotation; }
  }
 	public System.Single RotationY{  get { return TruckScript.RotationY; }
  }
@@ -3838,4 +3874,4 @@ return;
 
 
 }
-}                                                                                                                              
+}                             
