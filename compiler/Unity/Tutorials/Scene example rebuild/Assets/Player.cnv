@@ -21,39 +21,7 @@ entity Player = {
     Controllers = [new ControllerRazor("Hydra1 - Right"); new ControllerRazor("Hydra1 - Left")]
   }
 }
-entity Ammo = {
-  InMagazine : int
-  NotInMagazine : int
-  ref GC : Option<ControllerRazor>
-  shot : bool
 
-  //rule NotInMagazine = 
-    //if world.ActiveBoR = "AmmoBox" then 
-      //yield NotInMagazine + 50
-
-  rule InMagazine, shot = 
-    wait GC.IsSome
-    wait GC.Value.Shot
-    if (InMagazine > 0) then
-      if (not true) then  // not automatic
-        Debug.Log("InMagazine = "+ InMagazine)
-        yield InMagazine - 1, true
-        yield InMagazine, false
-      else
-        while (GC.Value.Shot && InMagazine > 0) do
-          Debug.Log("InMagazine = "+ InMagazine)
-          yield InMagazine - 1, true
-          yield InMagazine, false
-          wait 0.05f
-
-  Create(InMag : int, NotInMag : int) = {
-    InMagazine = InMag
-    NotInMagazine = NotInMag
-    GC = None
-    shot = false
-  }
-
-}
 entity Equipment = {
   inherit UnityEquipment
 
@@ -368,58 +336,47 @@ entity ControllerRazor= {
 entity Gun = {
   inherit UnityGun
   GunController : ControllerRazor
-  Reloading : bool
   ReloadDuration : float
   MagazineSize : int
   Automatic : bool
   DamagePerBullet : float
-  NotInMagazine : int
-  InMagazine : int
+  GNotInMagazine : int
+  GInMagazine : int
   TypeWeapon : string
   GunPower : float 
   GunNumber : int
   AmmoAct : Ammo
-
-  rule AmmoAct.GC = 
-    yield Some GunController
-    Debug.Log("JSN"+GunController.JoystickName + " TypeWeapon "+TypeWeapon)
+  Reloading : bool
 
   rule Shoot = 
    wait AmmoAct.shot
-   if (InMagazine > 0 && not Reloading) then
+   if (AmmoAct.InMagazine > 0 && not AmmoAct.Reloading) then
      if (not Automatic) then
        yield true
        yield false
      else
-       while (GunController.Shot && InMagazine > 0) do
+       while (GunController.Shot && AmmoAct.InMagazine > 0) do
          yield true
          yield false
          wait 0.05f // Rate of fire
 
-  rule Reloading, NotInMagazine, InMagazine = 
-    if ((Input.GetKey(KeyCode.R) || InMagazine = 0) && NotInMagazine > 0) then
-      if TypeWeapon <> "ShotGun" then 
-        yield true, NotInMagazine, InMagazine
-        wait (ReloadDuration)
-        if MagazineSize > NotInMagazine then // clip can't be fulled completely
-          yield false, 0, NotInMagazine
-        else 
-          let changed = (MagazineSize - InMagazine)
-          yield false, NotInMagazine - changed, MagazineSize // fill clip completely
-      else
-          yield true, NotInMagazine, InMagazine
+  rule AmmoAct.Reloading = 
+    if (Input.GetKey(KeyCode.R)) then
+      yield true
+      wait not Reloading
+    else 
+      yield false
 
   rule MagazineGUI = 
     yield ""
 
   rule InMag, NotInMag = 
-    yield InMagazine, NotInMagazine
-
-  rule InMagazine, NotInMagazine = 
     yield AmmoAct.InMagazine, AmmoAct.NotInMagazine
 
   rule Reloading = 
     if Input.GetKey(KeyCode.C) then
+      yield false
+    if AmmoAct.Reloading = false then
       yield false
 
   rule GunForce =
@@ -427,13 +384,20 @@ entity Gun = {
     yield GunPower 
     wait false
 
+  rule AmmoAct.Automatic, AmmoAct.ReloadDuration, AmmoAct.MagazineSize, AmmoAct.TypeWeapon = 
+    yield Automatic, ReloadDuration, MagazineSize, TypeWeapon
+    wait false
+
+  rule AmmoAct.GC = 
+    yield Some GunController
+
   Create(ind : int, GC : ControllerRazor, tr : string, am : Ammo) = 
   let autom = if (ind <> 0) then false else true
   let stlist =             ["MachineGun";"Pistol" ;"ShotGun"; "Bazooka"]
   let InMagList =          [50          ; 20      ;    5    ; 0]
   let NotInMagList =       [850         ; 200     ;   60    ; 16]
   let ClipSizeList =       [150         ; 20      ;    5    ; 1]
-  let ReloadDurationList = [7.0f        ; 3.0f    ;  4.0f   ; 5.0f]
+  let ReloadDurationList = [7.0f        ; 3.0f    ;  0.5f   ; 5.0f]
   let DamageList =         [40.0f       ; 75.0f   ; 135.0f  ; 400.0f]
   let GunPowerList =       [2.4f        ; 0.8f    ; 2.4f    ; 5.0f  ]
   let nam = stlist.[ind]
@@ -441,19 +405,80 @@ entity Gun = {
     Base = UnityGun.Instantiate(nam, tr)
     TypeWeapon = nam
     GunController = GC
-    NotInMagazine = NotInMagList.[ind]
-    Reloading = false
+    GNotInMagazine = 0
     MagazineSize = ClipSizeList.[ind]
-    InMagazine = InMagList.[ind]
+    GInMagazine = 0
     ReloadDuration = ReloadDurationList.[ind]
     Automatic = autom
     DamagePerBullet = DamageList.[ind]
     GunPower = GunPowerList.[ind]
     GunNumber = ind
+    Reloading = false
     AmmoAct = am
   }
 }
+entity Ammo = {
+  InMagazine : int
+  NotInMagazine : int
+  ref GC : Option<ControllerRazor>
+  shot : bool
+  Automatic : bool
+  Reloading : bool
+  MagazineSize : int
+  ReloadDuration : float
+  TypeWeapon : string
 
+  rule Reloading, NotInMagazine, InMagazine = 
+    wait (InMagazine = 0) || Reloading
+    if (NotInMagazine > 0) then
+      if (TypeWeapon = "ShotGun") then
+        while (NotInMagazine > 0 && InMagazine < (MagazineSize + 1)) do
+          let a = NotInMagazine - 1
+          let b = InMagazine + 1
+          Debug.Log("update bullets")
+          yield true, a,b
+          wait ReloadDuration
+      else
+        yield true, NotInMagazine, InMagazine
+        wait (ReloadDuration)
+        if MagazineSize > NotInMagazine then // clip can't be fulled completely
+          yield false, 0, NotInMagazine
+        else
+          let changed = (MagazineSize - InMagazine)
+          yield false, NotInMagazine - changed, MagazineSize // fill clip completely
+
+  //rule NotInMagazine = 
+    //if world.ActiveBoR = "AmmoBox" then 
+      //yield NotInMagazine + 50
+
+  rule InMagazine, shot = 
+    wait GC.IsSome
+    wait GC.Value.Shot
+    if (InMagazine > 0 && not Reloading) then
+      if (not Automatic) then
+        Debug.Log("InMagazine = "+ InMagazine)
+        yield InMagazine - 1, true
+        yield InMagazine, false
+      else
+        while (GC.Value.Shot && InMagazine > 0) do
+          Debug.Log("InMagazine = "+ InMagazine)
+          yield InMagazine - 1, true
+          yield InMagazine, false
+          wait 0.05f
+
+  Create(InMag : int, NotInMag : int) = {
+    InMagazine = InMag
+    NotInMagazine = NotInMag
+    GC = None
+    shot = false
+    Automatic = false
+    Reloading = false
+    ReloadDuration = 0.0f
+    MagazineSize = 0
+    TypeWeapon = ""
+  }
+
+}
 entity Bullet = {
   inherit UnityBullet
   cnt : float 
