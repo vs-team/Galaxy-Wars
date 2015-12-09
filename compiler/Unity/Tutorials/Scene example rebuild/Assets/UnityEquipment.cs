@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Casanova.Prelude;
 
 public class UnityEquipment : MonoBehaviour
 {
@@ -49,6 +50,27 @@ public class UnityEquipment : MonoBehaviour
       }
     }
     Debug.Log("HR add" + equip.HL.Count);
+    equip.ammos = new List<Casanova.Prelude.Tuple<int, int>>();
+    for (int j = 0; j < equip.HR.Count;j++ )
+    {
+      if (j == 0)
+      {
+        equip.ammos.Add(new Casanova.Prelude.Tuple<int, int>(50, 850));
+      }
+      if (j == 1)
+      {
+        equip.ammos.Add(new Casanova.Prelude.Tuple<int, int>(20, 200));
+      }
+      if (j == 2)
+      {
+        equip.ammos.Add(new Casanova.Prelude.Tuple<int, int>(5, 60));
+      }
+      if (j == 3)
+      {
+        equip.ammos.Add(new Casanova.Prelude.Tuple<int, int>(0, 16));
+      }
+
+    }
 
 
     return equip;
@@ -108,5 +130,10 @@ public class UnityEquipment : MonoBehaviour
     get { return transform.localPosition; }
     set { transform.localPosition = value; }
   }
+  private List<Casanova.Prelude.Tuple<int, int>> ammos;
+  public List<Casanova.Prelude.Tuple<int,int>> Ammos
+  {
+    get { return ammos; }
+  }
 }
-                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

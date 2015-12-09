@@ -11,27 +11,63 @@ entity Player = {
 
   rule Equip = 
     wait world.Jeep.Value.CollisionWithModel
-    yield new Equipment([20;30], 40)
+    yield new Equipment(40)
     yield Equip
 
   Create(id : int) = 
   {
     Num = id
-    Equip = new Equipment([80;20], 20)
+    Equip = new Equipment(20)
     Controllers = [new ControllerRazor("Hydra1 - Right"); new ControllerRazor("Hydra1 - Left")]
   }
 }
+entity Ammo = {
+  InMagazine : int
+  NotInMagazine : int
+  ref GC : Option<ControllerRazor>
+  shot : bool
 
+  //rule NotInMagazine = 
+    //if world.ActiveBoR = "AmmoBox" then 
+      //yield NotInMagazine + 50
+
+  rule InMagazine, shot = 
+    wait GC.IsSome
+    wait GC.Value.Shot
+    if (InMagazine > 0) then
+      if (not true) then  // not automatic
+        Debug.Log("InMagazine = "+ InMagazine)
+        yield InMagazine - 1, true
+        yield InMagazine, false
+      else
+        while (GC.Value.Shot && InMagazine > 0) do
+          Debug.Log("InMagazine = "+ InMagazine)
+          yield InMagazine - 1, true
+          yield InMagazine, false
+          wait 0.05f
+
+  Create(InMag : int, NotInMag : int) = {
+    InMagazine = InMag
+    NotInMagazine = NotInMag
+    GC = None
+    shot = false
+  }
+
+}
 entity Equipment = {
   inherit UnityEquipment
+
   ref AllGuns : [Gun]
   ActiveGuns : [Gun]
   ref NotActiveGuns : [Gun]
   GunControllerPressed : Option<Gun>
+
   ActiveFlashs : [Light]
   ref NotActiveFlashs : [Light]
   ref AllFlashs : [Light]
   LightControllerPressed : Option<Light>
+
+  ref AllAmmo : [Ammo]
 
   rule Position = 
     yield world.Jeep.Value.InputPosition
@@ -211,16 +247,17 @@ entity Equipment = {
     else
       yield None, None
 
+
   rule ActiveGuns, NotActiveGuns, AllGuns, asdf, ActiveFlashs, NotActiveFlashs, AllFlashs = // start!! gun is right, flash is left
     let pl = world.Players.Head.Controllers
     
     let j = [TransformHR.name;TransformHL.name]
     let x = 
       [for a in [0..(HR.Count - 1)] do
-       select (new Gun(a,pl.Head,j.Head))]
+       select (new Gun(a,pl.Head,j.Head, AllAmmo.[a]))]
     let y = 
       [for a in [0..(HL.Count - 1)] do
-       select (new Gun(a,pl.[1],j.[1]))]
+       select (new Gun(a,pl.[1],j.[1], AllAmmo.[a]))]
     let AllGunslist = x @ y
     let AG = [AllGunslist.[0]]
     let NotAG = 
@@ -240,9 +277,17 @@ entity Equipment = {
     yield ActiveGuns, NotActiveGuns, AllGuns, fdsa, ActiveFlashs, NotActiveFlashs, AllFlashs
     wait false
 
-  Create(bulls : [int], flashs : int) = 
+  rule AllAmmo = 
+    let j = 
+      [for a in Ammos do
+       select (new Ammo(a.Item1,a.Item2))]
+    yield j
+    yield AllAmmo
+    wait false
+
+  Create(flashs : int) = 
   {
-    Base = UnityEquipment.Instantiate()
+    Base = UnityEquipment.Instantiate() // send list of bullets to instantiate.
     ActiveGuns = []
     NotActiveGuns = []
     GunControllerPressed = None
@@ -251,6 +296,7 @@ entity Equipment = {
     ActiveFlashs = []
     NotActiveFlashs = []
     AllFlashs = []
+    AllAmmo = []
   }
 }
 
@@ -332,38 +378,45 @@ entity Gun = {
   TypeWeapon : string
   GunPower : float 
   GunNumber : int
+  AmmoAct : Ammo
 
-  rule Shoot, InMagazine = 
-   wait GunController.Shot
+  rule AmmoAct.GC = 
+    yield Some GunController
+    Debug.Log("JSN"+GunController.JoystickName + " TypeWeapon "+TypeWeapon)
+
+  rule Shoot = 
+   wait AmmoAct.shot
    if (InMagazine > 0 && not Reloading) then
      if (not Automatic) then
-       yield true, InMagazine - 1
-       yield false, InMagazine
+       yield true
+       yield false
      else
        while (GunController.Shot && InMagazine > 0) do
-         yield true, InMagazine - 1
-         yield false, InMagazine
+         yield true
+         yield false
          wait 0.05f // Rate of fire
-
-  rule NotInMagazine = 
-    if world.ActiveBoR = "AmmoBox" then 
-      yield NotInMagazine + 50
 
   rule Reloading, NotInMagazine, InMagazine = 
     if ((Input.GetKey(KeyCode.R) || InMagazine = 0) && NotInMagazine > 0) then
-      yield true, NotInMagazine, InMagazine
-      wait (ReloadDuration)
-      if MagazineSize > NotInMagazine then // clip can't be fulled completely
-        yield false, 0, NotInMagazine
-      else 
-        let changed = (MagazineSize - InMagazine)
-        yield false, NotInMagazine - changed, MagazineSize // fill clip completely
+      if TypeWeapon <> "ShotGun" then 
+        yield true, NotInMagazine, InMagazine
+        wait (ReloadDuration)
+        if MagazineSize > NotInMagazine then // clip can't be fulled completely
+          yield false, 0, NotInMagazine
+        else 
+          let changed = (MagazineSize - InMagazine)
+          yield false, NotInMagazine - changed, MagazineSize // fill clip completely
+      else
+          yield true, NotInMagazine, InMagazine
 
   rule MagazineGUI = 
     yield ""
 
   rule InMag, NotInMag = 
     yield InMagazine, NotInMagazine
+
+  rule InMagazine, NotInMagazine = 
+    yield AmmoAct.InMagazine, AmmoAct.NotInMagazine
 
   rule Reloading = 
     if Input.GetKey(KeyCode.C) then
@@ -374,7 +427,7 @@ entity Gun = {
     yield GunPower 
     wait false
 
-  Create(ind : int, GC : ControllerRazor, tr : string) = 
+  Create(ind : int, GC : ControllerRazor, tr : string, am : Ammo) = 
   let autom = if (ind <> 0) then false else true
   let stlist =             ["MachineGun";"Pistol" ;"ShotGun"; "Bazooka"]
   let InMagList =          [50          ; 20      ;    5    ; 0]
@@ -397,6 +450,7 @@ entity Gun = {
     DamagePerBullet = DamageList.[ind]
     GunPower = GunPowerList.[ind]
     GunNumber = ind
+    AmmoAct = am
   }
 }
 
