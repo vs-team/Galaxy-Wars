@@ -455,13 +455,15 @@ entity Ammo = {
     wait GC.IsSome
     wait GC.Value.Shot
     if (InMagazine > 0 && not Reloading) then
+      Debug.Log(Automatic)
       if (not Automatic) then
-        Debug.Log("InMagazine = "+ InMagazine)
+        Debug.Log("InMagazineNotAutom = "+ InMagazine)
         yield InMagazine - 1, true
         yield InMagazine, false
+        wait not GC.Value.Shot
       else
         while (GC.Value.Shot && InMagazine > 0) do
-          Debug.Log("InMagazine = "+ InMagazine)
+          Debug.Log("InMagazineAutom = "+ InMagazine)
           yield InMagazine - 1, true
           yield InMagazine, false
           wait 0.05f

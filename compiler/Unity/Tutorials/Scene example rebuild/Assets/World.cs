@@ -3534,12 +3534,12 @@ frame = World.frame;
 return;	}else
 	{
 
-	goto case 15;	}
-	case 15:
+	goto case 17;	}
+	case 17:
 	if(!(GC.Value.Shot))
 	{
 
-	s0 = 15;
+	s0 = 17;
 return;	}else
 	{
 
@@ -3554,6 +3554,7 @@ return;	}else
 	s0 = -1;
 return;	}
 	case 1:
+	UnityEngine.Debug.Log(Automatic);
 	if(!(Automatic))
 	{
 
@@ -3562,16 +3563,26 @@ return;	}
 
 	goto case 3;	}
 	case 2:
-	UnityEngine.Debug.Log(("InMagazine = ") + (InMagazine));
+	UnityEngine.Debug.Log(("InMagazineNotAutom = ") + (InMagazine));
 	InMagazine = ((InMagazine) - (1));
 	shot = true;
+	s0 = 6;
+return;
+	case 6:
+	InMagazine = InMagazine;
+	shot = false;
 	s0 = 5;
 return;
 	case 5:
-	InMagazine = InMagazine;
-	shot = false;
+	if(!(!(GC.Value.Shot)))
+	{
+
+	s0 = 5;
+return;	}else
+	{
+
 	s0 = -1;
-return;
+return;	}
 	case 3:
 	if(!(((GC.Value.Shot) && (((InMagazine) > (0))))))
 	{
@@ -3580,27 +3591,27 @@ return;
 return;	}else
 	{
 
-	goto case 9;	}
-	case 9:
-	UnityEngine.Debug.Log(("InMagazine = ") + (InMagazine));
+	goto case 10;	}
+	case 10:
+	UnityEngine.Debug.Log(("InMagazineAutom = ") + (InMagazine));
 	InMagazine = ((InMagazine) - (1));
 	shot = true;
-	s0 = 12;
+	s0 = 13;
 return;
-	case 12:
+	case 13:
 	InMagazine = InMagazine;
 	shot = false;
-	s0 = 10;
+	s0 = 11;
 return;
-	case 10:
-	count_down8 = 0.05f;
-	goto case 11;
 	case 11:
+	count_down8 = 0.05f;
+	goto case 12;
+	case 12:
 	if(((count_down8) > (0f)))
 	{
 
 	count_down8 = ((count_down8) - (dt));
-	s0 = 11;
+	s0 = 12;
 return;	}else
 	{
 
@@ -4183,4 +4194,4 @@ return;
 
 
 }
-}                     
+}            
