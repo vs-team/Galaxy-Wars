@@ -112,5 +112,4 @@ entity GUI = { //panel. Each wall contains the same info?
   {
     Base = GUIBarScript.Find()
   }
-
 }
