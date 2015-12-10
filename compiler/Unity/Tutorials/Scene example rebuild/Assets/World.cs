@@ -4088,7 +4088,10 @@ public Zombie(UnityEngine.Transform trans)
 		Life = 100f;
 		
 }
-		public System.Single BodyPartMultiplier{  get { return UnityZombie2.BodyPartMultiplier; }
+		public UnityEngine.NavMeshAgent Agent{  get { return UnityZombie2.Agent; }
+  set{UnityZombie2.Agent = value; }
+ }
+	public System.Single BodyPartMultiplier{  get { return UnityZombie2.BodyPartMultiplier; }
   set{UnityZombie2.BodyPartMultiplier = value; }
  }
 	public System.Single CollisionDamage{  get { return UnityZombie2.CollisionDamage; }
@@ -4096,6 +4099,9 @@ public Zombie(UnityEngine.Transform trans)
  }
 	public System.Boolean Dead{  get { return UnityZombie2.Dead; }
   set{UnityZombie2.Dead = value; }
+ }
+	public UnityEngine.Vector3 Dest{  get { return UnityZombie2.Dest; }
+  set{UnityZombie2.Dest = value; }
  }
 	public System.Boolean Destroyed{  get { return UnityZombie2.Destroyed; }
   set{UnityZombie2.Destroyed = value; }
@@ -4148,6 +4154,7 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		this.Rule3(dt, world);
 	}
 
 
@@ -4224,9 +4231,21 @@ return;
 	default: return;}}
 	
 
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	Dest = world.Jeep.Value.Position;
+	s3 = -1;
+return;	
+	default: return;}}
+	
+
 
 
 
 
 }
-}                                                         
+}                                                                                                                                                                                                                                                                                                       

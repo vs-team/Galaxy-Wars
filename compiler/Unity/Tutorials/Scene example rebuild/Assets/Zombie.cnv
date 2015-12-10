@@ -34,6 +34,9 @@ entity Zombie = {
   inherit UnityZombie2
   Life : float 
 
+  rule Dest = 
+    yield world.Jeep.Value.Position
+
   (*rule Destroyed = 
     wait dead2
     wait 0.8f
