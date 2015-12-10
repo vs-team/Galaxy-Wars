@@ -18,6 +18,10 @@ worldEntity World = {
   Counter : int
   Gasstations : [Gasstation]
   Players : [Player]
+  Score : int
+
+  rule Score = 
+    yield Score + 1
 
   rule Zombies = 
     let groups = 
@@ -102,6 +106,7 @@ worldEntity World = {
      Counter = 3
      Gasstations = [new Gasstation(new Vector3(0.0f,0.0f, -80.0f))]
      Players = [new Player(1)]
+     Score = 0
     }
 }
 

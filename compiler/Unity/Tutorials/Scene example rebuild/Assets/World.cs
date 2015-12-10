@@ -21,6 +21,7 @@ public void Start()
 
 Enumerable.Empty<Zombie>()).ToList<Zombie>();
 		UnityLandscape = new UnityLandscape();
+		Score = 0;
 		Players = (
 
 (new Cons<Player>(new Player(1),(new Empty<Player>()).ToList<Player>())).ToList<Player>()).ToList<Player>();
@@ -56,6 +57,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public List<Player> Players;
 	public UnityEngine.Vector3 Position{  get { return UnityLandscape.Position; }
  }
+	public System.Int32 Score;
 	public System.Collections.Generic.List<UnityEngine.Transform> Spawnpoints2{  get { return UnityLandscape.Spawnpoints2; }
  }
 	public UnityLandscape UnityLandscape;
@@ -119,6 +121,7 @@ if(Jeep.IsSome){ 		Jeep.Value.Update(dt, world);
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
 		this.Rule4(dt, world);
+		this.Rule5(dt, world);
 	}
 
 
@@ -383,6 +386,18 @@ return;
 	default: return;}}
 	
 
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
+	{
+
+	case -1:
+	Score = ((Score) + (1));
+	s5 = -1;
+return;	
+	default: return;}}
+	
+
 
 
 
@@ -569,27 +584,27 @@ frame = World.frame;
 	if(!(((isModel) == (true))))
 	{
 
-	goto case 10;	}else
+	goto case 2;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 10:
+	case 2:
 	___z01 = world.Jeep.Value.CarHP2;
 	if(!(((___z01) == (((Health) / (100f))))))
 	{
 
-	goto case 11;	}else
+	goto case 3;	}else
 	{
 
-	goto case 12;	}
-	case 11:
+	goto case 4;	}
+	case 3:
 	world.Jeep.Value.CarHP2 = world.Jeep.Value.CarHP2;
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
 	s0 = -1;
 return;
-	case 12:
+	case 4:
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
@@ -607,12 +622,12 @@ return;
 	if(((((world.ActiveBoR) == ("Medipack Red"))) && (!(((isModel) == (true))))))
 	{
 
-	goto case 18;	}else
+	goto case 10;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 18:
+	case 10:
 	Health = ((Health) + (20f));
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	s1 = -1;
@@ -654,6 +669,7 @@ public Truck(System.String nm, UnityEngine.Vector3 pos, System.Boolean ModelIs, 
 		cnvAccel = 0f;
 		TruckScript = TruckScript.Instantiate(nm,pos);
 		Stats = new TruckStats(ModelIs,ints);
+		Scor = 0;
 		Keyboard = false;
 		JRotation = 0f;
 		Fuel = 80000f;
@@ -721,6 +737,10 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
  }
 	public System.Single RotationY{  get { return TruckScript.RotationY; }
  }
+	public System.Int32 Scor;
+	public System.String Score{  get { return TruckScript.Score; }
+  set{TruckScript.Score = value; }
+ }
 	public TruckStats Stats;
 	public System.Single Steering{  get { return TruckScript.Steering; }
  }
@@ -763,6 +783,7 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.Single count_down3;
 	public System.Single count_down2;
 	public System.Single count_down1;
+	public System.String ___j70;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -777,6 +798,7 @@ frame = World.frame;
 		this.Rule4(dt, world);
 		this.Rule5(dt, world);
 		this.Rule6(dt, world);
+		this.Rule7(dt, world);
 	}
 
 
@@ -1043,6 +1065,19 @@ return;
 	default: return;}}
 	
 
+	int s7=-1;
+	public void Rule7(float dt, World world){ 
+	switch (s7)
+	{
+
+	case -1:
+	___j70 = (("") + (world.Score));
+	Score = ___j70;
+	s7 = -1;
+return;	
+	default: return;}}
+	
+
 
 
 
@@ -1094,106 +1129,106 @@ frame = World.frame;
 	if(!(world.Jeep.Value.isModel))
 	{
 
-	goto case 21;	}else
+	goto case 3;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 21:
+	case 3:
 	if(((world.Jeep.Value.Fuel) > (0.99f)))
 	{
 
-	goto case 22;	}else
+	goto case 4;	}else
 	{
 
-	goto case 23;	}
-	case 22:
+	goto case 5;	}
+	case 4:
 	if(((!(((world.Jeep.Value.cnvAccel) == (0f)))) && (((leftWheel.isGrounded) || (rightWheel.isGrounded)))))
 	{
 
-	goto case 25;	}else
+	goto case 7;	}else
 	{
 
-	goto case 26;	}
-	case 25:
+	goto case 8;	}
+	case 7:
 	___dir00 = world.Jeep.Value.cnvAccel;
 	___speed00 = ((((world.Jeep.Value.maxMotorTorque) * (world.Jeep.Value.cnvAccel))) * (-1f));
 	if(((world.ActiveBoR) == ("Arrows Green")))
 	{
 
-	goto case 28;	}else
+	goto case 10;	}else
 	{
 
-	goto case 29;	}
-	case 28:
+	goto case 11;	}
+	case 10:
 	leftWheel.motorTorque = leftWheel.motorTorque;
 	rightWheel.motorTorque = rightWheel.motorTorque;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 32;
+	s0 = 14;
 return;
-	case 32:
+	case 14:
 	if(!(((!(((world.Jeep.Value.cnvAccel) == (___dir00)))) || (true))))
 	{
 
-	s0 = 32;
+	s0 = 14;
 return;	}else
 	{
 
-	goto case 31;	}
-	case 31:
+	goto case 13;	}
+	case 13:
 	if(!(((world.Jeep.Value.cnvAccel) == (___dir00))))
 	{
 
-	goto case 33;	}else
+	goto case 15;	}else
 	{
 
 	if(true)
 	{
 
-	goto case 34;	}else
+	goto case 16;	}else
 	{
 
-	s0 = 31;
+	s0 = 13;
 return;	}	}
-	case 33:
+	case 15:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 34:
+	case 16:
 	leftWheel.motorTorque = ((___speed00) * (10f));
 	rightWheel.motorTorque = ((___speed00) * (10f));
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 36;
+	s0 = 18;
 return;
-	case 36:
+	case 18:
 	count_down6 = 2f;
-	goto case 37;
-	case 37:
+	goto case 19;
+	case 19:
 	if(((count_down6) > (0f)))
 	{
 
 	count_down6 = ((count_down6) - (dt));
-	s0 = 37;
+	s0 = 19;
 return;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 29:
+	case 11:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 26:
+	case 8:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
 	s0 = -1;
 return;
-	case 23:
+	case 5:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = 0f;
@@ -1998,9 +2033,9 @@ Enumerable.Empty<Light>()).ToList<Light>();
 	public System.Boolean useGUILayout{  get { return UnityEquipment.useGUILayout; }
   set{UnityEquipment.useGUILayout = value; }
  }
-	public List<Ammo> ___j00;
+	public List<Ammo> ___j01;
 	public List<ControllerRazor> ___pl10;
-	public List<System.String> ___j11;
+	public List<System.String> ___j12;
 	public List<Gun> ___x10;
 	public List<Gun> ___y10;
 	public List<Gun> ___AllGunslist10;
@@ -2012,7 +2047,7 @@ Enumerable.Empty<Light>()).ToList<Light>();
 	public List<Light> ___AllF10;
 	public List<System.String> ___fdsa10;
 	public List<Gun> ___q20;
-	public List<Light> ___j22;
+	public List<Light> ___j23;
 	public System.String ___Joystickname30;
 	public System.String ___Operation30;
 	public System.Int32 ___GunNumber30;
@@ -2038,7 +2073,7 @@ Enumerable.Empty<Light>()).ToList<Light>();
 	public List<Gun> ___NAG30;
 	public List<Gun> ___r40;
 	public List<System.String> ___fdsa41;
-	public List<Light> ___j53;
+	public List<Light> ___j54;
 	public List<Light> ___rig50;
 	public System.Boolean ___right50;
 	public List<Light> ___lef50;
@@ -2075,12 +2110,12 @@ if(LightControllerPressed.IsSome){ 		LightControllerPressed.Value.Update(dt, wor
 	{
 
 	case -1:
-	___j00 = (
+	___j01 = (
 
 (Ammos).Select(__ContextSymbol82 => new { ___a010 = __ContextSymbol82 })
 .Select(__ContextSymbol83 => new Ammo(__ContextSymbol83.___a010.Item1,__ContextSymbol83.___a010.Item2))
 .ToList<Ammo>()).ToList<Ammo>();
-	AllAmmo = ___j00;
+	AllAmmo = ___j01;
 	s0 = 1;
 return;
 	case 1:
@@ -2107,18 +2142,18 @@ return;	}
 
 	case -1:
 	___pl10 = world.Players.Head().Controllers;
-	___j11 = (
+	___j12 = (
 
 (new Cons<System.String>(TransformHR.name,(new Cons<System.String>(TransformHL.name,(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
 	___x10 = (
 
 (Enumerable.Range(0,(1) + (((HR.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol85 => new { ___a111 = __ContextSymbol85 })
-.Select(__ContextSymbol86 => new Gun(__ContextSymbol86.___a111,___pl10.Head(),___j11.Head(),AllAmmo[__ContextSymbol86.___a111]))
+.Select(__ContextSymbol86 => new Gun(__ContextSymbol86.___a111,___pl10.Head(),___j12.Head(),AllAmmo[__ContextSymbol86.___a111]))
 .ToList<Gun>()).ToList<Gun>();
 	___y10 = (
 
 (Enumerable.Range(0,(1) + (((HL.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol87 => new { ___a112 = __ContextSymbol87 })
-.Select(__ContextSymbol88 => new Gun(__ContextSymbol88.___a112,___pl10[1],___j11[1],AllAmmo[__ContextSymbol88.___a112]))
+.Select(__ContextSymbol88 => new Gun(__ContextSymbol88.___a112,___pl10[1],___j12[1],AllAmmo[__ContextSymbol88.___a112]))
 .ToList<Gun>()).ToList<Gun>();
 	___AllGunslist10 = (___x10).Concat(___y10).ToList<Gun>();
 	___AG10 = (
@@ -2191,13 +2226,13 @@ return;	}
 .Where(__ContextSymbol100 => !(((__ContextSymbol100.___a215.GunController.ECB) == (""))))
 .Select(__ContextSymbol101 => __ContextSymbol101.___a215)
 .ToList<Gun>()).ToList<Gun>();
-	___j22 = (
+	___j23 = (
 
 (ActiveFlashs).Select(__ContextSymbol102 => new { ___a216 = __ContextSymbol102 })
 .Where(__ContextSymbol103 => ((__ContextSymbol103.___a216.LightController.ECB) == ("other")))
 .Select(__ContextSymbol104 => __ContextSymbol104.___a216)
 .ToList<Light>()).ToList<Light>();
-	if(((((___q20.Count) > (0))) && (!(((___j22.Count) > (0))))))
+	if(((((___q20.Count) > (0))) && (!(((___j23.Count) > (0))))))
 	{
 
 	goto case 21;	}else
@@ -2210,7 +2245,7 @@ return;	}
 	s2 = 17;
 return;
 	case 17:
-	if(((((___j22.Count) > (0))) && (!(((___q20.Count) > (0))))))
+	if(((((___j23.Count) > (0))) && (!(((___q20.Count) > (0))))))
 	{
 
 	goto case 15;	}else
@@ -2219,7 +2254,7 @@ return;
 	goto case 16;	}
 	case 15:
 	GunControllerPressed = (new Nothing<Gun>());
-	LightControllerPressed = (new Just<Light>(___j22.Head()));
+	LightControllerPressed = (new Just<Light>(___j23.Head()));
 	s2 = -1;
 return;
 	case 16:
@@ -2720,7 +2755,7 @@ return;	}else
 
 	goto case 5;	}
 	case 5:
-	___j53 = (
+	___j54 = (
 
 (AllFlashs).Select(__ContextSymbol173 => new { ___a533 = __ContextSymbol173 })
 .Where(__ContextSymbol174 => !(ActiveFlashs.Contains(__ContextSymbol174.___a533)))
@@ -2752,7 +2787,7 @@ return;	}else
 	{
 
 	___left50 = false;	}
-	NotActiveFlashs = ___j53;
+	NotActiveFlashs = ___j54;
 	sap = (
 
 (new Cons<System.Boolean>(___right50,(new Cons<System.Boolean>(___left50,(new Empty<System.Boolean>()).ToList<System.Boolean>())).ToList<System.Boolean>())).ToList<System.Boolean>()).ToList<System.Boolean>();
@@ -4194,4 +4229,4 @@ return;
 
 
 }
-}            
+}                                                         

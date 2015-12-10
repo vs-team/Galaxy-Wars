@@ -1234,6 +1234,7 @@ MonoBehaviour:
   JustEntered: 1
   ActiveBoR: 
   Counter: 0
+  Score: 0
   UnityLandscape: {fileID: 0}
   ___randr00: 0
   ___Headpos00: {x: 0, y: 0, z: 0}
