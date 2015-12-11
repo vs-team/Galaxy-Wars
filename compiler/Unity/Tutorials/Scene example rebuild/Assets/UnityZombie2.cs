@@ -4,11 +4,10 @@ using System.Collections.Generic;
 
 public class UnityZombie2 : MonoBehaviour
 {
-  // Before compiling CNV, comment the line in Update()
+                                                      // Before compiling CNV, comment the line in Update()
   public static UnityZombie2 Find(Transform a)
   {
     var zmbies_group = a.GetComponent<UnityZombie2>();
-    zmbies_group.Agent = a.GetComponent<NavMeshAgent>();
     zmbies_group.motor1 = a.GetComponent<Animator>();
     GameObject dad = GameObject.FindWithTag("Gun") as GameObject;
     UnityGun wap = dad.GetComponent<UnityGun>() as UnityGun;  // Change once multiple guns are implemented
@@ -20,7 +19,6 @@ public class UnityZombie2 : MonoBehaviour
     return zmbies_group;
   }
 
-  private NavMeshAgent Agent;
   private Animator motor1;
   bool destroyed;
   bool dead;
@@ -42,49 +40,6 @@ public class UnityZombie2 : MonoBehaviour
     Head,
     Limbs,
     Torso
-  }
-  public Vector3 Dest
-  {
-    get { return Agent.destination; }
-    set
-    {
-      var y = Vector3.Distance(this.transform.position, value);
-      Agent.destination = value;
-      var x = Mathf.Min(y, 16.0f);
-      Agent.speed = x / 8.0f;
-      motor1.SetBool("Run", false);
-      motor1.SetBool("Walk", false);
-      motor1.SetBool("Attack1", false);
-      motor1.SetBool("Attack2", false);
-      if (Agent.speed > 1.5f)
-      {
-        //Debug.Log("run forest run");
-        motor1.SetBool("Run",true);
-      }
-      else
-      {
-        if (y > 5.0f)
-        {
-          //Debug.Log("just walk slooooow");
-          motor1.SetBool("Walk", true);
-        }
-        else
-        {
-          Agent.speed = 0.2f;
-          int ranr = Random.Range(1,3);
-          //Debug.Log("Attack!!!"+ranr);
-          if (ranr == 1)
-          {
-          motor1.SetBool("Attack1", true);
-          }
-          else
-          {
-            motor1.SetBool("Attack2", true);
-          }
-        }
-      }
-
-    }
   }
 
   public bool Dead
@@ -152,7 +107,7 @@ public class UnityZombie2 : MonoBehaviour
     set
     {
       isHitByBullet = value;
-      if (!dead && isHitByBullet)
+      if(!dead && isHitByBullet)
       {
         string hitBodyPartName = hit.transform.name;
         if (hitBodyPartName.Contains("CATRigLArm"))
@@ -178,11 +133,11 @@ public class UnityZombie2 : MonoBehaviour
     get { return bodyPartMultiplier; }
     set
     {
-      if (hitBodyPart == bodyPart.Head)
+      if(hitBodyPart == bodyPart.Head)
       {
         bodyPartMultiplier = 1.25f;
       }
-      else if (hitBodyPart == bodyPart.Torso)
+      else if(hitBodyPart == bodyPart.Torso)
       {
         bodyPartMultiplier = 1f;
       }
@@ -196,10 +151,9 @@ public class UnityZombie2 : MonoBehaviour
   public float CollisionDamage
   {
     get { return collisionDamage; }
-    set
-    {
+    set {
       collisionDamage = value;
-      if (value > 0.0f)
+      if(value > 0.0f)
       {
         Debug.Log("collisiondamage: " + collisionDamage);
         isHitByCar = true;
@@ -221,7 +175,7 @@ public class UnityZombie2 : MonoBehaviour
     // Create ApplyForceOnRagdoll method
     if (dead && isHitByBullet)
     {
-      /*                                                                          // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
+      //*                                                                          // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
       if (this.gameObject.name == hit.collider.GetComponentInParent<RagdollHelper>().name)
       {
         RagdollHelper helper = hit.collider.GetComponentInParent<RagdollHelper>();
@@ -240,7 +194,7 @@ public class UnityZombie2 : MonoBehaviour
     //Check if we need to apply an impact
     if (impactEndTimes.Count > 0)
     {
-      for (int i = impactEndTimes.Count - 1; i >= 0; i--)
+      for(int i = impactEndTimes.Count - 1; i >= 0; i--)
       {
         if (Time.time < impactEndTimes[i])
         {
@@ -313,25 +267,25 @@ public class UnityZombie2 : MonoBehaviour
       helper.ragdolled = false;
     }*/
 
-    /*foreach (float t in impactEndTimes)
-    {
-      int indexOfT = impactEndTimes.IndexOf(t);
-      if (Time.time < t)
+      /*foreach (float t in impactEndTimes)
       {
-        Debug.Log("Apply force to rigidbody: " + impactTargets[indexOfT]);
-        impactTargets[indexOfT].AddForce(impacts[indexOfT], ForceMode.VelocityChange);
-      }
-      else
-      {
-        impactEndTimes.Remove(t);
-        impactTargets.RemoveAt(indexOfT);
-        impacts.RemoveAt(indexOfT);
-      }
-    }*/
-    /*if (Time.time < impactEndTime)
-    {
-      impactTarget.AddForce(impact, ForceMode.VelocityChange);
-    }*/
-  }
+        int indexOfT = impactEndTimes.IndexOf(t);
+        if (Time.time < t)
+        {
+          Debug.Log("Apply force to rigidbody: " + impactTargets[indexOfT]);
+          impactTargets[indexOfT].AddForce(impacts[indexOfT], ForceMode.VelocityChange);
+        }
+        else
+        {
+          impactEndTimes.Remove(t);
+          impactTargets.RemoveAt(indexOfT);
+          impacts.RemoveAt(indexOfT);
+        }
+      }*/
+  /*if (Time.time < impactEndTime)
+  {
+    impactTarget.AddForce(impact, ForceMode.VelocityChange);
+  }*/
+}
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
