@@ -1343,12 +1343,17 @@ public Gasstation(UnityEngine.Vector3 ps)
 	{JustEntered = false;
  frame = World.frame;
 		UnityGasstation = UnityGasstation.Instantiate(ps);
+		RepairZonE = new Repair();
 		
 }
 		public System.Boolean Destroyed{  get { return UnityGasstation.Destroyed; }
   set{UnityGasstation.Destroyed = value; }
  }
 	public UnityEngine.Vector3 Position{  get { return UnityGasstation.Position; }
+ }
+	public Repair RepairZonE;
+	public UnityEngine.Light RepairZone{  get { return UnityGasstation.RepairZone; }
+  set{UnityGasstation.RepairZone = value; }
  }
 	public UnityGasstation UnityGasstation;
 	public System.Boolean enabled{  get { return UnityGasstation.enabled; }
@@ -1380,6 +1385,7 @@ public Gasstation(UnityEngine.Vector3 ps)
 	public void Update(float dt, World world) {
 frame = World.frame;
 
+		RepairZonE.Update(dt, world);
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 	}
@@ -1434,6 +1440,84 @@ return;
 return;	
 	default: return;}}
 	
+
+
+
+
+
+}
+public class Repair{
+public int frame;
+public bool JustEntered = true;
+	public int ID;
+public Repair()
+	{JustEntered = false;
+ frame = World.frame;
+		test = false;
+		UnityCheckpoint = UnityCheckpoint.Find();
+		
+}
+		public UnityCheckpoint UnityCheckpoint;
+	public System.Boolean enabled{  get { return UnityCheckpoint.enabled; }
+  set{UnityCheckpoint.enabled = value; }
+ }
+	public UnityEngine.GameObject gameObject{  get { return UnityCheckpoint.gameObject; }
+ }
+	public UnityEngine.HideFlags hideFlags{  get { return UnityCheckpoint.hideFlags; }
+  set{UnityCheckpoint.hideFlags = value; }
+ }
+	public System.Boolean isActiveAndEnabled{  get { return UnityCheckpoint.isActiveAndEnabled; }
+ }
+	public System.Boolean isEntered{  get { return UnityCheckpoint.isEntered; }
+ }
+	public System.String name{  get { return UnityCheckpoint.name; }
+  set{UnityCheckpoint.name = value; }
+ }
+	public System.String tag{  get { return UnityCheckpoint.tag; }
+  set{UnityCheckpoint.tag = value; }
+ }
+	public System.Boolean test;
+	public UnityEngine.Transform transform{  get { return UnityCheckpoint.transform; }
+ }
+	public System.Boolean useGUILayout{  get { return UnityCheckpoint.useGUILayout; }
+  set{UnityCheckpoint.useGUILayout = value; }
+ }
+	public void Update(float dt, World world) {
+frame = World.frame;
+
+		this.Rule0(dt, world);
+
+	}
+
+
+
+
+
+	int s0=-1;
+	public void Rule0(float dt, World world){ 
+	switch (s0)
+	{
+
+	case -1:
+	if(isEntered)
+	{
+
+	goto case 5;	}else
+	{
+
+	goto case 6;	}
+	case 5:
+	UnityEngine.Debug.Log(("true test repair = ") + (isEntered));
+	test = true;
+	s0 = -1;
+return;
+	case 6:
+	test = false;
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
 
 
 
@@ -4088,10 +4172,7 @@ public Zombie(UnityEngine.Transform trans)
 		Life = 100f;
 		
 }
-		public UnityEngine.NavMeshAgent Agent{  get { return UnityZombie2.Agent; }
-  set{UnityZombie2.Agent = value; }
- }
-	public System.Single BodyPartMultiplier{  get { return UnityZombie2.BodyPartMultiplier; }
+		public System.Single BodyPartMultiplier{  get { return UnityZombie2.BodyPartMultiplier; }
   set{UnityZombie2.BodyPartMultiplier = value; }
  }
 	public System.Single CollisionDamage{  get { return UnityZombie2.CollisionDamage; }
@@ -4248,4 +4329,4 @@ return;
 
 
 }
-}                                                                                                                                                                                                                                                                                                       
+}     

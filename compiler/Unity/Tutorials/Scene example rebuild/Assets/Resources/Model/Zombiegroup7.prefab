@@ -119,6 +119,7 @@ GameObject:
   - 95: {fileID: 9556064}
   - 114: {fileID: 11427804}
   - 114: {fileID: 11482394}
+  - 195: {fileID: 19587234}
   m_Layer: 8
   m_Name: Zombie (5)
   m_TagString: Zombie
@@ -1836,6 +1837,7 @@ GameObject:
   - 95: {fileID: 9593854}
   - 114: {fileID: 11463244}
   - 114: {fileID: 11442856}
+  - 195: {fileID: 19583562}
   m_Layer: 8
   m_Name: Zombie (1)
   m_TagString: Zombie
@@ -4200,6 +4202,7 @@ GameObject:
   - 95: {fileID: 9543154}
   - 114: {fileID: 11416464}
   - 114: {fileID: 11483860}
+  - 195: {fileID: 19529552}
   m_Layer: 8
   m_Name: ZombieLeader
   m_TagString: Untagged
@@ -5701,6 +5704,7 @@ GameObject:
   - 95: {fileID: 9522474}
   - 114: {fileID: 11421850}
   - 114: {fileID: 11496280}
+  - 195: {fileID: 19544888}
   m_Layer: 8
   m_Name: Zombie (3)
   m_TagString: Zombie
@@ -5855,6 +5859,7 @@ GameObject:
   - 95: {fileID: 9564174}
   - 114: {fileID: 11469824}
   - 114: {fileID: 11457346}
+  - 195: {fileID: 19588828}
   m_Layer: 8
   m_Name: Zombie (2)
   m_TagString: Zombie
@@ -5903,6 +5908,7 @@ GameObject:
   - 95: {fileID: 9501362}
   - 114: {fileID: 11411268}
   - 114: {fileID: 11404276}
+  - 195: {fileID: 19592226}
   m_Layer: 8
   m_Name: Zombie (4)
   m_TagString: Zombie
@@ -13050,7 +13056,14 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
+    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
+    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
+    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
+    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
+    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
+    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
+    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9522474
@@ -13067,7 +13080,14 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
+    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
+    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
+    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
+    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
+    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
+    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
+    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9543154
@@ -13084,7 +13104,14 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
+    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
+    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
+    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
+    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
+    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
+    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
+    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9556064
@@ -13101,7 +13128,14 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
+    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
+    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
+    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
+    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
+    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
+    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
+    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9564174
@@ -13118,7 +13152,14 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
+    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
+    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
+    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
+    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
+    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
+    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
+    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9593854
@@ -13135,7 +13176,14 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
+    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
+    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
+    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
+    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
+    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
+    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
+    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11400512
@@ -13160,6 +13208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Agent: {fileID: 19592226}
   isHitByBullet: 0
   impactTargets: []
   impacts: []
@@ -13227,6 +13276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Agent: {fileID: 19583562}
   isHitByBullet: 0
   impactTargets: []
   impacts: []
@@ -13242,6 +13292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Agent: {fileID: 19588828}
   isHitByBullet: 0
   impactTargets: []
   impacts: []
@@ -13283,6 +13334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Agent: {fileID: 19587234}
   isHitByBullet: 0
   impactTargets: []
   impacts: []
@@ -13298,6 +13350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Agent: {fileID: 19529552}
   isHitByBullet: 0
   impactTargets: []
   impacts: []
@@ -13313,6 +13366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Agent: {fileID: 19544888}
   isHitByBullet: 0
   impactTargets: []
   impacts: []
@@ -17325,6 +17379,126 @@ CharacterJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 0
+--- !u!195 &19529552
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163954}
+  m_Enabled: 1
+  m_Radius: .5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!195 &19544888
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190504}
+  m_Enabled: 1
+  m_Radius: .5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!195 &19583562
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130170}
+  m_Enabled: 1
+  m_Radius: .5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!195 &19587234
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100910}
+  m_Enabled: 1
+  m_Radius: .5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!195 &19588828
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193236}
+  m_Enabled: 1
+  m_Radius: .5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!195 &19592226
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193976}
+  m_Enabled: 1
+  m_Radius: .5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class UnityZombie2 : MonoBehaviour
 {
-  public NavMeshAgent Agent;
   // Before compiling CNV, comment the line in Update()
   public static UnityZombie2 Find(Transform a)
   {
@@ -21,6 +20,7 @@ public class UnityZombie2 : MonoBehaviour
     return zmbies_group;
   }
 
+  private NavMeshAgent Agent;
   private Animator motor1;
   bool destroyed;
   bool dead;
@@ -52,23 +52,35 @@ public class UnityZombie2 : MonoBehaviour
       Agent.destination = value;
       var x = Mathf.Min(y, 16.0f);
       Agent.speed = x / 8.0f;
+      motor1.SetBool("Run", false);
+      motor1.SetBool("Walk", false);
+      motor1.SetBool("Attack1", false);
+      motor1.SetBool("Attack2", false);
       if (Agent.speed > 1.5f)
       {
-        Debug.Log("run forest run");
-        //run animation
+        //Debug.Log("run forest run");
+        motor1.SetBool("Run",true);
       }
       else
       {
         if (y > 5.0f)
         {
-          Debug.Log("just walk slooooow");
-          //walk animation
+          //Debug.Log("just walk slooooow");
+          motor1.SetBool("Walk", true);
         }
         else
         {
           Agent.speed = 0.2f;
-          //attack animation
-          Debug.Log("Attack!!!");
+          int ranr = Random.Range(1,3);
+          //Debug.Log("Attack!!!"+ranr);
+          if (ranr == 1)
+          {
+          motor1.SetBool("Attack1", true);
+          }
+          else
+          {
+            motor1.SetBool("Attack2", true);
+          }
         }
       }
 
@@ -322,4 +334,4 @@ public class UnityZombie2 : MonoBehaviour
     }*/
   }
 
-}                                                                                                                        
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
