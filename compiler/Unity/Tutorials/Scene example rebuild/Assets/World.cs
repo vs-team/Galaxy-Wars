@@ -61,7 +61,13 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Collections.Generic.List<UnityEngine.Transform> Spawnpoints2{  get { return UnityLandscape.Spawnpoints2; }
  }
 	public UnityLandscape UnityLandscape;
-	public List<Zombie> Zombies;
+	public List<Zombie> __Zombies;
+	public List<Zombie> Zombies{  get { return  __Zombies; }
+  set{ __Zombies = value;
+ foreach(var e in value){if(e.JustEntered){ e.JustEntered = false;
+}
+} }
+ }
 	public System.Boolean enabled{  get { return UnityLandscape.enabled; }
   set{UnityLandscape.enabled = value; }
  }
@@ -669,7 +675,6 @@ public Truck(System.String nm, UnityEngine.Vector3 pos, System.Boolean ModelIs, 
 		cnvAccel = 0f;
 		TruckScript = TruckScript.Instantiate(nm,pos);
 		Stats = new TruckStats(ModelIs,ints);
-		Scor = 0;
 		Keyboard = false;
 		JRotation = 0f;
 		Fuel = 80000f;
@@ -737,7 +742,6 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
  }
 	public System.Single RotationY{  get { return TruckScript.RotationY; }
  }
-	public System.Int32 Scor;
 	public System.String Score{  get { return TruckScript.Score; }
   set{TruckScript.Score = value; }
  }
@@ -3266,10 +3270,6 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr, Ammo am)
 		___DamageList00 = (
 
 (new Cons<System.Single>(40f,(new Cons<System.Single>(75f,(new Cons<System.Single>(135f,(new Cons<System.Single>(400f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
-		List<System.Single> ___GunPowerList00;
-		___GunPowerList00 = (
-
-(new Cons<System.Single>(2.4f,(new Cons<System.Single>(0.8f,(new Cons<System.Single>(2.4f,(new Cons<System.Single>(5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
 		System.String ___nam00;
 		___nam00 = ___stlist00[ind];
 		UnityGun = UnityGun.Instantiate(___nam00,tr);
@@ -3277,7 +3277,6 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr, Ammo am)
 		Reloading = false;
 		ReloadDuration = ___ReloadDurationList00[ind];
 		MagazineSize = ___ClipSizeList00[ind];
-		GunPower = ___GunPowerList00[ind];
 		GunNumber = ind;
 		GunController = GC;
 		GNotInMagazine = 0;
@@ -3293,11 +3292,10 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr, Ammo am)
 	public System.Int32 GInMagazine;
 	public System.Int32 GNotInMagazine;
 	public ControllerRazor GunController;
-	public System.Single GunForce{  get { return UnityGun.GunForce; }
-  set{UnityGun.GunForce = value; }
+	public System.Single GunDamage{  get { return UnityGun.GunDamage; }
+  set{UnityGun.GunDamage = value; }
  }
 	public System.Int32 GunNumber;
-	public System.Single GunPower;
 	public System.Int32 InMag{  get { return UnityGun.InMag; }
   set{UnityGun.InMag = value; }
  }
@@ -3358,7 +3356,6 @@ frame = World.frame;
 		this.Rule4(dt, world);
 		this.Rule5(dt, world);
 		this.Rule6(dt, world);
-		this.Rule7(dt, world);
 	}
 
 
@@ -3408,28 +3405,6 @@ return;	}
 	{
 
 	case -1:
-	GunForce = GunPower;
-	s2 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s2 = 0;
-return;	}else
-	{
-
-	s2 = -1;
-return;	}	
-	default: return;}}
-	
-
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
-	{
-
-	case -1:
 	if(UnityEngine.Input.GetKey(KeyCode.C))
 	{
 
@@ -3439,7 +3414,7 @@ return;	}
 	goto case 2;	}
 	case 6:
 	Reloading = false;
-	s3 = 2;
+	s2 = 2;
 return;
 	case 2:
 	if(((AmmoAct.Reloading) == (false)))
@@ -3448,10 +3423,23 @@ return;
 	goto case 3;	}else
 	{
 
-	s3 = -1;
+	s2 = -1;
 return;	}
 	case 3:
 	Reloading = false;
+	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	InMag = AmmoAct.InMagazine;
+	NotInMag = AmmoAct.NotInMagazine;
 	s3 = -1;
 return;	
 	default: return;}}
@@ -3463,8 +3451,7 @@ return;
 	{
 
 	case -1:
-	InMag = AmmoAct.InMagazine;
-	NotInMag = AmmoAct.NotInMagazine;
+	MagazineGUI = "";
 	s4 = -1;
 return;	
 	default: return;}}
@@ -3473,18 +3460,6 @@ return;
 	int s5=-1;
 	public void Rule5(float dt, World world){ 
 	switch (s5)
-	{
-
-	case -1:
-	MagazineGUI = "";
-	s5 = -1;
-return;	
-	default: return;}}
-	
-
-	int s6=-1;
-	public void Rule6(float dt, World world){ 
-	switch (s6)
 	{
 
 	case -1:
@@ -3497,35 +3472,35 @@ return;
 	goto case 2;	}
 	case 1:
 	AmmoAct.Reloading = true;
-	s6 = 4;
+	s5 = 4;
 return;
 	case 4:
 	if(!(!(Reloading)))
 	{
 
-	s6 = 4;
+	s5 = 4;
 return;	}else
 	{
 
-	s6 = -1;
+	s5 = -1;
 return;	}
 	case 2:
 	AmmoAct.Reloading = false;
-	s6 = -1;
+	s5 = -1;
 return;	
 	default: return;}}
 	
 
-	int s7=-1;
-	public void Rule7(float dt, World world){ 
-	switch (s7)
+	int s6=-1;
+	public void Rule6(float dt, World world){ 
+	switch (s6)
 	{
 
 	case -1:
 	if(!(AmmoAct.shot))
 	{
 
-	s7 = -1;
+	s6 = -1;
 return;	}else
 	{
 
@@ -3537,7 +3512,7 @@ return;	}else
 	goto case 1;	}else
 	{
 
-	s7 = -1;
+	s6 = -1;
 return;	}
 	case 1:
 	if(!(Automatic))
@@ -3549,28 +3524,28 @@ return;	}
 	goto case 3;	}
 	case 2:
 	Shoot = true;
-	s7 = 5;
+	s6 = 5;
 return;
 	case 5:
 	Shoot = false;
-	s7 = -1;
+	s6 = -1;
 return;
 	case 3:
 	if(!(((GunController.Shot) && (((AmmoAct.InMagazine) > (0))))))
 	{
 
-	s7 = -1;
+	s6 = -1;
 return;	}else
 	{
 
 	goto case 8;	}
 	case 8:
 	Shoot = true;
-	s7 = 11;
+	s6 = 11;
 return;
 	case 11:
 	Shoot = false;
-	s7 = 9;
+	s6 = 9;
 return;
 	case 9:
 	count_down7 = 0.05f;
@@ -3580,11 +3555,11 @@ return;
 	{
 
 	count_down7 = ((count_down7) - (dt));
-	s7 = 10;
+	s6 = 10;
 return;	}else
 	{
 
-	s7 = 3;
+	s6 = 3;
 return;	}	
 	default: return;}}
 	
@@ -4103,8 +4078,8 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	case -1:
 	___z03 = (
 
-(U_Zombies).Select(__ContextSymbol192 => new { ___a037 = __ContextSymbol192 })
-.Select(__ContextSymbol193 => new Zombie(__ContextSymbol193.___a037))
+(U_Zombies).Select(__ContextSymbol191 => new { ___a037 = __ContextSymbol191 })
+.Select(__ContextSymbol192 => new Zombie(__ContextSymbol192.___a037))
 .ToList<Zombie>()).ToList<Zombie>();
 	ZombieFollowers = ___z03;
 	s0 = 1;
@@ -4170,13 +4145,24 @@ public Zombie(UnityEngine.Transform trans)
  frame = World.frame;
 		UnityZombie2 = UnityZombie2.Find(trans);
 		Life = 100f;
+		ApplyForce = false;
 		
 }
-		public System.Single BodyPartMultiplier{  get { return UnityZombie2.BodyPartMultiplier; }
+		public System.Boolean ApplyForce;
+	public System.Boolean ApplyForceOnZombie{  get { return UnityZombie2.ApplyForceOnZombie; }
+  set{UnityZombie2.ApplyForceOnZombie = value; }
+ }
+	public System.Single BodyPartMultiplier{  get { return UnityZombie2.BodyPartMultiplier; }
   set{UnityZombie2.BodyPartMultiplier = value; }
  }
-	public System.Single CollisionDamage{  get { return UnityZombie2.CollisionDamage; }
-  set{UnityZombie2.CollisionDamage = value; }
+	public System.Boolean CollidedWithCar{  get { return UnityZombie2.CollidedWithCar; }
+  set{UnityZombie2.CollidedWithCar = value; }
+ }
+	public UnityEngine.Vector3 CollisionDirection{  get { return UnityZombie2.CollisionDirection; }
+  set{UnityZombie2.CollisionDirection = value; }
+ }
+	public System.Single Damage{  get { return UnityZombie2.Damage; }
+  set{UnityZombie2.Damage = value; }
  }
 	public System.Boolean Dead{  get { return UnityZombie2.Dead; }
   set{UnityZombie2.Dead = value; }
@@ -4187,12 +4173,22 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean Destroyed{  get { return UnityZombie2.Destroyed; }
   set{UnityZombie2.Destroyed = value; }
  }
-	public System.Boolean IsHitByBullet{  get { return UnityZombie2.IsHitByBullet; }
-  set{UnityZombie2.IsHitByBullet = value; }
+	public System.Single Force{  get { return UnityZombie2.Force; }
+  set{UnityZombie2.Force = value; }
+ }
+	public UnityEngine.Collider HitCollider{  get { return UnityZombie2.HitCollider; }
+  set{UnityZombie2.HitCollider = value; }
+ }
+	public UnityEngine.Rigidbody HitRigidbody{  get { return UnityZombie2.HitRigidbody; }
+  set{UnityZombie2.HitRigidbody = value; }
+ }
+	public UnityEngine.Transform HitTransform{  get { return UnityZombie2.HitTransform; }
+  set{UnityZombie2.HitTransform = value; }
+ }
+	public System.Boolean IsHitByForce{  get { return UnityZombie2.IsHitByForce; }
+  set{UnityZombie2.IsHitByForce = value; }
  }
 	public System.Single Life;
-	public System.Boolean OnMouseOver{  get { return UnityZombie2.OnMouseOver; }
- }
 	public UnityEngine.Vector3 Position{  get { return UnityZombie2.Position; }
  }
 	public UnityZombie2 UnityZombie2;
@@ -4215,9 +4211,6 @@ public Zombie(UnityEngine.Transform trans)
  }
 	public System.Boolean isActiveAndEnabled{  get { return UnityZombie2.isActiveAndEnabled; }
  }
-	public System.Boolean isHitByBullet{  get { return UnityZombie2.isHitByBullet; }
-  set{UnityZombie2.isHitByBullet = value; }
- }
 	public System.String name{  get { return UnityZombie2.name; }
   set{UnityZombie2.name = value; }
  }
@@ -4229,13 +4222,13 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean useGUILayout{  get { return UnityZombie2.useGUILayout; }
   set{UnityZombie2.useGUILayout = value; }
  }
+	public System.Single ___newHP10;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
-		this.Rule3(dt, world);
 	}
 
 
@@ -4248,28 +4241,26 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(!(((Life) > (0f))))
-	{
-
-	goto case 5;	}else
+	if(!(ApplyForce))
 	{
 
 	s0 = -1;
-return;	}
-	case 5:
-	Dead = true;
-	s0 = 6;
-return;
-	case 6:
-	if(!(false))
-	{
-
-	s0 = 6;
 return;	}else
 	{
 
+	goto case 3;	}
+	case 3:
+	UnityEngine.Debug.Log(("Time of <wait ApplyForce> in CNV is true: ") + (Time.time));
+	ApplyForceOnZombie = true;
+	ApplyForce = false;
+	s0 = 1;
+return;
+	case 1:
+	UnityEngine.Debug.Log(("Time after setting applyforceonzombie on true: ") + (Time.time));
+	ApplyForceOnZombie = false;
+	ApplyForce = false;
 	s0 = -1;
-return;	}	
+return;	
 	default: return;}}
 	
 
@@ -4279,7 +4270,47 @@ return;	}
 	{
 
 	case -1:
-	CollisionDamage = CollisionDamage;
+	if(!(!(IsHitByForce)))
+	{
+
+	s1 = -1;
+return;	}else
+	{
+
+	goto case 11;	}
+	case 11:
+	if(!(IsHitByForce))
+	{
+
+	s1 = 11;
+return;	}else
+	{
+
+	goto case 10;	}
+	case 10:
+	UnityEngine.Debug.Log(("Damage of shot on zombie: ") + ((Force) * (30f)));
+	___newHP10 = ((Life) - (((((Force) * (30f))) * (BodyPartMultiplier))));
+	UnityEngine.Debug.Log(("newHP: ") + (___newHP10));
+	if(((___newHP10) > (0f)))
+	{
+
+	goto case 0;	}else
+	{
+
+	goto case 1;	}
+	case 0:
+	UnityEngine.Debug.Log(("Time of setting ApplyForce & !dead in CNV is true: ") + (Time.time));
+	Life = ___newHP10;
+	Dead = false;
+	ApplyForce = true;
+	s1 = -1;
+return;
+	case 1:
+	UnityEngine.Debug.Log(("Time of setting ApplyForce & dead in CNV is true: ") + (Time.time));
+	UnityEngine.Debug.Log("Zombie died");
+	Life = ___newHP10;
+	Dead = true;
+	ApplyForce = true;
 	s1 = -1;
 return;	
 	default: return;}}
@@ -4291,35 +4322,8 @@ return;
 	{
 
 	case -1:
-	if(!(((CollisionDamage) == (0f))))
-	{
-
-	goto case 2;	}else
-	{
-
-	s2 = -1;
-return;	}
-	case 2:
-	UnityEngine.Debug.Log(("Collided zombie HP before:") + (Life));
-	Life = ((Life) - (((CollisionDamage) * (6f))));
-	CollisionDamage = 0f;
-	s2 = 3;
-return;
-	case 3:
-	UnityEngine.Debug.Log(("Collided zombie HP after:") + (Life));
-	s2 = -1;
-return;	
-	default: return;}}
-	
-
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
-	{
-
-	case -1:
 	Dest = world.Jeep.Value.Position;
-	s3 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
@@ -4329,4 +4333,4 @@ return;
 
 
 }
-}     
+}    

@@ -33,32 +33,41 @@ entity GroupZombie = {
 entity Zombie = {
   inherit UnityZombie2
   Life : float 
-
-  rule Dest = 
-    yield world.Jeep.Value.Position
+  ApplyForce : bool
 
   (*rule Destroyed = 
     wait dead2
     wait 0.8f
     yield true*)
 
-  rule Life, CollisionDamage =
-    if (CollisionDamage <> 0.0f) then
-      Debug.Log("Collided zombie HP before:" + Life)
-      yield Life - (CollisionDamage * 6.0f), 0.0f
-      Debug.Log("Collided zombie HP after:" + Life)
+  rule Dest =
+    yield world.Jeep.Value.Position
 
-  rule CollisionDamage =
-    yield CollisionDamage
+  rule Life, Dead, ApplyForce =
+    wait not IsHitByForce
+    wait IsHitByForce
+    Debug.Log("Damage of shot on zombie: " + Force*30.0f)
+    let newHP = Life - ((Force * 30.0f) * BodyPartMultiplier)
+    Debug.Log("newHP: " + newHP) 
+    if newHP > 0.0f then
+      Debug.Log("Time of setting ApplyForce & !dead in CNV is true: "+ Time.time)
+      yield newHP, false, true
+    else
+      Debug.Log("Time of setting ApplyForce & dead in CNV is true: "+ Time.time)
+      Debug.Log("Zombie died")
+      yield newHP, true, true 
 
-  rule Dead = 
-    if (Life <= 0.0f) then
-      yield true
-      wait false
+  rule ApplyForceOnZombie, ApplyForce =
+    wait ApplyForce
+    Debug.Log("Time of <wait ApplyForce> in CNV is true: "+ Time.time)
+    yield true, false
+    Debug.Log("Time after setting applyforceonzombie on true: "+ Time.time)
+    yield false, false
 
   Create(trans : Transform) = 
   {
   Base = UnityZombie2.Find(trans)
   Life = 100.0f // healthpoints
+  ApplyForce = false
   }
 }

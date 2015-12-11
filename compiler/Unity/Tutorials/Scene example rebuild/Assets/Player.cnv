@@ -343,7 +343,6 @@ entity Gun = {
   GNotInMagazine : int
   GInMagazine : int
   TypeWeapon : string
-  GunPower : float 
   GunNumber : int
   AmmoAct : Ammo
   Reloading : bool
@@ -379,17 +378,13 @@ entity Gun = {
     if AmmoAct.Reloading = false then
       yield false
 
-  rule GunForce =
-    //Debug.Log(GunForce)
-    yield GunPower 
-    wait false
-
   rule AmmoAct.Automatic, AmmoAct.ReloadDuration, AmmoAct.MagazineSize, AmmoAct.TypeWeapon = 
     yield Automatic, ReloadDuration, MagazineSize, TypeWeapon
     wait false
 
   rule AmmoAct.GC = 
     yield Some GunController
+
 
   Create(ind : int, GC : ControllerRazor, tr : string, am : Ammo) = 
   let autom = if (ind <> 0) then false else true
@@ -399,7 +394,6 @@ entity Gun = {
   let ClipSizeList =       [150         ; 20      ;    5    ; 1]
   let ReloadDurationList = [7.0f        ; 3.0f    ;  0.5f   ; 5.0f]
   let DamageList =         [40.0f       ; 75.0f   ; 135.0f  ; 400.0f]
-  let GunPowerList =       [2.4f        ; 0.8f    ; 2.4f    ; 5.0f  ]
   let nam = stlist.[ind]
   {
     Base = UnityGun.Instantiate(nam, tr)
@@ -411,7 +405,6 @@ entity Gun = {
     ReloadDuration = ReloadDurationList.[ind]
     Automatic = autom
     DamagePerBullet = DamageList.[ind]
-    GunPower = GunPowerList.[ind]
     GunNumber = ind
     Reloading = false
     AmmoAct = am

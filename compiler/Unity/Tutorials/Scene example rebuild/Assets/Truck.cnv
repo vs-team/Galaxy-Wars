@@ -66,7 +66,7 @@ entity Truck = {
    isModel : bool
    Active : bool
    Stats : TruckStats
-   Scor : int
+
 
    rule Score = 
      let j = "" + world.Score
@@ -131,7 +131,6 @@ entity Truck = {
       JRotation = 0.0f
       Keyboard = false;
       Stats = new TruckStats(ModelIs, ints)
-      Scor = 0
     }
 }
 
