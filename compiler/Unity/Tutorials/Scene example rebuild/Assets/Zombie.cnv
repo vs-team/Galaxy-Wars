@@ -34,34 +34,31 @@ entity Zombie = {
   inherit UnityZombie2
   Life : float 
   ApplyForce : bool
-
+   
   (*rule Destroyed = 
     wait dead2
     wait 0.8f
     yield true*)
 
   rule Dest =
+    wait not Dead
     yield world.Jeep.Value.Position
 
   rule Life, Dead, ApplyForce =
     wait not IsHitByForce
-    wait IsHitByForce
-    Debug.Log("Damage of shot on zombie: " + Force*30.0f)
+    wait IsHitByForce 
+    Debug.Log("Damage of force on zombie: " + Force*30.0f)
     let newHP = Life - ((Force * 30.0f) * BodyPartMultiplier)
-    Debug.Log("newHP: " + newHP) 
+    Debug.Log("newHP: " + newHP)
     if newHP > 0.0f then
-      Debug.Log("Time of setting ApplyForce & !dead in CNV is true: "+ Time.time)
       yield newHP, false, true
     else
-      Debug.Log("Time of setting ApplyForce & dead in CNV is true: "+ Time.time)
       Debug.Log("Zombie died")
       yield newHP, true, true 
 
   rule ApplyForceOnZombie, ApplyForce =
     wait ApplyForce
-    Debug.Log("Time of <wait ApplyForce> in CNV is true: "+ Time.time)
     yield true, false
-    Debug.Log("Time after setting applyforceonzombie on true: "+ Time.time)
     yield false, false
 
   Create(trans : Transform) = 

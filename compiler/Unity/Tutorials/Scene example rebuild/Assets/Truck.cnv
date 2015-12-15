@@ -86,7 +86,7 @@ entity Truck = {
        wait 0.1f
        yield false, false
 
-   rule Keyboard = 
+   rule Keyboard =
       wait Input.GetKeyDown(KeyCode.P)
       yield not Keyboard
 
@@ -94,7 +94,7 @@ entity Truck = {
       if Keyboard then
         yield Input.GetAxis("Vertical")
       else
-        if Acceleration <> 0.0f then 
+        if Acceleration <> 0.0f then
           yield Acceleration
         else
           yield BrakeAndReverse * -1.0f

@@ -19,6 +19,8 @@ worldEntity World = {
   Gasstations : [Gasstation]
   Players : [Player]
   Score : int
+ 
+  
 
   rule Score = 
     yield Score + 1

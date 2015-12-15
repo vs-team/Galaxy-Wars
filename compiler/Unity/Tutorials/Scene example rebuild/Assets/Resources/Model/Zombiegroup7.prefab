@@ -7453,7 +7453,7 @@ Transform:
   m_GameObject: {fileID: 162338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.7886343, y: -6.2944541, z: 81.9950104}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .75, y: .75, z: .75}
   m_Children:
   - {fileID: 495554}
   - {fileID: 429264}
@@ -11975,7 +11975,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 108956}
   serializedVersion: 2
-  m_Mass: 9.375
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -12095,7 +12095,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188088}
   serializedVersion: 2
-  m_Mass: 9.375
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -12155,7 +12155,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162734}
   serializedVersion: 2
-  m_Mass: 9.375
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -12470,7 +12470,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149338}
   serializedVersion: 2
-  m_Mass: 9.375
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -12560,7 +12560,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181418}
   serializedVersion: 2
-  m_Mass: 9.375
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -12800,7 +12800,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124396}
   serializedVersion: 2
-  m_Mass: 9.375
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 1
@@ -13056,14 +13056,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9522474
@@ -13080,14 +13073,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9543154
@@ -13104,14 +13090,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9556064
@@ -13128,14 +13107,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9564174
@@ -13152,14 +13124,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9593854
@@ -13176,14 +13141,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11400512
@@ -13208,8 +13166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 19592226}
-  isHitByBullet: 0
   impactTargets: []
   impacts: []
   impactEndTimes: []
@@ -13276,8 +13232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 19583562}
-  isHitByBullet: 0
   impactTargets: []
   impacts: []
   impactEndTimes: []
@@ -13292,8 +13246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 19588828}
-  isHitByBullet: 0
   impactTargets: []
   impacts: []
   impactEndTimes: []
@@ -13334,8 +13286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 19587234}
-  isHitByBullet: 0
   impactTargets: []
   impacts: []
   impactEndTimes: []
@@ -13350,8 +13300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 19529552}
-  isHitByBullet: 0
   impactTargets: []
   impacts: []
   impactEndTimes: []
@@ -13366,8 +13314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27db486e4a2845a43ba400fd794be664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 19544888}
-  isHitByBullet: 0
   impactTargets: []
   impacts: []
   impactEndTimes: []
@@ -17386,7 +17332,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 163954}
   m_Enabled: 1
-  m_Radius: .5
+  m_Radius: 15
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -17406,7 +17352,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190504}
   m_Enabled: 1
-  m_Radius: .5
+  m_Radius: 15
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -17426,7 +17372,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130170}
   m_Enabled: 1
-  m_Radius: .5
+  m_Radius: 15
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -17446,7 +17392,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100910}
   m_Enabled: 1
-  m_Radius: .5
+  m_Radius: 15
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -17466,7 +17412,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193236}
   m_Enabled: 1
-  m_Radius: .5
+  m_Radius: 15
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -17486,7 +17432,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193976}
   m_Enabled: 1
-  m_Radius: .5
+  m_Radius: 15
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -17517,6 +17463,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: .75
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: .75
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.z
+      value: .75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
