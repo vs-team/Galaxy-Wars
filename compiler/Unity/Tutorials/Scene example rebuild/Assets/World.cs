@@ -4430,15 +4430,13 @@ frame = World.frame;
 return;	}else
 	{
 
-	goto case 3;	}
-	case 3:
-	UnityEngine.Debug.Log(("Time of <wait ApplyForce> in CNV is true: ") + (Time.time));
+	goto case 1;	}
+	case 1:
 	ApplyForceOnZombie = true;
 	ApplyForce = false;
-	s0 = 1;
+	s0 = 0;
 return;
-	case 1:
-	UnityEngine.Debug.Log(("Time after setting applyforceonzombie on true: ") + (Time.time));
+	case 0:
 	ApplyForceOnZombie = false;
 	ApplyForce = false;
 	s0 = -1;
@@ -4459,18 +4457,18 @@ return;
 return;	}else
 	{
 
-	goto case 11;	}
-	case 11:
+	goto case 9;	}
+	case 9:
 	if(!(IsHitByForce))
 	{
 
-	s1 = 11;
+	s1 = 9;
 return;	}else
 	{
 
-	goto case 10;	}
-	case 10:
-	UnityEngine.Debug.Log(("Damage of shot on zombie: ") + ((Force) * (30f)));
+	goto case 8;	}
+	case 8:
+	UnityEngine.Debug.Log(("Damage of force on zombie: ") + ((Force) * (30f)));
 	___newHP10 = ((Life) - (((((Force) * (30f))) * (BodyPartMultiplier))));
 	UnityEngine.Debug.Log(("newHP: ") + (___newHP10));
 	if(((___newHP10) > (0f)))
@@ -4481,14 +4479,12 @@ return;	}else
 
 	goto case 1;	}
 	case 0:
-	UnityEngine.Debug.Log(("Time of setting ApplyForce & !dead in CNV is true: ") + (Time.time));
 	Life = ___newHP10;
 	Dead = false;
 	ApplyForce = true;
 	s1 = -1;
 return;
 	case 1:
-	UnityEngine.Debug.Log(("Time of setting ApplyForce & dead in CNV is true: ") + (Time.time));
 	UnityEngine.Debug.Log("Zombie died");
 	Life = ___newHP10;
 	Dead = true;
@@ -4504,6 +4500,15 @@ return;
 	{
 
 	case -1:
+	if(!(!(Dead)))
+	{
+
+	s2 = -1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
 	Dest = world.Jeep.Value.Position;
 	s2 = -1;
 return;	
@@ -4515,4 +4520,4 @@ return;
 
 
 }
-}    
+}                         

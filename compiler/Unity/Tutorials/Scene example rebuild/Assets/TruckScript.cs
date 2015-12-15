@@ -170,7 +170,6 @@ public class TruckScript : MonoBehaviour
       {
         collidedWithThisFrame.Add(hitZombie);
         Debug.Log("car collision");
-        Debug.Log("Time of detecting collision in zombie: " + Time.time);
         if (collision.relativeVelocity.magnitude > 10.0f)
         {
           hitZombie.CollisionDirection = -collision.relativeVelocity.normalized;
@@ -180,10 +179,6 @@ public class TruckScript : MonoBehaviour
           hitZombie.HitRigidbody = collision.rigidbody;
           hitZombie.CollidedWithCar = true;
           hitZombie.IsHitByForce = true;
-
-          /*hitZombie.impactTargets.Add(collision.rigidbody);
-          hitZombie.impacts.Add(collision.relativeVelocity.normalized * collision.relativeVelocity.magnitude);
-          hitZombie.impactEndTimes.Add(Time.time + 0.3f);*/
 
           if (!hitZombie.Dead)
           {
@@ -206,14 +201,10 @@ public class TruckScript : MonoBehaviour
     }
     set { CarHP = value; }
   }
-  void Update()
-  {
-    //Physics.IgnoreCollision(shield, UnityPlane.planeBox, true);
-  }
 
   void LateUpdate()
   {
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+}                                                                                                                                                                                                                                                                                                                                           
