@@ -205,7 +205,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 22423008}
   m_AttachedText: {fileID: 11423006}
   ProgressSpeed: 150
-  TriggerOnComplete: 1
+  TriggerOnComplete: 0
   OnCompleteMethods:
     m_PersistentCalls:
       m_Calls:
@@ -220,7 +220,8 @@ MonoBehaviour:
           m_StringArgument: 446f6e65
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: 50726f67726573734261722e5574696c732e4f6e436f6d706c6574654576656e742c20417373656d626c792d4353686172702c2056657273696f6e3d302e302e302e302c2043756c747572653d6e65757472616c2c205075626c69634b6579546f6b656e3d6e756c6c
+    m_TypeName: ProgressBar.Utils.OnCompleteEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &11423014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,7 +372,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: TriggerOnComplete
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 123010}

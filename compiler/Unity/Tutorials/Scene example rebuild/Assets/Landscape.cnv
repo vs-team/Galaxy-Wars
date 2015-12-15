@@ -7,6 +7,7 @@ entity Gasstation = {
   inherit UnityGasstation
   RepairZonE : Repair
 
+
   //new equipment when new jeep
   //wait world.Jeep.Value.CollisionWithModel
 
@@ -27,20 +28,49 @@ entity Gasstation = {
 }
 entity Repair = {
   inherit UnityCheckpoint
-  test : bool
+  RepairProgressBar : Option<ProgressBar_1>
 
-  rule test = 
-    if isEntered then
-      Debug.Log("true test repair = "+isEntered)
-      yield true
-    else
-      yield false
+  rule RepairProgressBar.Value.Destroyed, RepairProgressBar = 
+    wait RepairProgressBar.IsSome
+    if RepairProgressBar.Value.Finished then
+      Debug.Log("finished all. add resources now")
+      yield true, None
+
+  rule RepairProgressBar.Value.startprogress, RepairProgressBar.Value.pspeed = 
+    wait world.Jeep.IsSome
+    let axl = world.Jeep.Value.AxleInfos
+    if axl.Count > 0 then
+      let wheel = 
+        [for a in axl do
+         where (a.motor)
+         select a.leftWheel]
+      let bo = if wheel.Head.motorTorque < -40.0f || wheel.Head.motorTorque > 40.0f then false else true
+      if isEntered && RepairProgressBar.IsSome && bo then
+        yield true, 15
+      else
+        if isEntered then
+          yield false, 50
+        else
+          yield false, 40
+
+  rule RepairProgressBar.Value.startprogress, RepairProgressBar.Value.pspeed = 
+    yield false, 101
+    wait false
 
   Create() = {
     Base = UnityCheckpoint.Find()
-    test = false
+    RepairProgressBar = Some (new ProgressBar_1(1))
   }
+}
+entity ProgressBar_1 = {
+  inherit ProgressBarBehaviour
+  num : int
 
+  Create(j : int)=
+  {
+    Base = ProgressBar.ProgressBarBehaviour.Instantiate()
+    num = j
+  }
 }
 
 entity Landscape = { //here are the zombies created and destroyed after a frame

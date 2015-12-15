@@ -67,7 +67,6 @@ entity Truck = {
    Active : bool
    Stats : TruckStats
 
-
    rule Score = 
      let j = "" + world.Score
      yield j
