@@ -1310,12 +1310,14 @@ MonoBehaviour:
   Counter: 0
   Score: 0
   UnityLandscape: {fileID: 0}
+  W_Refill_Resources: 0
   ___randr00: 0
   ___Headpos00: {x: 0, y: 0, z: 0}
   ___Headpos01: {x: 0, y: 0, z: 0}
   ___a12: []
   ___resourcelist20: []
   ___rnd20: 0
+  ___t60: 0
 --- !u!4 &250587981
 Transform:
   m_ObjectHideFlags: 0

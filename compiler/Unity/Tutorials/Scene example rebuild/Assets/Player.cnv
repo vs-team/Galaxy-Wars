@@ -7,17 +7,11 @@ entity Player = {
   Num : int
   Equip : Equipment
   ref Controllers : [ControllerRazor]
-  // bullets and battery
-
-  rule Equip = 
-    wait world.Jeep.Value.CollisionWithModel
-    yield new Equipment(40)
-    yield Equip
 
   Create(id : int) = 
   {
     Num = id
-    Equip = new Equipment(20)
+    Equip = new Equipment()
     Controllers = [new ControllerRazor("Hydra1 - Right"); new ControllerRazor("Hydra1 - Left")]
   }
 }
@@ -41,7 +35,8 @@ entity Equipment = {
     yield world.Jeep.Value.InputPosition
 
   rule NotActiveFlashs, sap = 
-    wait GunControllerPressed.IsSome || LightControllerPressed.IsSome
+    wait AllFlashs.Count > 0 
+    Debug.Log("change for flashs")
     let j = 
       [for a in AllFlashs do
        where (not ActiveFlashs.Contains(a))
@@ -57,6 +52,7 @@ entity Equipment = {
        select a]
     let left = if lef.Count > 0 then true else false
     yield j, [right;left]
+    wait GunControllerPressed.IsSome || LightControllerPressed.IsSome || world.W_Refill_Resources
 
   rule NotActiveGuns, asdf = 
     wait GunControllerPressed.IsSome || LightControllerPressed.IsSome
@@ -203,6 +199,7 @@ entity Equipment = {
       [for a in ActiveGuns do
        where (a.GunController.ECB <> "")
        select a]
+
     // Light can only change to gun. no other flashlights possible
     let j = 
       [for a in ActiveFlashs do
@@ -215,45 +212,90 @@ entity Equipment = {
     else
       yield None, None
 
-
   rule ActiveGuns, NotActiveGuns, AllGuns, asdf, ActiveFlashs, NotActiveFlashs, AllFlashs = // start!! gun is right, flash is left
     let pl = world.Players.Head.Controllers
-    
     let j = [TransformHR.name;TransformHL.name]
-    let x = 
+    let x = //right
       [for a in [0..(HR.Count - 1)] do
        select (new Gun(a,pl.Head,j.Head, AllAmmo.[a]))]
-    let y = 
+    let y = //left
       [for a in [0..(HL.Count - 1)] do
        select (new Gun(a,pl.[1],j.[1], AllAmmo.[a]))]
+
+    let AcCount = 
+      [for a in ActiveGuns do
+       select (a.GunNumber)]
+    let ac = if (AcCount.Count <> 0) then (AcCount) else ([])
     let AllGunslist = x @ y
-    let AG = [AllGunslist.[0]]
-    let NotAG = 
-      [for a in AllGunslist do
-       where (not AG.Contains(a))
-       select a]
 
-    let z = [flashL.name;flashR.name]
-    let AF = [new Light(pl.[1],z.[1])]
-    let NAF = [new Light(pl.[0],z.[0])]
-    let AllF = AF @ NAF
+    if ac.Count = 2 then
+      Debug.Log("2 guns")
+      let z = [flashL.name;flashR.name]
+      let NAF = [new Light(pl.[0]);new Light(pl.[1])]
 
-    yield AG, NotAG, AllGunslist, [], AF, NAF, AllF
-    let fdsa = 
-      [for a in NotAG do
-       select ("Nummer:" + a.GunNumber + " Controller:" + a.GunController.JoystickName)]
-    yield ActiveGuns, NotActiveGuns, AllGuns, fdsa, ActiveFlashs, NotActiveFlashs, AllFlashs
-    wait false
+      let AG = [AllGunslist.[ac.Head]; AllGunslist.[ac.[1]]]
+
+      let NotAG = 
+        [for a in AllGunslist do
+         where (not AG.Contains(a))
+         select a]
+
+      let fdsa = 
+        [for a in NotAG do
+         select ("Nummer:" + a.GunNumber + " Controller:" + a.GunController.JoystickName)]
+      yield AG, NotAG, AllGunslist, fdsa, [], NAF, NAF
+      wait world.W_Refill_Resources
+
+    if ac.Count = 1 then
+
+      let gunhand = 
+        [for a in ActiveGuns do
+         select (a.GunController.JoystickName)]
+
+      let AG = if gunhand.Head <> "Hydra1 - Left" then [AllGunslist.[ac.Head]] else [AllGunslist.[(ac.Head+HR.Count)]]
+
+      let NotAG = 
+        [for a in AllGunslist do
+         where (not AG.Contains(a))
+         select a]
+      let z = [flashL.name;flashR.name]
+
+      let AF = if gunhand.Head <> "Hydra1 - Left" then [new Light(pl.[1])] else [new Light(pl.[0])]
+      let NAF = if gunhand.Head = "Hydra1 - Left" then [new Light(pl.[0])] else [new Light(pl.[1])]
+      let AllF = AF @ NAF
+
+      let fdsa = 
+        [for a in NotAG do
+         select ("Nummer:" + a.GunNumber + " Controller:" + a.GunController.JoystickName)]
+      yield AG, NotAG, AllGunslist, fdsa, AF, NAF, AllF
+      wait world.W_Refill_Resources
+
+    else
+      let AG = [AllGunslist.[0]]
+
+      let NotAG = 
+        [for a in AllGunslist do
+         where (not AG.Contains(a))
+         select a]
+
+      let AF = [new Light(pl.[1])]
+      let NAF = [new Light(pl.[0])]
+      let AllF = AF @ NAF
+
+      let fdsa = 
+        [for a in NotAG do
+         select ("Nummer:" + a.GunNumber + " Controller:" + a.GunController.JoystickName)]
+      yield AG, NotAG, AllGunslist, fdsa, AF, NAF, AllF
+      wait world.W_Refill_Resources
 
   rule AllAmmo = 
     let j = 
       [for a in Ammos do
        select (new Ammo(a.Item1,a.Item2))]
     yield j
-    yield AllAmmo
-    wait false
+    wait world.W_Refill_Resources
 
-  Create(flashs : int) = 
+  Create() = 
   {
     Base = UnityEquipment.Instantiate() // send list of bullets to instantiate.
     ActiveGuns = []
@@ -366,10 +408,14 @@ entity Gun = {
     else 
       yield false
 
-  rule MagazineGUI = 
-    yield ""
+  // TODO MAGAZINEGUI not working
+  //rule MagazineGUI = 
+    //let a = InMag
+    //wait InMag <> a
+    //yield ""
 
   rule InMag, NotInMag = 
+    Debug.Log("GunNumber = "+GunNumber+ "   ammo = "+AmmoAct.InMagazine)
     yield AmmoAct.InMagazine, AmmoAct.NotInMagazine
 
   rule Reloading = 
@@ -384,7 +430,6 @@ entity Gun = {
 
   rule AmmoAct.GC = 
     yield Some GunController
-
 
   Create(ind : int, GC : ControllerRazor, tr : string, am : Ammo) = 
   let autom = if (ind <> 0) then false else true
@@ -512,7 +557,7 @@ entity Light = {
   rule Active =
     yield LightController.Trigger
 
-  Create(LC : ControllerRazor, tr : string) = 
+  Create(LC : ControllerRazor) = 
   {
     LightController = LC
     Battery = 100.0f

@@ -7,7 +7,6 @@ entity Gasstation = {
   inherit UnityGasstation
   RepairZonE : Repair
 
-
   //new equipment when new jeep
   //wait world.Jeep.Value.CollisionWithModel
 
@@ -22,22 +21,29 @@ entity Gasstation = {
     yield world.Jeep.Value.CollisionWithModel
 
   Create(ps : Vector3) = {
-  Base = UnityGasstation.Instantiate(ps)
-  RepairZonE = new Repair()
+    Base = UnityGasstation.Instantiate(ps)
+    RepairZonE = new Repair()
   }
 }
 entity Repair = {
   inherit UnityCheckpoint
   RepairProgressBar : Option<ProgressBar_1>
+  Refill_Resources : bool
 
-  rule RepairProgressBar.Value.Destroyed, RepairProgressBar = 
+  rule Refill_Resources = 
+    wait Refill_Resources <> false
+    yield true
+    yield false
+
+  rule RepairProgressBar.Value.Destroyed, RepairProgressBar, Refill_Resources = 
     wait RepairProgressBar.IsSome
     if RepairProgressBar.Value.Finished then
       Debug.Log("finished all. add resources now")
-      yield true, None
+      yield true, None, true
 
   rule RepairProgressBar.Value.startprogress, RepairProgressBar.Value.pspeed = 
     wait world.Jeep.IsSome
+    wait RepairProgressBar.IsSome
     let axl = world.Jeep.Value.AxleInfos
     if axl.Count > 0 then
       let wheel = 
@@ -45,7 +51,7 @@ entity Repair = {
          where (a.motor)
          select a.leftWheel]
       let bo = if wheel.Head.motorTorque < -40.0f || wheel.Head.motorTorque > 40.0f then false else true
-      if isEntered && RepairProgressBar.IsSome && bo then
+      if isEntered && bo then
         yield true, 15
       else
         if isEntered then
@@ -60,6 +66,7 @@ entity Repair = {
   Create() = {
     Base = UnityCheckpoint.Find()
     RepairProgressBar = Some (new ProgressBar_1(1))
+    Refill_Resources = false
   }
 }
 entity ProgressBar_1 = {

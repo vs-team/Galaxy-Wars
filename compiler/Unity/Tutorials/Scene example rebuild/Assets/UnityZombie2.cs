@@ -248,7 +248,7 @@ public class UnityZombie2 : MonoBehaviour
       if ((collidedWithCar || dead) && applyForceOnZombie)
       {
         Debug.Log("apply ragdoll on zombie");
-        //*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
+        /*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
         if (gameObject.name == hitCollider.GetComponentInParent<RagdollHelper>().name)
         {
           RagdollHelper helper = hitCollider.GetComponentInParent<RagdollHelper>();
@@ -304,4 +304,4 @@ public class UnityZombie2 : MonoBehaviour
     }*/
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
