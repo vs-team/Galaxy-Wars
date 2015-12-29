@@ -193,4 +193,4 @@ namespace ProgressBar
       if (Value < 0) Value = 0;
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                       
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

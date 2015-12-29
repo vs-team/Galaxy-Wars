@@ -22,9 +22,9 @@ entity GroupZombie = {
     yield []
     wait false
 
-  Create(sps : Vector3) =
+  Create(sps : Vector3, amount : int) =
   {
-    Base = UnityGroup.Instantiate(sps)
+    Base = UnityGroup.Instantiate(sps, amount)
     ZombieFollowers = []
     ZombieLeader = None
   }

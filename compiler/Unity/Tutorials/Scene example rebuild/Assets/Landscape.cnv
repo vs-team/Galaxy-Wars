@@ -6,9 +6,27 @@ open UnityEngine
 entity Gasstation = {
   inherit UnityGasstation
   RepairZonE : Repair
+  GroupZombies : [GroupZombie]
+  ZombieSpawnpoints : [Transform]
+  Counter : int
 
-  //new equipment when new jeep
-  //wait world.Jeep.Value.CollisionWithModel
+  rule GroupZombies, Counter = 
+    wait ZombieSpawnpoints.Count > 0 && RepairZonE.RepairProgressBar.Value.pspeed = 15
+    if Counter <> ZombieSpawnpoints.Count then
+      let zsp = ZombieSpawnpoints.[Counter]
+      let t = zsp.position
+      let newZ = [new GroupZombie(t,2)]
+      yield GroupZombies @ newZ, Counter + 1
+      wait 2.0f
+    else
+      yield GroupZombies, 0
+
+  rule ZombieSpawnpoints = 
+    let x = 
+      [for a in SP2 do
+       select a]
+    yield x
+    wait false
 
   rule world.Jeep.Value.Destroyed, world.Jeep, world.Jeep.Value.CollisionWithModel, Destroyed = 
     wait world.Jeep.Value.CollisionWithModel
@@ -23,6 +41,9 @@ entity Gasstation = {
   Create(ps : Vector3) = {
     Base = UnityGasstation.Instantiate(ps)
     RepairZonE = new Repair()
+    GroupZombies = []
+    ZombieSpawnpoints = []
+    Counter = 0
   }
 }
 entity Repair = {
@@ -95,14 +116,14 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
       let sps_pos = sps.position
       let rpu = Spawnpoints.[random_pickup]
       let rpu_pos = rpu.position
-      yield [new GroupZombie(sps_pos)], [new PickUp(rpu_pos)], []
+      yield [new GroupZombie(sps_pos,7)], [new PickUp(rpu_pos)], []
       wait false
     else 
       let sps1 = Spawnpoints.[1]
       let sps_pos1 = sps1.position
       let rpu1 = Spawnpoints.[2]
       let rpu_pos1 = rpu1.position
-      yield [new GroupZombie(sps_pos1)], [new PickUp(rpu_pos1)], []
+      yield [new GroupZombie(sps_pos1,7)], [new PickUp(rpu_pos1)], []
       wait false
 
   rule Spawnpoints = 

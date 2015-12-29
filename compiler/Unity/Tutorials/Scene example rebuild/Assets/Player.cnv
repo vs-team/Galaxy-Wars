@@ -415,7 +415,7 @@ entity Gun = {
     //yield ""
 
   rule InMag, NotInMag = 
-    Debug.Log("GunNumber = "+GunNumber+ "   ammo = "+AmmoAct.InMagazine)
+    //Debug.Log("GunNumber = "+GunNumber+ "   ammo = "+AmmoAct.InMagazine)
     yield AmmoAct.InMagazine, AmmoAct.NotInMagazine
 
   rule Reloading = 

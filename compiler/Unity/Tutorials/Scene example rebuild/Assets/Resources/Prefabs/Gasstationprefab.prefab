@@ -84,6 +84,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &106262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 404588}
+  m_Layer: 0
+  m_Name: GameObject (2)
+  m_TagString: ZombieSpawnPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &107286
 GameObject:
   m_ObjectHideFlags: 1
@@ -148,6 +163,21 @@ GameObject:
   m_Layer: 0
   m_Name: Box026
   m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &117516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 411460}
+  m_Layer: 0
+  m_Name: GameObject (4)
+  m_TagString: ZombieSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -504,6 +534,21 @@ GameObject:
   m_Layer: 0
   m_Name: Box028
   m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &155378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 413430}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: ZombieSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -880,6 +925,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &187394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 408538}
+  m_Layer: 0
+  m_Name: GameObject (3)
+  m_TagString: ZombieSpawnPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &189696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 413180}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: ZombieSpawnPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &194484
 GameObject:
   m_ObjectHideFlags: 1
@@ -994,6 +1069,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 406802}
   m_RootOrder: 10
+--- !u!4 &404588
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106262}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 11.4399996}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 431032}
+  m_RootOrder: 11
 --- !u!4 &405982
 Transform:
   m_ObjectHideFlags: 1
@@ -1048,6 +1135,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 406802}
   m_RootOrder: 14
+--- !u!4 &408538
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187394}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.6599998, y: 0, z: 5.57000017}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 431032}
+  m_RootOrder: 12
 --- !u!4 &409348
 Transform:
   m_ObjectHideFlags: 1
@@ -1060,6 +1159,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 406802}
   m_RootOrder: 7
+--- !u!4 &411460
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117516}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.1000004, y: 0, z: -30.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 431032}
+  m_RootOrder: 13
+--- !u!4 &413180
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189696}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 431032}
+  m_RootOrder: 9
+--- !u!4 &413430
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155378}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 431032}
+  m_RootOrder: 10
 --- !u!4 &423080
 Transform:
   m_ObjectHideFlags: 1
@@ -1128,6 +1263,11 @@ Transform:
   - {fileID: 430876}
   - {fileID: 495678}
   - {fileID: 22427026}
+  - {fileID: 413180}
+  - {fileID: 413430}
+  - {fileID: 404588}
+  - {fileID: 408538}
+  - {fileID: 411460}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &431104
@@ -3022,6 +3162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modely: {fileID: 0}
   RepairZone: {fileID: 0}
+  SP2: []
 --- !u!114 &11444876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3063,22 +3204,7 @@ MonoBehaviour:
   m_AttachedText: {fileID: 11444876}
   ProgressSpeed: 80
   TriggerOnComplete: 0
-  OnCompleteMethods:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11445530}
-        m_MethodName: set_pspeed
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 200
-          m_FloatArgument: 0
-          m_StringArgument: 446f6e65
-          m_BoolArgument: 0
-        m_CallState: 0
-    m_TypeName: ProgressBar.Utils.OnCompleteEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  Finished: 0
 --- !u!114 &11466080
 MonoBehaviour:
   m_ObjectHideFlags: 1

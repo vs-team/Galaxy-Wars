@@ -12,6 +12,7 @@ TagManager:
   - Truck
   - Gun
   - Zombiegroup
+  - ZombieSpawnPoint
   layers:
   - Default
   - TransparentFX
