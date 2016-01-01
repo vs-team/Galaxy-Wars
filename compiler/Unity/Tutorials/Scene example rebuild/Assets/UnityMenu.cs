@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class UnityMenu : MonoBehaviour
 {
+  public Texture backgroundTexture;
+
   private GameObject PlayB;
   private GameObject QuitB;
   private GameObject countDown1;
@@ -15,6 +17,7 @@ public class UnityMenu : MonoBehaviour
   {
     set
     {
+
       PlayB = GameObject.Find("Canvas/Play");
       QuitB = GameObject.Find("Canvas/Quit");
 
@@ -65,4 +68,4 @@ public class UnityMenu : MonoBehaviour
     }
   }
 }
-                                    
+                                                                                                                             

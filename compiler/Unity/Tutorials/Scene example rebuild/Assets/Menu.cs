@@ -38,6 +38,9 @@ public void Start()
  }
  }
 	public UnityMenu UnityMenu;
+	public UnityEngine.Texture backgroundTexture{  get { return UnityMenu.backgroundTexture; }
+  set{UnityMenu.backgroundTexture = value; }
+ }
 	public System.String begin_a{  set{UnityMenu.begin_a = value; }
  }
 	public System.Boolean enabled{  get { return UnityMenu.enabled; }
@@ -61,6 +64,8 @@ public void Start()
 	public System.Boolean useGUILayout{  get { return UnityMenu.useGUILayout; }
   set{UnityMenu.useGUILayout = value; }
  }
+	public System.Single count_down6;
+	public System.Single count_down5;
 	public System.Single count_down4;
 	public System.Single count_down3;
 	public System.Single count_down2;
@@ -136,67 +141,93 @@ return;
 return;	}else
 	{
 
-	goto case 13;	}
-	case 13:
+	goto case 17;	}
+	case 17:
 	UnityEngine.Debug.Log("starting the game");
 	NextScene = "Loading";
-	s2 = 11;
+	s2 = 15;
 return;
-	case 11:
+	case 15:
 	NextScene = "countDown3";
-	s2 = 9;
+	s2 = 13;
 return;
-	case 9:
-	count_down4 = 1f;
-	goto case 10;
+	case 13:
+	count_down6 = 1f;
+	goto case 14;
+	case 14:
+	if(((count_down6) > (0f)))
+	{
+
+	count_down6 = ((count_down6) - (dt));
+	s2 = 14;
+return;	}else
+	{
+
+	goto case 12;	}
+	case 12:
+	NextScene = "countDown2";
+	s2 = 10;
+return;
 	case 10:
+	count_down5 = 1f;
+	goto case 11;
+	case 11:
+	if(((count_down5) > (0f)))
+	{
+
+	count_down5 = ((count_down5) - (dt));
+	s2 = 11;
+return;	}else
+	{
+
+	goto case 9;	}
+	case 9:
+	NextScene = "countDown1";
+	s2 = 7;
+return;
+	case 7:
+	count_down4 = 0.8f;
+	goto case 8;
+	case 8:
 	if(((count_down4) > (0f)))
 	{
 
 	count_down4 = ((count_down4) - (dt));
-	s2 = 10;
+	s2 = 8;
 return;	}else
 	{
 
-	goto case 8;	}
-	case 8:
-	NextScene = "countDown2";
-	s2 = 6;
-return;
+	goto case 6;	}
 	case 6:
-	count_down3 = 1f;
-	goto case 7;
-	case 7:
+	NextScene = "NextScene";
+	s2 = 4;
+return;
+	case 4:
+	count_down3 = dt;
+	goto case 5;
+	case 5:
 	if(((count_down3) > (0f)))
 	{
 
 	count_down3 = ((count_down3) - (dt));
-	s2 = 7;
-return;	}else
-	{
-
-	goto case 5;	}
-	case 5:
-	NextScene = "countDown1";
-	s2 = 3;
-return;
-	case 3:
-	count_down2 = 1f;
-	goto case 4;
-	case 4:
-	if(((count_down2) > (0f)))
-	{
-
-	count_down2 = ((count_down2) - (dt));
-	s2 = 4;
+	s2 = 5;
 return;	}else
 	{
 
 	goto case 2;	}
 	case 2:
-	NextScene = "NextScene";
-	s2 = 0;
-return;
+	count_down2 = dt;
+	goto case 3;
+	case 3:
+	if(((count_down2) > (0f)))
+	{
+
+	count_down2 = ((count_down2) - (dt));
+	s2 = 3;
+return;	}else
+	{
+
+	goto case 0;	}
 	case 0:
 	count_down1 = dt;
 	goto case 1;
@@ -273,4 +304,4 @@ frame = Menu.frame;
 
 
 }
-}                        
+}     

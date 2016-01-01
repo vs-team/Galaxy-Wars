@@ -17,8 +17,10 @@ worldEntity Menu = {
     yield "countDown2"
     wait 1.0f
     yield "countDown1"
-    wait 1.0f
+    wait 0.8f
     yield "NextScene"
+    wait dt
+    wait dt
     wait dt
 
   rule NextScene = 
