@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 404588}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: ZombieSpawnPoint3
   m_TagString: ZombieSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 411460}
   m_Layer: 0
-  m_Name: GameObject (4)
+  m_Name: ZombieSpawnPoint5
   m_TagString: ZombieSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,7 +547,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 413430}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: ZombieSpawnPoint2
   m_TagString: ZombieSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -934,7 +934,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 408538}
   m_Layer: 0
-  m_Name: GameObject (3)
+  m_Name: ZombieSpawnPoint4
   m_TagString: ZombieSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -949,7 +949,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 413180}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ZombieSpawnPoint1
   m_TagString: ZombieSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
