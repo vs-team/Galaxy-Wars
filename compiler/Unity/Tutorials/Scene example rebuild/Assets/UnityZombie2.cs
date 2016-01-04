@@ -22,8 +22,8 @@ public class UnityZombie2 : MonoBehaviour
   private bool dead;
   private bool applyForceOnZombie;
   private bool isHitByForce;
-  private bool collidedWithCar;  
-
+  private bool collidedWithCar;
+  private float life = 100.0f;
 
   private float force;
   private float damage;
@@ -98,10 +98,19 @@ public class UnityZombie2 : MonoBehaviour
           }
         }
       }
-
     }
   }
 
+  public float Life
+  {
+    get { return life; }
+    set
+    {
+      life = value;
+      if (life <= 0.0f)
+        Dead = true;
+    }
+  }
   public bool Dead
   {
     get { return dead; }
@@ -153,7 +162,7 @@ public class UnityZombie2 : MonoBehaviour
     set
     {
       hitTransform = value;
-      if (!dead || !collidedWithCar)
+      if (!dead && !collidedWithCar)
       {
         string hitBodyPartName = hitTransform.name;
         if (hitBodyPartName.Contains("CATRigLArm") || hitBodyPartName.Contains("CATRigRArm") || hitBodyPartName.Contains("CATRigLLeg1") || hitBodyPartName.Contains("CATRigRLeg1"))
@@ -191,6 +200,11 @@ public class UnityZombie2 : MonoBehaviour
     set
     {
       isHitByForce = value;
+      if(isHitByForce)
+      {
+        Life -= force * 30.0f * bodyPartMultiplier;
+        ApplyForceOnZombie = true;
+      }
     }
   }
 
@@ -245,9 +259,8 @@ public class UnityZombie2 : MonoBehaviour
     set
     {
       applyForceOnZombie = value;
-      if ((collidedWithCar || dead) && applyForceOnZombie)
+      if ((collidedWithCar || dead) && ApplyForceOnZombie)
       {
-        Debug.Log("apply ragdoll on zombie");
         //*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
         if (gameObject.name == hitCollider.GetComponentInParent<RagdollHelper>().name)
         {
@@ -258,9 +271,9 @@ public class UnityZombie2 : MonoBehaviour
           impactEndTimes.Add(Time.time + 0.3f); //Apply the force for <float> length
         }
         //*/
-        IsHitByForce = false;
+        ApplyForceOnZombie = false;
       }
-      else if (!dead && applyForceOnZombie)
+      else if (!dead && ApplyForceOnZombie)
       {
         Debug.Log("apply force on zombie");
         string hitBodyPartName = hitTransform.name;
@@ -271,7 +284,7 @@ public class UnityZombie2 : MonoBehaviour
         else
           motor1.SetBool("shot", true);
 
-        IsHitByForce = false;
+        ApplyForceOnZombie = false;
       }
     }
   }
@@ -304,4 +317,4 @@ public class UnityZombie2 : MonoBehaviour
     }*/
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        

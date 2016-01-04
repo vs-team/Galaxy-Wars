@@ -16,6 +16,8 @@ public class TruckScript : MonoBehaviour
   public Collider shield;
   private List<UnityZombie2> collidedWithThisFrame;
   private TextMesh score;
+  private bool destroyed;
+  private Vector3 prevVelocity;
 
   public static TruckScript Instantiate(string nm, Vector3 pos)
   {
@@ -47,9 +49,11 @@ public class TruckScript : MonoBehaviour
     get { return score.text; }
     set { score.text = "Score: " + value; }
   }
-
-
-  bool destroyed;
+  public Vector3 PrevVelocity
+  {
+    get { return prevVelocity; }
+    set { prevVelocity = value; }
+  }
 
   public bool Destroyed
   {
@@ -165,6 +169,8 @@ public class TruckScript : MonoBehaviour
     }
     else if (collision.transform.root.tag == "Zombiegroup")
     {
+      truckRigidBody.velocity = prevVelocity;
+      Debug.Log("prevVelocity: " + prevVelocity);
       UnityZombie2 hitZombie = collision.transform.GetComponentInParent<UnityZombie2>();
       if (!collidedWithThisFrame.Contains(hitZombie) && !hitZombie.CollidedWithCar)
       {
@@ -179,6 +185,7 @@ public class TruckScript : MonoBehaviour
           hitZombie.HitRigidbody = collision.rigidbody;
           hitZombie.CollidedWithCar = true;
           hitZombie.IsHitByForce = true;
+
 
           if (!hitZombie.Dead)
           {
@@ -195,10 +202,7 @@ public class TruckScript : MonoBehaviour
 
   public float CarHP2
   {
-    get
-    {
-      return CarHP;
-    }
+    get { return CarHP; }
     set { CarHP = value; }
   }
 
@@ -207,4 +211,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                           
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

@@ -32,39 +32,18 @@ entity GroupZombie = {
 
 entity Zombie = {
   inherit UnityZombie2
-  Life : float 
-  ApplyForce : bool
    
   (*rule Destroyed = 
-    wait dead2
-    wait 0.8f
-    yield true*)
+    wait dead
+    wait 5.0f //Distance of truck
+    yield true*) 
 
   rule Dest =
     wait not Dead
-    yield world.Jeep.Value.Position
-
-  rule Life, Dead, ApplyForce =
-    wait not IsHitByForce
-    wait IsHitByForce 
-    Debug.Log("Damage of force on zombie: " + Force*30.0f)
-    let newHP = Life - ((Force * 30.0f) * BodyPartMultiplier)
-    Debug.Log("newHP: " + newHP)
-    if newHP > 0.0f then
-      yield newHP, false, true
-    else
-      Debug.Log("Zombie died")
-      yield newHP, true, true 
-
-  rule ApplyForceOnZombie, ApplyForce =
-    wait ApplyForce
-    yield true, false
-    yield false, false
+    yield world.Jeep.Value.Position 
 
   Create(trans : Transform) = 
-  {
+  { 
   Base = UnityZombie2.Find(trans)
-  Life = 100.0f // healthpoints
-  ApplyForce = false
   }
 }

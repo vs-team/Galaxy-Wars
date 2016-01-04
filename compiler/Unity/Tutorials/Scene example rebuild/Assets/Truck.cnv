@@ -67,6 +67,8 @@ entity Truck = {
    Active : bool
    Stats : TruckStats
 
+   rule PrevVelocity =
+     yield truckRigidBody.velocity
 
    rule Score = 
      let j = "" + world.Score
@@ -144,6 +146,7 @@ entity AxleInfo = {
   rule steering = 
     yield steering
 
+
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
     if not world.Jeep.Value.isModel then
@@ -174,7 +177,7 @@ entity AxleInfo = {
             .| _ =>
               yield speed * 10.0f, speed * 10.0f, world.Jeep.Value.Fuel
               wait 2.0f
-          else
+          else 
             yield speed, speed, world.Jeep.Value.Fuel - 1.0f
         else
           yield 0.0f,0.0f, world.Jeep.Value.Fuel
