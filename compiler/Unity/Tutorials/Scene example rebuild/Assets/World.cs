@@ -770,6 +770,9 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.Boolean Keyboard;
 	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
  }
+	public UnityEngine.Vector3 PrevVelocity{  get { return TruckScript.PrevVelocity; }
+  set{TruckScript.PrevVelocity = value; }
+ }
 	public UnityEngine.WheelCollider RearLeftWheel{  get { return TruckScript.RearLeftWheel; }
   set{TruckScript.RearLeftWheel = value; }
  }
@@ -841,6 +844,7 @@ frame = World.frame;
 		this.Rule5(dt, world);
 		this.Rule6(dt, world);
 		this.Rule7(dt, world);
+		this.Rule8(dt, world);
 	}
 
 
@@ -874,7 +878,7 @@ return;
 	{
 
 	s1 = -1;
-return;	}
+return;	}	
 	case 2:
 	if(((world.ActiveBoR) == ("Jerry Can Green")))
 	{
@@ -1119,6 +1123,18 @@ return;
 	default: return;}}
 	
 
+	int s8=-1;
+	public void Rule8(float dt, World world){ 
+	switch (s8)
+	{
+
+	case -1:
+	PrevVelocity = truckRigidBody.velocity;
+	s8 = -1;
+return;	
+	default: return;}}
+
+
 
 
 
@@ -1170,106 +1186,106 @@ frame = World.frame;
 	if(!(world.Jeep.Value.isModel))
 	{
 
-	goto case 3;	}else
+	goto case 2;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 3:
+	case 2:
 	if(((world.Jeep.Value.Fuel) > (0.99f)))
 	{
 
-	goto case 4;	}else
+	goto case 3;	}else
 	{
 
-	goto case 5;	}
-	case 4:
+	goto case 4;	}
+	case 3:
 	if(((!(((world.Jeep.Value.cnvAccel) == (0f)))) && (((leftWheel.isGrounded) || (rightWheel.isGrounded)))))
 	{
 
-	goto case 7;	}else
+	goto case 6;	}else
 	{
 
-	goto case 8;	}
-	case 7:
+	goto case 7;	}
+	case 6:
 	___dir00 = world.Jeep.Value.cnvAccel;
 	___speed00 = ((((world.Jeep.Value.maxMotorTorque) * (world.Jeep.Value.cnvAccel))) * (-1f));
 	if(((world.ActiveBoR) == ("Arrows Green")))
 	{
 
-	goto case 10;	}else
+	goto case 9;	}else
 	{
 
-	goto case 11;	}
-	case 10:
+	goto case 10;	}
+	case 9:
 	leftWheel.motorTorque = leftWheel.motorTorque;
 	rightWheel.motorTorque = rightWheel.motorTorque;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 14;
+	s0 = 13;
 return;
-	case 14:
+	case 13:
 	if(!(((!(((world.Jeep.Value.cnvAccel) == (___dir00)))) || (true))))
 	{
 
-	s0 = 14;
+	s0 = 13;
 return;	}else
 	{
 
-	goto case 13;	}
-	case 13:
+	goto case 12;	}
+	case 12:
 	if(!(((world.Jeep.Value.cnvAccel) == (___dir00))))
 	{
 
-	goto case 15;	}else
+	goto case 14;	}else
 	{
 
 	if(true)
 	{
 
-	goto case 16;	}else
+	goto case 15;	}else
 	{
 
-	s0 = 13;
+	s0 = 12;
 return;	}	}
-	case 15:
+	case 14:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 16:
+	case 15:
 	leftWheel.motorTorque = ((___speed00) * (10f));
 	rightWheel.motorTorque = ((___speed00) * (10f));
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 18;
+	s0 = 17;
 return;
-	case 18:
+	case 17:
 	count_down6 = 2f;
-	goto case 19;
-	case 19:
+	goto case 18;
+	case 18:
 	if(((count_down6) > (0f)))
 	{
 
 	count_down6 = ((count_down6) - (dt));
-	s0 = 19;
+	s0 = 18;
 return;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 11:
+	case 10:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 8:
+	case 7:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
 	s0 = -1;
 return;
-	case 5:
+	case 4:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = 0f;
@@ -1389,13 +1405,13 @@ Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 		UnityGasstation = UnityGasstation.Instantiate(ps);
 		RepairZonE = new Repair();
 		GroupZombies = (
-
+		
 Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 		Counter = 0;
 		
 }
 		public System.Int32 Counter;
-	public System.Boolean Destroyed{  get { return UnityGasstation.Destroyed; }
+		public System.Boolean Destroyed{  get { return UnityGasstation.Destroyed; }
   set{UnityGasstation.Destroyed = value; }
  }
 	public List<GroupZombie> GroupZombies;
@@ -1605,7 +1621,7 @@ public Repair()
 }
 		public System.Boolean Refill_Resources;
 	public Option<ProgressBar_1> RepairProgressBar;
-	public UnityCheckpoint UnityCheckpoint;
+		public UnityCheckpoint UnityCheckpoint;
 	public System.Boolean enabled{  get { return UnityCheckpoint.enabled; }
   set{UnityCheckpoint.enabled = value; }
  }
@@ -1741,7 +1757,7 @@ return;
 	RepairProgressBar.Value.startprogress = false;
 	RepairProgressBar.Value.pspeed = 50;
 	s1 = -1;
-return;
+return;	
 	case 7:
 	RepairProgressBar.Value.startprogress = false;
 	RepairProgressBar.Value.pspeed = 40;
@@ -2366,7 +2382,7 @@ frame = World.frame;
 
 
 
-
+	
 
 
 }
@@ -4619,11 +4635,8 @@ public Zombie(UnityEngine.Transform trans)
 	{JustEntered = false;
  frame = World.frame;
 		UnityZombie2 = UnityZombie2.Find(trans);
-		Life = 100f;
-		ApplyForce = false;
 		
 }
-		public System.Boolean ApplyForce;
 	public System.Boolean ApplyForceOnZombie{  get { return UnityZombie2.ApplyForceOnZombie; }
   set{UnityZombie2.ApplyForceOnZombie = value; }
  }
@@ -4663,7 +4676,9 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean IsHitByForce{  get { return UnityZombie2.IsHitByForce; }
   set{UnityZombie2.IsHitByForce = value; }
  }
-	public System.Single Life;
+	public System.Single Life{  get { return UnityZombie2.Life; }
+  set{UnityZombie2.Life = value; }
+ }
 	public UnityEngine.Vector3 Position{  get { return UnityZombie2.Position; }
  }
 	public UnityZombie2 UnityZombie2;
@@ -4697,13 +4712,11 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean useGUILayout{  get { return UnityZombie2.useGUILayout; }
   set{UnityZombie2.useGUILayout = value; }
  }
-	public System.Single ___newHP10;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		this.Rule0(dt, world);
-		this.Rule1(dt, world);
-		this.Rule2(dt, world);
+
 	}
 
 
@@ -4716,94 +4729,17 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(!(ApplyForce))
-	{
-
-	s0 = -1;
-return;	}else
-	{
-
-	goto case 1;	}
-	case 1:
-	ApplyForceOnZombie = true;
-	ApplyForce = false;
-	s0 = 0;
-return;
-	case 0:
-	ApplyForceOnZombie = false;
-	ApplyForce = false;
-	s0 = -1;
-return;	
-	default: return;}}
-	
-
-	int s1=-1;
-	public void Rule1(float dt, World world){ 
-	switch (s1)
-	{
-
-	case -1:
-	if(!(!(IsHitByForce)))
-	{
-
-	s1 = -1;
-return;	}else
-	{
-
-	goto case 9;	}
-	case 9:
-	if(!(IsHitByForce))
-	{
-
-	s1 = 9;
-return;	}else
-	{
-
-	goto case 8;	}
-	case 8:
-	UnityEngine.Debug.Log(("Damage of force on zombie: ") + ((Force) * (30f)));
-	___newHP10 = ((Life) - (((((Force) * (30f))) * (BodyPartMultiplier))));
-	UnityEngine.Debug.Log(("newHP: ") + (___newHP10));
-	if(((___newHP10) > (0f)))
-	{
-
-	goto case 0;	}else
-	{
-
-	goto case 1;	}
-	case 0:
-	Life = ___newHP10;
-	Dead = false;
-	ApplyForce = true;
-	s1 = -1;
-return;
-	case 1:
-	UnityEngine.Debug.Log("Zombie died");
-	Life = ___newHP10;
-	Dead = true;
-	ApplyForce = true;
-	s1 = -1;
-return;	
-	default: return;}}
-	
-
-	int s2=-1;
-	public void Rule2(float dt, World world){ 
-	switch (s2)
-	{
-
-	case -1:
 	if(!(!(Dead)))
 	{
 
-	s2 = -1;
+	s0 = -1;
 return;	}else
 	{
 
 	goto case 0;	}
 	case 0:
 	Dest = world.Jeep.Value.Position;
-	s2 = -1;
+	s0 = -1;
 return;	
 	default: return;}}
 	
@@ -4812,5 +4748,6 @@ return;
 
 
 
+
 }
-}                          
+}                         

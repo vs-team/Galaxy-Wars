@@ -60,6 +60,9 @@ entity Truck = {
    isModel : bool
    Stats : TruckStats
 
+   rule PrevVelocity =
+     yield truckRigidBody.velocity
+
    rule Score = 
      let j = "" + world.Score
      yield j
@@ -134,6 +137,7 @@ entity AxleInfo = {
 
   rule steering = 
     yield steering
+
 
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
