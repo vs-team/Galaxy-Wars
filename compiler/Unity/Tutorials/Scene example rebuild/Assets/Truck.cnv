@@ -10,8 +10,6 @@ entity TruckStats = {
   Hull : float
   Fuel : float
   isModel : bool
-  NotInMagazine : [int]
-  InMagazine : [int]
   TypeWeapon : [int]
   AmountOfGunsInTruck : int
 
@@ -37,7 +35,6 @@ entity TruckStats = {
   let MaxSteeringList = [5.0f; 10.0f; 10.0f; 20.0f; 15.0f]
   let HullList = [8.0f; 5.0f ; 3.0f ; 4.0f ; 2.0f]
   let FuelList = [12000.0f ; 8000.0f ; 15000.0f ; 6000.0f ; 10000.0f]
-  let InMagList =           [50        ; 20 ;    5       ; 6       ; 0]
   let NotInMagList = [       850       ; 200 ;   60      ; 90      ; 16]
   {
     Health = HealthList.[rnd]
@@ -47,11 +44,8 @@ entity TruckStats = {
     Fuel = FuelList.[rnd]
     isModel = bs
     TypeWeapon = sts
-    NotInMagazine = NotInMagList
-    InMagazine = InMagList
     AmountOfGunsInTruck = 0
   }
-
 }
 
 entity Truck = {
@@ -64,7 +58,6 @@ entity Truck = {
    JRotation : float // has to be a value between -1.0f and 1.0f
    Keyboard : bool
    isModel : bool
-   Active : bool
    Stats : TruckStats
 
    rule PrevVelocity =
@@ -108,21 +101,20 @@ entity Truck = {
         yield Steering
 
    rule Fuel = 
+     wait world.W_Refill_Resources
+     yield 80000.0f
+
+   rule Fuel = 
      if not isModel then 
        if world.ActiveBoR = "Jerry Can Green" then 
          Debug.Log("Fuel = "+Fuel)
          yield Fuel + 2000.0f
-
-   rule Active = 
-     yield true
-     wait false
 
    rule AxleInfos = 
      yield [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)]
 
    Create(nm : string, pos : Vector3, ModelIs : bool, ints : [int]) = 
     {
-      Active = false
       isModel = ModelIs
       Base = TruckScript.Instantiate(nm, pos)
       maxMotorTorque = 250.0f
@@ -177,7 +169,7 @@ entity AxleInfo = {
             .| _ =>
               yield speed * 10.0f, speed * 10.0f, world.Jeep.Value.Fuel
               wait 2.0f
-          else 
+          else
             yield speed, speed, world.Jeep.Value.Fuel - 1.0f
         else
           yield 0.0f,0.0f, world.Jeep.Value.Fuel

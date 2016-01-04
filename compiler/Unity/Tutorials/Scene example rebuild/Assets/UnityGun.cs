@@ -11,8 +11,6 @@ public class UnityGun : MonoBehaviour
   public static UnityGun Instantiate(string nm, string j)
   {
     GameObject pap = GameObject.Find("Input/RazerJoysticks/" + j + "/" + nm) as GameObject;
-    Debug.Log(j);
-    Debug.Log(nm);
     UnityGun wap = pap.GetComponent<UnityGun>() as UnityGun;
 
     //textmesh
@@ -26,7 +24,6 @@ public class UnityGun : MonoBehaviour
         tesla.Add(Bullet);
       }
     }
-    Debug.Log(tesla[0]);
     wap.MagazineBox = tesla[0];
 
     wap.gunShot = pap.GetComponent<AudioSource>() as AudioSource;
@@ -123,4 +120,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                           

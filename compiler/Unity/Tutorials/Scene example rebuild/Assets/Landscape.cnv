@@ -6,9 +6,27 @@ open UnityEngine
 entity Gasstation = {
   inherit UnityGasstation
   RepairZonE : Repair
+  GroupZombies : [GroupZombie]
+  ZombieSpawnpoints : [Transform]
+  Counter : int
 
-  //new equipment when new jeep
-  //wait world.Jeep.Value.CollisionWithModel
+  rule GroupZombies, Counter = 
+    wait ZombieSpawnpoints.Count > 0 && RepairZonE.RepairProgressBar.Value.pspeed = 15
+    if Counter <> ZombieSpawnpoints.Count then
+      let zsp = ZombieSpawnpoints.[Counter]
+      let t = zsp.position
+      let newZ = [new GroupZombie(t,2)]
+      yield GroupZombies @ newZ, Counter + 1
+      wait 2.0f
+    else
+      yield GroupZombies, 0
+
+  rule ZombieSpawnpoints = 
+    let x = 
+      [for a in SP2 do
+       select a]
+    yield x
+    wait false
 
   rule world.Jeep.Value.Destroyed, world.Jeep, world.Jeep.Value.CollisionWithModel, Destroyed = 
     wait world.Jeep.Value.CollisionWithModel
@@ -21,26 +39,66 @@ entity Gasstation = {
     yield world.Jeep.Value.CollisionWithModel
 
   Create(ps : Vector3) = {
-  Base = UnityGasstation.Instantiate(ps)
-  RepairZonE = new Repair()
+    Base = UnityGasstation.Instantiate(ps)
+    RepairZonE = new Repair()
+    GroupZombies = []
+    ZombieSpawnpoints = []
+    Counter = 0
   }
 }
 entity Repair = {
   inherit UnityCheckpoint
-  test : bool
+  RepairProgressBar : Option<ProgressBar_1>
+  Refill_Resources : bool
 
-  rule test = 
-    if isEntered then
-      Debug.Log("true test repair = "+isEntered)
-      yield true
-    else
-      yield false
+  rule Refill_Resources = 
+    wait Refill_Resources <> false
+    yield true
+    yield false
+
+  rule RepairProgressBar.Value.Destroyed, RepairProgressBar, Refill_Resources = 
+    wait RepairProgressBar.IsSome
+    if RepairProgressBar.Value.Finished then
+      Debug.Log("finished all. add resources now")
+      yield true, None, true
+
+  rule RepairProgressBar.Value.startprogress, RepairProgressBar.Value.pspeed = 
+    wait world.Jeep.IsSome
+    wait RepairProgressBar.IsSome
+    let axl = world.Jeep.Value.AxleInfos
+    if axl.Count > 0 then
+      let wheel = 
+        [for a in axl do
+         where (a.motor)
+         select a.leftWheel]
+      let bo = if wheel.Head.motorTorque < -40.0f || wheel.Head.motorTorque > 40.0f then false else true
+      if isEntered && bo then
+        yield true, 15
+      else
+        if isEntered then
+          yield false, 50
+        else
+          yield false, 40
+
+  rule RepairProgressBar.Value.startprogress, RepairProgressBar.Value.pspeed = 
+    yield false, 101
+    wait false
 
   Create() = {
     Base = UnityCheckpoint.Find()
-    test = false
+    RepairProgressBar = Some (new ProgressBar_1(1))
+    Refill_Resources = false
   }
+}
+entity ProgressBar_1 = {
+  inherit ProgressBarBehaviour
+  num : int
 
+  Create(j : int)=
+  {
+    Base = ProgressBar.ProgressBarBehaviour.Instantiate()
+    num = j
+  }
 }
 
 entity Landscape = { //here are the zombies created and destroyed after a frame
@@ -58,14 +116,14 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
       let sps_pos = sps.position
       let rpu = Spawnpoints.[random_pickup]
       let rpu_pos = rpu.position
-      yield [new GroupZombie(sps_pos)], [new PickUp(rpu_pos)], []
+      yield [new GroupZombie(sps_pos,7)], [new PickUp(rpu_pos)], []
       wait false
     else 
       let sps1 = Spawnpoints.[1]
       let sps_pos1 = sps1.position
       let rpu1 = Spawnpoints.[2]
       let rpu_pos1 = rpu1.position
-      yield [new GroupZombie(sps_pos1)], [new PickUp(rpu_pos1)], []
+      yield [new GroupZombie(sps_pos1,7)], [new PickUp(rpu_pos1)], []
       wait false
 
   rule Spawnpoints = 

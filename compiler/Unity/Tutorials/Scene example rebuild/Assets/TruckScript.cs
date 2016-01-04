@@ -36,7 +36,6 @@ public class TruckScript : MonoBehaviour
     truck.shield = truck.transform.Find("Shield").GetComponent<Collider>() as Collider;
     truck.collidedWithThisFrame = new List<UnityZombie2>();
     truck.score = truck.transform.Find("Main Camera/Score").GetComponent<TextMesh>() as TextMesh;
-    Debug.Log("score  =  " + truck.score);
 
     return truck;
   }
@@ -211,4 +210,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+}                                                                                                                                                                                                                                                                                                                                           

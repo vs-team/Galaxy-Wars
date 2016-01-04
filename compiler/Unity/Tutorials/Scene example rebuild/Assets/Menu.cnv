@@ -1,0 +1,48 @@
+module Menu
+
+open "UnityEngine.dll"
+open UnityEngine
+
+worldEntity Menu = {
+  inherit UnityMenu
+  ref StartButton : ButtonGUI
+  ref QuitButton  : ButtonGUI
+  
+  rule NextScene = 
+    wait StartButton.IsPressed
+    Debug.Log("starting the game")
+    yield "Loading"
+    yield "countDown3"
+    wait 1.0f
+    yield "countDown2"
+    wait 1.0f
+    yield "countDown1"
+    wait 0.8f
+    yield "NextScene"
+    wait dt
+    wait dt
+    wait dt
+
+  rule NextScene = 
+    wait QuitButton.IsPressed
+    Debug.Log("bye bye")
+    yield "Quit"
+
+  rule begin_a = 
+    yield ""
+    wait false
+
+  Create() =
+  {
+    StartButton = new ButtonGUI("Canvas/Play")
+    QuitButton  = new ButtonGUI("Canvas/Quit")
+  }
+}
+entity ButtonGUI = {
+  inherit UnityButton
+
+  Create(n : string) =
+  {
+    UnityButton = UnityButton.Find(n)
+  }
+}
