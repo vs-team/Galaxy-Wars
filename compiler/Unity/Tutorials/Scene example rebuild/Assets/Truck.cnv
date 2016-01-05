@@ -79,7 +79,7 @@ entity Truck = {
        wait 0.3f
        yield true, true
        wait 0.1f
-       yield false, false
+       yield false, false 
 
    rule Keyboard =
       wait Input.GetKeyDown(KeyCode.P)

@@ -161,7 +161,6 @@ public class TruckScript : MonoBehaviour
   }
   void OnCollisionEnter(Collision collision)
   {
-    Debug.Log(collision.gameObject.name);
     if (collision.gameObject.tag == "TruckModel")
     {
       CollWithModel = true;
@@ -169,12 +168,10 @@ public class TruckScript : MonoBehaviour
     else if (collision.transform.root.tag == "Zombiegroup")
     {
       truckRigidBody.velocity = prevVelocity;
-      Debug.Log("prevVelocity: " + prevVelocity);
       UnityZombie2 hitZombie = collision.transform.GetComponentInParent<UnityZombie2>();
       if (!collidedWithThisFrame.Contains(hitZombie) && !hitZombie.CollidedWithCar)
       {
         collidedWithThisFrame.Add(hitZombie);
-        Debug.Log("car collision");
         if (collision.relativeVelocity.magnitude > 10.0f)
         {
           hitZombie.CollisionDirection = -collision.relativeVelocity.normalized;
@@ -210,4 +207,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                           
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

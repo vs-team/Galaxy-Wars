@@ -13,9 +13,9 @@ worldEntity World = {
   Landscapes : [Landscape]
   Jeep : Option<Truck>
   Zombies : [Zombie] // are created in the landscape in groups
-  GUIpanel : GUI
+  GUIpanel : GUI 
   ActiveBoR : string
-  Counter : int
+  Counter : int  
   Gasstations : [Gasstation]
   Players : [Player]
   Score : int

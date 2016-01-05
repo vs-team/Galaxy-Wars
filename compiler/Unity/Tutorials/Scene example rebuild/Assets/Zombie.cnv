@@ -18,7 +18,7 @@ entity GroupZombie = {
     let z = 
       [for a in U_Zombies do
        select (new Zombie(a))] 
-    yield z
+    yield z  
     yield []
     wait false
 
@@ -32,11 +32,6 @@ entity GroupZombie = {
 
 entity Zombie = {
   inherit UnityZombie2
-   
-  (*rule Destroyed = 
-    wait dead
-    wait 5.0f //Distance of truck
-    yield true*) 
 
   rule Dest =
     wait not Dead

@@ -307,7 +307,7 @@ entity Equipment = {
     NotActiveFlashs = []
     AllFlashs = []
     AllAmmo = []
-  }
+  } 
 }
 
 entity ControllerRazor= {
@@ -389,12 +389,17 @@ entity Gun = {
   AmmoAct : Ammo
   Reloading : bool
 
-  rule Shoot = 
-   wait AmmoAct.shot
+  rule GunDamage =
+    yield DamagePerBullet
+    wait false
+
+  rule Shoot =  
+   wait GunController.Shot
    if (AmmoAct.InMagazine > 0 && not AmmoAct.Reloading) then
      if (not Automatic) then
        yield true
        yield false
+       wait not GunController.Shot
      else
        while (GunController.Shot && AmmoAct.InMagazine > 0) do
          yield true
@@ -407,6 +412,10 @@ entity Gun = {
       wait not Reloading
     else 
       yield false
+
+  rule Keyboard =
+    wait Input.GetKeyDown(KeyCode.U) //Determine shooting with the mouse or the razer
+    yield not Keyboard
 
   // TODO MAGAZINEGUI not working
   //rule MagazineGUI = 

@@ -106,7 +106,9 @@ public class UnityZombie2 : MonoBehaviour
     get { return life; }
     set
     {
+      Debug.Log("Life before: " + life);
       life = value;
+      Debug.Log("Life after: " + life);
       if (life <= 0.0f)
         Dead = true;
     }
@@ -191,11 +193,6 @@ public class UnityZombie2 : MonoBehaviour
     get
     {
       return isHitByForce;
-      /*GameObject controller = GameObject.Find("truck/Input/RazerJoysticks/Hydra1 - Right");
-      RaycastHit hitObject;
-      Physics.Raycast(controller.transform.position, controller.transform.forward, out hitObject, 100.0f, 256);
-      return (Physics.Raycast(controller.transform.position, controller.transform.forward, out hitObject, 100.0f, 256) &&
-             (hitObject.transform.gameObject == this.gameObject));*/
     }
     set
     {
@@ -230,7 +227,6 @@ public class UnityZombie2 : MonoBehaviour
 
   void OnCollisionEnter(Collision collision)
   {
-    Debug.Log("zombie collision");
     if (collision.relativeVelocity.magnitude > 10.0f)
     {
       if (collision.transform.root.tag == "Zombiegroup")
@@ -239,7 +235,6 @@ public class UnityZombie2 : MonoBehaviour
         if (/*!collidedWithThisFrame.Contains(hitZombie) && */!hitZombie.CollidedWithCar)
         {
           //collidedWithThisFrame.Add(hitZombie);
-          Debug.Log("apply zombie collision");
         
           hitZombie.CollisionDirection = -collision.relativeVelocity.normalized;
           hitZombie.Force = collision.relativeVelocity.magnitude;
@@ -261,7 +256,7 @@ public class UnityZombie2 : MonoBehaviour
       applyForceOnZombie = value;
       if ((collidedWithCar || dead) && ApplyForceOnZombie)
       {
-        //*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
+        /*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
         if (gameObject.name == hitCollider.GetComponentInParent<RagdollHelper>().name)
         {
           RagdollHelper helper = hitCollider.GetComponentInParent<RagdollHelper>();
@@ -275,7 +270,6 @@ public class UnityZombie2 : MonoBehaviour
       }
       else if (!dead && ApplyForceOnZombie)
       {
-        Debug.Log("apply force on zombie");
         string hitBodyPartName = hitTransform.name;
         if (hitBodyPartName.Contains("CATRigLArm"))
           motor1.SetBool("shot_Left", true);
@@ -317,4 +311,4 @@ public class UnityZombie2 : MonoBehaviour
     }*/
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
