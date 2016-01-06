@@ -19,6 +19,8 @@ entity TruckStats = {
   rule Health, world.Jeep.Value.CarHP2 = 
     if world.ActiveBoR = "Medipack Red" && isModel <> true then
       yield Health + 20.0f, ((Health) / 100.0f)
+    //else
+      //yield Health - 1.0f, ((Health) / 100.0f)
 
   rule world.Jeep.Value.CarHP2, Health, world.GUIpanel.HPValue = 
     if isModel <> true then
@@ -60,41 +62,62 @@ entity Truck = {
    isModel : bool
    Stats : TruckStats
 
-   rule PrevVelocity =
-     yield truckRigidBody.velocity
+   rule GameOver = 
+     wait naaminvul <> ""
+     wait Input.GetKeyDown(KeyCode.Return)
+     yield true
+     yield false
+     wait false
+
+   // INPUTFIELD IS IN WRONG CAMERA VIEW. SHOULD BE IN FRONT OF THE CAMERA
+   rule naaminvul = 
+     wait Stats.Health < 1
+     yield ""
+     wait false
 
    rule Score = 
      let j = "" + world.Score
      yield j
+     wait Invullen <> true
 
-   rule HeadlightLeftOn, HeadlightRightOn = 
+   rule PrevVelocity =
+     yield truckRigidBody.velocity
+
+   rule HeadlightLeftOn, HeadlightRightOn, world.Score = 
+     wait Invullen <> true
      if world.ActiveBoR = "Lightning Blue" then
-       yield true, true
+       yield true, true, world.Score + 100
        wait 5.0f
-       yield false, false
+       yield false, false, world.Score
        wait 0.2f
-       yield true, true
+       yield true, true, world.Score
        wait 0.1f
-       yield false, false
+       yield false, false, world.Score
        wait 0.3f
-       yield true, true
+       yield true, true, world.Score
        wait 0.1f
-       yield false, false
+       yield false, false, world.Score
 
-   rule Keyboard =
+   rule HeadlightLeftOn, HeadlightRightOn, cnvAccel, JRotation = 
+     wait Invullen <> false
+     yield false, false, 0.0f,0.0f
+
+   rule Keyboard, world.Score =
       wait Input.GetKeyDown(KeyCode.P)
-      yield not Keyboard
+      yield not Keyboard, world.Score + 20
 
-   rule cnvAccel = 
+   rule cnvAccel, world.Score = 
+      wait Invullen <> true
       if Keyboard then
-        yield Input.GetAxis("Vertical")
+        yield Input.GetAxis("Vertical"), world.Score
       else
         if Acceleration <> 0.0f then
-          yield Acceleration
+          yield Acceleration, world.Score + 2
         else
-          yield BrakeAndReverse * -1.0f
+          yield BrakeAndReverse * -1.0f, world.Score
 
    rule JRotation = 
+      wait Invullen <> true
       if Keyboard then
         yield Input.GetAxis("Horizontal")
       else
@@ -112,6 +135,7 @@ entity Truck = {
 
    rule AxleInfos = 
      yield [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)]
+     wait false
 
    Create(nm : string, pos : Vector3, ModelIs : bool, ints : [int]) = 
     {

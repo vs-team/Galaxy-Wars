@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Casanova.Prelude;
+using System.Linq;
 
 public class TruckScript : MonoBehaviour
 {
@@ -36,9 +38,27 @@ public class TruckScript : MonoBehaviour
     truck.shield = truck.transform.Find("Shield").GetComponent<Collider>() as Collider;
     truck.collidedWithThisFrame = new List<UnityZombie2>();
     truck.score = truck.transform.Find("Main Camera/Score").GetComponent<TextMesh>() as TextMesh;
+    truck.naam = truck.transform.Find("Main Camera/Canvas/Naam").GetComponent<UnityEngine.UI.InputField>();
 
     return truck;
   }
+
+  
+  void Start()
+  {
+    naam.gameObject.SetActive(false);
+    /*
+    string[] names = { "Piet", "Klaas", "Henk" };
+    for (int i = TopScoreSize; i > 0; i--)
+    {
+      var score = 250 - i * 30;
+      PlayerPrefs.SetInt("score: " + i, score); //score
+      int j = Random.Range(0, (names.Length));
+      PlayerPrefs.SetString("posit: " + i, names[j]);
+    }
+  //*/
+  }
+
   public Vector3 InputPosition
   {
     get { return transform.Find("InputPosition").position; }
@@ -47,6 +67,69 @@ public class TruckScript : MonoBehaviour
   {
     get { return score.text; }
     set { score.text = "Score: " + value; }
+  }
+  public bool Invullen
+  {
+    get { return naam.gameObject.activeSelf; }
+  }
+  private UnityEngine.UI.InputField naam;
+  public string naaminvul
+  {
+    get { return naam.text; }
+    set {
+      naam.gameObject.SetActive(true);
+      naam.text = "" + value; }
+  }
+
+  private int counter = 0;
+  private bool added;
+  private int TopScoreSize = 10;
+  public bool GameOver
+  {
+    get { return false; }
+    set
+    {
+      if (value == true)
+      {
+        //name
+        string name = naaminvul;
+
+        //score
+        var scorString = Score.Substring(7);
+        int scoreInt = int.Parse(scorString);
+        int totscore = scoreInt;
+
+        //Top TopScoreSize players with their scores
+        List<Tuple<string, int>> Topscores = new List<Tuple<string, int>>();
+        for (int i = 1; i <= TopScoreSize; i++)
+        {
+          string key = i.ToString();
+          var j = new Casanova.Prelude.Tuple<string, int>(PlayerPrefs.GetString("posit: " + i), PlayerPrefs.GetInt("score: " + i));
+          Topscores.Add(j); // Tuple<name, score>
+        }
+        foreach (Tuple<string, int> a in Topscores)
+        {
+          if ((counter) == Topscores.Length()) // after toplist, stop
+          {
+            break;
+          }
+
+          counter++;
+          if (a.Item2 < totscore && !added)
+          {
+            PlayerPrefs.SetString("posit: " + counter, name);
+            PlayerPrefs.SetInt("score: " + counter, totscore);
+            added = true;
+            counter++;
+          }
+          PlayerPrefs.SetString("posit: " + counter, a.Item1);
+          PlayerPrefs.SetInt("score: " + counter, a.Item2);
+
+        }
+        PlayerPrefs.Save();
+        Application.LoadLevel(2);
+      }
+    }
   }
   public Vector3 PrevVelocity
   {
@@ -210,4 +293,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                           
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

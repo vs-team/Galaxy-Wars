@@ -13,6 +13,9 @@ TagManager:
   - Gun
   - Zombiegroup
   - ZombieSpawnPoint
+  - Landscape
+  - Power_Up
+  - Gasstation
   layers:
   - Default
   - TransparentFX
