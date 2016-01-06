@@ -1,0 +1,210 @@
+module Truck
+
+open "UnityEngine.dll"
+open UnityEngine
+
+entity TruckStats = {
+  Health : float
+  MaxSpeed : float
+  MaxSteering : float
+  Hull : float
+  Fuel : float
+  isModel : bool
+  TypeWeapon : [int]
+  AmountOfGunsInTruck : int
+
+  rule AmountOfGunsInTruck =
+    yield TypeWeapon.Count
+
+  rule Health, world.Jeep.Value.CarHP2 = 
+    if world.ActiveBoR = "Medipack Red" && isModel <> true then
+      yield Health + 20.0f, ((Health) / 100.0f)
+    //else
+      //yield Health - 1.0f, ((Health) / 100.0f)
+
+  rule world.Jeep.Value.CarHP2, Health, world.GUIpanel.HPValue = 
+    if isModel <> true then
+      let z = world.Jeep.Value.CarHP2
+      if (z <> (Health / 100.0f)) then
+        yield world.Jeep.Value.CarHP2, (world.Jeep.Value.CarHP2 * 100.0f), world.Jeep.Value.CarHP2
+      else
+        yield (Health / 100.0f), (world.Jeep.Value.CarHP2 * 100.0f), world.Jeep.Value.CarHP2
+
+  Create(bs : bool, sts : [int]) = 
+  let rnd = Random.Range(0,5)
+  let HealthList = [50.0f; 60.0f; 75.0f; 80.0f; 100.0f]
+  let MaxSpeedList = [10.0f; 10.0f; 10.0f; 15.0f; 20.0f]
+  let MaxSteeringList = [5.0f; 10.0f; 10.0f; 20.0f; 15.0f]
+  let HullList = [8.0f; 5.0f ; 3.0f ; 4.0f ; 2.0f]
+  let FuelList = [12000.0f ; 8000.0f ; 15000.0f ; 6000.0f ; 10000.0f]
+  let NotInMagList = [       850       ; 200 ;   60      ; 90      ; 16]
+  {
+    Health = HealthList.[rnd]
+    MaxSpeed = MaxSpeedList.[rnd]
+    MaxSteering = MaxSteeringList.[rnd]
+    Hull = HullList.[rnd] //damage taken by hull
+    Fuel = FuelList.[rnd]
+    isModel = bs
+    TypeWeapon = sts
+    AmountOfGunsInTruck = 0
+  }
+}
+
+entity Truck = {
+   inherit TruckScript
+   Fuel : float
+   AxleInfos : [AxleInfo]
+   maxMotorTorque : float
+   maxSteeringAngle : float
+   cnvAccel : float // has to be a value between 0.0f and 1.0f
+   JRotation : float // has to be a value between -1.0f and 1.0f
+   Keyboard : bool
+   isModel : bool
+   Stats : TruckStats
+
+   rule GameOver = 
+     wait naaminvul <> ""
+     wait Input.GetKeyDown(KeyCode.Return)
+     yield true
+     yield false
+     wait false
+
+   // INPUTFIELD IS IN WRONG CAMERA VIEW. SHOULD BE IN FRONT OF THE CAMERA
+   rule naaminvul = 
+     wait Stats.Health < 1
+     yield ""
+     wait false
+
+   rule Score = 
+     let j = "" + world.Score
+     yield j
+     wait Invullen <> true
+
+   rule PrevVelocity =
+     yield truckRigidBody.velocity
+
+   rule HeadlightLeftOn, HeadlightRightOn, world.Score = 
+     wait Invullen <> true
+     if world.ActiveBoR = "Lightning Blue" then
+       yield true, true, world.Score + 100
+       wait 5.0f
+       yield false, false, world.Score
+       wait 0.2f
+       yield true, true, world.Score
+       wait 0.1f
+       yield false, false, world.Score
+       wait 0.3f
+       yield true, true, world.Score
+       wait 0.1f
+       yield false, false, world.Score
+
+   rule HeadlightLeftOn, HeadlightRightOn, cnvAccel, JRotation = 
+     wait Invullen <> false
+     yield false, false, 0.0f,0.0f
+
+   rule Keyboard, world.Score =
+      wait Input.GetKeyDown(KeyCode.P)
+      yield not Keyboard, world.Score + 20
+
+   rule cnvAccel, world.Score = 
+      wait Invullen <> true
+      if Keyboard then
+        yield Input.GetAxis("Vertical"), world.Score
+      else
+        if Acceleration <> 0.0f then
+          yield Acceleration, world.Score + 2
+        else
+          yield BrakeAndReverse * -1.0f, world.Score
+
+   rule JRotation = 
+      wait Invullen <> true
+      if Keyboard then
+        yield Input.GetAxis("Horizontal")
+      else
+        yield Steering
+
+   rule Fuel = 
+     wait world.W_Refill_Resources
+     yield 80000.0f
+
+   rule Fuel = 
+     if not isModel then 
+       if world.ActiveBoR = "Jerry Can Green" then 
+         Debug.Log("Fuel = "+Fuel)
+         yield Fuel + 2000.0f
+
+   rule AxleInfos = 
+     yield [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)]
+     wait false
+
+   Create(nm : string, pos : Vector3, ModelIs : bool, ints : [int]) = 
+    {
+      isModel = ModelIs
+      Base = TruckScript.Instantiate(nm, pos)
+      maxMotorTorque = 250.0f
+      maxSteeringAngle = 50.0f
+      AxleInfos = []
+      Fuel = 80000.0f // gas liters
+      cnvAccel = 0.0f
+      JRotation = 0.0f
+      Keyboard = false;
+      Stats = new TruckStats(ModelIs, ints)
+    }
+}
+
+entity AxleInfo = {
+
+  leftWheel : WheelCollider
+  rightWheel : WheelCollider
+  motor : bool
+  steering : bool
+
+  rule steering = 
+    yield steering
+
+
+  rule leftWheel.steerAngle, rightWheel.steerAngle =
+    wait steering
+    if not world.Jeep.Value.isModel then
+      let steeringAngle = world.Jeep.Value.maxSteeringAngle * world.Jeep.Value.JRotation
+      if world.Jeep.Value.cnvAccel > 0.0f then
+        if ((steeringAngle > 0.001f  && (world.Jeep.Value.RotationY > 30.0f  && world.Jeep.Value.RotationY < 120.0f)) || 
+            (steeringAngle < -0.001f && (world.Jeep.Value.RotationY > 200.0f && world.Jeep.Value.RotationY < 330.0f))) then 
+          yield 0.0f,0.0f
+        else
+          yield steeringAngle, steeringAngle
+      if world.Jeep.Value.cnvAccel < 0.0f then
+        if ((steeringAngle > 0.001f && (world.Jeep.Value.RotationY > 200.0f && world.Jeep.Value.RotationY < 330.0f)) || 
+            (steeringAngle < -0.001f && (world.Jeep.Value.RotationY > 30.0f && world.Jeep.Value.RotationY < 120.0f))) then 
+          yield 0.0f,0.0f
+        else
+          yield steeringAngle, steeringAngle
+
+  rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Value.Fuel =
+    if not world.Jeep.Value.isModel then
+      if world.Jeep.Value.Fuel > 0.99f then
+        if ((world.Jeep.Value.cnvAccel <> 0.0f) && (leftWheel.isGrounded || rightWheel.isGrounded)) then
+          let dir = world.Jeep.Value.cnvAccel
+          let speed = world.Jeep.Value.maxMotorTorque * world.Jeep.Value.cnvAccel * -1.0f
+          if (world.ActiveBoR = "Arrows Green") then 
+            yield leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Value.Fuel
+            .| (world.Jeep.Value.cnvAccel <> dir) =>
+              yield speed, speed, world.Jeep.Value.Fuel - 1.0f
+            .| _ =>
+              yield speed * 10.0f, speed * 10.0f, world.Jeep.Value.Fuel
+              wait 2.0f
+          else
+            yield speed, speed, world.Jeep.Value.Fuel - 1.0f
+        else
+          yield 0.0f,0.0f, world.Jeep.Value.Fuel
+      else
+        yield 0.0f,0.0f,0.0f
+
+  Create(lW : WheelCollider, rW : WheelCollider, m : bool, s: bool)=
+  {
+    leftWheel = lW
+    rightWheel = rW
+    motor = m
+    steering = s
+  }
+}
