@@ -4079,6 +4079,9 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr, Ammo am)
 	public System.Int32 InMag{  get { return UnityGun.InMag; }
   set{UnityGun.InMag = value; }
  }
+	public System.Boolean Keyboard{  get { return UnityGun.Keyboard; }
+  set{UnityGun.Keyboard = value; }
+ }
 	public UnityEngine.TextMesh MagazineBox{  get { return UnityGun.MagazineBox; }
   set{UnityGun.MagazineBox = value; }
  }
@@ -4135,6 +4138,8 @@ frame = World.frame;
 		this.Rule3(dt, world);
 		this.Rule4(dt, world);
 		this.Rule5(dt, world);
+		this.Rule6(dt, world);
+		this.Rule7(dt, world);
 	}
 
 
@@ -4230,29 +4235,16 @@ return;
 	{
 
 	case -1:
-	if(UnityEngine.Input.GetKey(KeyCode.R))
-	{
-
-	goto case 1;	}else
-	{
-
-	goto case 2;	}
-	case 1:
-	AmmoAct.Reloading = true;
-	s4 = 4;
-return;
-	case 4:
-	if(!(!(Reloading)))
-	{
-
-	s4 = 4;
-return;	}else
+	if(!(UnityEngine.Input.GetKeyDown(KeyCode.U)))
 	{
 
 	s4 = -1;
-return;	}
-	case 2:
-	AmmoAct.Reloading = false;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	Keyboard = !(Keyboard);
 	s4 = -1;
 return;	
 	default: return;}}
@@ -4264,10 +4256,44 @@ return;
 	{
 
 	case -1:
-	if(!(AmmoAct.shot))
+	if(UnityEngine.Input.GetKey(KeyCode.R))
+	{
+
+	goto case 2;	}else
+	{
+
+	goto case 3;	}
+	case 2:
+	AmmoAct.Reloading = true;
+	s5 = 5;
+return;
+	case 5:
+	if(!(!(Reloading)))
+	{
+
+	s5 = 5;
+return;	}else
 	{
 
 	s5 = -1;
+return;	}
+	case 3:
+	AmmoAct.Reloading = false;
+	s5 = -1;
+return;	
+	default: return;}}
+	
+
+	int s6=-1;
+	public void Rule6(float dt, World world){ 
+	switch (s6)
+	{
+
+	case -1:
+	if(!(GunController.Shot))
+	{
+
+	s6 = -1;
 return;	}else
 	{
 
@@ -4279,7 +4305,7 @@ return;	}else
 	goto case 1;	}else
 	{
 
-	s5 = -1;
+	s6 = -1;
 return;	}
 	case 1:
 	if(!(Automatic))
@@ -4291,42 +4317,74 @@ return;	}
 	goto case 3;	}
 	case 2:
 	Shoot = true;
-	s5 = 5;
+	s6 = 6;
+return;
+	case 6:
+	Shoot = false;
+	s6 = 5;
 return;
 	case 5:
-	Shoot = false;
-	s5 = -1;
-return;
+	if(!(!(GunController.Shot)))
+	{
+
+	s6 = 5;
+return;	}else
+	{
+
+	s6 = -1;
+return;	}
 	case 3:
 	if(!(((GunController.Shot) && (((AmmoAct.InMagazine) > (0))))))
 	{
 
-	s5 = -1;
+	s6 = -1;
 return;	}else
 	{
 
-	goto case 8;	}
-	case 8:
-	Shoot = true;
-	s5 = 11;
-return;
-	case 11:
-	Shoot = false;
-	s5 = 9;
-return;
+	goto case 9;	}
 	case 9:
-	count_down11 = 0.05f;
-	goto case 10;
+	Shoot = true;
+	s6 = 12;
+return;
+	case 12:
+	Shoot = false;
+	s6 = 10;
+return;
 	case 10:
+	count_down11 = 0.05f;
+	goto case 11;
+	case 11:
 	if(((count_down11) > (0f)))
 	{
 
 	count_down11 = ((count_down11) - (dt));
-	s5 = 10;
+	s6 = 11;
 return;	}else
 	{
 
-	s5 = 3;
+	s6 = 3;
+return;	}	
+	default: return;}}
+	
+
+	int s7=-1;
+	public void Rule7(float dt, World world){ 
+	switch (s7)
+	{
+
+	case -1:
+	GunDamage = DamagePerBullet;
+	s7 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s7 = 0;
+return;	}else
+	{
+
+	s7 = -1;
 return;	}	
 	default: return;}}
 	
@@ -5023,7 +5081,7 @@ return;	}
 	{
 
 	case -1:
-	if(!(((UnityEngine.Vector3.Distance(Position,world.Jeep.Value.Position)) > (250f))))
+	if(!(((UnityEngine.Vector3.Distance(Position,world.Jeep.Value.Position)) > (410f))))
 	{
 
 	s1 = -1;
@@ -5095,4 +5153,4 @@ frame = World.frame;
 
 
 }
-}               
+}                                  

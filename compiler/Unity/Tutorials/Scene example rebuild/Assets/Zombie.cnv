@@ -34,7 +34,7 @@ entity Zombie = {
   inherit UnityZombie2
    
   rule Destroyed = 
-    wait (Vector3.Distance(Position, world.Jeep.Value.Position) > 250.0f)
+    wait (Vector3.Distance(Position, world.Jeep.Value.Position) > 410.0f)
     yield true
 
   rule Dest =
