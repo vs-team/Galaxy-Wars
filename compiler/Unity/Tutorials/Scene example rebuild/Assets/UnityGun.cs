@@ -49,6 +49,12 @@ public class UnityGun : MonoBehaviour
       MagazineBox.text = InTheMag + "/" + NotInTheMag;
     }
   }
+  private bool keyboard = false;
+  public bool Keyboard
+  {
+    get { return keyboard; }
+    set { keyboard = value; }
+  }
   private float gunPower; //Used for damage and impactforce
   public float GunDamage
   {
@@ -73,30 +79,58 @@ public class UnityGun : MonoBehaviour
       {
         gunShot.Play();
         // Shoot a ray from gun or mouse, check if zombie is present.
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Create control option for choosing Mouse OR Razer, just like moving the car. Then implement the ray from either the mouse or razer.
-        RaycastHit hit; 
+        RaycastHit hitObject; 
         int layermask = 1 << 8;
-        if (Physics.Raycast(ray, out hit, 100, layermask))
+        if (keyboard)
         {
-          if (hit.collider.GetComponentInParent<UnityZombie2>())
+          Debug.Log("mouse shot");
+          Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Create control option for choosing Mouse OR Razer, just like moving the car. Then implement the ray from either the mouse or razer.
+          if (Physics.Raycast(ray, out hitObject, 100, layermask))
           {
-            UnityZombie2 hitZombie = hit.collider.GetComponentInParent<UnityZombie2>();
-            Debug.Log("Zombie has been hit, namely:" + hitZombie);
-            hitZombie.CollisionDirection = ray.direction;
-            hitZombie.HitTransform = hit.transform;
-            hitZombie.HitRigidbody = hit.rigidbody;
-            hitZombie.HitCollider = hit.collider;
-            hitZombie.Force = gunPower / 30.0f;
-            hitZombie.CollidedWithCar = false;
-            hitZombie.IsHitByForce = true;
+            if (hitObject.collider.GetComponentInParent<UnityZombie2>())
+            {
+              UnityZombie2 hitZombie = hitObject.collider.GetComponentInParent<UnityZombie2>();
+              Debug.Log("Zombie has been hit, namely:" + hitZombie);
+              hitZombie.CollisionDirection = ray.direction;
+              hitZombie.HitTransform = hitObject.transform;
+              hitZombie.HitRigidbody = hitObject.rigidbody;
+              hitZombie.HitCollider = hitObject.collider;
+              hitZombie.Force = gunPower / 30.0f;
+              hitZombie.CollidedWithCar = false;
+              hitZombie.IsHitByForce = true;
+            }
+          }
+          else
+            Debug.Log("Nothing has been hit");
+        }
+        else
+        {
+          Debug.Log("razer shot");
+          Vector3 razerDirection = GetComponentInParent<SixenseHand>().transform.forward;
+          if (Physics.Raycast(transform.position, razerDirection, out hitObject, 100.0f, layermask))
+          {
+            if (hitObject.collider.GetComponentInParent<UnityZombie2>())
+            {
+              UnityZombie2 hitZombie = hitObject.collider.GetComponentInParent<UnityZombie2>();
+              Debug.Log("Position of collision: " + hitObject.point);
+              Debug.Log("Zombie has been hit, namely:" + hitZombie.transform);
+              hitZombie.CollisionDirection = razerDirection;
+              hitZombie.HitTransform = hitObject.transform;
+              hitZombie.HitRigidbody = hitObject.rigidbody;
+              hitZombie.HitCollider = hitObject.collider;
+              Debug.Log("Force: " + gunPower / 30.0f);
+              hitZombie.Force = gunPower / 30.0f;
+              hitZombie.CollidedWithCar = false;
+              hitZombie.IsHitByForce = true;
+            }
           }
           else
           {
-            Debug.Log("Ray has collided with: " + hit.collider);
+            Debug.Log("Position of collision: " + hitObject.point);
+            Debug.Log("Nothing has been hit");
           }
+
         }
-        else
-          Debug.Log("Nothing has been hit");
       }
     }
   }
@@ -120,4 +154,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
