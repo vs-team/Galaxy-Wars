@@ -13,7 +13,9 @@ public bool JustEntered = true;
 
 public void Start()
 	{
+		test = false;
 		UnityMenu = new UnityMenu();
+		SubmitButton = (new Nothing<ButtonGUI>());
 		StartButton = (new Nothing<ButtonGUI>());
 		QuitButton = (new Nothing<ButtonGUI>());
 		Highscore = (new Nothing<ButtonGUI>());
@@ -34,6 +36,7 @@ public void Start()
  }
 	public Option<ButtonGUI> QuitButton;
 	public Option<ButtonGUI> StartButton;
+	public Option<ButtonGUI> SubmitButton;
 	public UnityMenu UnityMenu;
 	public UnityEngine.Texture backgroundTexture{  get { return UnityMenu.backgroundTexture; }
   set{UnityMenu.backgroundTexture = value; }
@@ -53,17 +56,28 @@ public void Start()
 	public System.String name{  get { return UnityMenu.name; }
   set{UnityMenu.name = value; }
  }
+	public System.Int32 rbp{  get { return UnityMenu.rbp; }
+ }
+	public System.Int32 sc{  get { return UnityMenu.sc; }
+  set{UnityMenu.sc = value; }
+ }
 	public System.String tag{  get { return UnityMenu.tag; }
   set{UnityMenu.tag = value; }
  }
+	public System.Boolean test;
 	public UnityEngine.Transform transform{  get { return UnityMenu.transform; }
+ }
+	public System.Int32 upd{  get { return UnityMenu.upd; }
+  set{UnityMenu.upd = value; }
  }
 	public System.Boolean useGUILayout{  get { return UnityMenu.useGUILayout; }
   set{UnityMenu.useGUILayout = value; }
  }
+	public System.Single count_down1;
+	public System.Single count_down4;
 	public System.Single count_down3;
 	public System.Single count_down2;
-	public System.Single count_down1;
+	public System.Int32 ___s140;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, Menu world) {
@@ -81,6 +95,11 @@ if(Highs.IsSome){ 		Highs.Value.Update(dt, world);
 		this.Rule7(dt, world);
 		this.Rule8(dt, world);
 		this.Rule9(dt, world);
+		this.Rule10(dt, world);
+		this.Rule11(dt, world);
+		this.Rule12(dt, world);
+		this.Rule13(dt, world);
+		this.Rule14(dt, world);
 	}
 
 
@@ -190,24 +209,23 @@ return;	}
 	{
 
 	case -1:
-	if(!(((LL) == (2))))
+	if(((LL) == (4)))
+	{
+
+	goto case 13;	}else
 	{
 
 	s3 = -1;
-return;	}else
-	{
-
-	goto case 2;	}
-	case 2:
-	UnityEngine.Debug.Log("highscore create");
-	Highs = (new Just<HighScore>(new HighScore()));
-	s3 = 0;
+return;	}
+	case 13:
+	SubmitButton = (new Just<ButtonGUI>(new ButtonGUI("Canvas/Play")));
+	s3 = 14;
 return;
-	case 0:
+	case 14:
 	if(!(false))
 	{
 
-	s3 = 0;
+	s3 = 14;
 return;	}else
 	{
 
@@ -222,7 +240,17 @@ return;	}
 	{
 
 	case -1:
-	begin_a = "";
+	if(!(((LL) == (2))))
+	{
+
+	s4 = -1;
+return;	}else
+	{
+
+	goto case 2;	}
+	case 2:
+	UnityEngine.Debug.Log("highscore create");
+	Highs = (new Just<HighScore>(new HighScore()));
 	s4 = 0;
 return;
 	case 0:
@@ -244,28 +272,19 @@ return;	}
 	{
 
 	case -1:
-	if(!(QuitButton.IsSome))
+	begin_a = "";
+	s5 = 0;
+return;
+	case 0:
+	if(!(false))
 	{
 
-	s5 = -1;
+	s5 = 0;
 return;	}else
 	{
 
-	goto case 2;	}
-	case 2:
-	if(!(QuitButton.Value.IsPressed))
-	{
-
-	s5 = 2;
-return;	}else
-	{
-
-	goto case 1;	}
-	case 1:
-	UnityEngine.Debug.Log("bye bye");
-	NextScene = "Quit";
 	s5 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
@@ -275,16 +294,25 @@ return;
 	{
 
 	case -1:
-	if(!(Highscore.IsSome))
+	if(!(((LL) == (4))))
 	{
 
 	s6 = -1;
 return;	}else
 	{
 
+	goto case 3;	}
+	case 3:
+	if(!(SubmitButton.IsSome))
+	{
+
+	s6 = 3;
+return;	}else
+	{
+
 	goto case 2;	}
 	case 2:
-	if(!(Highscore.Value.IsPressed))
+	if(!(SubmitButton.Value.IsPressed))
 	{
 
 	s6 = 2;
@@ -293,7 +321,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	LL = 2;
+	upd = 2;
 	s6 = 0;
 return;
 	case 0:
@@ -315,25 +343,16 @@ return;	}
 	{
 
 	case -1:
-	if(!(Credits.IsSome))
+	if(!(((LL) == (4))))
 	{
 
 	s7 = -1;
 return;	}else
 	{
 
-	goto case 2;	}
-	case 2:
-	if(!(Credits.Value.IsPressed))
-	{
-
-	s7 = 2;
-return;	}else
-	{
-
 	goto case 1;	}
 	case 1:
-	LL = 3;
+	sc = 2;
 	s7 = 0;
 return;
 	case 0:
@@ -355,7 +374,7 @@ return;	}
 	{
 
 	case -1:
-	if(!(BackToMenuButton.IsSome))
+	if(!(QuitButton.IsSome))
 	{
 
 	s8 = -1;
@@ -364,7 +383,7 @@ return;	}else
 
 	goto case 2;	}
 	case 2:
-	if(!(BackToMenuButton.Value.IsPressed))
+	if(!(QuitButton.Value.IsPressed))
 	{
 
 	s8 = 2;
@@ -373,19 +392,10 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	LL = 0;
-	s8 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s8 = 0;
-return;	}else
-	{
-
+	UnityEngine.Debug.Log("bye bye");
+	NextScene = "Quit";
 	s8 = -1;
-return;	}	
+return;	
 	default: return;}}
 	
 
@@ -395,10 +405,183 @@ return;	}
 	{
 
 	case -1:
-	if(!(StartButton.IsSome))
+	if(!(SubmitButton.IsSome))
 	{
 
 	s9 = -1;
+return;	}else
+	{
+
+	goto case 4;	}
+	case 4:
+	if(!(SubmitButton.Value.IsPressed))
+	{
+
+	s9 = 4;
+return;	}else
+	{
+
+	goto case 2;	}
+	case 2:
+	count_down1 = dt;
+	goto case 3;
+	case 3:
+	if(((count_down1) > (0f)))
+	{
+
+	count_down1 = ((count_down1) - (dt));
+	s9 = 3;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	LL = 2;
+	s9 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s9 = 0;
+return;	}else
+	{
+
+	s9 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s10=-1;
+	public void Rule10(float dt, Menu world){ 
+	switch (s10)
+	{
+
+	case -1:
+	if(!(Highscore.IsSome))
+	{
+
+	s10 = -1;
+return;	}else
+	{
+
+	goto case 2;	}
+	case 2:
+	if(!(Highscore.Value.IsPressed))
+	{
+
+	s10 = 2;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	LL = 2;
+	s10 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s10 = 0;
+return;	}else
+	{
+
+	s10 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s11=-1;
+	public void Rule11(float dt, Menu world){ 
+	switch (s11)
+	{
+
+	case -1:
+	if(!(Credits.IsSome))
+	{
+
+	s11 = -1;
+return;	}else
+	{
+
+	goto case 2;	}
+	case 2:
+	if(!(Credits.Value.IsPressed))
+	{
+
+	s11 = 2;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	LL = 3;
+	s11 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s11 = 0;
+return;	}else
+	{
+
+	s11 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s12=-1;
+	public void Rule12(float dt, Menu world){ 
+	switch (s12)
+	{
+
+	case -1:
+	if(!(BackToMenuButton.IsSome))
+	{
+
+	s12 = -1;
+return;	}else
+	{
+
+	goto case 2;	}
+	case 2:
+	if(!(BackToMenuButton.Value.IsPressed))
+	{
+
+	s12 = 2;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	LL = 0;
+	s12 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s12 = 0;
+return;	}else
+	{
+
+	s12 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s13=-1;
+	public void Rule13(float dt, Menu world){ 
+	switch (s13)
+	{
+
+	case -1:
+	if(!(StartButton.IsSome))
+	{
+
+	s13 = -1;
 return;	}else
 	{
 
@@ -407,7 +590,7 @@ return;	}else
 	if(!(StartButton.Value.IsPressed))
 	{
 
-	s9 = 12;
+	s13 = 12;
 return;	}else
 	{
 
@@ -415,63 +598,96 @@ return;	}else
 	case 11:
 	UnityEngine.Debug.Log("starting the game");
 	NextScene = "Loading";
-	s9 = 9;
+	s13 = 9;
 return;
 	case 9:
 	NextScene = "countDown3";
-	s9 = 7;
+	s13 = 7;
 return;
 	case 7:
-	count_down3 = 1f;
+	count_down4 = 1f;
 	goto case 8;
 	case 8:
-	if(((count_down3) > (0f)))
+	if(((count_down4) > (0f)))
 	{
 
-	count_down3 = ((count_down3) - (dt));
-	s9 = 8;
+	count_down4 = ((count_down4) - (dt));
+	s13 = 8;
 return;	}else
 	{
 
 	goto case 6;	}
 	case 6:
 	NextScene = "countDown2";
-	s9 = 4;
+	s13 = 4;
 return;
 	case 4:
-	count_down2 = 1f;
+	count_down3 = 1f;
 	goto case 5;
 	case 5:
-	if(((count_down2) > (0f)))
+	if(((count_down3) > (0f)))
 	{
 
-	count_down2 = ((count_down2) - (dt));
-	s9 = 5;
+	count_down3 = ((count_down3) - (dt));
+	s13 = 5;
 return;	}else
 	{
 
 	goto case 3;	}
 	case 3:
 	NextScene = "countDown1";
-	s9 = 1;
+	s13 = 1;
 return;
 	case 1:
-	count_down1 = 0.8f;
+	count_down2 = 0.8f;
 	goto case 2;
 	case 2:
-	if(((count_down1) > (0f)))
+	if(((count_down2) > (0f)))
 	{
 
-	count_down1 = ((count_down1) - (dt));
-	s9 = 2;
+	count_down2 = ((count_down2) - (dt));
+	s13 = 2;
 return;	}else
 	{
 
 	goto case 0;	}
 	case 0:
 	NextScene = "NextScene";
-	s9 = -1;
+	s13 = -1;
 return;	
+	default: return;}}
+	
+
+	int s14=-1;
+	public void Rule14(float dt, Menu world){ 
+	switch (s14)
+	{
+
+	case -1:
+	if(!(((LL) == (4))))
+	{
+
+	s14 = -1;
+return;	}else
+	{
+
+	goto case 3;	}
+	case 3:
+	___s140 = rbp;
+	UnityEngine.Debug.Log(("rbp cnv") + (___s140));
+	test = true;
+	s14 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s14 = 0;
+return;	}else
+	{
+
+	s14 = -1;
+return;	}	
 	default: return;}}
 	
 
@@ -557,6 +773,9 @@ public HighScore()
  }
 	public System.Boolean isActiveAndEnabled{  get { return unityhighscore.isActiveAndEnabled; }
  }
+	public UnityEngine.Font mspacefont{  get { return unityhighscore.mspacefont; }
+  set{unityhighscore.mspacefont = value; }
+ }
 	public System.String name{  get { return unityhighscore.name; }
   set{unityhighscore.name = value; }
  }
@@ -625,4 +844,4 @@ return;	}
 
 
 }
-}                                  
+}                

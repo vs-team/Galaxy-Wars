@@ -318,10 +318,12 @@ entity ControllerRazor= {
   JoystickName : string
   ECB : string
   
+
   rule m_initialRot = 
     yield world.Jeep.Value.Rotation
 
   rule Shot = 
+    wait world.Jeep.Value.Invullen <> true
     if (Trigger || Input.GetMouseButtonDown(0)) then
       yield true
     else

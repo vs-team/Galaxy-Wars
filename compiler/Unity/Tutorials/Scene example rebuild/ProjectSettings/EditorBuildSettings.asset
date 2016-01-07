@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/HighScore.unity
   - enabled: 1
     path: Assets/Credits.unity
+  - enabled: 1
+    path: Assets/inputfield.unity

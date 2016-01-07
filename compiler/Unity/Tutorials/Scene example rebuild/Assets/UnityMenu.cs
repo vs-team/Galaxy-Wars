@@ -17,6 +17,55 @@ public class UnityMenu : MonoBehaviour
   private GameObject countDown2;
   private GameObject countDown3;
   private GameObject CreditText;
+  private InputField inp;
+
+  public int upd
+  {
+    get { return 0; }
+    set
+    {
+      for (int i = 1; i <= 8; i++)
+      {
+        string st = i.ToString();
+        string p = PlayerPrefs.GetString("pos" + st);
+        if (p == "NameNotSetYet")
+        {
+          int s = PlayerPrefs.GetInt("scor" + st);
+          PlayerPrefs.DeleteKey("pos" + st);
+          PlayerPrefs.DeleteKey("scor" + i);
+          PlayerPrefs.SetString("posit: " + st, inp.text);
+          PlayerPrefs.SetInt("score: " + st, s);
+        }
+      }
+      PlayerPrefs.Save();
+    }
+  }
+  public int sc
+  {
+    get { return reachedscor; }
+    set
+    {
+      for (int i = 1; i <= 8; i++)
+      {
+        int p = PlayerPrefs.GetInt("scor" + i);
+        if (p != 0)
+        {
+          PlayerPrefs.DeleteKey("ReachedByPlayer");
+          reachedscor = p;
+          Debug.Log("p unitymenu" + p);
+          PlayerPrefs.SetInt("ReachedByPlayer", p);
+        }
+      }
+
+      PlayerPrefs.Save();
+    }
+  }
+  public int rbp
+  {
+    get { return PlayerPrefs.GetInt("ReachedByPlayer"); }
+  }
+
+  private int reachedscor;
 
   public string begin_a
   {
@@ -46,6 +95,11 @@ public class UnityMenu : MonoBehaviour
       {
         BTMB = GameObject.Find("Canvas/Back_To_Menu");
       }
+      if (Application.loadedLevel == 4)
+      {
+        inp = GameObject.Find("Canvas/input_field").GetComponent<InputField>();
+
+      }
 
     }
   }
@@ -60,8 +114,12 @@ public class UnityMenu : MonoBehaviour
         HSB.SetActive(false);
         QuitB.SetActive(false);
       }
+      if (Application.loadedLevel == 2)
+      {
+        BTMB.SetActive(false);
+      }
 
-      if (value == "Loading")
+        if (value == "Loading")
       {
         PlayB.SetActive(false);
 
@@ -98,8 +156,13 @@ public class UnityMenu : MonoBehaviour
     get { return Application.loadedLevel; }
     set
     {
+      if(Application.loadedLevel == 0 && value == 2)
+      {
+        PlayerPrefs.DeleteKey("ReachedByPlayer");
+        PlayerPrefs.Save();
+      }
       Application.LoadLevel(value);
     }
   }
 }
-                                                                                                                                                                                                                 
+                                                                                                  

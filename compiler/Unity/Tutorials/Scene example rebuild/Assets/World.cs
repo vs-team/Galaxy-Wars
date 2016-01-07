@@ -773,13 +773,17 @@ return;
 	if(((((world.ActiveBoR) == ("Medipack Red"))) && (!(((isModel) == (true))))))
 	{
 
-	goto case 28;	}else
+	goto case 27;	}else
 	{
 
-	s1 = -1;
-return;	}
-	case 28:
+	goto case 28;	}
+	case 27:
 	Health = ((Health) + (20f));
+	world.Jeep.Value.CarHP2 = ((Health) / (100f));
+	s1 = -1;
+return;
+	case 28:
+	Health = ((Health) - (1f));
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	s1 = -1;
 return;	
@@ -875,6 +879,7 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public UnityEngine.Vector3 InputPosition{  get { return TruckScript.InputPosition; }
  }
 	public System.Boolean Invullen{  get { return TruckScript.Invullen; }
+  set{TruckScript.Invullen = value; }
  }
 	public System.Single JRotation;
 	public System.Boolean Keyboard;
@@ -916,9 +921,6 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.Boolean isModel;
 	public System.Single maxMotorTorque;
 	public System.Single maxSteeringAngle;
-	public System.String naaminvul{  get { return TruckScript.naaminvul; }
-  set{TruckScript.naaminvul = value; }
- }
 	public System.String name{  get { return TruckScript.name; }
   set{TruckScript.name = value; }
  }
@@ -1320,7 +1322,7 @@ return;
 	s9 = 0;
 return;
 	case 0:
-	if(!(!(((Invullen) == (true)))))
+	if(!(!(((GameOver) == (true)))))
 	{
 
 	s9 = 0;
@@ -1347,7 +1349,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	naaminvul = "";
+	GameOver = true;
 	s10 = 0;
 return;
 	case 0:
@@ -1369,29 +1371,16 @@ return;	}
 	{
 
 	case -1:
-	if(!(!(((naaminvul) == ("")))))
+	if(!(GameOver))
 	{
 
 	s11 = -1;
 return;	}else
 	{
 
-	goto case 3;	}
-	case 3:
-	if(!(UnityEngine.Input.GetKeyDown(KeyCode.Return)))
-	{
-
-	s11 = 3;
-return;	}else
-	{
-
-	goto case 2;	}
-	case 2:
-	GameOver = true;
-	s11 = 1;
-return;
+	goto case 1;	}
 	case 1:
-	GameOver = false;
+	Invullen = true;
 	s11 = 0;
 return;
 	case 0:
@@ -1458,106 +1447,106 @@ frame = World.frame;
 	if(!(world.Jeep.Value.isModel))
 	{
 
-	goto case 6;	}else
+	goto case 4;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 6:
+	case 4:
 	if(((world.Jeep.Value.Fuel) > (0.99f)))
 	{
 
-	goto case 7;	}else
+	goto case 5;	}else
 	{
 
-	goto case 8;	}
-	case 7:
+	goto case 6;	}
+	case 5:
 	if(((!(((world.Jeep.Value.cnvAccel) == (0f)))) && (((leftWheel.isGrounded) || (rightWheel.isGrounded)))))
 	{
 
-	goto case 10;	}else
+	goto case 8;	}else
 	{
 
-	goto case 11;	}
-	case 10:
+	goto case 9;	}
+	case 8:
 	___dir00 = world.Jeep.Value.cnvAccel;
 	___speed00 = ((((world.Jeep.Value.maxMotorTorque) * (world.Jeep.Value.cnvAccel))) * (-1f));
 	if(((world.ActiveBoR) == ("Arrows Green")))
 	{
 
-	goto case 13;	}else
+	goto case 11;	}else
 	{
 
-	goto case 14;	}
-	case 13:
+	goto case 12;	}
+	case 11:
 	leftWheel.motorTorque = leftWheel.motorTorque;
 	rightWheel.motorTorque = rightWheel.motorTorque;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 17;
+	s0 = 15;
 return;
-	case 17:
+	case 15:
 	if(!(((!(((world.Jeep.Value.cnvAccel) == (___dir00)))) || (true))))
 	{
 
-	s0 = 17;
+	s0 = 15;
 return;	}else
 	{
 
-	goto case 16;	}
-	case 16:
+	goto case 14;	}
+	case 14:
 	if(!(((world.Jeep.Value.cnvAccel) == (___dir00))))
 	{
 
-	goto case 18;	}else
+	goto case 16;	}else
 	{
 
 	if(true)
 	{
 
-	goto case 19;	}else
+	goto case 17;	}else
 	{
 
-	s0 = 16;
+	s0 = 14;
 return;	}	}
-	case 18:
+	case 16:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 19:
+	case 17:
 	leftWheel.motorTorque = ((___speed00) * (10f));
 	rightWheel.motorTorque = ((___speed00) * (10f));
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 21;
+	s0 = 19;
 return;
-	case 21:
+	case 19:
 	count_down9 = 2f;
-	goto case 22;
-	case 22:
+	goto case 20;
+	case 20:
 	if(((count_down9) > (0f)))
 	{
 
 	count_down9 = ((count_down9) - (dt));
-	s0 = 22;
+	s0 = 20;
 return;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 14:
+	case 12:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 11:
+	case 9:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
 	s0 = -1;
 return;
-	case 8:
+	case 6:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = 0f;
@@ -3972,18 +3961,27 @@ return;
 	{
 
 	case -1:
-	if(((Trigger) || (UnityEngine.Input.GetMouseButtonDown(0))))
+	if(!(!(((world.Jeep.Value.Invullen) == (true)))))
 	{
 
-	goto case 1;	}else
+	s6 = -1;
+return;	}else
 	{
 
 	goto case 2;	}
-	case 1:
+	case 2:
+	if(((Trigger) || (UnityEngine.Input.GetMouseButtonDown(0))))
+	{
+
+	goto case 0;	}else
+	{
+
+	goto case 1;	}
+	case 0:
 	Shot = true;
 	s6 = -1;
 return;
-	case 2:
+	case 1:
 	Shot = false;
 	s6 = -1;
 return;	
@@ -5153,4 +5151,4 @@ frame = World.frame;
 
 
 }
-}                                  
+}                

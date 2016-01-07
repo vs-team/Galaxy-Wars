@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Casanova.Prelude;
 using System.Linq;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class TruckScript : MonoBehaviour
 {
@@ -38,25 +40,26 @@ public class TruckScript : MonoBehaviour
     truck.shield = truck.transform.Find("Shield").GetComponent<Collider>() as Collider;
     truck.collidedWithThisFrame = new List<UnityZombie2>();
     truck.score = truck.transform.Find("Main Camera/Score").GetComponent<TextMesh>() as TextMesh;
-    truck.naam = truck.transform.Find("Main Camera/Canvas/Naam").GetComponent<UnityEngine.UI.InputField>();
 
     return truck;
   }
 
-  
+
   void Start()
   {
-    naam.gameObject.SetActive(false);
+    PlayerPrefs.DeleteKey("ReachedByPlayer");
+    PlayerPrefs.Save();
     /*
+    PlayerPrefs.DeleteAll();
     string[] names = { "Piet", "Klaas", "Henk" };
     for (int i = TopScoreSize; i > 0; i--)
     {
-      var score = 250 - i * 30;
+      var score = 400 - i * 30;
       PlayerPrefs.SetInt("score: " + i, score); //score
       int j = Random.Range(0, (names.Length));
       PlayerPrefs.SetString("posit: " + i, names[j]);
     }
-  //*/
+    //*/
   }
 
   public Vector3 InputPosition
@@ -68,22 +71,11 @@ public class TruckScript : MonoBehaviour
     get { return score.text; }
     set { score.text = "Score: " + value; }
   }
-  public bool Invullen
-  {
-    get { return naam.gameObject.activeSelf; }
-  }
-  private UnityEngine.UI.InputField naam;
-  public string naaminvul
-  {
-    get { return naam.text; }
-    set {
-      naam.gameObject.SetActive(true);
-      naam.text = "" + value; }
-  }
+  public bool Invullen;
 
   private int counter = 0;
-  private bool added;
-  private int TopScoreSize = 10;
+  private int added = 0;
+  private int TopScoreSize = 8;
   public bool GameOver
   {
     get { return false; }
@@ -91,13 +83,12 @@ public class TruckScript : MonoBehaviour
     {
       if (value == true)
       {
-        //name
-        string name = naaminvul;
 
         //score
         var scorString = Score.Substring(7);
         int scoreInt = int.Parse(scorString);
-        int totscore = scoreInt;
+        int ad = Random.Range(100, 1150);
+        int totscore = ad;
 
         //Top TopScoreSize players with their scores
         List<Tuple<string, int>> Topscores = new List<Tuple<string, int>>();
@@ -115,19 +106,32 @@ public class TruckScript : MonoBehaviour
           }
 
           counter++;
-          if (a.Item2 < totscore && !added)
+          if (a.Item2 < totscore && added == 0)
           {
-            PlayerPrefs.SetString("posit: " + counter, name);
-            PlayerPrefs.SetInt("score: " + counter, totscore);
-            added = true;
+            Debug.Log("NameNotSetYet");
+            Debug.Log("counter"+ counter);
+            PlayerPrefs.SetString("pos"+counter.ToString(), "NameNotSetYet"); // pos1 + NameNotSetUet
+            PlayerPrefs.SetInt("scor" + counter, totscore);
+            added = counter;
             counter++;
           }
           PlayerPrefs.SetString("posit: " + counter, a.Item1);
           PlayerPrefs.SetInt("score: " + counter, a.Item2);
 
         }
+        Debug.Log("totscore"+ totscore);
         PlayerPrefs.Save();
-        Application.LoadLevel(2);
+        if (added != 0)
+        {
+          Application.LoadLevel(4);
+        }
+        else
+        {
+          PlayerPrefs.SetInt("ReachedByPlayer", totscore);
+          Debug.Log("ts = "+PlayerPrefs.GetInt("ReachedByPlayer"));
+          PlayerPrefs.Save();
+          Application.LoadLevel(2);
+        }
       }
     }
   }
@@ -293,4 +297,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+}                                                                                                                                                                                                                                       
