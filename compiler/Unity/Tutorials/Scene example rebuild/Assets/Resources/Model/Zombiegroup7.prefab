@@ -120,6 +120,7 @@ GameObject:
   - 114: {fileID: 11427804}
   - 114: {fileID: 11482394}
   - 195: {fileID: 19587234}
+  - 82: {fileID: 8220624}
   m_Layer: 8
   m_Name: Zombie (5)
   m_TagString: Zombie
@@ -1838,6 +1839,7 @@ GameObject:
   - 114: {fileID: 11463244}
   - 114: {fileID: 11442856}
   - 195: {fileID: 19583562}
+  - 82: {fileID: 8280672}
   m_Layer: 8
   m_Name: Zombie (1)
   m_TagString: Zombie
@@ -4203,6 +4205,7 @@ GameObject:
   - 114: {fileID: 11416464}
   - 114: {fileID: 11483860}
   - 195: {fileID: 19529552}
+  - 82: {fileID: 8279536}
   m_Layer: 8
   m_Name: ZombieLeader
   m_TagString: Untagged
@@ -5705,6 +5708,7 @@ GameObject:
   - 114: {fileID: 11421850}
   - 114: {fileID: 11496280}
   - 195: {fileID: 19544888}
+  - 82: {fileID: 8213382}
   m_Layer: 8
   m_Name: Zombie (3)
   m_TagString: Zombie
@@ -5860,6 +5864,7 @@ GameObject:
   - 114: {fileID: 11469824}
   - 114: {fileID: 11457346}
   - 195: {fileID: 19588828}
+  - 82: {fileID: 8265858}
   m_Layer: 8
   m_Name: Zombie (2)
   m_TagString: Zombie
@@ -5909,6 +5914,7 @@ GameObject:
   - 114: {fileID: 11411268}
   - 114: {fileID: 11404276}
   - 195: {fileID: 19592226}
+  - 82: {fileID: 8219272}
   m_Layer: 8
   m_Name: Zombie (4)
   m_TagString: Zombie
@@ -13042,6 +13048,420 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.77772522, y: 11.6073456, z: 15.0269794}
   m_Center: {x: -2.38886261, y: -.46110487, z: 0}
+--- !u!82 &8213382
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190504}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!82 &8219272
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193976}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!82 &8220624
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100910}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!82 &8265858
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193236}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!82 &8279536
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163954}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!82 &8280672
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130170}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!95 &9501362
 Animator:
   serializedVersion: 3
@@ -13056,14 +13476,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9522474
@@ -13080,14 +13493,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9543154
@@ -13121,14 +13527,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9564174
@@ -13145,14 +13544,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9593854
@@ -13169,14 +13561,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11400512
@@ -13204,6 +13589,10 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
+  Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
+  Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
+  Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
 --- !u!114 &11411268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13270,6 +13659,10 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
+  Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
+  Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
+  Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
 --- !u!114 &11457346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13284,6 +13677,10 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
+  Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
+  Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
+  Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
 --- !u!114 &11463244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13324,6 +13721,10 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
+  Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
+  Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
+  Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
 --- !u!114 &11483860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13338,6 +13739,10 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
+  Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
+  Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
+  Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
 --- !u!114 &11496280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13352,6 +13757,10 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
+  Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
+  Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
+  Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
 --- !u!135 &13503540
 SphereCollider:
   m_ObjectHideFlags: 1

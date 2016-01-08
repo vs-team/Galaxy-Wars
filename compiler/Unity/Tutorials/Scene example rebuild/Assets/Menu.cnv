@@ -5,12 +5,24 @@ open UnityEngine
 
 worldEntity Menu = {
   inherit UnityMenu
-  ref StartButton : ButtonGUI
-  ref QuitButton  : ButtonGUI
+  ref StartButton : Option<ButtonGUI>
+  ref QuitButton  : Option<ButtonGUI>
+  ref BackToMenuButton  : Option<ButtonGUI>
+  ref Credits  : Option<ButtonGUI>
+  ref Highscore  : Option<ButtonGUI>
+  ref SubmitButton : Option<ButtonGUI>
+  Highs : Option<HighScore>
+  test : bool
   
+  rule test = 
+    wait LL = 4
+    let s = rbp
+    yield true
+    wait false
+
   rule NextScene = 
-    wait StartButton.IsPressed
-    Debug.Log("starting the game")
+    wait StartButton.IsSome
+    wait StartButton.Value.IsPressed
     yield "Loading"
     yield "countDown3"
     wait 1.0f
@@ -19,23 +31,89 @@ worldEntity Menu = {
     yield "countDown1"
     wait 0.8f
     yield "NextScene"
+
+  rule LL = 
+    wait BackToMenuButton.IsSome
+    wait BackToMenuButton.Value.IsPressed
+    yield 0
+    wait false
+
+  rule LL = 
+    wait Credits.IsSome
+    wait Credits.Value.IsPressed
+    yield 3
+    wait false
+
+  rule LL = 
+    wait Highscore.IsSome
+    wait Highscore.Value.IsPressed
+    yield 2
+    wait false
+
+  rule LL = 
+    wait SubmitButton.IsSome
+    wait SubmitButton.Value.IsPressed
     wait dt
-    wait dt
-    wait dt
+    yield 2
+    wait false
 
   rule NextScene = 
-    wait QuitButton.IsPressed
+    wait QuitButton.IsSome
+    wait QuitButton.Value.IsPressed
     Debug.Log("bye bye")
     yield "Quit"
+
+  rule sc =
+    wait LL = 4
+    yield 2
+    wait false
+
+  rule upd = 
+    wait LL = 4
+    wait SubmitButton.IsSome
+    wait SubmitButton.Value.IsPressed
+    yield 2
+    wait false
 
   rule begin_a = 
     yield ""
     wait false
 
+  rule Highs = 
+    wait LL = 2
+    yield Some (new HighScore())
+    wait false
+
+  rule SubmitButton = 
+    if LL = 4 then // inputfield
+      yield Some (new ButtonGUI("Canvas/Play"))
+      wait false
+
+  rule BackToMenuButton = 
+    if LL = 3 then // credits
+      yield Some (new ButtonGUI("Canvas/Back_To_Menu"))
+      wait false
+
+  rule StartButton, BackToMenuButton = 
+    if LL = 2 then // highscore
+      yield Some (new ButtonGUI("Canvas/Play")), Some (new ButtonGUI("Canvas/Back_To_Menu"))
+      wait false
+
+  rule StartButton, QuitButton, Credits, Highscore = 
+    if LL = 0 then // menu
+      yield Some (new ButtonGUI("Canvas/Play")), Some (new ButtonGUI("Canvas/Quit")), Some (new ButtonGUI("Canvas/Credits")), Some (new ButtonGUI("Canvas/HighScore"))
+      wait false
+
   Create() =
   {
-    StartButton = new ButtonGUI("Canvas/Play")
-    QuitButton  = new ButtonGUI("Canvas/Quit")
+    StartButton = None
+    QuitButton  = None
+    BackToMenuButton = None
+    Credits = None
+    Highscore = None
+    Highs = None
+    SubmitButton = None
+    test = false
   }
 }
 entity ButtonGUI = {
@@ -44,5 +122,18 @@ entity ButtonGUI = {
   Create(n : string) =
   {
     UnityButton = UnityButton.Find(n)
+  }
+}
+entity HighScore = {
+  inherit unityhighscore
+
+  rule Box =
+    yield true
+    wait world.StartButton.Value.IsPressed
+    yield false
+    wait false
+
+  Create() = {
+    Base=unityhighscore.instantiate()
   }
 }

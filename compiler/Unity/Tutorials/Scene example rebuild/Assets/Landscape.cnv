@@ -40,7 +40,7 @@ entity Gasstation = {
 
   Create(ps : Vector3) = {
     Base = UnityGasstation.Instantiate(ps)
-    RepairZonE = new Repair()
+    RepairZonE = new Repair(ps)
     GroupZombies = []
     ZombieSpawnpoints = []
     Counter = 0
@@ -84,8 +84,8 @@ entity Repair = {
     yield false, 101
     wait false
 
-  Create() = {
-    Base = UnityCheckpoint.Find()
+  Create(p : Vector3) = {
+    Base = UnityCheckpoint.Find(p)
     RepairProgressBar = Some (new ProgressBar_1(1))
     Refill_Resources = false
   }
@@ -116,7 +116,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
       let sps_pos = sps.position
       let rpu = Spawnpoints.[random_pickup]
       let rpu_pos = rpu.position
-      yield [new GroupZombie(sps_pos,7)], [new PickUp(rpu_pos)], []
+      yield [new GroupZombie(sps_pos,7);new GroupZombie(rpu_pos, 7)], [], []//, [new PickUp(rpu_pos1)], []
       wait false
     else 
       let sps1 = Spawnpoints.[1]

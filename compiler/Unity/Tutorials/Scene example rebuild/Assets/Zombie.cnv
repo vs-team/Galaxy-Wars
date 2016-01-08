@@ -18,7 +18,7 @@ entity GroupZombie = {
     let z = 
       [for a in U_Zombies do
        select (new Zombie(a))] 
-    yield z  
+    yield z
     yield []
     wait false
 
@@ -32,13 +32,28 @@ entity GroupZombie = {
 
 entity Zombie = {
   inherit UnityZombie2
+   
+  rule SoundToPlay = 
+    wait tim
+    yield WhichSoundToPlay
+
+  rule Destroyed = 
+    wait (Vector3.Distance(Position, world.Jeep.Value.Position) > 410.0f)
+    yield true
 
   rule Dest =
-    wait not Dead
     yield world.Jeep.Value.Position 
+    wait not Dead
 
   Create(trans : Transform) = 
   { 
   Base = UnityZombie2.Find(trans)
+  }
+}
+entity ZombieGroupDestroyer = {
+  inherit UnityDestroyer
+
+  Create(a : float, b : Vector3) = {  
+    Base = UnityDestroyer.instantiate(a, b)
   }
 }
