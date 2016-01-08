@@ -69,10 +69,10 @@ entity Truck = {
        wait tim
 
    rule driv = 
-     if Keyboard && Dama < 0.5f then
+     if KeyboardDriving && Dama < 0.5f then
        yield 1.0f
        wait tim
-     if Dama > 0.5f || not Keyboard then
+     if Dama > 0.5f || not KeyboardDriving then
        wait tim
        yield 0.0f
 

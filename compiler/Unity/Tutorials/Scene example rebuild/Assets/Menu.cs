@@ -31,7 +31,7 @@ public void Start()
 	public System.Int32 LL{  get { return UnityMenu.LL; }
   set{UnityMenu.LL = value; }
  }
-		public System.String NextScene{  get { return UnityMenu.NextScene; }
+	public System.String NextScene{  get { return UnityMenu.NextScene; }
   set{UnityMenu.NextScene = value; }
  }
 	public Option<ButtonGUI> QuitButton;
@@ -437,7 +437,7 @@ return;	}else
 	case 1:
 	LL = 2;
 	s9 = 0;
-return;	
+return;
 	case 0:
 	if(!(false))
 	{
@@ -755,7 +755,7 @@ public HighScore()
 	{JustEntered = false;
  frame = Menu.frame;
 		unityhighscore = unityhighscore.instantiate();
-
+		
 }
 		public System.Boolean Box{  get { return unityhighscore.Box; }
   set{unityhighscore.Box = value; }
@@ -829,7 +829,7 @@ return;	}else
 	s0 = -1;
 return;	}	
 	default: return;}}
-
+	
 
 
 
@@ -837,4 +837,4 @@ return;	}
 
 
 }
-}                  
+}                                                                                               
