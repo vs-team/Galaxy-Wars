@@ -19,8 +19,8 @@ entity TruckStats = {
   rule Health, world.Jeep.Value.CarHP2 = 
     if world.ActiveBoR = "Medipack Red" && isModel <> true then
       yield Health + 20.0f, ((Health) / 100.0f)
-    else
-      yield Health - 1.0f, ((Health) / 100.0f)
+    //else
+      //yield Health - 1.0f, ((Health) / 100.0f)
 
   rule world.Jeep.Value.CarHP2, Health, world.GUIpanel.HPValue = 
     if isModel <> true then
@@ -61,6 +61,21 @@ entity Truck = {
    Keyboard : bool
    isModel : bool
    Stats : TruckStats
+
+
+   rule Dama, driv = 
+     let a = CarHPChanged
+     if a <> 0.0f then
+       yield 0.0f, 0.5f
+       wait tim
+
+   rule driv = 
+     if Keyboard && Dama < 0.5f then
+       yield 1.0f
+       wait tim
+     if Dama > 0.5f then
+       wait tim
+       yield 0.0f
 
    rule Invullen = 
      wait GameOver

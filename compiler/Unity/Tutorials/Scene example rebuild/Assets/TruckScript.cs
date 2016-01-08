@@ -22,11 +22,16 @@ public class TruckScript : MonoBehaviour
   private TextMesh score;
   private bool destroyed;
   private Vector3 prevVelocity;
+  public AudioClip Audio_Driving;
+  public AudioClip Audio_DamageSmall;
+  public AudioClip Audio_DamageBig;
+  private AudioSource AudioS;
 
   public static TruckScript Instantiate(string nm, Vector3 pos)
   {
     GameObject jeepGameObject = GameObject.Instantiate(Resources.Load("Jeeps/" + nm), pos, Quaternion.identity) as GameObject;
     TruckScript truck = jeepGameObject.GetComponent<TruckScript>() as TruckScript;
+    truck.AudioS = jeepGameObject.GetComponent<AudioSource>() as AudioSource;
     truck.truckRigidBody = jeepGameObject.GetComponent<Rigidbody>() as Rigidbody;
 
     truck.FrontLeftWheel = truck.transform.Find("SUV_wheel_front_left").GetComponent<WheelCollider>() as WheelCollider;
@@ -109,8 +114,8 @@ public class TruckScript : MonoBehaviour
           if (a.Item2 < totscore && added == 0)
           {
             Debug.Log("NameNotSetYet");
-            Debug.Log("counter"+ counter);
-            PlayerPrefs.SetString("pos"+counter.ToString(), "NameNotSetYet"); // pos1 + NameNotSetUet
+            Debug.Log("counter" + counter);
+            PlayerPrefs.SetString("pos" + counter.ToString(), "NameNotSetYet"); // pos1 + NameNotSetUet
             PlayerPrefs.SetInt("scor" + counter, totscore);
             added = counter;
             counter++;
@@ -119,7 +124,7 @@ public class TruckScript : MonoBehaviour
           PlayerPrefs.SetInt("score: " + counter, a.Item2);
 
         }
-        Debug.Log("totscore"+ totscore);
+        Debug.Log("totscore" + totscore);
         PlayerPrefs.Save();
         if (added != 0)
         {
@@ -128,7 +133,7 @@ public class TruckScript : MonoBehaviour
         else
         {
           PlayerPrefs.SetInt("ReachedByPlayer", totscore);
-          Debug.Log("ts = "+PlayerPrefs.GetInt("ReachedByPlayer"));
+          Debug.Log("ts = " + PlayerPrefs.GetInt("ReachedByPlayer"));
           PlayerPrefs.Save();
           Application.LoadLevel(2);
         }
@@ -283,18 +288,70 @@ public class TruckScript : MonoBehaviour
     else if (collision.relativeVelocity.magnitude > 10.0f)
     {
       CarHP -= collision.relativeVelocity.magnitude / 100;
+      CarHPChanged = collision.relativeVelocity.magnitude;
     }
   }
-
+  public float tim;
+  public float Dama
+  {
+    get { return CarHPChanged; }
+    set
+    {
+      if (CarHPChanged > 3.0f)
+      {
+        AudioS.clip = Audio_DamageBig;
+        tim = AudioS.clip.length;
+        CarHPChanged = 0.0f;
+        AudioS.Play();
+      }
+      else
+      {
+        if (CarHPChanged > 1.0f)
+        {
+          AudioS.clip = Audio_DamageSmall;
+          tim = AudioS.clip.length;
+          AudioS.Play();
+          CarHPChanged = 0.0f;
+        }
+      }
+    }
+  }
+  public float driv
+  {
+    get { return tim; }
+    set
+    {
+      if (value == 0.0f)
+      {
+        AudioS.Stop();
+      }
+      else if (value == 0.5f)
+      {
+        return;
+      }
+      else
+      {
+        Debug.Log("audio in truck");
+        AudioS.clip = Audio_Driving;
+        tim = AudioS.clip.length;
+        AudioS.Play();
+      }
+    }
+  }
   public float CarHP2
   {
     get { return CarHP; }
-    set { CarHP = value; }
+    set
+    {
+      CarHP = value;
+    }
   }
+
+  public float CarHPChanged;
 
   void LateUpdate()
   {
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                       
+}                                                                                                 

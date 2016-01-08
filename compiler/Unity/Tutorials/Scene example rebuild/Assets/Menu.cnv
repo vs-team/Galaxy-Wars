@@ -88,7 +88,7 @@ worldEntity Menu = {
     wait false
 
   rule SubmitButton = 
-    if LL = 4 then 
+    if LL = 4 then // inputfield
       yield Some (new ButtonGUI("Canvas/Play"))
       wait false
 

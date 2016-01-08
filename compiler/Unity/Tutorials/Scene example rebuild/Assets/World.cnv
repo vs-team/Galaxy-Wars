@@ -22,6 +22,7 @@ worldEntity World = {
   W_Refill_Resources : bool
   ZombiegroupDest : Option<ZombieGroupDestroyer>
  
+
   rule ZombiegroupDest, Landscapes = 
     wait 0.5f
     let x = 
