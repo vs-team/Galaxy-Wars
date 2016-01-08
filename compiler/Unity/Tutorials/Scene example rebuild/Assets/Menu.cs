@@ -247,9 +247,8 @@ return;	}
 return;	}else
 	{
 
-	goto case 2;	}
-	case 2:
-	UnityEngine.Debug.Log("highscore create");
+	goto case 1;	}
+	case 1:
 	Highs = (new Just<HighScore>(new HighScore()));
 	s4 = 0;
 return;
@@ -585,18 +584,17 @@ return;	}
 return;	}else
 	{
 
-	goto case 12;	}
-	case 12:
+	goto case 11;	}
+	case 11:
 	if(!(StartButton.Value.IsPressed))
 	{
 
-	s13 = 12;
+	s13 = 11;
 return;	}else
 	{
 
-	goto case 11;	}
-	case 11:
-	UnityEngine.Debug.Log("starting the game");
+	goto case 10;	}
+	case 10:
 	NextScene = "Loading";
 	s13 = 9;
 return;
@@ -671,10 +669,9 @@ return;
 return;	}else
 	{
 
-	goto case 3;	}
-	case 3:
+	goto case 2;	}
+	case 2:
 	___s140 = rbp;
-	UnityEngine.Debug.Log(("rbp cnv") + (___s140));
 	test = true;
 	s14 = 0;
 return;
@@ -806,22 +803,18 @@ frame = Menu.frame;
 
 	case -1:
 	Box = true;
-	s0 = 4;
+	s0 = 2;
 return;
-	case 4:
-	UnityEngine.Debug.Log("boxie create");
-	goto case 3;
-	case 3:
+	case 2:
 	if(!(world.StartButton.Value.IsPressed))
 	{
 
-	s0 = 3;
+	s0 = 2;
 return;	}else
 	{
 
-	goto case 2;	}
-	case 2:
-	UnityEngine.Debug.Log("start is pressed");
+	goto case 1;	}
+	case 1:
 	Box = false;
 	s0 = 0;
 return;
@@ -844,4 +837,4 @@ return;	}
 
 
 }
-}                   
+}           

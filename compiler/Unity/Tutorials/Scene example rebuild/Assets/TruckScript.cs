@@ -331,7 +331,6 @@ public class TruckScript : MonoBehaviour
       }
       else
       {
-        Debug.Log("audio in truck");
         AudioS.clip = Audio_Driving;
         tim = AudioS.clip.length;
         AudioS.Play();
@@ -354,4 +353,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                           
+}                                                                                                                                                                     

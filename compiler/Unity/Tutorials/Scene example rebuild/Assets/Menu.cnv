@@ -17,14 +17,12 @@ worldEntity Menu = {
   rule test = 
     wait LL = 4
     let s = rbp
-    Debug.Log("rbp cnv"+s)
     yield true
     wait false
 
   rule NextScene = 
     wait StartButton.IsSome
     wait StartButton.Value.IsPressed
-    Debug.Log("starting the game")
     yield "Loading"
     yield "countDown3"
     wait 1.0f
@@ -83,7 +81,6 @@ worldEntity Menu = {
 
   rule Highs = 
     wait LL = 2
-    Debug.Log("highscore create")
     yield Some (new HighScore())
     wait false
 
@@ -132,9 +129,7 @@ entity HighScore = {
 
   rule Box =
     yield true
-    Debug.Log("boxie create")
     wait world.StartButton.Value.IsPressed
-    Debug.Log("start is pressed")
     yield false
     wait false
 

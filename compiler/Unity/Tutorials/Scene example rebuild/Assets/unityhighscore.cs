@@ -30,7 +30,6 @@ public class unityhighscore : MonoBehaviour
   void OnGUI()
   {
     int s = PlayerPrefs.GetInt("ReachedByPlayer");
-    Debug.Log("rbp"+s);
     if (boxCreated)
     {
       GUIStyle a = new GUIStyle();
@@ -73,4 +72,4 @@ public class unityhighscore : MonoBehaviour
     PlayerPrefs.Save();
   }
 }
-                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                      

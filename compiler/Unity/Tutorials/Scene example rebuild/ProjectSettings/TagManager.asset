@@ -16,6 +16,7 @@ TagManager:
   - Landscape
   - Power_Up
   - Gasstation
+  - RepairZone
   layers:
   - Default
   - TransparentFX

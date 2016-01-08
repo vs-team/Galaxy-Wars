@@ -67,7 +67,6 @@ worldEntity World = {
       [for a in Landscapes do
        where (Vector3.Distance (a.Position, Jeep.Value.Position) > 400)
        select a]
-    Debug.Log("landscapes = "+x.Count)
     if (x.Count > 0) then
       let q = 
         [for a in Landscapes do

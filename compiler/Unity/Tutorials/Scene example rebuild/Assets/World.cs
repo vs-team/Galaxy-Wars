@@ -369,25 +369,24 @@ return;
 
 	case -1:
 	count_down3 = 0.5f;
-	goto case 18;
-	case 18:
+	goto case 17;
+	case 17:
 	if(((count_down3) > (0f)))
 	{
 
 	count_down3 = ((count_down3) - (dt));
-	s3 = 18;
+	s3 = 17;
 return;	}else
 	{
 
-	goto case 16;	}
-	case 16:
+	goto case 15;	}
+	case 15:
 	___x30 = (
 
 (Landscapes).Select(__ContextSymbol17 => new { ___a33 = __ContextSymbol17 })
 .Where(__ContextSymbol18 => ((UnityEngine.Vector3.Distance(__ContextSymbol18.___a33.Position,Jeep.Value.Position)) > (400)))
 .Select(__ContextSymbol19 => __ContextSymbol19.___a33)
 .ToList<Landscape>()).ToList<Landscape>();
-	UnityEngine.Debug.Log(("landscapes = ") + (___x30.Count));
 	if(((___x30.Count) > (0)))
 	{
 
@@ -1457,7 +1456,7 @@ return;	}else
 	s12 = 3;
 return;	}
 	case 3:
-	if(((Dama) > (0.5f)))
+	if(((((Dama) > (0.5f))) || (!(Keyboard))))
 	{
 
 	goto case 4;	}else
@@ -1790,7 +1789,7 @@ public Gasstation(UnityEngine.Vector3 ps)
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 		UnityGasstation = UnityGasstation.Instantiate(ps);
-		RepairZonE = new Repair();
+		RepairZonE = new Repair(ps);
 		GroupZombies = (
 
 Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
@@ -1997,11 +1996,12 @@ return;
 public class Repair{
 public int frame;
 public bool JustEntered = true;
+private UnityEngine.Vector3 p;
 	public int ID;
-public Repair()
+public Repair(UnityEngine.Vector3 p)
 	{JustEntered = false;
  frame = World.frame;
-		UnityCheckpoint = UnityCheckpoint.Find();
+		UnityCheckpoint = UnityCheckpoint.Find(p);
 		RepairProgressBar = (new Just<ProgressBar_1>(new ProgressBar_1(1)));
 		Refill_Resources = false;
 		
@@ -5324,4 +5324,4 @@ frame = World.frame;
 
 
 }
-}                   
+}           
