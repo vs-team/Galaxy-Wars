@@ -38,31 +38,6 @@ entity Zombie = {
     yield WhichSoundToPlay
 
   rule Destroyed = 
-    yield false
-   (*
-  rule AttackSound = 
-    wait animation attack true
-    yield true
-    yield false
-   *)
-   
-   (*
-  rule Shout = 
-    wait when created
-    yield true
-    yield false
-    wait false
-   *)
-   
-   (*
-  rule Growl = 
-    wait when walking
-    yield true
-    yield false
-    wait false
-   *)
-
-  rule Destroyed = 
     wait (Vector3.Distance(Position, world.Jeep.Value.Position) > 410.0f)
     yield true
 

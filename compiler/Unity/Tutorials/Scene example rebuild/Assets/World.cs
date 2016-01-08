@@ -114,21 +114,21 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public List<System.String> ___a12;
 	public List<System.String> ___resourcelist20;
 	public System.Int32 ___rnd20;
-	public List<Zombie> ___zmbies30;
-	public List<GroupZombie> ___groups40;
-	public List<Zombie> ___zombiegroup40;
-	public List<Zombie> ___groupleader40;
-	public List<Zombie> ___group40;
-	public List<Gasstation> ___j60;
-	public System.Boolean ___t60;
 	public System.Single count_down3;
-	public List<Landscape> ___x70;
-	public List<Landscape> ___q70;
-	public UnityEngine.Transform ___g70;
-	public ZombieGroupDestroyer ___j71;
+	public List<Landscape> ___x30;
+	public List<Landscape> ___q30;
+	public UnityEngine.Transform ___g30;
+	public ZombieGroupDestroyer ___j30;
 	public System.Single count_down1;
-	public ZombieGroupDestroyer ___z71;
+	public ZombieGroupDestroyer ___z30;
 	public System.Single count_down2;
+	public List<Zombie> ___zmbies40;
+	public List<GroupZombie> ___groups50;
+	public List<Zombie> ___zombiegroup50;
+	public List<Zombie> ___groupleader50;
+	public List<Zombie> ___group50;
+	public List<Gasstation> ___j71;
+	public System.Boolean ___t70;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -368,13 +368,86 @@ return;
 	{
 
 	case -1:
-	___zmbies30 = (
+	count_down3 = 0.5f;
+	goto case 18;
+	case 18:
+	if(((count_down3) > (0f)))
+	{
 
-(Zombies).Select(__ContextSymbol17 => new { ___a33 = __ContextSymbol17 })
-.Where(__ContextSymbol18 => ((__ContextSymbol18.___a33.Destroyed) == (false)))
+	count_down3 = ((count_down3) - (dt));
+	s3 = 18;
+return;	}else
+	{
+
+	goto case 16;	}
+	case 16:
+	___x30 = (
+
+(Landscapes).Select(__ContextSymbol17 => new { ___a33 = __ContextSymbol17 })
+.Where(__ContextSymbol18 => ((UnityEngine.Vector3.Distance(__ContextSymbol18.___a33.Position,Jeep.Value.Position)) > (400)))
 .Select(__ContextSymbol19 => __ContextSymbol19.___a33)
-.ToList<Zombie>()).ToList<Zombie>();
-	Zombies = ___zmbies30;
+.ToList<Landscape>()).ToList<Landscape>();
+	UnityEngine.Debug.Log(("landscapes = ") + (___x30.Count));
+	if(((___x30.Count) > (0)))
+	{
+
+	goto case 0;	}else
+	{
+
+	goto case 1;	}
+	case 0:
+	___q30 = (
+
+(Landscapes).Select(__ContextSymbol20 => new { ___a34 = __ContextSymbol20 })
+.Where(__ContextSymbol21 => ((400) > (UnityEngine.Vector3.Distance(__ContextSymbol21.___a34.Position,Jeep.Value.Position))))
+.Select(__ContextSymbol22 => __ContextSymbol22.___a34)
+.ToList<Landscape>()).ToList<Landscape>();
+	___g30 = ___x30.Head().transform;
+	___j30 = new ZombieGroupDestroyer(___g30.position.z,Jeep.Value.Position);
+	ZombiegroupDest = (new Just<ZombieGroupDestroyer>(___j30));
+	Landscapes = ___q30;
+	s3 = 4;
+return;
+	case 4:
+	count_down1 = dt;
+	goto case 5;
+	case 5:
+	if(((count_down1) > (0f)))
+	{
+
+	count_down1 = ((count_down1) - (dt));
+	s3 = 5;
+return;	}else
+	{
+
+	goto case 3;	}
+	case 3:
+	ZombiegroupDest = (new Nothing<ZombieGroupDestroyer>());
+	Landscapes = Landscapes;
+	s3 = -1;
+return;
+	case 1:
+	___z30 = new ZombieGroupDestroyer(10f,Jeep.Value.Position);
+	ZombiegroupDest = (new Just<ZombieGroupDestroyer>(___z30));
+	Landscapes = Landscapes;
+	s3 = 11;
+return;
+	case 11:
+	count_down2 = dt;
+	goto case 12;
+	case 12:
+	if(((count_down2) > (0f)))
+	{
+
+	count_down2 = ((count_down2) - (dt));
+	s3 = 12;
+return;	}else
+	{
+
+	goto case 10;	}
+	case 10:
+	ZombiegroupDest = (new Nothing<ZombieGroupDestroyer>());
+	Landscapes = Landscapes;
 	s3 = -1;
 return;	
 	default: return;}}
@@ -386,38 +459,13 @@ return;
 	{
 
 	case -1:
-	___groups40 = (
+	___zmbies40 = (
 
-(Landscapes).Select(__ContextSymbol20 => new { ___a44 = __ContextSymbol20 })
-.SelectMany(__ContextSymbol21=> (__ContextSymbol21.___a44.Group).Select(__ContextSymbol22 => new { ___b42 = __ContextSymbol22,
-                                                      prev = __ContextSymbol21 })
-.Select(__ContextSymbol23 => __ContextSymbol23.___b42)
-.ToList<GroupZombie>())).ToList<GroupZombie>();
-	___zombiegroup40 = (
-
-(___groups40).Select(__ContextSymbol24 => new { ___a45 = __ContextSymbol24 })
-.SelectMany(__ContextSymbol25=> (__ContextSymbol25.___a45.ZombieFollowers).Select(__ContextSymbol26 => new { ___c41 = __ContextSymbol26,
-                                                      prev = __ContextSymbol25 })
-.Select(__ContextSymbol27 => __ContextSymbol27.___c41)
-.ToList<Zombie>())).ToList<Zombie>();
-	___groupleader40 = (
-
-(___groups40).Select(__ContextSymbol28 => new { ___a46 = __ContextSymbol28 })
-.Where(__ContextSymbol29 => __ContextSymbol29.___a46.ZombieLeader.IsSome)
-.Select(__ContextSymbol30 => new {___z40 = __ContextSymbol30.___a46.ZombieLeader.Value, prev = __ContextSymbol30 })
-.Select(__ContextSymbol31 => __ContextSymbol31.___z40)
+(Zombies).Select(__ContextSymbol23 => new { ___a45 = __ContextSymbol23 })
+.Where(__ContextSymbol24 => ((__ContextSymbol24.___a45.Destroyed) == (false)))
+.Select(__ContextSymbol25 => __ContextSymbol25.___a45)
 .ToList<Zombie>()).ToList<Zombie>();
-	___group40 = (___groupleader40).Concat(___zombiegroup40).ToList<Zombie>();
-	if(((___group40.Count) > (0)))
-	{
-
-	goto case 3;	}else
-	{
-
-	s4 = -1;
-return;	}
-	case 3:
-	Zombies = (___group40).Concat(Zombies).ToList<Zombie>();
+	Zombies = ___zmbies40;
 	s4 = -1;
 return;	
 	default: return;}}
@@ -429,7 +477,38 @@ return;
 	{
 
 	case -1:
-	Score = ((Score) + (1));
+	___groups50 = (
+
+(Landscapes).Select(__ContextSymbol26 => new { ___a56 = __ContextSymbol26 })
+.SelectMany(__ContextSymbol27=> (__ContextSymbol27.___a56.Group).Select(__ContextSymbol28 => new { ___b52 = __ContextSymbol28,
+                                                      prev = __ContextSymbol27 })
+.Select(__ContextSymbol29 => __ContextSymbol29.___b52)
+.ToList<GroupZombie>())).ToList<GroupZombie>();
+	___zombiegroup50 = (
+
+(___groups50).Select(__ContextSymbol30 => new { ___a57 = __ContextSymbol30 })
+.SelectMany(__ContextSymbol31=> (__ContextSymbol31.___a57.ZombieFollowers).Select(__ContextSymbol32 => new { ___c51 = __ContextSymbol32,
+                                                      prev = __ContextSymbol31 })
+.Select(__ContextSymbol33 => __ContextSymbol33.___c51)
+.ToList<Zombie>())).ToList<Zombie>();
+	___groupleader50 = (
+
+(___groups50).Select(__ContextSymbol34 => new { ___a58 = __ContextSymbol34 })
+.Where(__ContextSymbol35 => __ContextSymbol35.___a58.ZombieLeader.IsSome)
+.Select(__ContextSymbol36 => new {___z51 = __ContextSymbol36.___a58.ZombieLeader.Value, prev = __ContextSymbol36 })
+.Select(__ContextSymbol37 => __ContextSymbol37.___z51)
+.ToList<Zombie>()).ToList<Zombie>();
+	___group50 = (___groupleader50).Concat(___zombiegroup50).ToList<Zombie>();
+	if(((___group50.Count) > (0)))
+	{
+
+	goto case 3;	}else
+	{
+
+	s5 = -1;
+return;	}
+	case 3:
+	Zombies = (___group50).Concat(Zombies).ToList<Zombie>();
 	s5 = -1;
 return;	
 	default: return;}}
@@ -441,32 +520,7 @@ return;
 	{
 
 	case -1:
-	___j60 = (
-
-(Gasstations).Select(__ContextSymbol32 => new { ___a67 = __ContextSymbol32 })
-.Where(__ContextSymbol33 => __ContextSymbol33.___a67.RepairZonE.Refill_Resources)
-.Select(__ContextSymbol34 => __ContextSymbol34.___a67)
-.ToList<Gasstation>()).ToList<Gasstation>();
-	if(((___j60.Count) > (0)))
-	{
-
-	___t60 = true;	}else
-	{
-
-	___t60 = false;	}
-	if(___t60)
-	{
-
-	goto case 1;	}else
-	{
-
-	goto case 2;	}
-	case 1:
-	W_Refill_Resources = true;
-	s6 = -1;
-return;
-	case 2:
-	W_Refill_Resources = false;
+	Score = ((Score) + (1));
 	s6 = -1;
 return;	
 	default: return;}}
@@ -478,86 +532,32 @@ return;
 	{
 
 	case -1:
-	count_down3 = 0.5f;
-	goto case 18;
-	case 18:
-	if(((count_down3) > (0f)))
-	{
+	___j71 = (
 
-	count_down3 = ((count_down3) - (dt));
-	s7 = 18;
-return;	}else
-	{
-
-	goto case 16;	}
-	case 16:
-	___x70 = (
-
-(Landscapes).Select(__ContextSymbol35 => new { ___a78 = __ContextSymbol35 })
-.Where(__ContextSymbol36 => ((UnityEngine.Vector3.Distance(__ContextSymbol36.___a78.Position,Jeep.Value.Position)) > (400)))
-.Select(__ContextSymbol37 => __ContextSymbol37.___a78)
-.ToList<Landscape>()).ToList<Landscape>();
-	UnityEngine.Debug.Log(("landscapes = ") + (___x70.Count));
-	if(((___x70.Count) > (0)))
-	{
-
-	goto case 0;	}else
-	{
-
-	goto case 1;	}
-	case 0:
-	___q70 = (
-
-(Landscapes).Select(__ContextSymbol38 => new { ___a79 = __ContextSymbol38 })
-.Where(__ContextSymbol39 => ((400) > (UnityEngine.Vector3.Distance(__ContextSymbol39.___a79.Position,Jeep.Value.Position))))
+(Gasstations).Select(__ContextSymbol38 => new { ___a79 = __ContextSymbol38 })
+.Where(__ContextSymbol39 => __ContextSymbol39.___a79.RepairZonE.Refill_Resources)
 .Select(__ContextSymbol40 => __ContextSymbol40.___a79)
-.ToList<Landscape>()).ToList<Landscape>();
-	___g70 = ___x70.Head().transform;
-	___j71 = new ZombieGroupDestroyer(___g70.position.z,Jeep.Value.Position);
-	ZombiegroupDest = (new Just<ZombieGroupDestroyer>(___j71));
-	Landscapes = ___q70;
-	s7 = 4;
-return;
-	case 4:
-	count_down1 = dt;
-	goto case 5;
-	case 5:
-	if(((count_down1) > (0f)))
+.ToList<Gasstation>()).ToList<Gasstation>();
+	if(((___j71.Count) > (0)))
 	{
 
-	count_down1 = ((count_down1) - (dt));
-	s7 = 5;
-return;	}else
+	___t70 = true;	}else
 	{
 
-	goto case 3;	}
-	case 3:
-	ZombiegroupDest = (new Nothing<ZombieGroupDestroyer>());
-	Landscapes = Landscapes;
+	___t70 = false;	}
+	if(___t70)
+	{
+
+	goto case 1;	}else
+	{
+
+	goto case 2;	}
+	case 1:
+	W_Refill_Resources = true;
 	s7 = -1;
 return;
-	case 1:
-	___z71 = new ZombieGroupDestroyer(10f,Jeep.Value.Position);
-	ZombiegroupDest = (new Just<ZombieGroupDestroyer>(___z71));
-	Landscapes = Landscapes;
-	s7 = 11;
-return;
-	case 11:
-	count_down2 = dt;
-	goto case 12;
-	case 12:
-	if(((count_down2) > (0f)))
-	{
-
-	count_down2 = ((count_down2) - (dt));
-	s7 = 12;
-return;	}else
-	{
-
-	goto case 10;	}
-	case 10:
-	ZombiegroupDest = (new Nothing<ZombieGroupDestroyer>());
-	Landscapes = Landscapes;
+	case 2:
+	W_Refill_Resources = false;
 	s7 = -1;
 return;	
 	default: return;}}
@@ -741,27 +741,27 @@ frame = World.frame;
 	if(!(((isModel) == (true))))
 	{
 
-	goto case 20;	}else
+	goto case 9;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 20:
+	case 9:
 	___z02 = world.Jeep.Value.CarHP2;
 	if(!(((___z02) == (((Health) / (100f))))))
 	{
 
-	goto case 21;	}else
+	goto case 10;	}else
 	{
 
-	goto case 22;	}
-	case 21:
+	goto case 11;	}
+	case 10:
 	world.Jeep.Value.CarHP2 = world.Jeep.Value.CarHP2;
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
 	s0 = -1;
 return;
-	case 22:
+	case 11:
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
@@ -779,12 +779,12 @@ return;
 	if(((((world.ActiveBoR) == ("Medipack Red"))) && (!(((isModel) == (true))))))
 	{
 
-	goto case 28;	}else
+	goto case 17;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 28:
+	case 17:
 	Health = ((Health) + (20f));
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	s1 = -1;
@@ -2437,10 +2437,10 @@ return;	}else
 	___rpu_pos10 = ___rpu10.position;
 	Group = (
 
-(new Cons<GroupZombie>(new GroupZombie(___sps_pos10,7),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
+(new Cons<GroupZombie>(new GroupZombie(___sps_pos10,7),(new Cons<GroupZombie>(new GroupZombie(___rpu_pos10,7),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
 	PickUps = (
 
-(new Cons<PickUp>(new PickUp(___rpu_pos10),(new Empty<PickUp>()).ToList<PickUp>())).ToList<PickUp>()).ToList<PickUp>();
+Enumerable.Empty<PickUp>()).ToList<PickUp>();
 	Spawnpoints = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
@@ -5193,7 +5193,6 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
-		this.Rule3(dt, world);
 	}
 
 
@@ -5249,18 +5248,6 @@ return;
 	{
 
 	case -1:
-	Destroyed = false;
-	s2 = -1;
-return;	
-	default: return;}}
-	
-
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
-	{
-
-	case -1:
 	count_down18 = tim;
 	goto case 2;
 	case 2:
@@ -5268,14 +5255,14 @@ return;
 	{
 
 	count_down18 = ((count_down18) - (dt));
-	s3 = 2;
+	s2 = 2;
 return;	}else
 	{
 
 	goto case 0;	}
 	case 0:
 	SoundToPlay = WhichSoundToPlay;
-	s3 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
@@ -5337,4 +5324,4 @@ frame = World.frame;
 
 
 }
-}      
+}                   

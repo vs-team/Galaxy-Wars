@@ -1701,7 +1701,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124048}
-  m_LocalRotation: {x: -.0460385308, y: -.702804387, z: .663036406, w: .253632337}
+  m_LocalRotation: {x: -.046038527, y: -.702804327, z: .663036346, w: .253632307}
   m_LocalPosition: {x: -.0296604317, y: .0559948348, z: -.168888599}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2861,7 +2861,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: .5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2930,7 +2930,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e585772489b063445b40b837935086ab, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: .300000012
+  m_Volume: .400000006
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3182,6 +3182,8 @@ MonoBehaviour:
   Audio_DamageSmall: {fileID: 8300000, guid: e1cc089e45ba1ca42935e9b3863edefb, type: 3}
   Audio_DamageBig: {fileID: 8300000, guid: d2ca5d8792adb6249970c7a1fab8eaf9, type: 3}
   Invullen: 0
+  tim: 0
+  CarHPChanged: 0
 --- !u!114 &11464474
 MonoBehaviour:
   m_ObjectHideFlags: 1

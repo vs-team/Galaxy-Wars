@@ -22,30 +22,6 @@ worldEntity World = {
   W_Refill_Resources : bool
   ZombiegroupDest : Option<ZombieGroupDestroyer>
  
-
-  rule ZombiegroupDest, Landscapes = 
-    wait 0.5f
-    let x = 
-      [for a in Landscapes do
-       where (Vector3.Distance (a.Position, Jeep.Value.Position) > 400)
-       select a]
-    Debug.Log("landscapes = "+x.Count)
-    if (x.Count > 0) then
-      let q = 
-        [for a in Landscapes do
-         where (Vector3.Distance (a.Position, Jeep.Value.Position) < 400)
-         select a]
-      let g = x.Head.transform
-      let j = new ZombieGroupDestroyer(g.position.z, Jeep.Value.Position)
-      yield Some j, q
-      wait dt
-      yield None, Landscapes
-    else
-      let z = new ZombieGroupDestroyer(10.0f, Jeep.Value.Position)
-      yield Some z, Landscapes
-      wait dt
-      yield None, Landscapes
-
   rule W_Refill_Resources = 
     let j = 
       [for a in Gasstations do
@@ -83,8 +59,30 @@ worldEntity World = {
       [for a in Zombies do
        where (a.Destroyed = false)
        select a]
-    //Debug.Log("zombies count = "+zmbies.Count)
     yield zmbies
+
+  rule ZombiegroupDest, Landscapes = 
+    wait 0.5f
+    let x = 
+      [for a in Landscapes do
+       where (Vector3.Distance (a.Position, Jeep.Value.Position) > 400)
+       select a]
+    Debug.Log("landscapes = "+x.Count)
+    if (x.Count > 0) then
+      let q = 
+        [for a in Landscapes do
+         where (Vector3.Distance (a.Position, Jeep.Value.Position) < 400)
+         select a]
+      let g = x.Head.transform
+      let j = new ZombieGroupDestroyer(g.position.z, Jeep.Value.Position)
+      yield Some j, q
+      wait dt
+      yield None, Landscapes
+    else
+      let z = new ZombieGroupDestroyer(10.0f, Jeep.Value.Position)
+      yield Some z, Landscapes
+      wait dt
+      yield None, Landscapes
 
   rule ActiveBoR = 
     if ActiveBoR = "Crossed Wrenches Red" then
