@@ -13,6 +13,10 @@ TagManager:
   - Gun
   - Zombiegroup
   - ZombieSpawnPoint
+  - Landscape
+  - Power_Up
+  - Gasstation
+  - RepairZone
   - Trucks
   layers:
   - Default

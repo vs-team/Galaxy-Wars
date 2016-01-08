@@ -4,14 +4,21 @@ using System.Collections;
 public class UnityCheckpoint : MonoBehaviour
 {
 
-  public static UnityCheckpoint Find()
+  public static UnityCheckpoint Find(Vector3 v)
   {
-    GameObject a = GameObject.Find("Repair_Zone");
+    GameObject[] z = GameObject.FindGameObjectsWithTag("RepairZone");
+    GameObject test = z[0];
+    foreach (GameObject j in z)
+    {
+      if (Vector3.Distance(j.transform.position, v) < Vector3.Distance(j.transform.position, test.transform.position))
+      {
+        test = j;
+      }
+    }
+    GameObject a = test;
     UnityCheckpoint b = a.GetComponent<UnityCheckpoint>() as UnityCheckpoint;
-    b.PBB = GameObject.Find("ProgressBarLabelInside");
     return b;
   }
-  private GameObject PBB;
 
   void OnTriggerEnter(Collider other)
   {
@@ -19,6 +26,7 @@ public class UnityCheckpoint : MonoBehaviour
     if (x == "Trucks")
     {
       privateIsEntered = true;
+
     }
   }
   void OnTriggerExit(Collider other)
@@ -30,9 +38,8 @@ public class UnityCheckpoint : MonoBehaviour
     }
   }
   private bool privateIsEntered;
-
   public bool isEntered
   {
     get { return privateIsEntered; }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

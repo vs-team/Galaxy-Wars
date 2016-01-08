@@ -116,9 +116,9 @@ public class UnityGun : MonoBehaviour
             Debug.Log("Nothing has been hit");
         }
         else if(keyboardShooting && name == "Bazooka")
-        {
+          {
           Debug.Log("C# bazooka shot"); //Is handled in CNV
-        }
+          }
         else if (!keyboardShooting && name == "Bazooka")
         {
           Debug.Log("Bazooka shot"); //Is handled in CNV
@@ -146,4 +146,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
