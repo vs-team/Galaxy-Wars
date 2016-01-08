@@ -13,6 +13,7 @@ TagManager:
   - Gun
   - Zombiegroup
   - ZombieSpawnPoint
+  - Trucks
   layers:
   - Default
   - TransparentFX
@@ -23,8 +24,8 @@ TagManager:
   - 
   - 
   - Zombielayer
-  - 
-  - 
+  - BazookaBulletLayer
+  - TruckLayer
   - 
   - 
   - 

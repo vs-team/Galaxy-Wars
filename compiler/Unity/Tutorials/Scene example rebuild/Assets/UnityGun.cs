@@ -12,6 +12,7 @@ public class UnityGun : MonoBehaviour
   {
     GameObject pap = GameObject.Find("Input/RazerJoysticks/" + j + "/" + nm) as GameObject;
     UnityGun wap = pap.GetComponent<UnityGun>() as UnityGun;
+    wap.razer = wap.GetComponentInParent<SixenseHand>();
 
     //textmesh
     Transform a = pap.GetComponent<Transform>();
@@ -28,6 +29,12 @@ public class UnityGun : MonoBehaviour
 
     wap.gunShot = pap.GetComponent<AudioSource>() as AudioSource;
     return wap;
+  }
+  private SixenseHand razer;
+  public SixenseHand Razer
+  {
+    get { return razer; }
+    set { razer = value; }
   }
   private int InTheMag;
   public int InMag
@@ -49,11 +56,11 @@ public class UnityGun : MonoBehaviour
       MagazineBox.text = InTheMag + "/" + NotInTheMag;
     }
   }
-  private bool keyboard = false;
-  public bool Keyboard
+  private bool keyboardShooting = false;
+  public bool KeyboardShooting
   {
-    get { return keyboard; }
-    set { keyboard = value; }
+    get { return keyboardShooting; }
+    set { keyboardShooting = value; }
   }
   private float gunPower; //Used for damage and impactforce
   public float GunDamage
@@ -78,58 +85,43 @@ public class UnityGun : MonoBehaviour
       if (shot)
       {
         gunShot.Play();
-        // Shoot a ray from gun or mouse, check if zombie is present.
         RaycastHit hitObject; 
-        int layermask = 1 << 8;
-        if (keyboard)
+        int layermask = 1 << 8; //Layermask of zombies
+        if (keyboardShooting && name != "Bazooka")
         {
-          Debug.Log("mouse shot");
-          Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // Create control option for choosing Mouse OR Razer, just like moving the car. Then implement the ray from either the mouse or razer.
+          Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
           if (Physics.Raycast(ray, out hitObject, 100, layermask))
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              UnityZombie2 hitZombie = hitObject.collider.GetComponentInParent<UnityZombie2>();
-              Debug.Log("Zombie has been hit, namely:" + hitZombie);
-              hitZombie.CollisionDirection = ray.direction;
-              hitZombie.HitTransform = hitObject.transform;
-              hitZombie.HitRigidbody = hitObject.rigidbody;
-              hitZombie.HitCollider = hitObject.collider;
-              hitZombie.Force = gunPower / 30.0f;
-              hitZombie.CollidedWithCar = false;
-              hitZombie.IsHitByForce = true;
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetShot(ray.direction, hitObject.transform, hitObject.rigidbody, 
+                                                                              hitObject.collider, gunPower / 30.0f, false, 2);
             }
           }
           else
             Debug.Log("Nothing has been hit");
         }
-        else
+        else if(!keyboardShooting && name != "Bazooka")
         {
-          Debug.Log("razer shot");
-          Vector3 razerDirection = GetComponentInParent<SixenseHand>().transform.forward;
+          Vector3 razerDirection = razer.transform.forward;
           if (Physics.Raycast(transform.position, razerDirection, out hitObject, 100.0f, layermask))
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              UnityZombie2 hitZombie = hitObject.collider.GetComponentInParent<UnityZombie2>();
-              Debug.Log("Position of collision: " + hitObject.point);
-              Debug.Log("Zombie has been hit, namely:" + hitZombie.transform);
-              hitZombie.CollisionDirection = razerDirection;
-              hitZombie.HitTransform = hitObject.transform;
-              hitZombie.HitRigidbody = hitObject.rigidbody;
-              hitZombie.HitCollider = hitObject.collider;
-              Debug.Log("Force: " + gunPower / 30.0f);
-              hitZombie.Force = gunPower / 30.0f;
-              hitZombie.CollidedWithCar = false;
-              hitZombie.IsHitByForce = true;
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetShot(razerDirection, hitObject.transform, hitObject.rigidbody, 
+                                                                              hitObject.collider, (gunPower / 30.0f), false, 2);
             }
           }
           else
-          {
-            Debug.Log("Position of collision: " + hitObject.point);
             Debug.Log("Nothing has been hit");
-          }
-
+        }
+        else if(keyboardShooting && name == "Bazooka")
+        {
+          Debug.Log("C# bazooka shot"); //Is handled in CNV
+        }
+        else if (!keyboardShooting && name == "Bazooka")
+        {
+          Debug.Log("Bazooka shot"); //Is handled in CNV
         }
       }
     }
@@ -154,4 +146,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     

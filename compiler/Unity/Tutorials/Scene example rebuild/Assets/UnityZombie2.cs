@@ -24,6 +24,7 @@ public class UnityZombie2 : MonoBehaviour
   private bool isHitByForce;
   private bool collidedWithCar;
   private float life = 100.0f;
+  private int forceMode;
 
   private float force;
   private float damage;
@@ -38,6 +39,7 @@ public class UnityZombie2 : MonoBehaviour
   public List<Rigidbody> impactTargets;
   public List<Vector3> impacts;
   public List<float> impactEndTimes;
+  public List<int> impactModes;
 
   enum bodyPart
   {
@@ -106,9 +108,7 @@ public class UnityZombie2 : MonoBehaviour
     get { return life; }
     set
     {
-      Debug.Log("Life before: " + life);
       life = value;
-      Debug.Log("Life after: " + life);
       if (life <= 0.0f)
         Dead = true;
     }
@@ -256,7 +256,7 @@ public class UnityZombie2 : MonoBehaviour
       applyForceOnZombie = value;
       if ((collidedWithCar || dead) && ApplyForceOnZombie)
       {
-        /*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
+        //*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
         if (gameObject.name == hitCollider.GetComponentInParent<RagdollHelper>().name)
         {
           RagdollHelper helper = hitCollider.GetComponentInParent<RagdollHelper>();
@@ -264,6 +264,7 @@ public class UnityZombie2 : MonoBehaviour
           impactTargets.Add(hitRigidbody); //set the impact target to whatever the ray hit
           impacts.Add(collisionDirection * force); //impact direction also according to the ray
           impactEndTimes.Add(Time.time + 0.3f); //Apply the force for <float> length
+          impactModes.Add(forceMode);
         }
         //*/
         ApplyForceOnZombie = false;
@@ -281,6 +282,18 @@ public class UnityZombie2 : MonoBehaviour
         ApplyForceOnZombie = false;
       }
     }
+  }
+
+  public void GetShot(Vector3 ImpactDirection, Transform BodyPartTransform, Rigidbody hitRigidbody, 
+                      Collider collider, float impactForce, bool carCollision, int forceMode)
+  {
+    CollisionDirection = ImpactDirection;
+    HitTransform = BodyPartTransform;
+    HitRigidbody = hitRigidbody;
+    HitCollider = collider;
+    Force = impactForce;
+    CollidedWithCar = carCollision;
+    this.forceMode = forceMode; //Determines ForceMode.mode. 2 = gun, 0/1/5 = bazooka
   }
 
   void Update() 
@@ -310,5 +323,4 @@ public class UnityZombie2 : MonoBehaviour
       helper.ragdolled = false;
     }*/
   }
-
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

@@ -35,7 +35,7 @@ entity TruckStats = {
   let MaxSteeringList = [5.0f; 10.0f; 10.0f; 20.0f; 15.0f]
   let HullList = [8.0f; 5.0f ; 3.0f ; 4.0f ; 2.0f]
   let FuelList = [12000.0f ; 8000.0f ; 15000.0f ; 6000.0f ; 10000.0f]
-  let NotInMagList = [       850       ; 200 ;   60      ; 90      ; 16]
+  let NotInMagList = [       850       ; 200 ;   60      ; 90      ; 25]
   {
     Health = HealthList.[rnd]
     MaxSpeed = MaxSpeedList.[rnd]
@@ -56,7 +56,7 @@ entity Truck = {
    maxSteeringAngle : float
    cnvAccel : float // has to be a value between 0.0f and 1.0f
    JRotation : float // has to be a value between -1.0f and 1.0f
-   Keyboard : bool
+   KeyboardDriving : bool
    isModel : bool
    Stats : TruckStats
 
@@ -81,12 +81,17 @@ entity Truck = {
        wait 0.1f
        yield false, false 
 
-   rule Keyboard =
+   rule KeyboardDriving =
       wait Input.GetKeyDown(KeyCode.P)
-      yield not Keyboard
+      if KeyboardDriving then
+        Debug.Log("Steering wheel driving activated")
+        yield not KeyboardDriving
+      else
+        Debug.Log("WASD driving activated")
+        yield not KeyboardDriving
 
    rule cnvAccel = 
-      if Keyboard then
+      if KeyboardDriving then
         yield Input.GetAxis("Vertical")
       else
         if Acceleration <> 0.0f then
@@ -95,7 +100,7 @@ entity Truck = {
           yield BrakeAndReverse * -1.0f
 
    rule JRotation = 
-      if Keyboard then
+      if KeyboardDriving then
         yield Input.GetAxis("Horizontal")
       else
         yield Steering
@@ -123,7 +128,7 @@ entity Truck = {
       Fuel = 80000.0f // gas liters
       cnvAccel = 0.0f
       JRotation = 0.0f
-      Keyboard = false;
+      KeyboardDriving = false; 
       Stats = new TruckStats(ModelIs, ints)
     }
 }

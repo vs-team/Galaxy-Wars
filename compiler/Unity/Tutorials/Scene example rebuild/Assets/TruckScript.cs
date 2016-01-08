@@ -190,8 +190,9 @@ public class TruckScript : MonoBehaviour
         }
       }
     }
-    else if (collision.relativeVelocity.magnitude > 10.0f)
+    else if (collision.relativeVelocity.magnitude > 10.0f && collision.transform.tag != "Bullets")
     {
+      Debug.Log("Car collision with: " + collision.gameObject);
       CarHP -= collision.relativeVelocity.magnitude / 100;
     }
   }
@@ -207,4 +208,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
