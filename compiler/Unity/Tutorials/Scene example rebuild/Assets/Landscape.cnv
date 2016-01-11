@@ -170,7 +170,7 @@ entity PickUp = {
     wait false
 
   rule Shuffled = 
-    let BARlist = ["AmmoBox";"Crossed Wrenches Red";"Medipack Red";"Battery Black";"Jerry Can Green";"Lightning Blue";"Arrows Green";"Bomb Red";"Shield Metal";"Star Red"]
+    let BARlist = ["AmmoBox";"Crossed Wrenches Red";"Medipack Red";"Battery Black";"Jerry Can Green";"Lightning Blue";"Arrows Green";"Star Red";"Bomb Red";"Shield Metal"]
     yield BARlist
     wait false
 

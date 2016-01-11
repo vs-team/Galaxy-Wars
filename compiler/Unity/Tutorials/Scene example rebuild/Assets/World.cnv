@@ -34,6 +34,13 @@ worldEntity World = {
       yield false
 
   rule Score = 
+    wait Jeep.IsSome
+    wait Jeep.Value.ActiveMultiplier
+    let x = Jeep.Value.Multip
+    if (x > 1.2f) then
+      yield Score + 1
+
+  rule Score = 
     yield Score + 1
 
   rule Zombies = 

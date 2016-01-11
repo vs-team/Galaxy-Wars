@@ -1319,7 +1319,8 @@ MonoBehaviour:
   ___g30: {fileID: 0}
   count_down1: 0
   count_down2: 0
-  ___t70: 0
+  ___x71: 0
+  ___t80: 0
 --- !u!4 &250587981
 Transform:
   m_ObjectHideFlags: 0

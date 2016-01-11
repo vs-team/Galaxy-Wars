@@ -62,6 +62,12 @@ entity Truck = {
    isModel : bool
    Stats : TruckStats
 
+   rule Multip = 
+     if world.ActiveBoR = "Star Red" then
+       yield 1.2f
+       wait 8.0f
+       yield 1.0f
+
    rule Dama, driv = 
      let a = CarHPChanged
      if a <> 0.0f then

@@ -20,6 +20,7 @@ public class TruckScript : MonoBehaviour
   public Collider shield;
   private List<UnityZombie2> collidedWithThisFrame;
   private TextMesh score;
+  private TextMesh multiplier;
   private bool destroyed;
   private Vector3 prevVelocity;
   public AudioClip Audio_Driving;
@@ -45,6 +46,7 @@ public class TruckScript : MonoBehaviour
     truck.shield = truck.transform.Find("Shield").GetComponent<Collider>() as Collider;
     truck.collidedWithThisFrame = new List<UnityZombie2>();
     truck.score = truck.transform.Find("Main Camera/Score").GetComponent<TextMesh>() as TextMesh;
+    truck.multiplier = truck.transform.Find("Main Camera/Multiplier").GetComponent<TextMesh>() as TextMesh;
 
     return truck;
   }
@@ -54,6 +56,8 @@ public class TruckScript : MonoBehaviour
   {
     PlayerPrefs.DeleteKey("ReachedByPlayer");
     PlayerPrefs.Save();
+    multiplier.gameObject.SetActive(false);
+    ActiveMultiplier = false;
     /*
     PlayerPrefs.DeleteAll();
     string[] names = { "Piet", "Klaas", "Henk" };
@@ -81,6 +85,25 @@ public class TruckScript : MonoBehaviour
   private int counter = 0;
   private int added = 0;
   private int TopScoreSize = 8;
+  public bool ActiveMultiplier;
+  public float Multip
+  {
+    get { return float.Parse(multiplier.text.Substring(2)); }
+    set
+    {
+      if (value > 1.0f)
+      {
+        multiplier.gameObject.SetActive(true);
+        ActiveMultiplier = true;
+        multiplier.text = "x " + (value);
+      }
+      else
+      {
+        multiplier.gameObject.SetActive(false);
+      }
+    }
+  }
+
   public bool GameOver
   {
     get { return false; }
@@ -288,7 +311,7 @@ public class TruckScript : MonoBehaviour
       CarHP -= collision.relativeVelocity.magnitude / 100;
       CarHPChanged = collision.relativeVelocity.magnitude;
     }
-    }
+  }
   public float tim;
   public float Dama
   {
@@ -301,7 +324,7 @@ public class TruckScript : MonoBehaviour
         tim = AudioS.clip.length;
         CarHPChanged = 0.0f;
         AudioS.Play();
-  }
+      }
       else
       {
         if (CarHPChanged > 1.0f)
@@ -351,4 +374,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+}                              
