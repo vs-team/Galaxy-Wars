@@ -10,6 +10,12 @@ namespace ProgressBar
     {
       GameObject a = GameObject.Find("ProgressBarLabelInside");
       ProgressBarBehaviour j = a.GetComponent<ProgressBarBehaviour>();
+      j.m_FillerInfo = new FillerProperty(0, j.m_FillRect.rect.width);
+      j.m_Value = new ProgressValue(0, j.m_FillerInfo.MaxWidth);
+      j.XOffset = (j.transform.GetComponent<RectTransform>().rect.width - j.m_FillRect.rect.width) / 2;
+
+      j.SetFillerSize(0);
+      Debug.Log("instantiate PBB");
       return j;
     }
 
@@ -25,10 +31,12 @@ namespace ProgressBar
       {
         if (value == true)
         {
+          Debug.Log("set if");
           Value = 100.0f;
         }
         else
         {
+          Debug.Log("set else");
           Value = -1.0f;
         }
         privatestart = value;
@@ -77,20 +85,17 @@ namespace ProgressBar
         }
         else
         {
-        if (Value >= 0.005f && Value <= 100) //in progress
-        {
-          ProgressSpeed = value;
-          this.gameObject.SetActive(true);
-        }
-        else //not in progress
-        {
-          if (value == 40) // not isEntered
+          if (Value >= 0.005f && Value <= 100) //in progress
+          {
+            ProgressSpeed = value;
+            this.gameObject.SetActive(true);
+          }
+          else if (value == 40) // not isEntered
           {
             ProgressSpeed = 0;
             TransitoryValue = 0;
           }
-        }
-        Value += 0.006f;
+          Value += 0.006f;
         }
       }
     }
@@ -105,15 +110,6 @@ namespace ProgressBar
 
     private float XOffset;
 
-    void Start()
-    {
-      m_FillerInfo = new FillerProperty(0, m_FillRect.rect.width);
-      m_Value = new ProgressValue(0, m_FillerInfo.MaxWidth);
-
-      XOffset = (transform.GetComponent<RectTransform>().rect.width - m_FillRect.rect.width) / 2;
-
-      SetFillerSize(0);
-    }
 
     void Update()
     {
@@ -163,6 +159,8 @@ namespace ProgressBar
     public bool Finished;
     public void SetFillerSizeAsPercentage(float Percent)
     {
+      Debug.Log(m_FillerInfo.MaxWidth);
+      Debug.Log(Percent);
       m_Value.Set(m_FillerInfo.MaxWidth * Percent / 100);
 
       if (Value < 0)
@@ -193,4 +191,4 @@ namespace ProgressBar
       if (Value < 0) Value = 0;
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+}                 

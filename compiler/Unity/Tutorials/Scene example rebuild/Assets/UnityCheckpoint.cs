@@ -16,6 +16,7 @@ public class UnityCheckpoint : MonoBehaviour
       }
     }
     GameObject a = test;
+    Debug.Log("UnityC instant");
     UnityCheckpoint b = a.GetComponent<UnityCheckpoint>() as UnityCheckpoint;
     return b;
   }
@@ -26,7 +27,6 @@ public class UnityCheckpoint : MonoBehaviour
     if (x == "Trucks")
     {
       privateIsEntered = true;
-
     }
   }
   void OnTriggerExit(Collider other)
@@ -42,4 +42,4 @@ public class UnityCheckpoint : MonoBehaviour
   {
     get { return privateIsEntered; }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+}                              

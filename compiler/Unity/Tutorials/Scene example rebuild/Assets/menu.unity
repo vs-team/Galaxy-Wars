@@ -567,9 +567,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JustEntered: 1
   UnityMenu: {fileID: 0}
+  test: 0
+  count_down1: 0
+  count_down4: 0
   count_down3: 0
   count_down2: 0
-  count_down1: 0
+  ___s140: 0
 --- !u!4 &694695174
 Transform:
   m_ObjectHideFlags: 0

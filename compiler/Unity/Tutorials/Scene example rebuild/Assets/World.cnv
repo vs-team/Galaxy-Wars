@@ -10,13 +10,13 @@ open Zombie
 
 worldEntity World = {
   inherit UnityLandscape
+  Gasstations : [Gasstation]
   Landscapes : [Landscape]
   Jeep : Option<Truck>
   Zombies : [Zombie] // are created in the landscape in groups
   GUIpanel : GUI 
   ActiveBoR : string
   Counter : int  
-  Gasstations : [Gasstation]
   Players : [Player]
   Score : int
   W_Refill_Resources : bool
@@ -132,13 +132,13 @@ worldEntity World = {
   Create() =
     let truk = new Truck("zpickup", new Vector3(0.0f,-6.0f,0.0f), false, [4;2;1;3])
     {
+     Gasstations = [new Gasstation(new Vector3(0.0f,0.0f, -80.0f))]
      Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape((Vector3.zero), (2))] 
      Jeep = Some truk
      Zombies = []
      GUIpanel = new GUI()
      ActiveBoR = ""
      Counter = 3
-     Gasstations = [new Gasstation(new Vector3(0.0f,0.0f, -80.0f))]
      Players = [new Player(1)]
      Score = 0
      W_Refill_Resources = false
