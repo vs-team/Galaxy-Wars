@@ -78,15 +78,15 @@ NavMeshSettings:
     serializedVersion: 2
     agentRadius: 1
     agentHeight: 5
-    agentSlope: 10
-    agentClimb: .400000006
-    ledgeDropHeight: 0
+    agentSlope: 30
+    agentClimb: 1.5
+    ledgeDropHeight: 2
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
     cellSize: .333333343
     manualCellSize: 0
-  m_NavMeshData: {fileID: 23800000, guid: 3828ef23206a5db419f5e0b435b1ad97, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 9ead9219a49fbf74aa7963d2a3019be7, type: 2}
 --- !u!1 &15900205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,8 +1492,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 256861994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.41000009, y: -7.03999996, z: -24970}
-  m_LocalScale: {x: 8, y: 1, z: 5000}
+  m_LocalPosition: {x: -9, y: -7.03999996, z: -24970}
+  m_LocalScale: {x: 8, y: 2, z: 5000}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
