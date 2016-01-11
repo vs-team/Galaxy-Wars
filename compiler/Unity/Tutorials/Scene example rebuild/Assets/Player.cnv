@@ -396,7 +396,7 @@ entity Gun = {
     yield DamagePerBullet
     wait false
 
-  rule Shoot =  
+  rule Shoot =
    wait GunController.Shot && TypeWeapon <> "Bazooka"
    if (AmmoAct.InMagazine > 0 && not AmmoAct.Reloading) then
      if (not Automatic) then 
@@ -471,6 +471,9 @@ entity Gun = {
 
   rule AmmoAct.GC = 
     yield Some GunController
+
+  rule Rel, OoAs = 
+    yield AmmoAct.relo, AmmoAct.ooas
      
   Create(ind : int, GC : ControllerRazor, tr : string, am : Ammo) = 
   let autom = if (ind <> 0) then false else true
@@ -508,8 +511,10 @@ entity Ammo = {
   ExplosionForce : float
   ExplosionRadius : float
   ExplosionUpwardForce : float
+  relo : bool
+  ooas : bool
 
-  rule Reloading, NotInMagazine, InMagazine = 
+  rule Reloading, NotInMagazine, InMagazine, relo, ooas = 
     wait (InMagazine = 0) || Reloading
     if (NotInMagazine > 0) then
       if (TypeWeapon = "ShotGun") then //single shell reload
@@ -517,16 +522,18 @@ entity Ammo = {
           let a = NotInMagazine - 1
           let b = InMagazine + 1
           //Debug.Log("update bullets")
-          yield true, a,b
+          yield true, a,b, true, false
           wait ReloadDuration
       else //magazine reload
-        yield true, NotInMagazine, InMagazine
+        yield true, NotInMagazine, InMagazine, false, false
         wait (ReloadDuration)
         if MagazineSize > NotInMagazine then // clip can't be fulled completely
-          yield false, 0, NotInMagazine
+          yield false, 0, NotInMagazine, true, false
         else
           let changed = (MagazineSize - InMagazine)
-          yield false, NotInMagazine - changed, MagazineSize // fill clip completely
+          yield false, NotInMagazine - changed, MagazineSize, true, false
+    else
+      yield false, 0, InMagazine, false, true
 
   //rule NotInMagazine = 
     //if world.ActiveBoR = "AmmoBox" then 
@@ -562,6 +569,8 @@ entity Ammo = {
     ExplosionForce = 30.0f
     ExplosionRadius = 30.0f
     ExplosionUpwardForce = 5.0f
+    relo = false
+    ooas = false
   }
 }
 

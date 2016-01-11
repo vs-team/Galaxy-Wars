@@ -4225,13 +4225,22 @@ Enumerable.Empty<BazookaBullet>()).ToList<BazookaBullet>();
 	public System.Int32 NotInMag{  get { return UnityGun.NotInMag; }
   set{UnityGun.NotInMag = value; }
  }
+	public System.Boolean OoAs{  get { return UnityGun.OoAs; }
+  set{UnityGun.OoAs = value; }
+ }
 	public UnityEngine.Vector3 Position{  get { return UnityGun.Position; }
   set{UnityGun.Position = value; }
  }
 	public SixenseHand Razer{  get { return UnityGun.Razer; }
   set{UnityGun.Razer = value; }
  }
+	public System.Boolean Rel{  get { return UnityGun.Rel; }
+  set{UnityGun.Rel = value; }
+ }
 	public System.Single ReloadDuration;
+	public UnityEngine.AudioClip Reloader{  get { return UnityGun.Reloader; }
+  set{UnityGun.Reloader = value; }
+ }
 	public System.Boolean Reloading;
 	public UnityEngine.Vector3 Rotation{  get { return UnityGun.Rotation; }
   set{UnityGun.Rotation = value; }
@@ -4241,6 +4250,9 @@ Enumerable.Empty<BazookaBullet>()).ToList<BazookaBullet>();
  }
 	public System.String TypeWeapon;
 	public UnityGun UnityGun;
+	public UnityEngine.AudioClip ammo{  get { return UnityGun.ammo; }
+  set{UnityGun.ammo = value; }
+ }
 	public System.Boolean enabled{  get { return UnityGun.enabled; }
   set{UnityGun.enabled = value; }
  }
@@ -4262,12 +4274,12 @@ Enumerable.Empty<BazookaBullet>()).ToList<BazookaBullet>();
 	public System.Boolean useGUILayout{  get { return UnityGun.useGUILayout; }
   set{UnityGun.useGUILayout = value; }
  }
-	public List<BazookaBullet> ___undestroyedBullets60;
-	public UnityEngine.Camera ___camera70;
-	public UnityEngine.Ray ___Ray70;
-	public SixenseHand ___razer70;
-	public UnityEngine.Vector3 ___razerDirection70;
-	public UnityEngine.Vector3 ___razerPosition70;
+	public List<BazookaBullet> ___undestroyedBullets70;
+	public UnityEngine.Camera ___camera80;
+	public UnityEngine.Ray ___Ray80;
+	public SixenseHand ___razer80;
+	public UnityEngine.Vector3 ___razerDirection80;
+	public UnityEngine.Vector3 ___razerPosition80;
 	public System.Single count_down14;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -4287,6 +4299,7 @@ frame = World.frame;
 		this.Rule7(dt, world);
 		this.Rule8(dt, world);
 		this.Rule9(dt, world);
+		this.Rule10(dt, world);
 	}
 
 
@@ -4299,7 +4312,8 @@ frame = World.frame;
 	{
 
 	case -1:
-	AmmoAct.GC = (new Just<ControllerRazor>(GunController));
+	Rel = AmmoAct.relo;
+	OoAs = AmmoAct.ooas;
 	s0 = -1;
 return;	
 	default: return;}}
@@ -4311,28 +4325,40 @@ return;
 	{
 
 	case -1:
-	AmmoAct.Automatic = Automatic;
-	AmmoAct.ReloadDuration = ReloadDuration;
-	AmmoAct.MagazineSize = MagazineSize;
-	AmmoAct.TypeWeapon = TypeWeapon;
-	s1 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s1 = 0;
-return;	}else
-	{
-
+	AmmoAct.GC = (new Just<ControllerRazor>(GunController));
 	s1 = -1;
-return;	}	
+return;	
 	default: return;}}
 	
 
 	int s2=-1;
 	public void Rule2(float dt, World world){ 
 	switch (s2)
+	{
+
+	case -1:
+	AmmoAct.Automatic = Automatic;
+	AmmoAct.ReloadDuration = ReloadDuration;
+	AmmoAct.MagazineSize = MagazineSize;
+	AmmoAct.TypeWeapon = TypeWeapon;
+	s2 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s2 = 0;
+return;	}else
+	{
+
+	s2 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
 	{
 
 	case -1:
@@ -4345,7 +4371,7 @@ return;	}
 	goto case 2;	}
 	case 6:
 	Reloading = false;
-	s2 = 2;
+	s3 = 2;
 return;
 	case 2:
 	if(((AmmoAct.Reloading) == (false)))
@@ -4354,23 +4380,10 @@ return;
 	goto case 3;	}else
 	{
 
-	s2 = -1;
+	s3 = -1;
 return;	}
 	case 3:
 	Reloading = false;
-	s2 = -1;
-return;	
-	default: return;}}
-	
-
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
-	{
-
-	case -1:
-	InMag = AmmoAct.InMagazine;
-	NotInMag = AmmoAct.NotInMagazine;
 	s3 = -1;
 return;	
 	default: return;}}
@@ -4382,10 +4395,23 @@ return;
 	{
 
 	case -1:
+	InMag = AmmoAct.InMagazine;
+	NotInMag = AmmoAct.NotInMagazine;
+	s4 = -1;
+return;	
+	default: return;}}
+	
+
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
+	{
+
+	case -1:
 	if(!(UnityEngine.Input.GetKeyDown(KeyCode.U)))
 	{
 
-	s4 = -1;
+	s5 = -1;
 return;	}else
 	{
 
@@ -4401,19 +4427,19 @@ return;	}else
 	case 0:
 	UnityEngine.Debug.Log("Razer shooting activated");
 	KeyboardShooting = !(KeyboardShooting);
-	s4 = -1;
+	s5 = -1;
 return;
 	case 1:
 	UnityEngine.Debug.Log("Mouse shooting activated");
 	KeyboardShooting = !(KeyboardShooting);
-	s4 = -1;
+	s5 = -1;
 return;	
 	default: return;}}
 	
 
-	int s5=-1;
-	public void Rule5(float dt, World world){ 
-	switch (s5)
+	int s6=-1;
+	public void Rule6(float dt, World world){ 
+	switch (s6)
 	{
 
 	case -1:
@@ -4426,38 +4452,20 @@ return;
 	goto case 9;	}
 	case 8:
 	AmmoAct.Reloading = true;
-	s5 = 11;
+	s6 = 11;
 return;
 	case 11:
 	if(!(!(Reloading)))
 	{
 
-	s5 = 11;
+	s6 = 11;
 return;	}else
 	{
 
-	s5 = -1;
+	s6 = -1;
 return;	}
 	case 9:
 	AmmoAct.Reloading = false;
-	s5 = -1;
-return;	
-	default: return;}}
-	
-
-	int s6=-1;
-	public void Rule6(float dt, World world){ 
-	switch (s6)
-	{
-
-	case -1:
-	___undestroyedBullets60 = (
-
-(BazookaBullets).Select(__ContextSymbol231 => new { ___a648 = __ContextSymbol231 })
-.Where(__ContextSymbol232 => ((__ContextSymbol232.___a648.Destroyed) == (false)))
-.Select(__ContextSymbol233 => __ContextSymbol233.___a648)
-.ToList<BazookaBullet>()).ToList<BazookaBullet>();
-	BazookaBullets = ___undestroyedBullets60;
 	s6 = -1;
 return;	
 	default: return;}}
@@ -4469,10 +4477,28 @@ return;
 	{
 
 	case -1:
+	___undestroyedBullets70 = (
+
+(BazookaBullets).Select(__ContextSymbol231 => new { ___a748 = __ContextSymbol231 })
+.Where(__ContextSymbol232 => ((__ContextSymbol232.___a748.Destroyed) == (false)))
+.Select(__ContextSymbol233 => __ContextSymbol233.___a748)
+.ToList<BazookaBullet>()).ToList<BazookaBullet>();
+	BazookaBullets = ___undestroyedBullets70;
+	s7 = -1;
+return;	
+	default: return;}}
+	
+
+	int s8=-1;
+	public void Rule8(float dt, World world){ 
+	switch (s8)
+	{
+
+	case -1:
 	if(!(((GunController.Shot) && (((TypeWeapon) == ("Bazooka"))))))
 	{
 
-	s7 = -1;
+	s8 = -1;
 return;	}else
 	{
 
@@ -4486,26 +4512,26 @@ return;	}else
 
 	goto case 1;	}
 	case 0:
-	___camera70 = UnityEngine.Camera.main;
-	___Ray70 = ___camera70.ScreenPointToRay(Input.mousePosition);
+	___camera80 = UnityEngine.Camera.main;
+	___Ray80 = ___camera80.ScreenPointToRay(Input.mousePosition);
 	Shoot = true;
-	BazookaBullets = new Cons<BazookaBullet>(new BazookaBullet(___Ray70.origin,___Ray70.direction,AmmoAct.ExplosionForce,AmmoAct.ExplosionRadius,AmmoAct.ExplosionUpwardForce,DamagePerBullet), (BazookaBullets)).ToList<BazookaBullet>();
-	s7 = 4;
+	BazookaBullets = new Cons<BazookaBullet>(new BazookaBullet(___Ray80.origin,___Ray80.direction,AmmoAct.ExplosionForce,AmmoAct.ExplosionRadius,AmmoAct.ExplosionUpwardForce,DamagePerBullet), (BazookaBullets)).ToList<BazookaBullet>();
+	s8 = 4;
 return;
 	case 4:
 	Shoot = false;
 	BazookaBullets = BazookaBullets;
-	s7 = 3;
+	s8 = 3;
 return;
 	case 3:
 	if(!(!(GunController.Shot)))
 	{
 
-	s7 = 3;
+	s8 = 3;
 return;	}else
 	{
 
-	s7 = -1;
+	s8 = -1;
 return;	}
 	case 1:
 	if(((((!(KeyboardShooting)) && (((AmmoAct.InMagazine) > (0))))) && (!(AmmoAct.Reloading))))
@@ -4514,44 +4540,44 @@ return;	}
 	goto case 9;	}else
 	{
 
-	s7 = -1;
+	s8 = -1;
 return;	}
 	case 9:
-	___razer70 = Razer;
-	___razerDirection70 = ___razer70.transform.forward;
-	___razerPosition70 = ___razer70.transform.position;
+	___razer80 = Razer;
+	___razerDirection80 = ___razer80.transform.forward;
+	___razerPosition80 = ___razer80.transform.position;
 	Shoot = true;
-	BazookaBullets = new Cons<BazookaBullet>(new BazookaBullet((___razerPosition70) + ((___razerDirection70) * (1.2f)),___razerDirection70,AmmoAct.ExplosionForce,AmmoAct.ExplosionRadius,AmmoAct.ExplosionUpwardForce,DamagePerBullet), (BazookaBullets)).ToList<BazookaBullet>();
-	s7 = 11;
+	BazookaBullets = new Cons<BazookaBullet>(new BazookaBullet((___razerPosition80) + ((___razerDirection80) * (1.2f)),___razerDirection80,AmmoAct.ExplosionForce,AmmoAct.ExplosionRadius,AmmoAct.ExplosionUpwardForce,DamagePerBullet), (BazookaBullets)).ToList<BazookaBullet>();
+	s8 = 11;
 return;
 	case 11:
 	Shoot = false;
 	BazookaBullets = BazookaBullets;
-	s7 = 10;
+	s8 = 10;
 return;
 	case 10:
 	if(!(!(GunController.Shot)))
 	{
 
-	s7 = 10;
+	s8 = 10;
 return;	}else
 	{
 
-	s7 = -1;
+	s8 = -1;
 return;	}	
 	default: return;}}
 	
 
-	int s8=-1;
-	public void Rule8(float dt, World world){ 
-	switch (s8)
+	int s9=-1;
+	public void Rule9(float dt, World world){ 
+	switch (s9)
 	{
 
 	case -1:
 	if(!(((GunController.Shot) && (!(((TypeWeapon) == ("Bazooka")))))))
 	{
 
-	s8 = -1;
+	s9 = -1;
 return;	}else
 	{
 
@@ -4563,7 +4589,7 @@ return;	}else
 	goto case 1;	}else
 	{
 
-	s8 = -1;
+	s9 = -1;
 return;	}
 	case 1:
 	if(!(Automatic))
@@ -4575,38 +4601,38 @@ return;	}
 	goto case 3;	}
 	case 2:
 	Shoot = true;
-	s8 = 6;
+	s9 = 6;
 return;
 	case 6:
 	Shoot = false;
-	s8 = 5;
+	s9 = 5;
 return;
 	case 5:
 	if(!(!(GunController.Shot)))
 	{
 
-	s8 = 5;
+	s9 = 5;
 return;	}else
 	{
 
-	s8 = -1;
+	s9 = -1;
 return;	}
 	case 3:
 	if(!(((GunController.Shot) && (((AmmoAct.InMagazine) > (0))))))
 	{
 
-	s8 = -1;
+	s9 = -1;
 return;	}else
 	{
 
 	goto case 9;	}
 	case 9:
 	Shoot = true;
-	s8 = 12;
+	s9 = 12;
 return;
 	case 12:
 	Shoot = false;
-	s8 = 10;
+	s9 = 10;
 return;
 	case 10:
 	count_down14 = 0.05f;
@@ -4616,33 +4642,33 @@ return;
 	{
 
 	count_down14 = ((count_down14) - (dt));
-	s8 = 11;
+	s9 = 11;
 return;	}else
 	{
 
-	s8 = 3;
+	s9 = 3;
 return;	}	
 	default: return;}}
 	
 
-	int s9=-1;
-	public void Rule9(float dt, World world){ 
-	switch (s9)
+	int s10=-1;
+	public void Rule10(float dt, World world){ 
+	switch (s10)
 	{
 
 	case -1:
 	GunDamage = DamagePerBullet;
-	s9 = 0;
+	s10 = 0;
 return;
 	case 0:
 	if(!(false))
 	{
 
-	s9 = 0;
+	s10 = 0;
 return;	}else
 	{
 
-	s9 = -1;
+	s10 = -1;
 return;	}	
 	default: return;}}
 	
@@ -4662,6 +4688,8 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 	{JustEntered = false;
  frame = World.frame;
 		shot = false;
+		relo = false;
+		ooas = false;
 		TypeWeapon = "";
 		Reloading = false;
 		ReloadDuration = 0f;
@@ -4686,6 +4714,8 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 	public System.Single ReloadDuration;
 	public System.Boolean Reloading;
 	public System.String TypeWeapon;
+	public System.Boolean ooas;
+	public System.Boolean relo;
 	public System.Boolean shot;
 	public System.Single count_down15;
 	public System.Int32 ___a149;
@@ -4813,25 +4843,24 @@ return;	}
 return;	}else
 	{
 
-	goto case 0;	}
-	case 0:
+	goto case 2;	}
+	case 2:
 	if(((NotInMagazine) > (0)))
 	{
 
-	goto case 1;	}else
+	goto case 0;	}else
 	{
 
-	s1 = -1;
-return;	}
-	case 1:
+	goto case 1;	}
+	case 0:
 	if(((TypeWeapon) == ("ShotGun")))
 	{
 
-	goto case 2;	}else
+	goto case 3;	}else
 	{
 
-	goto case 3;	}
-	case 2:
+	goto case 4;	}
+	case 3:
 	if(!(((((NotInMagazine) > (0))) && (((((MagazineSize) + (1))) > (InMagazine))))))
 	{
 
@@ -4839,67 +4868,83 @@ return;	}
 return;	}else
 	{
 
-	goto case 6;	}
-	case 6:
+	goto case 7;	}
+	case 7:
 	___a149 = ((NotInMagazine) - (1));
 	___b13 = ((InMagazine) + (1));
 	Reloading = true;
 	NotInMagazine = ___a149;
 	InMagazine = ___b13;
-	s1 = 7;
+	relo = true;
+	ooas = false;
+	s1 = 8;
 return;
-	case 7:
-	count_down16 = ReloadDuration;
-	goto case 8;
 	case 8:
+	count_down16 = ReloadDuration;
+	goto case 9;
+	case 9:
 	if(((count_down16) > (0f)))
 	{
 
 	count_down16 = ((count_down16) - (dt));
-	s1 = 8;
+	s1 = 9;
 return;	}else
 	{
 
-	s1 = 2;
+	s1 = 3;
 return;	}
-	case 3:
+	case 4:
 	Reloading = true;
 	NotInMagazine = NotInMagazine;
 	InMagazine = InMagazine;
-	s1 = 18;
+	relo = false;
+	ooas = false;
+	s1 = 19;
 return;
-	case 18:
-	count_down17 = ReloadDuration;
-	goto case 19;
 	case 19:
+	count_down17 = ReloadDuration;
+	goto case 20;
+	case 20:
 	if(((count_down17) > (0f)))
 	{
 
 	count_down17 = ((count_down17) - (dt));
-	s1 = 19;
+	s1 = 20;
 return;	}else
 	{
 
-	goto case 14;	}
-	case 14:
+	goto case 15;	}
+	case 15:
 	if(((MagazineSize) > (NotInMagazine)))
 	{
 
-	goto case 12;	}else
+	goto case 13;	}else
 	{
 
-	goto case 13;	}
-	case 12:
+	goto case 14;	}
+	case 13:
 	Reloading = false;
 	NotInMagazine = 0;
 	InMagazine = NotInMagazine;
+	relo = true;
+	ooas = false;
 	s1 = -1;
 return;
-	case 13:
+	case 14:
 	___changed10 = ((MagazineSize) - (InMagazine));
 	Reloading = false;
 	NotInMagazine = ((NotInMagazine) - (___changed10));
 	InMagazine = MagazineSize;
+	relo = true;
+	ooas = false;
+	s1 = -1;
+return;
+	case 1:
+	Reloading = false;
+	NotInMagazine = 0;
+	InMagazine = InMagazine;
+	relo = false;
+	ooas = true;
 	s1 = -1;
 return;	
 	default: return;}}

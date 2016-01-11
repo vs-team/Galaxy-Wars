@@ -610,6 +610,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
+  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  Reloader: {fileID: 0}
 --- !u!1 &132223244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,6 +1127,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 248806593}
   - 114: {fileID: 248806594}
+  - 82: {fileID: 248806595}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -1164,6 +1167,75 @@ MonoBehaviour:
   TransformHL: {fileID: 0}
   flashL: {fileID: 0}
   flashR: {fileID: 0}
+--- !u!82 &248806595
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 248806592}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1 &249194826
 GameObject:
   m_ObjectHideFlags: 0
@@ -2648,6 +2720,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
+  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  Reloader: {fileID: 0}
 --- !u!1 &530465202
 GameObject:
   m_ObjectHideFlags: 0
@@ -3225,6 +3299,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
+  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  Reloader: {fileID: 0}
 --- !u!1 &634928868
 GameObject:
   m_ObjectHideFlags: 0
@@ -5021,6 +5097,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
+  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  Reloader: {fileID: 8300000, guid: b1af18e5df5c7f14abea4215bb35e1cf, type: 3}
 --- !u!95 &1055263778
 Animator:
   serializedVersion: 3
@@ -5423,6 +5501,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
+  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  Reloader: {fileID: 8300000, guid: b1af18e5df5c7f14abea4215bb35e1cf, type: 3}
 --- !u!95 &1137891350
 Animator:
   serializedVersion: 3
@@ -6655,6 +6735,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
+  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  Reloader: {fileID: 0}
 --- !u!1 &1407814282
 GameObject:
   m_ObjectHideFlags: 0
@@ -7815,6 +7897,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
+  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  Reloader: {fileID: 0}
 --- !u!1 &1657142156
 GameObject:
   m_ObjectHideFlags: 0
@@ -8058,6 +8142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
+  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  Reloader: {fileID: 0}
 --- !u!1 &1701051381
 GameObject:
   m_ObjectHideFlags: 0
