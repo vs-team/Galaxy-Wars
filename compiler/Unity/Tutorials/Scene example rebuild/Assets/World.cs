@@ -1944,10 +1944,19 @@ return;	}
 	{
 
 	case -1:
-	if(!(((((ZombieSpawnpoints.Count) > (0))) && (((RepairZonE.RepairProgressBar.Value.pspeed) == (15))))))
+	if(!(RepairZonE.RepairProgressBar.IsSome))
 	{
 
 	s3 = -1;
+return;	}else
+	{
+
+	goto case 10;	}
+	case 10:
+	if(!(((((ZombieSpawnpoints.Count) > (0))) && (((RepairZonE.RepairProgressBar.Value.pspeed) == (15))))))
+	{
+
+	s3 = 10;
 return;	}else
 	{
 
@@ -5597,4 +5606,4 @@ frame = World.frame;
 
 
 }
-}                    
+}      

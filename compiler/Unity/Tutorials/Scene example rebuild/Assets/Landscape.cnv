@@ -11,6 +11,7 @@ entity Gasstation = {
   Counter : int
 
   rule GroupZombies, Counter = 
+    wait RepairZonE.RepairProgressBar.IsSome
     wait ZombieSpawnpoints.Count > 0 && RepairZonE.RepairProgressBar.Value.pspeed = 15
     if Counter <> ZombieSpawnpoints.Count then
       let zsp = ZombieSpawnpoints.[Counter]
