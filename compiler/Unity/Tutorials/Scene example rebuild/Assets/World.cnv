@@ -34,6 +34,12 @@ worldEntity World = {
       yield false
 
   rule Score = 
+    wait Jeep.IsSome
+    let x = Jeep.Value.MultiplierBonus
+    if (x > 1.1f) then // once in 2 frames. if statement check takes a frame
+      yield Score + 1
+
+  rule Score = 
     yield Score + 1
 
   rule Zombies = 
