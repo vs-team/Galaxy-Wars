@@ -32,7 +32,13 @@ entity GroupZombie = {
 
 entity Zombie = {
   inherit UnityZombie2
-   
+
+  rule WaitingOnStandstill =
+    wait WaitingOnStandstill
+    Debug.Log(LastHitRigidBody.velocity.sqrMagnitude)
+    wait (LastHitRigidBody.velocity.sqrMagnitude < 0.01f)
+    yield false
+
   rule SoundToPlay = 
     wait tim
     yield WhichSoundToPlay
@@ -40,14 +46,18 @@ entity Zombie = {
   rule Destroyed = 
     wait (Vector3.Distance(Position, world.Jeep.Value.Position) > 410.0f)
     yield true
-
+      
   rule Dest =
-    yield world.Jeep.Value.Position 
-    wait not Dead
+    if Ragdolled then
+      wait not Ragdolled
+      wait 5.0f //Standing up animation
+      yield world.Jeep.Value.Position
+    else
+      yield world.Jeep.Value.Position 
 
   Create(trans : Transform) = 
   { 
-  Base = UnityZombie2.Find(trans)
+    Base = UnityZombie2.Find(trans)
   }
 }
 entity ZombieGroupDestroyer = {

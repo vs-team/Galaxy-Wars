@@ -380,18 +380,17 @@ return;	}
 return;	}else
 	{
 
-	goto case 2;	}
-	case 2:
+	goto case 1;	}
+	case 1:
 	if(!(QuitButton.Value.IsPressed))
 	{
 
-	s8 = 2;
+	s8 = 1;
 return;	}else
 	{
 
-	goto case 1;	}
-	case 1:
-	UnityEngine.Debug.Log("bye bye");
+	goto case 0;	}
+	case 0:
 	NextScene = "Quit";
 	s8 = -1;
 return;	
@@ -837,4 +836,4 @@ return;	}
 
 
 }
-}                    
+}            

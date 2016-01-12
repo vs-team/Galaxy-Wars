@@ -15,7 +15,6 @@ namespace ProgressBar
       j.XOffset = (j.transform.GetComponent<RectTransform>().rect.width - j.m_FillRect.rect.width) / 2;
 
       j.SetFillerSize(0);
-      Debug.Log("instantiate PBB");
       return j;
     }
 
@@ -31,12 +30,10 @@ namespace ProgressBar
       {
         if (value == true)
         {
-          Debug.Log("set if");
           Value = 100.0f;
         }
         else
         {
-          Debug.Log("set else");
           Value = -1.0f;
         }
         privatestart = value;
@@ -159,8 +156,6 @@ namespace ProgressBar
     public bool Finished;
     public void SetFillerSizeAsPercentage(float Percent)
     {
-      Debug.Log(m_FillerInfo.MaxWidth);
-      Debug.Log(Percent);
       m_Value.Set(m_FillerInfo.MaxWidth * Percent / 100);
 
       if (Value < 0)
@@ -191,4 +186,4 @@ namespace ProgressBar
       if (Value < 0) Value = 0;
     }
   }
-}                 
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                   

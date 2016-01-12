@@ -60,7 +60,6 @@ worldEntity Menu = {
   rule NextScene = 
     wait QuitButton.IsSome
     wait QuitButton.Value.IsPressed
-    Debug.Log("bye bye")
     yield "Quit"
 
   rule sc =
