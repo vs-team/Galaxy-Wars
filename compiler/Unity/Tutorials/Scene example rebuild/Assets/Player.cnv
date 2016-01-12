@@ -410,7 +410,7 @@ entity Gun = {
   rule Shoot, BazookaBullets =
     wait GunController.Shot && TypeWeapon = "Bazooka"
     if (KeyboardShooting && AmmoAct.InMagazine > 0 && not AmmoAct.Reloading) then
-      let camera = UnityEngine.Camera.main  
+      let camera = UnityEngine.Camera.main
       let Ray = camera.ScreenPointToRay(Input.mousePosition)
       yield true, new BazookaBullet(Ray.origin, Ray.direction, AmmoAct.ExplosionRadius, DamagePerBullet) :: BazookaBullets
       yield false, BazookaBullets  
@@ -421,7 +421,7 @@ entity Gun = {
       let razerPosition = razer.transform.position
       yield true, new BazookaBullet(razerPosition+razerDirection*1.2f,razerDirection, AmmoAct.ExplosionRadius, DamagePerBullet) :: BazookaBullets
       yield false, BazookaBullets
-      wait not GunController.Shot 
+      wait not GunController.Shot
 
   rule BazookaBullets =
     let undestroyedBullets =
@@ -470,6 +470,9 @@ entity Gun = {
   rule AmmoAct.GC = 
     yield Some GunController
      
+  rule Rel, OoAs = 
+    yield AmmoAct.relo, AmmoAct.ooas
+     
   Create(ind : int, GC : ControllerRazor, tr : string, am : Ammo) = 
   let autom = if (ind <> 0) then false else true
   let stlist =             ["MachineGun";"Pistol" ;"ShotGun"; "Bazooka"]
@@ -504,8 +507,10 @@ entity Ammo = {
   ReloadDuration : float
   TypeWeapon : string
   ExplosionRadius : float
+  relo : bool
+  ooas : bool
 
-  rule Reloading, NotInMagazine, InMagazine = 
+  rule Reloading, NotInMagazine, InMagazine, relo, ooas = 
     wait (InMagazine = 0) || Reloading
     if (NotInMagazine > 0) then
       if (TypeWeapon = "ShotGun") then //single shell reload
@@ -513,16 +518,18 @@ entity Ammo = {
           let a = NotInMagazine - 1
           let b = InMagazine + 1
           //Debug.Log("update bullets")
-          yield true, a,b
+          yield true, a,b, true, false
           wait ReloadDuration
       else //magazine reload
-        yield true, NotInMagazine, InMagazine
+        yield true, NotInMagazine, InMagazine, false, false
         wait (ReloadDuration)
         if MagazineSize > NotInMagazine then // clip can't be fulled completely
-          yield false, 0, NotInMagazine
+          yield false, 0, NotInMagazine, true, false
         else
           let changed = (MagazineSize - InMagazine)
-          yield false, NotInMagazine - changed, MagazineSize // fill clip completely
+          yield false, NotInMagazine - changed, MagazineSize, true, false
+    else
+      yield false, 0, InMagazine, false, true
 
   //rule NotInMagazine = 
     //if world.ActiveBoR = "AmmoBox" then 
@@ -556,6 +563,8 @@ entity Ammo = {
     MagazineSize = 0
     TypeWeapon = ""
     ExplosionRadius = 15.0f
+    relo = false
+    ooas = false
   }
 }
 
@@ -583,7 +592,7 @@ entity BazookaBullet = {
     Base= UnityBazookaBullet.Instantiate(pos, "BazookaBullet", force, damage)
     cnt = 0.0f
     transforw = directi
-    gunDamage = damage 
+    gunDamage = damage
   }
 }
 

@@ -388,7 +388,7 @@ public class UnityZombie2 : MonoBehaviour
               impactTargets[i].AddForce(impacts[i],ForceMode.Impulse);
               break;
             case 2:
-              impactTargets[i].AddForce(impacts[i], ForceMode.VelocityChange);
+          impactTargets[i].AddForce(impacts[i], ForceMode.VelocityChange);
               break;
             case 5:
               impactTargets[i].AddForce(impacts[i], ForceMode.Acceleration);
@@ -407,8 +407,8 @@ public class UnityZombie2 : MonoBehaviour
           impactTargets.RemoveAt(i);
           impacts.RemoveAt(i);
           impactModes.RemoveAt(i);
-        }  
+        }
       }
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
