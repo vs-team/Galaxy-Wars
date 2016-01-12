@@ -35,9 +35,8 @@ worldEntity World = {
 
   rule Score = 
     wait Jeep.IsSome
-    wait Jeep.Value.ActiveMultiplier
-    let x = Jeep.Value.Multip
-    if (x > 1.2f) then
+    let x = Jeep.Value.MultiplierBonus
+    if (x > 1.1f) then // once in 2 frames. if statement check takes a frame
       yield Score + 1
 
   rule Score = 

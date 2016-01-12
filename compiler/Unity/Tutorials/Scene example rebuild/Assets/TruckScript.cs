@@ -57,7 +57,7 @@ public class TruckScript : MonoBehaviour
     PlayerPrefs.DeleteKey("ReachedByPlayer");
     PlayerPrefs.Save();
     multiplier.gameObject.SetActive(false);
-    ActiveMultiplier = false;
+    MultiplierBonus = 1.0f;
     /*
     PlayerPrefs.DeleteAll();
     string[] names = { "Piet", "Klaas", "Henk" };
@@ -85,7 +85,7 @@ public class TruckScript : MonoBehaviour
   private int counter = 0;
   private int added = 0;
   private int TopScoreSize = 8;
-  public bool ActiveMultiplier;
+  public float MultiplierBonus;
   public float Multip
   {
     get { return float.Parse(multiplier.text.Substring(2)); }
@@ -94,7 +94,7 @@ public class TruckScript : MonoBehaviour
       if (value > 1.0f)
       {
         multiplier.gameObject.SetActive(true);
-        ActiveMultiplier = true;
+        MultiplierBonus = value;
         multiplier.text = "x " + (value);
       }
       else
@@ -116,7 +116,7 @@ public class TruckScript : MonoBehaviour
         var scorString = Score.Substring(7);
         int scoreInt = int.Parse(scorString);
         int ad = Random.Range(100, 1150);
-        int totscore = ad;
+        int totscore = scoreInt;
 
         //Top TopScoreSize players with their scores
         List<Tuple<string, int>> Topscores = new List<Tuple<string, int>>();
@@ -236,9 +236,12 @@ public class TruckScript : MonoBehaviour
 
   public float Steering
   {
-    get { return Input.GetAxis("SW_Joy0X"); }
+    get
+    {
+      Debug.Log("Steering " + Input.GetAxis("SW_Joy0X"));
+      return Input.GetAxis("SW_Joy0X");
+    }
   }
-
   public float BrakeAndReverse
   {
     get
@@ -258,6 +261,7 @@ public class TruckScript : MonoBehaviour
   {
     get
     {
+      Debug.Log("accel " + Input.GetAxisRaw("SW_Joy0Y"));
       if (Input.GetAxisRaw("SW_Joy0Y") < 0.0f)
       {
         return 0.0f;
@@ -374,4 +378,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                              
+}                                                                                                                                               

@@ -183,7 +183,6 @@ entity AxleInfo = {
   rule steering = 
     yield steering
 
-
   rule leftWheel.steerAngle, rightWheel.steerAngle =
     wait steering
     if not world.Jeep.Value.isModel then

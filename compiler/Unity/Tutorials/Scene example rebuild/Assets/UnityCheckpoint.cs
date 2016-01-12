@@ -13,6 +13,11 @@ public class UnityCheckpoint : MonoBehaviour
       if (Vector3.Distance(j.transform.position, v) < Vector3.Distance(j.transform.position, test.transform.position))
       {
         test = j;
+        Debug.Log("Repair zone "+test.gameObject.transform);
+      }
+      else
+      {
+        Debug.Log("not this gameobject"+test.gameObject.transform);
       }
     }
     GameObject a = test;
@@ -42,4 +47,4 @@ public class UnityCheckpoint : MonoBehaviour
   {
     get { return privateIsEntered; }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

@@ -3257,6 +3257,7 @@ MonoBehaviour:
   Audio_DamageSmall: {fileID: 8300000, guid: e1cc089e45ba1ca42935e9b3863edefb, type: 3}
   Audio_DamageBig: {fileID: 8300000, guid: d2ca5d8792adb6249970c7a1fab8eaf9, type: 3}
   Invullen: 0
+  MultiplierBonus: 0
   tim: 0
   CarHPChanged: 0
 --- !u!114 &11464474
@@ -3265,7 +3266,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188064}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f3399c2bdb79d54094291da7b077cae, type: 3}
   m_Name: 

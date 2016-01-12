@@ -40,8 +40,6 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 		
 }
 		public System.String ActiveBoR;
-	public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
- }
 	public System.Int32 Counter;
 	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
   set{UnityLandscape.Destroyed = value; }
@@ -540,19 +538,10 @@ return;
 return;	}else
 	{
 
-	goto case 4;	}
-	case 4:
-	if(!(Jeep.Value.ActiveMultiplier))
-	{
-
-	s7 = 4;
-return;	}else
-	{
-
 	goto case 3;	}
 	case 3:
-	___x71 = Jeep.Value.Multip;
-	if(((___x71) > (1.2f)))
+	___x71 = Jeep.Value.MultiplierBonus;
+	if(((___x71) > (1.1f)))
 	{
 
 	goto case 1;	}else
@@ -589,15 +578,15 @@ return;
 	if(___t80)
 	{
 
-	goto case 6;	}else
+	goto case 5;	}else
 	{
 
-	goto case 7;	}
-	case 6:
+	goto case 6;	}
+	case 5:
 	W_Refill_Resources = true;
 	s8 = -1;
 return;
-	case 7:
+	case 6:
 	W_Refill_Resources = false;
 	s8 = -1;
 return;	
@@ -782,27 +771,27 @@ frame = World.frame;
 	if(!(((isModel) == (true))))
 	{
 
-	goto case 14;	}else
+	goto case 13;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 14:
+	case 13:
 	___z02 = world.Jeep.Value.CarHP2;
 	if(!(((___z02) == (((Health) / (100f))))))
 	{
 
-	goto case 15;	}else
+	goto case 14;	}else
 	{
 
-	goto case 16;	}
-	case 15:
+	goto case 15;	}
+	case 14:
 	world.Jeep.Value.CarHP2 = world.Jeep.Value.CarHP2;
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
 	s0 = -1;
 return;
-	case 16:
+	case 15:
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
@@ -820,12 +809,12 @@ return;
 	if(((((world.ActiveBoR) == ("Medipack Red"))) && (!(((isModel) == (true))))))
 	{
 
-	goto case 22;	}else
+	goto case 21;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 22:
+	case 21:
 	Health = ((Health) + (20f));
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	s1 = -1;
@@ -876,9 +865,6 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 		
 }
 		public System.Single Acceleration{  get { return TruckScript.Acceleration; }
- }
-	public System.Boolean ActiveMultiplier{  get { return TruckScript.ActiveMultiplier; }
-  set{TruckScript.ActiveMultiplier = value; }
  }
 	public UnityEngine.AudioClip Audio_DamageBig{  get { return TruckScript.Audio_DamageBig; }
   set{TruckScript.Audio_DamageBig = value; }
@@ -946,6 +932,9 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.Boolean KeyboardDriving;
 	public System.Single Multip{  get { return TruckScript.Multip; }
   set{TruckScript.Multip = value; }
+ }
+	public System.Single MultiplierBonus{  get { return TruckScript.MultiplierBonus; }
+  set{TruckScript.MultiplierBonus = value; }
  }
 	public UnityEngine.Vector3 Position{  get { return TruckScript.Position; }
  }
@@ -2418,9 +2407,7 @@ Enumerable.Empty<PickUp>()).ToList<PickUp>();
 Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 		
 }
-		public UnityCheckpoint Checkpoint{  get { return UnityLandscape.Checkpoint; }
- }
-	public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
+		public System.Boolean Destroyed{  get { return UnityLandscape.Destroyed; }
   set{UnityLandscape.Destroyed = value; }
  }
 	public List<GroupZombie> Group;
@@ -5739,4 +5726,4 @@ frame = World.frame;
 
 
 }
-}      
+}                               
