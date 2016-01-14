@@ -326,7 +326,6 @@ return;	}
 	s1 = -1;
 return;	}
 	case 27:
-	UnityEngine.Debug.Log(___a12.Head());
 	ActiveBoR = ___a12.Head();
 	s1 = 28;
 return;
@@ -346,12 +345,12 @@ return;
 	if(((ActiveBoR) == ("Crossed Wrenches Red")))
 	{
 
-	goto case 33;	}else
+	goto case 32;	}else
 	{
 
 	s2 = -1;
 return;	}
-	case 33:
+	case 32:
 	___resourcelist20 = (
 
 (new Cons<System.String>("Medipack Red",(new Cons<System.String>("Battery Black",(new Cons<System.String>("Jerry Can Green",(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
@@ -2267,7 +2266,6 @@ return;	}else
 	s2 = -1;
 return;	}
 	case 1:
-	UnityEngine.Debug.Log("finished all. add resources now");
 	RepairProgressBar.Value.Destroyed = true;
 	RepairProgressBar = (new Nothing<ProgressBar_1>());
 	Refill_Resources = true;
@@ -3107,7 +3105,6 @@ Enumerable.Empty<System.Int32>()).ToList<System.Int32>();	}
 
 	goto case 5;	}
 	case 25:
-	UnityEngine.Debug.Log("2 guns");
 	___z13 = (
 
 (new Cons<System.String>(flashL.name,(new Cons<System.String>(flashR.name,(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
@@ -3295,29 +3292,29 @@ return;	}
 	if(((((___q21.Count) > (0))) && (!(((___j25.Count) > (0))))))
 	{
 
-	goto case 47;	}else
-	{
-
-	goto case 43;	}
-	case 47:
-	GunControllerPressed = (new Just<Gun>(___q21.Head()));
-	LightControllerPressed = (new Nothing<Light>());
-	s2 = 43;
-return;
-	case 43:
-	if(((((___j25.Count) > (0))) && (!(((___q21.Count) > (0))))))
-	{
-
-	goto case 41;	}else
+	goto case 46;	}else
 	{
 
 	goto case 42;	}
-	case 41:
+	case 46:
+	GunControllerPressed = (new Just<Gun>(___q21.Head()));
+	LightControllerPressed = (new Nothing<Light>());
+	s2 = 42;
+return;
+	case 42:
+	if(((((___j25.Count) > (0))) && (!(((___q21.Count) > (0))))))
+	{
+
+	goto case 40;	}else
+	{
+
+	goto case 41;	}
+	case 40:
 	GunControllerPressed = (new Nothing<Gun>());
 	LightControllerPressed = (new Just<Light>(___j25.Head()));
 	s2 = -1;
 return;
-	case 42:
+	case 41:
 	GunControllerPressed = (new Nothing<Gun>());
 	LightControllerPressed = (new Nothing<Light>());
 	s2 = -1;
@@ -3813,9 +3810,8 @@ return;
 return;	}else
 	{
 
-	goto case 7;	}
-	case 7:
-	UnityEngine.Debug.Log("change for flashs");
+	goto case 6;	}
+	case 6:
 	___j56 = (
 
 (AllFlashs).Select(__ContextSymbol215 => new { ___a545 = __ContextSymbol215 })
@@ -3896,6 +3892,7 @@ public ControllerRazor(System.String joystickName)
 		other = false;
 		next = false;
 		SixenseHand = SixenseHand.Instantiate(joystickName);
+		Shot = false;
 		JoystickName = joystickName;
 		ECB = "";
 		
@@ -3919,9 +3916,7 @@ public ControllerRazor(System.String joystickName)
  }
 	public System.Boolean RaycastBool{  get { return SixenseHand.RaycastBool; }
  }
-	public System.Boolean Shot{  get { return SixenseHand.Shot; }
-  set{SixenseHand.Shot = value; }
- }
+	public System.Boolean Shot;
 	public SixenseHand SixenseHand;
 	public System.Boolean Trigger{  get { return SixenseHand.Trigger; }
   set{SixenseHand.Trigger = value; }
@@ -3972,8 +3967,6 @@ frame = World.frame;
 		this.Rule3(dt, world);
 		this.Rule4(dt, world);
 		this.Rule5(dt, world);
-		this.Rule6(dt, world);
-		this.Rule7(dt, world);
 	}
 
 
@@ -4151,34 +4144,10 @@ return;
 	{
 
 	case -1:
-	Bumper = Bumper;
-	s4 = -1;
-return;	
-	default: return;}}
-	
-
-	int s5=-1;
-	public void Rule5(float dt, World world){ 
-	switch (s5)
-	{
-
-	case -1:
-	Trigger = Trigger;
-	s5 = -1;
-return;	
-	default: return;}}
-	
-
-	int s6=-1;
-	public void Rule6(float dt, World world){ 
-	switch (s6)
-	{
-
-	case -1:
 	if(!(!(((world.Jeep.Value.Invullen) == (true)))))
 	{
 
-	s6 = -1;
+	s4 = -1;
 return;	}else
 	{
 
@@ -4193,23 +4162,23 @@ return;	}else
 	goto case 1;	}
 	case 0:
 	Shot = true;
-	s6 = -1;
+	s4 = -1;
 return;
 	case 1:
 	Shot = false;
-	s6 = -1;
+	s4 = -1;
 return;	
 	default: return;}}
 	
 
-	int s7=-1;
-	public void Rule7(float dt, World world){ 
-	switch (s7)
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
 	{
 
 	case -1:
 	m_initialRot = world.Jeep.Value.Rotation;
-	s7 = -1;
+	s5 = -1;
 return;	
 	default: return;}}
 	
@@ -4590,7 +4559,7 @@ return;	}else
 	___camera80 = UnityEngine.Camera.main;
 	___Ray80 = ___camera80.ScreenPointToRay(Input.mousePosition);
 	Shoot = true;
-	BazookaBullets = new Cons<BazookaBullet>(new BazookaBullet(___Ray80.origin,___Ray80.direction,AmmoAct.ExplosionForce,AmmoAct.ExplosionRadius,AmmoAct.ExplosionUpwardForce,DamagePerBullet), (BazookaBullets)).ToList<BazookaBullet>();
+	BazookaBullets = new Cons<BazookaBullet>(new BazookaBullet(___Ray80.origin,___Ray80.direction,AmmoAct.ExplosionRadius,DamagePerBullet), (BazookaBullets)).ToList<BazookaBullet>();
 	s8 = 4;
 return;
 	case 4:
@@ -4622,7 +4591,7 @@ return;	}
 	___razerDirection80 = ___razer80.transform.forward;
 	___razerPosition80 = ___razer80.transform.position;
 	Shoot = true;
-	BazookaBullets = new Cons<BazookaBullet>(new BazookaBullet((___razerPosition80) + ((___razerDirection80) * (1.2f)),___razerDirection80,AmmoAct.ExplosionForce,AmmoAct.ExplosionRadius,AmmoAct.ExplosionUpwardForce,DamagePerBullet), (BazookaBullets)).ToList<BazookaBullet>();
+	BazookaBullets = new Cons<BazookaBullet>(new BazookaBullet((___razerPosition80) + ((___razerDirection80) * (1.2f)),___razerDirection80,AmmoAct.ExplosionRadius,DamagePerBullet), (BazookaBullets)).ToList<BazookaBullet>();
 	s8 = 11;
 return;
 	case 11:
@@ -4772,16 +4741,12 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 		MagazineSize = 0;
 		InMagazine = InMag;
 		GC = (new Nothing<ControllerRazor>());
-		ExplosionUpwardForce = 5f;
-		ExplosionRadius = 30f;
-		ExplosionForce = 30f;
+		ExplosionRadius = 15f;
 		Automatic = false;
 		
 }
 		public System.Boolean Automatic;
-	public System.Single ExplosionForce;
 	public System.Single ExplosionRadius;
-	public System.Single ExplosionUpwardForce;
 	public Option<ControllerRazor> GC;
 	public System.Int32 InMagazine;
 	public System.Int32 MagazineSize;
@@ -5036,33 +5001,22 @@ public bool JustEntered = true;
 private UnityEngine.Vector3 pos;
 private UnityEngine.Vector3 directi;
 private System.Single force;
-private System.Single radius;
-private System.Single upwardForce;
 private System.Single damage;
 	public int ID;
-public BazookaBullet(UnityEngine.Vector3 pos, UnityEngine.Vector3 directi, System.Single force, System.Single radius, System.Single upwardForce, System.Single damage)
+public BazookaBullet(UnityEngine.Vector3 pos, UnityEngine.Vector3 directi, System.Single force, System.Single damage)
 	{JustEntered = false;
  frame = World.frame;
 		transforw = directi;
 		gunDamage = damage;
-		explosionUpwardForce = upwardForce;
-		explosionRadius = radius;
-		explosionForce = force;
 		cnt = 0f;
-		UnityBazookaBullet = UnityBazookaBullet.Instantiate(pos,"BazookaBullet",force,radius,upwardForce,damage);
+		UnityBazookaBullet = UnityBazookaBullet.Instantiate(pos,"BazookaBullet",force,damage);
 		
 }
 		public System.Boolean Destroyed{  get { return UnityBazookaBullet.Destroyed; }
   set{UnityBazookaBullet.Destroyed = value; }
  }
-	public System.Single ExplosionForce{  get { return UnityBazookaBullet.ExplosionForce; }
-  set{UnityBazookaBullet.ExplosionForce = value; }
- }
 	public System.Single ExplosionRadius{  get { return UnityBazookaBullet.ExplosionRadius; }
   set{UnityBazookaBullet.ExplosionRadius = value; }
- }
-	public System.Single ExplosionUpwardForce{  get { return UnityBazookaBullet.ExplosionUpwardForce; }
-  set{UnityBazookaBullet.ExplosionUpwardForce = value; }
  }
 	public UnityEngine.Vector3 Frce{  set{UnityBazookaBullet.Frce = value; }
  }
@@ -5077,9 +5031,6 @@ public BazookaBullet(UnityEngine.Vector3 pos, UnityEngine.Vector3 directi, Syste
 	public System.Boolean enabled{  get { return UnityBazookaBullet.enabled; }
   set{UnityBazookaBullet.enabled = value; }
  }
-	public System.Single explosionForce;
-	public System.Single explosionRadius;
-	public System.Single explosionUpwardForce;
 	public UnityEngine.GameObject gameObject{  get { return UnityBazookaBullet.gameObject; }
  }
 	public System.Single gunDamage;
@@ -5106,9 +5057,6 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
-		this.Rule3(dt, world);
-		this.Rule4(dt, world);
-		this.Rule5(dt, world);
 	}
 
 
@@ -5143,90 +5091,24 @@ return;	}
 	{
 
 	case -1:
-	ExplosionUpwardForce = explosionUpwardForce;
-	s1 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s1 = 0;
-return;	}else
-	{
-
-	s1 = -1;
-return;	}	
-	default: return;}}
-	
-
-	int s2=-1;
-	public void Rule2(float dt, World world){ 
-	switch (s2)
-	{
-
-	case -1:
-	ExplosionRadius = explosionRadius;
-	s2 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s2 = 0;
-return;	}else
-	{
-
-	s2 = -1;
-return;	}	
-	default: return;}}
-	
-
-	int s3=-1;
-	public void Rule3(float dt, World world){ 
-	switch (s3)
-	{
-
-	case -1:
-	ExplosionForce = explosionForce;
-	s3 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s3 = 0;
-return;	}else
-	{
-
-	s3 = -1;
-return;	}	
-	default: return;}}
-	
-
-	int s4=-1;
-	public void Rule4(float dt, World world){ 
-	switch (s4)
-	{
-
-	case -1:
 	if(!(Destroyed))
 	{
 
-	s4 = -1;
+	s1 = -1;
 return;	}else
 	{
 
 	goto case 0;	}
 	case 0:
 	Destroyed = true;
-	s4 = -1;
+	s1 = -1;
 return;	
 	default: return;}}
 	
 
-	int s5=-1;
-	public void Rule5(float dt, World world){ 
-	switch (s5)
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
 	{
 
 	case -1:
@@ -5240,17 +5122,17 @@ return;
 	case 2:
 	Frce = transforw;
 	cnt = ((cnt) + (10f));
-	s5 = -1;
+	s2 = -1;
 return;
 	case 0:
 	if(!(false))
 	{
 
-	s5 = 0;
+	s2 = 0;
 return;	}else
 	{
 
-	s5 = -1;
+	s2 = -1;
 return;	}	
 	default: return;}}
 	
@@ -5541,15 +5423,24 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean IsHitByForce{  get { return UnityZombie2.IsHitByForce; }
   set{UnityZombie2.IsHitByForce = value; }
  }
+	public UnityEngine.Rigidbody LastHitRigidBody{  get { return UnityZombie2.LastHitRigidBody; }
+  set{UnityZombie2.LastHitRigidBody = value; }
+ }
 	public System.Single Life{  get { return UnityZombie2.Life; }
   set{UnityZombie2.Life = value; }
  }
 	public UnityEngine.Vector3 Position{  get { return UnityZombie2.Position; }
  }
+	public System.Boolean Ragdolled{  get { return UnityZombie2.Ragdolled; }
+  set{UnityZombie2.Ragdolled = value; }
+ }
 	public System.String SoundToPlay{  get { return UnityZombie2.SoundToPlay; }
   set{UnityZombie2.SoundToPlay = value; }
  }
 	public UnityZombie2 UnityZombie2;
+	public System.Boolean WaitingOnStandstill{  get { return UnityZombie2.WaitingOnStandstill; }
+  set{UnityZombie2.WaitingOnStandstill = value; }
+ }
 	public System.String WhichSoundToPlay{  get { return UnityZombie2.WhichSoundToPlay; }
  }
 	public System.Boolean enabled{  get { return UnityZombie2.enabled; }
@@ -5589,12 +5480,14 @@ public Zombie(UnityEngine.Transform trans)
   set{UnityZombie2.useGUILayout = value; }
  }
 	public System.Single count_down19;
+	public System.Single count_down20;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		this.Rule3(dt, world);
 	}
 
 
@@ -5607,19 +5500,43 @@ frame = World.frame;
 	{
 
 	case -1:
-	Dest = world.Jeep.Value.Position;
-	s0 = 0;
-return;
-	case 0:
-	if(!(!(Dead)))
+	if(Ragdolled)
 	{
 
-	s0 = 0;
+	goto case 4;	}else
+	{
+
+	goto case 5;	}
+	case 4:
+	if(!(!(Ragdolled)))
+	{
+
+	s0 = 4;
 return;	}else
 	{
 
+	goto case 8;	}
+	case 8:
+	count_down19 = 5f;
+	goto case 9;
+	case 9:
+	if(((count_down19) > (0f)))
+	{
+
+	count_down19 = ((count_down19) - (dt));
+	s0 = 9;
+return;	}else
+	{
+
+	goto case 7;	}
+	case 7:
+	Dest = world.Jeep.Value.Position;
 	s0 = -1;
-return;	}	
+return;
+	case 5:
+	Dest = world.Jeep.Value.Position;
+	s0 = -1;
+return;	
 	default: return;}}
 	
 
@@ -5650,13 +5567,13 @@ return;
 	{
 
 	case -1:
-	count_down19 = tim;
+	count_down20 = tim;
 	goto case 2;
 	case 2:
-	if(((count_down19) > (0f)))
+	if(((count_down20) > (0f)))
 	{
 
-	count_down19 = ((count_down19) - (dt));
+	count_down20 = ((count_down20) - (dt));
 	s2 = 2;
 return;	}else
 	{
@@ -5665,6 +5582,39 @@ return;	}else
 	case 0:
 	SoundToPlay = WhichSoundToPlay;
 	s2 = -1;
+return;	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(!(WaitingOnStandstill))
+	{
+
+	s3 = -1;
+return;	}else
+	{
+
+	goto case 2;	}
+	case 2:
+	UnityEngine.Debug.Log(LastHitRigidBody.velocity.sqrMagnitude);
+	goto case 1;
+	case 1:
+	if(!(((0.01f) > (LastHitRigidBody.velocity.sqrMagnitude))))
+	{
+
+	s3 = 1;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	WaitingOnStandstill = false;
+	s3 = -1;
 return;	
 	default: return;}}
 	
@@ -5726,4 +5676,4 @@ frame = World.frame;
 
 
 }
-}                               
+}                  

@@ -15,7 +15,6 @@ entity Player = {
     Controllers = [new ControllerRazor("Hydra1 - Right"); new ControllerRazor("Hydra1 - Left")]
   }
 }
-
 entity Equipment = {
   inherit UnityEquipment
 
@@ -315,7 +314,7 @@ entity ControllerRazor= {
   prev : bool
   JoystickName : string
   ECB : string
-  
+  Shot : bool
 
   rule m_initialRot = 
     yield world.Jeep.Value.Rotation
@@ -326,12 +325,14 @@ entity ControllerRazor= {
       yield true
     else
       yield false
-
+  
+  (*
   rule Trigger =
     yield Trigger
 
   rule Bumper =
     yield Bumper
+  *)
 
   rule ECB = 
     if prev then
@@ -372,6 +373,7 @@ entity ControllerRazor= {
     other = false
     prev = false
     ECB = ""
+    Shot = false
   }
 }
 
