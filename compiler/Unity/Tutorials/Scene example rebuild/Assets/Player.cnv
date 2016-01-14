@@ -36,7 +36,6 @@ entity Equipment = {
 
   rule NotActiveFlashs, sap = 
     wait AllFlashs.Count > 0 
-    Debug.Log("change for flashs")
     let j = 
       [for a in AllFlashs do
        where (not ActiveFlashs.Contains(a))
@@ -229,7 +228,6 @@ entity Equipment = {
     let AllGunslist = x @ y
 
     if ac.Count = 2 then
-      Debug.Log("2 guns")
       let z = [flashL.name;flashR.name]
       let NAF = [new Light(pl.[0]);new Light(pl.[1])]
 
@@ -396,7 +394,7 @@ entity Gun = {
     yield DamagePerBullet
     wait false
 
-  rule Shoot =
+  rule Shoot =  
    wait GunController.Shot && TypeWeapon <> "Bazooka"
    if (AmmoAct.InMagazine > 0 && not AmmoAct.Reloading) then
      if (not Automatic) then 
@@ -414,14 +412,14 @@ entity Gun = {
     if (KeyboardShooting && AmmoAct.InMagazine > 0 && not AmmoAct.Reloading) then
       let camera = UnityEngine.Camera.main
       let Ray = camera.ScreenPointToRay(Input.mousePosition)
-      yield true, new BazookaBullet(Ray.origin, Ray.direction, AmmoAct.ExplosionForce, AmmoAct.ExplosionRadius, AmmoAct.ExplosionUpwardForce, DamagePerBullet) :: BazookaBullets
+      yield true, new BazookaBullet(Ray.origin, Ray.direction, AmmoAct.ExplosionRadius, DamagePerBullet) :: BazookaBullets
       yield false, BazookaBullets  
       wait not GunController.Shot
     elif(not KeyboardShooting && AmmoAct.InMagazine > 0 && not AmmoAct.Reloading) then
       let razer = Razer 
       let razerDirection = razer.transform.forward
       let razerPosition = razer.transform.position
-      yield true, new BazookaBullet(razerPosition+razerDirection*1.2f,razerDirection, AmmoAct.ExplosionForce, AmmoAct.ExplosionRadius, AmmoAct.ExplosionUpwardForce, DamagePerBullet) :: BazookaBullets
+      yield true, new BazookaBullet(razerPosition+razerDirection*1.2f,razerDirection, AmmoAct.ExplosionRadius, DamagePerBullet) :: BazookaBullets
       yield false, BazookaBullets
       wait not GunController.Shot
 
@@ -471,7 +469,7 @@ entity Gun = {
 
   rule AmmoAct.GC = 
     yield Some GunController
-
+     
   rule Rel, OoAs = 
     yield AmmoAct.relo, AmmoAct.ooas
      
@@ -508,9 +506,7 @@ entity Ammo = {
   MagazineSize : int
   ReloadDuration : float
   TypeWeapon : string
-  ExplosionForce : float
   ExplosionRadius : float
-  ExplosionUpwardForce : float
   relo : bool
   ooas : bool
 
@@ -566,9 +562,7 @@ entity Ammo = {
     ReloadDuration = 0.0f
     MagazineSize = 0
     TypeWeapon = ""
-    ExplosionForce = 30.0f
-    ExplosionRadius = 30.0f
-    ExplosionUpwardForce = 5.0f
+    ExplosionRadius = 15.0f
     relo = false
     ooas = false
   }
@@ -578,9 +572,6 @@ entity BazookaBullet = {
   inherit UnityBazookaBullet
   cnt : float 
   transforw : Vector3
-  explosionForce : float
-  explosionRadius : float
-  explosionUpwardForce : float
   gunDamage : float
 
   rule Frce, cnt = 
@@ -592,30 +583,15 @@ entity BazookaBullet = {
     wait Destroyed
     yield true
 
-  rule ExplosionForce =
-    yield explosionForce
-    wait false
-
-  rule ExplosionRadius =
-    yield explosionRadius
-    wait false
-
-  rule ExplosionUpwardForce =
-    yield explosionUpwardForce
-    wait false
-
   rule GunDamage =
     yield gunDamage
     wait false
 
-  Create(pos : Vector3, directi : Vector3, force : float, radius : float, upwardForce : float, damage : float) = 
+  Create(pos : Vector3, directi : Vector3, force : float, damage : float) = 
   {
-    Base= UnityBazookaBullet.Instantiate(pos, "BazookaBullet", force, radius, upwardForce, damage)
+    Base= UnityBazookaBullet.Instantiate(pos, "BazookaBullet", force, damage)
     cnt = 0.0f
     transforw = directi
-    explosionForce = force
-    explosionRadius = radius
-    explosionUpwardForce = upwardForce
     gunDamage = damage
   }
 }

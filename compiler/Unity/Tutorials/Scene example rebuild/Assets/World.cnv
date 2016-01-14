@@ -103,7 +103,6 @@ worldEntity World = {
        where c.Active
        select (c.NameOfBoR)]
     if a.Count > 0 then
-      Debug.Log(a.Head)
       yield a.Head
       yield ""
 

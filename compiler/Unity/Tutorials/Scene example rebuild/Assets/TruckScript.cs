@@ -136,8 +136,6 @@ public class TruckScript : MonoBehaviour
           counter++;
           if (a.Item2 < totscore && added == 0)
           {
-            Debug.Log("NameNotSetYet");
-            Debug.Log("counter" + counter);
             PlayerPrefs.SetString("pos" + counter.ToString(), "NameNotSetYet"); // pos1 + NameNotSetUet
             PlayerPrefs.SetInt("scor" + counter, totscore);
             added = counter;
@@ -261,7 +259,6 @@ public class TruckScript : MonoBehaviour
   {
     get
     {
-      Debug.Log("accel " + Input.GetAxisRaw("SW_Joy0Y"));
       if (Input.GetAxisRaw("SW_Joy0Y") < 0.0f)
       {
         return 0.0f;
@@ -294,14 +291,8 @@ public class TruckScript : MonoBehaviour
         collidedWithThisFrame.Add(hitZombie);
         if (collision.relativeVelocity.magnitude > 10.0f)
         {
-          hitZombie.CollisionDirection = -collision.relativeVelocity.normalized;
-          hitZombie.Force = collision.relativeVelocity.magnitude;
-          hitZombie.HitCollider = collision.collider;
-          hitZombie.HitTransform = collision.transform;
-          hitZombie.HitRigidbody = collision.rigidbody;
-          hitZombie.CollidedWithCar = true;
-          hitZombie.IsHitByForce = true;
-
+          hitZombie.GetHit(-collision.relativeVelocity.normalized, collision.transform, collision.rigidbody, 
+                           collision.collider, collision.relativeVelocity.magnitude / 30.0f, true, 2);
 
           if (!hitZombie.Dead)
           {
@@ -315,7 +306,7 @@ public class TruckScript : MonoBehaviour
       CarHP -= collision.relativeVelocity.magnitude / 100;
       CarHPChanged = collision.relativeVelocity.magnitude;
     }
-  }
+    }
   public float tim;
   public float Dama
   {
@@ -328,7 +319,7 @@ public class TruckScript : MonoBehaviour
         tim = AudioS.clip.length;
         CarHPChanged = 0.0f;
         AudioS.Play();
-      }
+  }
       else
       {
         if (CarHPChanged > 1.0f)
@@ -378,4 +369,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                               
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

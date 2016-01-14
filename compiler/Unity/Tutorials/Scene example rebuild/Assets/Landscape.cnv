@@ -60,7 +60,6 @@ entity Repair = {
   rule RepairProgressBar.Value.Destroyed, RepairProgressBar, Refill_Resources = 
     wait RepairProgressBar.IsSome
     if RepairProgressBar.Value.Finished then
-      Debug.Log("finished all. add resources now")
       yield true, None, true
 
   rule RepairProgressBar.Value.startprogress, RepairProgressBar.Value.pspeed = 

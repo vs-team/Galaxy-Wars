@@ -123,7 +123,7 @@ public class UnityGun : MonoBehaviour
       if (shot)
       {
         gunShot.Play();
-        RaycastHit hitObject;
+        RaycastHit hitObject; 
         int layermask = 1 << 8; //Layermask of zombies
         if (keyboardShooting && name != "Bazooka")
         {
@@ -132,7 +132,7 @@ public class UnityGun : MonoBehaviour
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetShot(ray.direction, hitObject.transform, hitObject.rigidbody,
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, gunPower / 30.0f, false, 2);
             }
           }
@@ -146,20 +146,10 @@ public class UnityGun : MonoBehaviour
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetShot(razerDirection, hitObject.transform, hitObject.rigidbody,
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, (gunPower / 30.0f), false, 2);
             }
           }
-          else
-            Debug.Log("Nothing has been hit");
-        }
-        else if (keyboardShooting && name == "Bazooka")
-        {
-          Debug.Log("C# bazooka shot"); //Is handled in CNV
-        }
-        else if (!keyboardShooting && name == "Bazooka")
-        {
-          Debug.Log("Bazooka shot"); //Is handled in CNV
         }
       }
     }
@@ -174,8 +164,8 @@ public class UnityGun : MonoBehaviour
     {
       var x = this.transform.localPosition;
       this.transform.localPosition = x;
-    }
   }
+}                                                      
   public Vector3 Rotation
   {
     get
@@ -188,4 +178,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

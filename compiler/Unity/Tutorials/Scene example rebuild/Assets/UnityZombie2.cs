@@ -27,6 +27,8 @@ public class UnityZombie2 : MonoBehaviour
   private bool collidedWithCar;
   private float life = 100.0f;
   private int forceMode;
+  private bool waitingOnStandstill;
+  private Rigidbody lastHitRigidBody;
 
   private float force;
   private float damage;
@@ -168,7 +170,24 @@ public class UnityZombie2 : MonoBehaviour
         Agent.speed = 0.0f;
     }
   }
-
+  public bool WaitingOnStandstill
+  {
+    get { return waitingOnStandstill; }
+    set
+    {
+      waitingOnStandstill = value;
+      if(!waitingOnStandstill)
+      {
+        Debug.Log("Standing up");
+        Ragdolled = false;
+      }
+    }
+  }
+  public Rigidbody LastHitRigidBody
+  {
+    get { return lastHitRigidBody; }
+    set { lastHitRigidBody = value; }
+  }
   public bool Destroyed
   {
     get { return destroyed; }
@@ -280,56 +299,12 @@ public class UnityZombie2 : MonoBehaviour
         if (/*!collidedWithThisFrame.Contains(hitZombie) && */!hitZombie.CollidedWithCar)
         {
           //collidedWithThisFrame.Add(hitZombie);
-        
-          hitZombie.CollisionDirection = -collision.relativeVelocity.normalized;
-          hitZombie.Force = collision.relativeVelocity.magnitude;
-          hitZombie.HitCollider = collision.collider;
-          hitZombie.HitTransform = collision.transform;
-          hitZombie.HitRigidbody = collision.rigidbody;
-          hitZombie.CollidedWithCar = true;
-          hitZombie.IsHitByForce = true;
+          hitZombie.GetHit(-collision.relativeVelocity.normalized, collision.transform, collision.rigidbody, collision.collider, collision.relativeVelocity.magnitude, true, 2);
         }
       }
     }
   }
-
-  public bool ApplyForceOnZombie //Sets the zombie as ragdoll and applies a force in a direction
-  {
-    get { return applyForceOnZombie; }
-    set
-    {
-      applyForceOnZombie = value;
-      if ((collidedWithCar || dead) && ApplyForceOnZombie)
-      {
-        //*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
-        if (gameObject.name == hitCollider.GetComponentInParent<RagdollHelper>().name)
-        {
-          RagdollHelper helper = hitCollider.GetComponentInParent<RagdollHelper>();
-          helper.ragdolled = true;
-          impactTargets.Add(hitRigidbody); //set the impact target to whatever the ray hit
-          impacts.Add(collisionDirection * force); //impact direction also according to the ray
-          impactEndTimes.Add(Time.time + 0.3f); //Apply the force for <float> length
-          impactModes.Add(forceMode);
-        }
-        //*/
-        ApplyForceOnZombie = false;
-      }
-      else if (!dead && ApplyForceOnZombie)
-      {
-        string hitBodyPartName = hitTransform.name;
-        if (hitBodyPartName.Contains("CATRigLArm"))
-          motor1.SetBool("shot_Left", true);
-        else if (hitBodyPartName.Contains("CATRigRArm"))
-          motor1.SetBool("shot_Right", true);
-        else
-          motor1.SetBool("shot", true);
-
-        ApplyForceOnZombie = false;
-      }
-    }
-  }
-
-  public void GetShot(Vector3 ImpactDirection, Transform BodyPartTransform, Rigidbody hitRigidbody, 
+  public void GetHit(Vector3 ImpactDirection, Transform BodyPartTransform, Rigidbody hitRigidbody, 
                       Collider collider, float impactForce, bool carCollision, int forceMode)
   {
     CollisionDirection = ImpactDirection;
@@ -338,8 +313,62 @@ public class UnityZombie2 : MonoBehaviour
     HitCollider = collider;
     Force = impactForce;
     CollidedWithCar = carCollision;
-    this.forceMode = forceMode; //Determines ForceMode.mode. 2 = gun, 0/1/5 = bazooka
+    this.forceMode = forceMode;
+    IsHitByForce = true;
   }
+
+  //*
+  public bool Ragdolled
+  {
+    get { return GetComponent<RagdollHelper>().ragdolled; }
+    set
+    {
+      GetComponent<RagdollHelper>().ragdolled = value;
+      if (GetComponent<RagdollHelper>().ragdolled)
+        Agent.speed = 0.0f;
+    }
+  }//*/
+  /*
+  public bool Ragdolled
+  {
+    get { return true; }
+    set { }
+  }//*/
+  public bool ApplyForceOnZombie //Sets the zombie as ragdoll and applies a force in a direction
+  {
+    get { return applyForceOnZombie; }
+    set
+    {
+      applyForceOnZombie = value;
+      if ((collidedWithCar || dead) && applyForceOnZombie)
+      {
+        //*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
+        if (gameObject.name == hitCollider.GetComponentInParent<RagdollHelper>().name)
+        {
+          Ragdolled = true;
+          impactTargets.Add(hitRigidbody); //set the impact target to whatever the ray hit
+          impacts.Add(collisionDirection * force); //impact direction also according to the ray
+          impactEndTimes.Add(Time.time + 0.3f); //Apply the force for <float> length
+          impactModes.Add(forceMode);
+          
+        }
+        //*/
+        ApplyForceOnZombie = false;
+      }
+      else if (!dead && applyForceOnZombie)
+      {
+        string hitBodyPartName = hitTransform.name;
+        if (hitBodyPartName.Contains("CATRigLArm"))
+          motor1.SetBool("shot_Left", true);
+        else if (hitBodyPartName.Contains("CATRigRArm"))
+          motor1.SetBool("shot_Right", true);
+        else
+          motor1.SetBool("shot", true);
+        ApplyForceOnZombie = false;
+      }
+    }
+  }
+
 
   void Update() 
   {
@@ -350,22 +379,36 @@ public class UnityZombie2 : MonoBehaviour
       {
         if (Time.time < impactEndTimes[i])
         {
+          switch (impactModes[i])
+          {
+            case 0:
+              impactTargets[i].AddForce(impacts[i],ForceMode.Force);
+              break;
+            case 1:
+              impactTargets[i].AddForce(impacts[i],ForceMode.Impulse);
+              break;
+            case 2:
           impactTargets[i].AddForce(impacts[i], ForceMode.VelocityChange);
+              break;
+            case 5:
+              impactTargets[i].AddForce(impacts[i], ForceMode.Acceleration);
+              break;
+          }
         }
         else
         {
+          if(!dead)
+          {
+            LastHitRigidBody = hitRigidbody;
+            Debug.Log("Setting last hit");
+            WaitingOnStandstill = true;
+          }//todo: adjust car collision force, bazooka force
           impactEndTimes.RemoveAt(i);
           impactTargets.RemoveAt(i);
           impacts.RemoveAt(i);
+          impactModes.RemoveAt(i);
         }
       }
     }
-    //Pressing space makes the character get up, assuming that the character root has
-    //a RagdollHelper script
-    /*if (Input.GetKeyDown(KeyCode.Space))
-    {
-      RagdollHelper helper = GetComponent<RagdollHelper>();
-      helper.ragdolled = false;
-    }*/
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
