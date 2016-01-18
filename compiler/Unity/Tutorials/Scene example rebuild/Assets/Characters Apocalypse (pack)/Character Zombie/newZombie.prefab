@@ -2179,7 +2179,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -2199,6 +2199,12 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  impactModes: 
+  Audio_Attack1: {fileID: 0}
+  Audio_Attack2: {fileID: 0}
+  Audio_Walk: {fileID: 0}
+  Audio_Shout: {fileID: 0}
+  tim: 0
 --- !u!114 &11454328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2935,6 +2941,10 @@ Prefab:
       propertyPath: Agent
       value: 
       objectReference: {fileID: 19566554}
+    - target: {fileID: 0}
+      propertyPath: m_UpdateMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113144}

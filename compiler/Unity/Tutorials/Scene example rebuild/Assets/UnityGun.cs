@@ -133,8 +133,7 @@ public class UnityGun : MonoBehaviour
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
               GameObject bloodFX = Instantiate(Resources.Load("Blood"), hitObject.transform.position, Quaternion.FromToRotation(Vector3.zero,ray.direction)) as GameObject;
-              ParticleSystem bloodPS = bloodFX.GetComponent<ParticleSystem>();
-              Debug.DrawLine(ray.origin, hitObject.transform.position);
+              ParticleSystem bloodPS = bloodFX.GetComponentInChildren<ParticleSystem>();
               Destroy(bloodFX, bloodPS.duration);
               hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, gunPower / 30.0f, false, 2);
@@ -151,8 +150,7 @@ public class UnityGun : MonoBehaviour
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
               GameObject bloodFX = Instantiate(Resources.Load("Blood"), hitObject.transform.position, Quaternion.identity) as GameObject;
-              Debug.DrawLine(transform.position, hitObject.transform.position);
-              ParticleSystem bloodPS = bloodFX.GetComponent<ParticleSystem>();
+              ParticleSystem bloodPS = bloodFX.GetComponentInChildren<ParticleSystem>();
               Destroy(bloodFX, bloodPS.duration);
               hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, (gunPower / 30.0f), false, 2);
@@ -186,4 +184,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
