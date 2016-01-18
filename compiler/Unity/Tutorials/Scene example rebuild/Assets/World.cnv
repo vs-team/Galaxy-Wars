@@ -65,7 +65,7 @@ worldEntity World = {
       [for a in Zombies do
        where (a.Destroyed = false)
        select a]
-    yield zmbies
+    yield zmbies  
 
   rule ZombiegroupDest, Landscapes = 
     wait 0.5f
