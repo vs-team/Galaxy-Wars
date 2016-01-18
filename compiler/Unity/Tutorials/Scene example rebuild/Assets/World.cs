@@ -3892,6 +3892,7 @@ public ControllerRazor(System.String joystickName)
 		other = false;
 		next = false;
 		SixenseHand = SixenseHand.Instantiate(joystickName);
+		Shot = false;
 		JoystickName = joystickName;
 		ECB = "";
 		
@@ -3915,9 +3916,7 @@ public ControllerRazor(System.String joystickName)
  }
 	public System.Boolean RaycastBool{  get { return SixenseHand.RaycastBool; }
  }
-	public System.Boolean Shot{  get { return SixenseHand.Shot; }
-  set{SixenseHand.Shot = value; }
- }
+	public System.Boolean Shot;
 	public SixenseHand SixenseHand;
 	public System.Boolean Trigger{  get { return SixenseHand.Trigger; }
   set{SixenseHand.Trigger = value; }
@@ -3968,8 +3967,6 @@ frame = World.frame;
 		this.Rule3(dt, world);
 		this.Rule4(dt, world);
 		this.Rule5(dt, world);
-		this.Rule6(dt, world);
-		this.Rule7(dt, world);
 	}
 
 
@@ -4147,34 +4144,10 @@ return;
 	{
 
 	case -1:
-	Bumper = Bumper;
-	s4 = -1;
-return;	
-	default: return;}}
-	
-
-	int s5=-1;
-	public void Rule5(float dt, World world){ 
-	switch (s5)
-	{
-
-	case -1:
-	Trigger = Trigger;
-	s5 = -1;
-return;	
-	default: return;}}
-	
-
-	int s6=-1;
-	public void Rule6(float dt, World world){ 
-	switch (s6)
-	{
-
-	case -1:
 	if(!(!(((world.Jeep.Value.Invullen) == (true)))))
 	{
 
-	s6 = -1;
+	s4 = -1;
 return;	}else
 	{
 
@@ -4189,23 +4162,23 @@ return;	}else
 	goto case 1;	}
 	case 0:
 	Shot = true;
-	s6 = -1;
+	s4 = -1;
 return;
 	case 1:
 	Shot = false;
-	s6 = -1;
+	s4 = -1;
 return;	
 	default: return;}}
 	
 
-	int s7=-1;
-	public void Rule7(float dt, World world){ 
-	switch (s7)
+	int s5=-1;
+	public void Rule5(float dt, World world){ 
+	switch (s5)
 	{
 
 	case -1:
 	m_initialRot = world.Jeep.Value.Rotation;
-	s7 = -1;
+	s5 = -1;
 return;	
 	default: return;}}
 	
@@ -5703,4 +5676,4 @@ frame = World.frame;
 
 
 }
-}                                                                                                                                                    
+}                  
