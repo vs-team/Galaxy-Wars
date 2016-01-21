@@ -4376,18 +4376,11 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9516488
@@ -4400,18 +4393,11 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'CATRigHub003Bone001'\n\tTransform 'CATRigRArmDigit22'\n\tTransform
-    'CATRigRLegDigit11'\n\tTransform 'CATRigHub003'\n\tTransform 'CATRigRArmCollarbone'\n\tTransform
-    'CATRigRArm21'\n\tTransform 'CATRigSpine2'\n\tTransform 'CATRigRArmDigit43'\n\tTransform
-    'CATRigLArmDigit23'\n\tTransform 'CATRigLArmDigit42'\n\tand more ...\n\tFrom animation
-    clip 'Attack(1)'\n\tFrom animation clip 'Attack(4)'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Shout'\n\tFrom animation clip 'Walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11415766
@@ -4428,6 +4414,12 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  impactModes: 
+  Audio_Attack1: {fileID: 0}
+  Audio_Attack2: {fileID: 0}
+  Audio_Walk: {fileID: 0}
+  Audio_Shout: {fileID: 0}
+  tim: 0
 --- !u!114 &11447794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4479,6 +4471,12 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  impactModes: 
+  Audio_Attack1: {fileID: 0}
+  Audio_Attack2: {fileID: 0}
+  Audio_Walk: {fileID: 0}
+  Audio_Shout: {fileID: 0}
+  tim: 0
 --- !u!135 &13520820
 SphereCollider:
   m_ObjectHideFlags: 1

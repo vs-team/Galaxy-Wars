@@ -1225,7 +1225,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113322}
   m_LocalRotation: {x: -.999881744, y: 1.62901415e-07, z: .0153791364, w: -2.50557952e-09}
-  m_LocalPosition: {x: -.0299999993, y: 1.59200001, z: -1.05900002}
+  m_LocalPosition: {x: -.0209999997, y: 1.59200001, z: -.778999984}
   m_LocalScale: {x: .330000013, y: .330000013, z: .300000012}
   m_Children: []
   m_Father: {fileID: 22466084}
@@ -3281,8 +3281,8 @@ MonoBehaviour:
       hasFloor: 0
       indexSky: 4
       indexFloor: 4
-    nearClip: .300000012
-    farClip: 1000
+    nearClip: .00400000019
+    farClip: 400
     fov: 60
     clusterType: 0
     cameraIndexOffset: 0

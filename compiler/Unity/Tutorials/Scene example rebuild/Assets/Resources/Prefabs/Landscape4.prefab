@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &106616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 485712}
+  m_Layer: 0
+  m_Name: StreetlightSpawnPoint4
+  m_TagString: Streetlight
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &107844
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +174,21 @@ GameObject:
   m_Layer: 0
   m_Name: Building_02_Rundown
   m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &136240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 401872}
+  m_Layer: 0
+  m_Name: StreetlightSpawnPoint3
+  m_TagString: Streetlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,6 +391,48 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &194476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 466488}
+  m_Layer: 0
+  m_Name: StreetlightSpawnPoint2
+  m_TagString: Streetlight
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &196572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 465946}
+  m_Layer: 0
+  m_Name: StreetlightSpawnPoint1
+  m_TagString: Streetlight
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &401872
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136240}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: -1.62920685e-07}
+  m_LocalPosition: {x: 12.4300003, y: -7.0999999, z: 13}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 420682}
+  m_RootOrder: 16
 --- !u!4 &402722
 Transform:
   m_ObjectHideFlags: 1
@@ -411,6 +483,10 @@ Transform:
   - {fileID: 466762}
   - {fileID: 471534}
   - {fileID: 497548}
+  - {fileID: 485712}
+  - {fileID: 401872}
+  - {fileID: 466488}
+  - {fileID: 465946}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &424854
@@ -512,6 +588,30 @@ Transform:
   - {fileID: 424960}
   m_Father: {fileID: 420682}
   m_RootOrder: 6
+--- !u!4 &465946
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196572}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: -1.62920685e-07}
+  m_LocalPosition: {x: -19.5699997, y: -7.0999999, z: -17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 420682}
+  m_RootOrder: 18
+--- !u!4 &466488
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194476}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: -1.62920685e-07}
+  m_LocalPosition: {x: 12.4300003, y: -7.0999999, z: -17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 420682}
+  m_RootOrder: 17
 --- !u!4 &466762
 Transform:
   m_ObjectHideFlags: 1
@@ -584,6 +684,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 420682}
   m_RootOrder: 10
+--- !u!4 &485712
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106616}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: -1.62920685e-07}
+  m_LocalPosition: {x: -19.5699997, y: -7.0999999, z: 11}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 420682}
+  m_RootOrder: 15
 --- !u!4 &486482
 Transform:
   m_ObjectHideFlags: 1

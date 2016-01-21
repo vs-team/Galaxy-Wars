@@ -16,9 +16,9 @@ using System.Runtime.InteropServices;
 /// </summary>
 public enum SixenseHands
 {
-	UNKNOWN = 0,
-	LEFT = 1,
-	RIGHT = 2,
+  UNKNOWN = 0,
+  LEFT = 1,
+  RIGHT = 2,
 }
 
 /// <summary>
@@ -29,14 +29,14 @@ public enum SixenseHands
 /// </remarks>
 public enum SixenseButtons
 {
-	START = 1,
-	ONE = 32,
-	TWO = 64,
-	THREE = 8,
-	FOUR = 16,
-	BUMPER = 128,
-	JOYSTICK = 256,
-	TRIGGER = 512,
+  START = 1,
+  ONE = 32,
+  TWO = 64,
+  THREE = 8,
+  FOUR = 16,
+  BUMPER = 128,
+  JOYSTICK = 256,
+  TRIGGER = 512,
 }
 
 public class Controller
@@ -74,7 +74,18 @@ public class Controller
   /// <summary>
   /// The controller position in Unity coordinates.
   /// </summary>
-  public Vector3 Position { get { return new Vector3(m_Position.x, m_Position.y, -m_Position.z); } }
+  public Vector3 Position
+  {
+    get
+    {
+      return new Vector3(m_Position.x, m_Position.y, -m_Position.z);
+    }
+    set
+    {
+      m_Position = value;
+    }
+
+  }
 
   /// <summary>
   /// The raw controller position value.
@@ -84,7 +95,14 @@ public class Controller
   /// <summary>
   /// The controller rotation in Unity coordinates.
   /// </summary>
-  public Quaternion Rotation { get { return new Quaternion(-m_Rotation.x, -m_Rotation.y, m_Rotation.z, m_Rotation.w); } }
+  public Quaternion Rotation
+  {
+    get
+    {
+      return new Quaternion(-m_Rotation.x, -m_Rotation.y, m_Rotation.z, m_Rotation.w);
+    }
+    set { m_Rotation = value; }
+  }
 
   /// <summary>
   /// The raw controller rotation value.
@@ -186,201 +204,201 @@ public class Controller
 /// </remarks>
 public class SixenseInput : MonoBehaviour
 {
-	/// <summary>
-	/// Controller objects provide access to Sixense controllers data.
-	/// </summary>
+  /// <summary>
+  /// Controller objects provide access to Sixense controllers data.
+  /// </summary>
 
-	/// <summary>
-	/// Max number of controllers allowed by driver.
-	/// </summary>
-	public const uint MAX_CONTROLLERS = 4;
-	
-	/// <summary>
-	/// Access to Controller objects.
-	/// </summary>
-	public static Controller[] Controllers { get { return m_Controllers; } }
-	
-	/// <summary>
-	/// Gets the Controller object bound to the specified hand.
-	/// </summary>
-	public static Controller GetController( SixenseHands hand )
-	{
-		for ( int i = 0; i < MAX_CONTROLLERS; i++ )
-		{
-			if ( ( m_Controllers[i] != null ) && ( m_Controllers[i].Hand == hand ) )
-			{
-				return m_Controllers[i];
-			}
-		}
-		
-		return null;
-	}
-	
-	/// <summary>
-	/// Returns true if the base for zero-based index i is connected.
-	/// </summary>
-	public static bool IsBaseConnected( int i )
-	{
-		return ( SixensePlugin.sixenseIsBaseConnected( i ) != 0 );
-	}
-	
-	/// <summary>
-	/// Enable or disable the controller manager.
-	/// </summary>
-	public static bool ControllerManagerEnabled = true;
-	
-	private enum ControllerManagerState
-	{
-		NONE,
-		BIND_CONTROLLER_ONE,
-		BIND_CONTROLLER_TWO,
-	}
-	
-	private static Controller[] m_Controllers = new Controller[MAX_CONTROLLERS];
-	private ControllerManagerState m_ControllerManagerState = ControllerManagerState.NONE;
-	
-	/// <summary>
-	/// Initialize the sixense driver and allocate the controllers.
-	/// </summary>
-	void Start()
-	{
-		SixensePlugin.sixenseInit();
-		
-		for ( int i = 0; i < MAX_CONTROLLERS; i++ )
-		{
-			m_Controllers[i] = new Controller();
-		}
+  /// <summary>
+  /// Max number of controllers allowed by driver.
+  /// </summary>
+  public const uint MAX_CONTROLLERS = 4;
 
-		// don't let the mobile device sleep
-		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-	}
-	
-	/// <summary>
-	/// Update the static controller data once per frame.
-	/// </summary>
-	void Update()
-	{
-		// update controller data
-		uint numControllersBound = 0;
-		uint numControllersEnabled = 0;
-		SixensePlugin.sixenseControllerData cd = new SixensePlugin.sixenseControllerData();
-		for ( int i = 0; i < MAX_CONTROLLERS; i++ )
-		{
-			if ( m_Controllers[i] != null )
-			{
-				if ( SixensePlugin.sixenseIsControllerEnabled( i ) == 1 )
-				{
-					SixensePlugin.sixenseGetNewestData( i, ref cd );
-					m_Controllers[i].Update( ref cd );
-					m_Controllers[i].SetEnabled( true );
-					numControllersEnabled++;
-					if ( ControllerManagerEnabled && ( SixenseInput.Controllers[i].Hand != SixenseHands.UNKNOWN ) )
-					{
-						numControllersBound++;
-					}
-				}
-				else
-				{
-					m_Controllers[i].SetEnabled( false );
-				}
-			}
-		}
-		
-		// update controller manager
-		if ( ControllerManagerEnabled )
-		{
-			if ( numControllersEnabled < 2 )
-			{
-				m_ControllerManagerState = ControllerManagerState.NONE;
-			}
-				
-			switch( m_ControllerManagerState )
-			{
-			case ControllerManagerState.NONE:
-				{
-					if ( IsBaseConnected( 0 ) && ( numControllersEnabled > 1 ) )
-					{
-						if ( numControllersBound == 0 )
-						{
-							m_ControllerManagerState = ControllerManagerState.BIND_CONTROLLER_ONE;
-						}
-						else if ( numControllersBound == 1 )
-						{
-							m_ControllerManagerState = ControllerManagerState.BIND_CONTROLLER_TWO;
-						}
-					}
-				}
-				break;
-			case ControllerManagerState.BIND_CONTROLLER_ONE:
-				{
-					if ( numControllersBound > 0 )
-					{
-						m_ControllerManagerState = ControllerManagerState.BIND_CONTROLLER_TWO;
-					}
-					else
-					{
-						for ( int i = 0; i < MAX_CONTROLLERS; i++ )
-						{
-							if ( ( m_Controllers[i] != null ) && Controllers[i].GetButtonDown( SixenseButtons.TRIGGER ) && ( Controllers[i].Hand == SixenseHands.UNKNOWN ) )
-							{
-								Controllers[i].HandBind = SixenseHands.LEFT;
-								SixensePlugin.sixenseAutoEnableHemisphereTracking( i );
-								m_ControllerManagerState = ControllerManagerState.BIND_CONTROLLER_TWO;
-								break;
-							}
-						}
-					}
-				}
-				break;
-			case ControllerManagerState.BIND_CONTROLLER_TWO:
-				{
-					if ( numControllersBound > 1 )
-					{
-						m_ControllerManagerState = ControllerManagerState.NONE;
-					}
-					else
-					{
-						for ( int i = 0; i < MAX_CONTROLLERS; i++ )
-						{
-							if ( ( m_Controllers[i] != null ) && Controllers[i].GetButtonDown( SixenseButtons.TRIGGER ) && ( Controllers[i].Hand == SixenseHands.UNKNOWN ) )
-							{
-								Controllers[i].HandBind = SixenseHands.RIGHT;
-								SixensePlugin.sixenseAutoEnableHemisphereTracking( i );
-								m_ControllerManagerState = ControllerManagerState.NONE;
-								break;
-							}
-						}
-					}
-				}
-				break;
-			default:
-				break;
-			}
-		}
-	}
-	
-	/// <summary>
-	/// Updates the controller manager GUI.
-	/// </summary>
-	void OnGUI()
-	{
-		if ( ControllerManagerEnabled && ( m_ControllerManagerState != ControllerManagerState.NONE ) )
-		{
-			uint boxWidth = 300;
-			uint boxHeight = 24;
-			string boxText = ( m_ControllerManagerState == ControllerManagerState.BIND_CONTROLLER_ONE ) ?
-							 "Point left controller at base and pull trigger." :
-							 "Point right controller at base and pull trigger.";
-			GUI.Box( new Rect( ( ( Screen.width / 2 ) - ( boxWidth / 2 ) ), ( ( Screen.height / 2 ) - ( boxHeight / 2 ) ), boxWidth, boxHeight ), boxText );
-		}
-	}
-	
-	/// <summary>
-	/// Exit sixense when the application quits.
-	/// </summary>
-	void OnApplicationQuit()
-	{
-		SixensePlugin.sixenseExit();
-	}
+  /// <summary>
+  /// Access to Controller objects.
+  /// </summary>
+  public static Controller[] Controllers { get { return m_Controllers; } }
+
+  /// <summary>
+  /// Gets the Controller object bound to the specified hand.
+  /// </summary>
+  public static Controller GetController(SixenseHands hand)
+  {
+    for (int i = 0; i < MAX_CONTROLLERS; i++)
+    {
+      if ((m_Controllers[i] != null) && (m_Controllers[i].Hand == hand))
+      {
+        return m_Controllers[i];
+      }
+    }
+
+    return null;
+  }
+
+  /// <summary>
+  /// Returns true if the base for zero-based index i is connected.
+  /// </summary>
+  public static bool IsBaseConnected(int i)
+  {
+    return (SixensePlugin.sixenseIsBaseConnected(i) != 0);
+  }
+
+  /// <summary>
+  /// Enable or disable the controller manager.
+  /// </summary>
+  public static bool ControllerManagerEnabled = true;
+
+  private enum ControllerManagerState
+  {
+    NONE,
+    BIND_CONTROLLER_ONE,
+    BIND_CONTROLLER_TWO,
+  }
+
+  private static Controller[] m_Controllers = new Controller[MAX_CONTROLLERS];
+  private ControllerManagerState m_ControllerManagerState = ControllerManagerState.NONE;
+
+  /// <summary>
+  /// Initialize the sixense driver and allocate the controllers.
+  /// </summary>
+  void Start()
+  {
+    SixensePlugin.sixenseInit();
+
+    for (int i = 0; i < MAX_CONTROLLERS; i++)
+    {
+      m_Controllers[i] = new Controller();
+    }
+
+    // don't let the mobile device sleep
+    Screen.sleepTimeout = SleepTimeout.NeverSleep;
+  }
+
+  /// <summary>
+  /// Update the static controller data once per frame.
+  /// </summary>
+  void Update()
+  {
+    // update controller data
+    uint numControllersBound = 0;
+    uint numControllersEnabled = 0;
+    SixensePlugin.sixenseControllerData cd = new SixensePlugin.sixenseControllerData();
+    for (int i = 0; i < MAX_CONTROLLERS; i++)
+    {
+      if (m_Controllers[i] != null)
+      {
+        if (SixensePlugin.sixenseIsControllerEnabled(i) == 1)
+        {
+          SixensePlugin.sixenseGetNewestData(i, ref cd);
+          m_Controllers[i].Update(ref cd);
+          m_Controllers[i].SetEnabled(true);
+          numControllersEnabled++;
+          if (ControllerManagerEnabled && (SixenseInput.Controllers[i].Hand != SixenseHands.UNKNOWN))
+          {
+            numControllersBound++;
+          }
+        }
+        else
+        {
+          m_Controllers[i].SetEnabled(false);
+        }
+      }
+    }
+
+    // update controller manager
+    if (ControllerManagerEnabled)
+    {
+      if (numControllersEnabled < 2)
+      {
+        m_ControllerManagerState = ControllerManagerState.NONE;
+      }
+
+      switch (m_ControllerManagerState)
+      {
+        case ControllerManagerState.NONE:
+          {
+            if (IsBaseConnected(0) && (numControllersEnabled > 1))
+            {
+              if (numControllersBound == 0)
+              {
+                m_ControllerManagerState = ControllerManagerState.BIND_CONTROLLER_ONE;
+              }
+              else if (numControllersBound == 1)
+              {
+                m_ControllerManagerState = ControllerManagerState.BIND_CONTROLLER_TWO;
+              }
+            }
+          }
+          break;
+        case ControllerManagerState.BIND_CONTROLLER_ONE:
+          {
+            if (numControllersBound > 0)
+            {
+              m_ControllerManagerState = ControllerManagerState.BIND_CONTROLLER_TWO;
+            }
+            else
+            {
+              for (int i = 0; i < MAX_CONTROLLERS; i++)
+              {
+                if ((m_Controllers[i] != null) && Controllers[i].GetButtonDown(SixenseButtons.TRIGGER) && (Controllers[i].Hand == SixenseHands.UNKNOWN))
+                {
+                  Controllers[i].HandBind = SixenseHands.LEFT;
+                  SixensePlugin.sixenseAutoEnableHemisphereTracking(i);
+                  m_ControllerManagerState = ControllerManagerState.BIND_CONTROLLER_TWO;
+                  break;
+                }
+              }
+            }
+          }
+          break;
+        case ControllerManagerState.BIND_CONTROLLER_TWO:
+          {
+            if (numControllersBound > 1)
+            {
+              m_ControllerManagerState = ControllerManagerState.NONE;
+            }
+            else
+            {
+              for (int i = 0; i < MAX_CONTROLLERS; i++)
+              {
+                if ((m_Controllers[i] != null) && Controllers[i].GetButtonDown(SixenseButtons.TRIGGER) && (Controllers[i].Hand == SixenseHands.UNKNOWN))
+                {
+                  Controllers[i].HandBind = SixenseHands.RIGHT;
+                  SixensePlugin.sixenseAutoEnableHemisphereTracking(i);
+                  m_ControllerManagerState = ControllerManagerState.NONE;
+                  break;
+                }
+              }
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  /// <summary>
+  /// Updates the controller manager GUI.
+  /// </summary>
+  void OnGUI()
+  {
+    if (ControllerManagerEnabled && (m_ControllerManagerState != ControllerManagerState.NONE))
+    {
+      uint boxWidth = 300;
+      uint boxHeight = 24;
+      string boxText = (m_ControllerManagerState == ControllerManagerState.BIND_CONTROLLER_ONE) ?
+               "Point left controller at base and pull trigger." :
+               "Point right controller at base and pull trigger.";
+      GUI.Box(new Rect(((Screen.width / 2) - (boxWidth / 2)), ((Screen.height / 2) - (boxHeight / 2)), boxWidth, boxHeight), boxText);
+    }
+  }
+
+  /// <summary>
+  /// Exit sixense when the application quits.
+  /// </summary>
+  void OnApplicationQuit()
+  {
+    SixensePlugin.sixenseExit();
+  }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                                                                

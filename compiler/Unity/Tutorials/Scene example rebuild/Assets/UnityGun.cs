@@ -123,7 +123,8 @@ public class UnityGun : MonoBehaviour
       if (shot)
       {
         gunShot.Play();
-        RaycastHit hitObject; 
+
+        RaycastHit hitObject;
         int layermask = 1 << 8; //Layermask of zombies
         if (keyboardShooting && name != "Bazooka")
         {
@@ -132,12 +133,12 @@ public class UnityGun : MonoBehaviour
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody, 
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody,
                                                                               hitObject.collider, gunPower / 30.0f, false, 2);
             }
           }
           else
-            Debug.Log("Nothing has been hit");
+            Debug.Log("No zombie hit by mouse");
         }
         else if (!keyboardShooting && name != "Bazooka")
         {
@@ -146,8 +147,33 @@ public class UnityGun : MonoBehaviour
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody, 
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody,
                                                                               hitObject.collider, (gunPower / 30.0f), false, 2);
+            }
+          }
+        }
+        layermask = 1 << 11; //Layermask of barrel
+        if (keyboardShooting)
+        {
+          Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+          if (Physics.Raycast(ray, out hitObject, 100, layermask))
+          {
+            if (hitObject.collider.GetComponent<explode>())
+            {
+              hitObject.collider.GetComponent<explode>().isHit = true;
+              Debug.Log("a barrel has been hit");
+            }
+          }
+        }
+        else if (!keyboardShooting)
+        {
+          Vector3 razerDirection = razer.transform.forward;
+          if(Physics.Raycast(transform.position, razerDirection, out hitObject, 100.0f, layermask))
+          {
+            if (hitObject.collider.GetComponent<explode>())
+            {
+              hitObject.collider.GetComponent<explode>().isHit = true;
+              Debug.Log("a barrel has been hit");
             }
           }
         }
@@ -164,8 +190,8 @@ public class UnityGun : MonoBehaviour
     {
       var x = this.transform.localPosition;
       this.transform.localPosition = x;
+    }
   }
-}                                                      
   public Vector3 Rotation
   {
     get
@@ -178,4 +204,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                            

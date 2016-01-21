@@ -8,6 +8,7 @@ entity Gasstation = {
   RepairZonE : Repair
   GroupZombies : [GroupZombie]
   ZombieSpawnpoints : [Transform]
+  Barrels : [Barrel]
   Counter : int
 
   rule GroupZombies, Counter = 
@@ -39,14 +40,31 @@ entity Gasstation = {
   rule world.Jeep.Value.CollisionWithModel = 
     yield world.Jeep.Value.CollisionWithModel
 
+  rule Barrels =
+    let x =
+      [for a in Barrels do
+       where (not a.Destroyed)
+       select a]
+    Debug.Log(x.Count)
+    yield x
+
+  rule Barrels = 
+    let x = 
+      [for a in Blocations do
+       select (new Barrel(a))]
+    yield x
+    wait false
+    
   Create(ps : Vector3) = {
     Base = UnityGasstation.Instantiate(ps)
     RepairZonE = new Repair(ps)
     GroupZombies = []
     ZombieSpawnpoints = []
+    Barrels = []
     Counter = 0
   }
 }
+
 entity Repair = {
   inherit UnityCheckpoint
   RepairProgressBar : Option<ProgressBar_1>
@@ -90,6 +108,33 @@ entity Repair = {
     Refill_Resources = false
   }
 }
+
+entity Barrel = {
+  inherit explode
+  Health : float
+
+  rule Destroyed = 
+    wait Explode 
+    yield true
+
+  rule Explode = 
+    wait Health < 0.1f
+    yield true
+    wait false
+
+  rule Health, isHit = 
+    wait isHit
+    yield Health - 10.0f, false
+    yield Health, false
+
+  Create(ps : Vector3) =
+  let r = Random.Range(1,3)
+  {
+    Base = explode.instantiate(ps, r)
+    Health = 20.0f
+  }
+}
+
 entity ProgressBar_1 = {
   inherit ProgressBarBehaviour
   num : int
@@ -106,6 +151,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
   Group : [GroupZombie]
   PickUps : [PickUp]
   Spawnpoints : [Transform]
+  Streetlights_cnv : [Streetlight]
 
   rule Group, PickUps, Spawnpoints = // spawning multiple groups on a single landscape
     wait Spawnpoints.Count > 0
@@ -133,12 +179,35 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
     yield sps
     wait false
 
+  rule Streetlights_cnv = 
+    let r = Random.Range(0,Streetlights.Count)
+    let p = Streetlights.[r]
+    yield [new Streetlight(p)]
+    wait false
+
   Create(pos : Vector3, ps : int) =
   {
   Base = UnityLandscape.Instantiate(pos, ps)
   Spawnpoints = []
   Group = []
   PickUps = []
+  Streetlights_cnv = []
+  }
+}
+
+entity Streetlight = {
+  inherit UnityStreetLight
+  test : bool
+
+  rule Lamp = 
+    yield true
+    wait 0.2f
+    yield false
+    wait 0.3f
+
+  Create(p : Transform) = {
+    Base = UnityStreetLight.instantiate(p) // base has to be capital b. Otherwise Error at file 0
+    test = false
   }
 }
 

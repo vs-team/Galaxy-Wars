@@ -17,7 +17,6 @@ entity Player = {
 }
 entity Equipment = {
   inherit UnityEquipment
-
   ref AllGuns : [Gun]
   ActiveGuns : [Gun]
   ref NotActiveGuns : [Gun]
@@ -229,6 +228,7 @@ entity Equipment = {
     if ac.Count = 2 then
       let z = [flashL.name;flashR.name]
       let NAF = [new Light(pl.[0]);new Light(pl.[1])]
+      yield AllGuns, [], AllGuns, [""], ActiveFlashs, NotActiveFlashs, AllFlashs
 
       let AG = [AllGunslist.[ac.Head]; AllGunslist.[ac.[1]]]
 
@@ -248,6 +248,7 @@ entity Equipment = {
       let gunhand = 
         [for a in ActiveGuns do
          select (a.GunController.JoystickName)]
+      yield AllGuns, [], AllGuns, [""], ActiveFlashs, NotActiveFlashs, AllFlashs
 
       let AG = if gunhand.Head <> "Hydra1 - Left" then [AllGunslist.[ac.Head]] else [AllGunslist.[(ac.Head+HR.Count)]]
 
@@ -325,14 +326,6 @@ entity ControllerRazor= {
       yield true
     else
       yield false
-  
-  (*
-  rule Trigger =
-    yield Trigger
-
-  rule Bumper =
-    yield Bumper
-  *)
 
   rule ECB = 
     if prev then
@@ -396,6 +389,8 @@ entity Gun = {
     yield DamagePerBullet
     wait false
 
+    (*
+    *)
   rule Shoot =  
    wait GunController.Shot && TypeWeapon <> "Bazooka"
    if (AmmoAct.InMagazine > 0 && not AmmoAct.Reloading) then
@@ -448,12 +443,8 @@ entity Gun = {
       Debug.Log("Mouse shooting activated")
       yield not KeyboardShooting
 
-
-  // TODO MAGAZINEGUI not working
-  //rule MagazineGUI = 
-    //let a = InMag
-    //wait InMag <> a
-    //yield ""
+  rule MagazineGUI = 
+    yield ""
 
   rule InMag, NotInMag = 
     //Debug.Log("GunNumber = "+GunNumber+ "   ammo = "+AmmoAct.InMagazine)
@@ -541,7 +532,7 @@ entity Ammo = {
     wait GC.IsSome
     wait GC.Value.Shot
     if (InMagazine > 0 && not Reloading) then
-      //Debug.Log(Automatic)
+      Debug.Log(Automatic)
       if (not Automatic) then
         //Debug.Log("InMagazineNotAutom = "+ InMagazine)
         yield InMagazine - 1, true

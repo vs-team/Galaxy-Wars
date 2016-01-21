@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class SixenseHand : MonoBehaviour
 {
@@ -39,28 +40,35 @@ public class SixenseHand : MonoBehaviour
       //
       m_controller = SixenseInput.GetController(m_hand);
     }
-
-    else if (m_animator != null)
+    else 
     {
-      CheckHands();
-      string handName = m_hand.ToString();
+      //CheckHands();
       /*
-      var b = UnityEngine.ClusterNetwork.isMasterOfCluster;
+      var b = ClusterNetwork.isMasterOfCluster;
+      Debug.Log("b = " + b);
+
+      */
+      int nod = ClusterNetwork.nodeIndex; // front(master) = 3, left = 2, right = 1, back = 0
+      // Create offset
+      string handName = m_hand.ToString();
       if (!ClusterNetwork.isDisconnected && ClusterNetwork.isMasterOfCluster)
       {
-        ClusterInput.SetTrackerPosition("Position" + handName, Position);
-        ClusterInput.SetTrackerPosition("Rotation" + handName, Forward);
+        ClusterInput.SetTrackerPosition("Position" + handName, m_controller.Position);
+        ClusterInput.SetTrackerRotation("Rotation" + handName, m_controller.Rotation);
       }
-      pos = ClusterInput.GetTrackerPosition("Position" + handName);
-      forw = ClusterInput.GetTrackerPosition("Rotation" + handName);
-      */
+      Pos = ClusterInput.GetTrackerPosition("Position" + handName);
+      Rot = ClusterInput.GetTrackerRotation("Rotation" + handName);
+      Debug.Log("Position local"+Pos);
+      Debug.Log("Rotation local" + Rot);
+      m_controller.Position = Pos;
+      m_controller.Rotation = Rot;
     }
   }
 
   /*
-  public Vector3 Pos;
-  public Vector3 Forw;
   */
+  public Vector3 Pos;
+  public Quaternion Rot;
 
   public void CheckHands()
   {
@@ -143,4 +151,4 @@ public class SixenseHand : MonoBehaviour
   public Quaternion InitialRotation { get { return m_initialRotation; } }
 
   public Vector3 InitialPosition { get { return m_initialPosition; } }
-}             
+}                                                                                                                                                                                                                                                                                                                                                  

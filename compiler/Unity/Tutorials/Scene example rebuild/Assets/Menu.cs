@@ -85,6 +85,8 @@ var t = System.DateTime.Now;
 
 if(Highs.IsSome){ 		Highs.Value.Update(dt, world);
  } 
+if(StartButton.IsSome){ 		StartButton.Value.Update(dt, world);
+ } 
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
@@ -836,4 +838,4 @@ return;	}
 
 
 }
-}                  
+}                                                               

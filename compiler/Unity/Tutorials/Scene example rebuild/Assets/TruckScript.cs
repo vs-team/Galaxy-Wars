@@ -236,7 +236,6 @@ public class TruckScript : MonoBehaviour
   {
     get
     {
-      Debug.Log("Steering " + Input.GetAxis("SW_Joy0X"));
       return Input.GetAxis("SW_Joy0X");
     }
   }
@@ -369,4 +368,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

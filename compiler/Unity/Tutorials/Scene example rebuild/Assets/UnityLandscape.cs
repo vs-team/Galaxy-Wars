@@ -10,6 +10,7 @@ public class UnityLandscape : MonoBehaviour
     GameObject landscape = GameObject.Instantiate(Resources.Load("Prefabs/Landscape" + numb), newPos, Quaternion.identity) as GameObject;
     UnityLandscape component = landscape.GetComponent<UnityLandscape>() as UnityLandscape;
     component.spawnp = new List<Transform>();
+    component.streetl = new List<Transform>();
     Transform comps = landscape.transform;
     foreach (Transform child in comps)
     {
@@ -18,6 +19,11 @@ public class UnityLandscape : MonoBehaviour
         Transform toAdd = child.gameObject.GetComponent<Transform>();
         component.spawnp.Add(toAdd);
       }
+      if (child.tag == "Streetlight")
+      {
+        Transform toAdd = child.gameObject.GetComponent<Transform>();
+        component.streetl.Add(toAdd);
+      }
     }
     return component;
   }
@@ -25,6 +31,11 @@ public class UnityLandscape : MonoBehaviour
   public List<Transform> Spawnpoints2
   {
     get { return spawnp; }
+  }
+  private List<Transform> streetl;
+  public List<Transform> Streetlights
+  {
+    get { return streetl; }
   }
 
   private bool destroyed;
@@ -42,4 +53,4 @@ public class UnityLandscape : MonoBehaviour
   {
     get { return this.transform.position; }
   }
-}                                                                                                                                                                                                                                                          
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            

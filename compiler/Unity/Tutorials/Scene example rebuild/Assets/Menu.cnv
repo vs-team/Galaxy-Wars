@@ -5,7 +5,7 @@ open UnityEngine
 
 worldEntity Menu = {
   inherit UnityMenu
-  ref StartButton : Option<ButtonGUI>
+  StartButton : Option<ButtonGUI>
   ref QuitButton  : Option<ButtonGUI>
   ref BackToMenuButton  : Option<ButtonGUI>
   ref Credits  : Option<ButtonGUI>
@@ -117,7 +117,7 @@ worldEntity Menu = {
 }
 entity ButtonGUI = {
   inherit UnityButton
-
+  
   Create(n : string) =
   {
     UnityButton = UnityButton.Find(n)

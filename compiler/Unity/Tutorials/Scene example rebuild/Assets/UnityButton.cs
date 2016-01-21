@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using Casanova.Prelude;
 using System.Collections.Generic;
-
+using UnityEngine.EventSystems;
 
 public class UnityButton : MonoBehaviour
 {
-
   private bool isPressed = false;
 
   public bool IsPressed { get { return isPressed; } set { isPressed = value; } }
@@ -19,8 +17,5 @@ public class UnityButton : MonoBehaviour
     return x;
   }
 
-  public void Pressed()
-  {
-    IsPressed = true;
-  }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+}                                                                                                                                                                                                                                                                                                               

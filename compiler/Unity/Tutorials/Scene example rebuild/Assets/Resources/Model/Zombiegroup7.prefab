@@ -13472,8 +13472,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -13489,8 +13489,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -13506,8 +13506,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -13523,8 +13523,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -13540,8 +13540,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -13557,8 +13557,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -13589,10 +13589,12 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  impactModes: 
   Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
   Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
   Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
   Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
+  tim: 0
 --- !u!114 &11411268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13659,10 +13661,12 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  impactModes: 
   Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
   Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
   Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
   Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
+  tim: 0
 --- !u!114 &11457346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13677,10 +13681,12 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  impactModes: 
   Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
   Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
   Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
   Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
+  tim: 0
 --- !u!114 &11463244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13721,10 +13727,12 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  impactModes: 
   Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
   Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
   Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
   Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
+  tim: 0
 --- !u!114 &11483860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13739,10 +13747,12 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  impactModes: 
   Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
   Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
   Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
   Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
+  tim: 0
 --- !u!114 &11496280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13757,10 +13767,12 @@ MonoBehaviour:
   impactTargets: []
   impacts: []
   impactEndTimes: []
+  impactModes: 
   Audio_Attack1: {fileID: 8300000, guid: a64f873f972f50341a2da53d79139ad3, type: 3}
   Audio_Attack2: {fileID: 8300000, guid: eb62f3efe2155d9479214e2a1be96302, type: 3}
   Audio_Walk: {fileID: 8300000, guid: a44734402bd77e9459de35a937554816, type: 3}
   Audio_Shout: {fileID: 8300000, guid: ad78d848553083b4ba9b2c824dca3a9d, type: 3}
+  tim: 0
 --- !u!135 &13503540
 SphereCollider:
   m_ObjectHideFlags: 1

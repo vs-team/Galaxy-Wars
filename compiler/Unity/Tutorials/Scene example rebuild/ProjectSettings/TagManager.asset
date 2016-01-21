@@ -18,6 +18,8 @@ TagManager:
   - Gasstation
   - RepairZone
   - Trucks
+  - Barrels
+  - Streetlight
   layers:
   - Default
   - TransparentFX
@@ -30,7 +32,7 @@ TagManager:
   - Zombielayer
   - BazookaBulletLayer
   - TruckLayer
-  - 
+  - BarrelLayer
   - 
   - 
   - 
