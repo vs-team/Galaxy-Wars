@@ -138,6 +138,11 @@ public class UnityGun : MonoBehaviour
               hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, gunPower / 30.0f, false, 2);
             }
+            else if(hitObject.collider.tag == "Barrels")
+            {
+              Debug.Log("Hit barrel");
+              hitObject.rigidbody.AddForce(ray.direction * gunPower);
+            }
           }
           else
             Debug.Log("Nothing has been hit");
@@ -154,6 +159,10 @@ public class UnityGun : MonoBehaviour
               Destroy(bloodFX, bloodPS.duration);
               hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, (gunPower / 30.0f), false, 2);
+            }
+            else if(hitObject.collider.tag == "Barrels")
+            {
+              hitObject.rigidbody.AddForce(razerDirection * gunPower);
             }
           }
         }
@@ -184,4 +193,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

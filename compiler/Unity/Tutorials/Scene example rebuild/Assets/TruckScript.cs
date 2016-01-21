@@ -231,15 +231,6 @@ public class TruckScript : MonoBehaviour
     get { return HeadlightLeft.enabled; }
     set { HeadlightLeft.enabled = value; }
   }
-
-  public float Steering
-  {
-    get
-    {
-      Debug.Log("Steering " + Input.GetAxis("SW_Joy0X"));
-      return Input.GetAxis("SW_Joy0X");
-    }
-  }
   public float BrakeAndReverse
   {
     get
@@ -319,16 +310,13 @@ public class TruckScript : MonoBehaviour
         tim = AudioS.clip.length;
         CarHPChanged = 0.0f;
         AudioS.Play();
-  }
-      else
-      {
-        if (CarHPChanged > 1.0f)
-        {
-          AudioS.clip = Audio_DamageSmall;
-          tim = AudioS.clip.length;
-          AudioS.Play();
-          CarHPChanged = 0.0f;
-        }
+      }
+      else if(CarHPChanged > 1.0f)
+      { 
+        AudioS.clip = Audio_DamageSmall;
+        tim = AudioS.clip.length;
+        CarHPChanged = 0.0f;
+        AudioS.Play();
       }
     }
   }
@@ -369,4 +357,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     

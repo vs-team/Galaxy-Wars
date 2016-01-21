@@ -13472,7 +13472,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -13489,7 +13489,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -13506,7 +13506,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -13523,7 +13523,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -13540,7 +13540,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -13557,7 +13557,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a166e4b3e42efb14cb9bbea4326ede2b, type: 3}
   m_Controller: {fileID: 9100000, guid: 4f4532d69f401d345a68b03ef8231a8f, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0

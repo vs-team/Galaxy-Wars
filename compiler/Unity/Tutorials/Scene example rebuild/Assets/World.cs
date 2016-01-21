@@ -954,8 +954,6 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
   set{TruckScript.Score = value; }
  }
 	public TruckStats Stats;
-	public System.Single Steering{  get { return TruckScript.Steering; }
- }
 	public UnityEngine.Vector3 Trque{  set{TruckScript.Trque = value; }
  }
 	public TruckScript TruckScript;
@@ -1138,7 +1136,7 @@ return;	}else
 	s3 = -1;
 return;
 	case 1:
-	JRotation = Steering;
+	JRotation = UnityEngine.Input.GetAxis("SW_Joy0X");
 	s3 = -1;
 return;	
 	default: return;}}
@@ -1785,54 +1783,6 @@ return;	}else
 return;	}
 	case 1:
 	___steeringAngle10 = ((world.Jeep.Value.maxSteeringAngle) * (world.Jeep.Value.JRotation));
-	if(((world.Jeep.Value.cnvAccel) > (0f)))
-	{
-
-	goto case 10;	}else
-	{
-
-	goto case 2;	}
-	case 10:
-	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.Value.RotationY) > (30f))) && (((120f) > (world.Jeep.Value.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.Value.RotationY) > (200f))) && (((330f) > (world.Jeep.Value.RotationY)))))))))
-	{
-
-	goto case 11;	}else
-	{
-
-	goto case 12;	}
-	case 11:
-	leftWheel.steerAngle = 0f;
-	rightWheel.steerAngle = 0f;
-	s1 = 2;
-return;
-	case 12:
-	leftWheel.steerAngle = ___steeringAngle10;
-	rightWheel.steerAngle = ___steeringAngle10;
-	s1 = 2;
-return;
-	case 2:
-	if(((0f) > (world.Jeep.Value.cnvAccel)))
-	{
-
-	goto case 3;	}else
-	{
-
-	s1 = -1;
-return;	}
-	case 3:
-	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.Value.RotationY) > (200f))) && (((330f) > (world.Jeep.Value.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.Value.RotationY) > (30f))) && (((120f) > (world.Jeep.Value.RotationY)))))))))
-	{
-
-	goto case 4;	}else
-	{
-
-	goto case 5;	}
-	case 4:
-	leftWheel.steerAngle = 0f;
-	rightWheel.steerAngle = 0f;
-	s1 = -1;
-return;
-	case 5:
 	leftWheel.steerAngle = ___steeringAngle10;
 	rightWheel.steerAngle = ___steeringAngle10;
 	s1 = -1;
@@ -5676,4 +5626,4 @@ frame = World.frame;
 
 
 }
-}                  
+}            
