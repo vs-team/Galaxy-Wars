@@ -769,33 +769,47 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(!(((isModel) == (true))))
+	if(((!(((isModel) == (true)))) && (!(world.W_Refill_Resources))))
 	{
 
-	goto case 13;	}else
+	goto case 12;	}else
 	{
 
-	s0 = -1;
-return;	}
-	case 13:
+	goto case 13;	}
+	case 12:
 	___z02 = world.Jeep.Value.CarHP2;
 	if(!(((___z02) == (((Health) / (100f))))))
 	{
 
-	goto case 14;	}else
+	goto case 15;	}else
 	{
 
-	goto case 15;	}
-	case 14:
+	goto case 16;	}
+	case 15:
 	world.Jeep.Value.CarHP2 = world.Jeep.Value.CarHP2;
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
 	s0 = -1;
 return;
-	case 15:
+	case 16:
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
+	s0 = -1;
+return;
+	case 13:
+	if(world.W_Refill_Resources)
+	{
+
+	goto case 22;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 22:
+	world.Jeep.Value.CarHP2 = 1f;
+	Health = 100f;
+	world.GUIpanel.HPValue = ((Health) / (100f));
 	s0 = -1;
 return;	
 	default: return;}}
@@ -807,15 +821,15 @@ return;
 	{
 
 	case -1:
-	if(((((world.ActiveBoR) == ("Medipack Red"))) && (!(((isModel) == (true))))))
+	if(((((((world.ActiveBoR) == ("Medipack Red"))) && (!(((isModel) == (true)))))) && (!(world.W_Refill_Resources))))
 	{
 
-	goto case 21;	}else
+	goto case 25;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 21:
+	case 25:
 	Health = ((Health) + (20f));
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	s1 = -1;
@@ -956,8 +970,6 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
   set{TruckScript.Score = value; }
  }
 	public TruckStats Stats;
-	public System.Single Steering{  get { return TruckScript.Steering; }
- }
 	public UnityEngine.Vector3 Trque{  set{TruckScript.Trque = value; }
  }
 	public TruckScript TruckScript;
@@ -1140,7 +1152,7 @@ return;	}else
 	s3 = -1;
 return;
 	case 1:
-	JRotation = Steering;
+	JRotation = UnityEngine.Input.GetAxis("SW_Joy0X");
 	s3 = -1;
 return;	
 	default: return;}}
@@ -1787,54 +1799,6 @@ return;	}else
 return;	}
 	case 1:
 	___steeringAngle10 = ((world.Jeep.Value.maxSteeringAngle) * (world.Jeep.Value.JRotation));
-	if(((world.Jeep.Value.cnvAccel) > (0f)))
-	{
-
-	goto case 10;	}else
-	{
-
-	goto case 2;	}
-	case 10:
-	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.Value.RotationY) > (30f))) && (((120f) > (world.Jeep.Value.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.Value.RotationY) > (200f))) && (((330f) > (world.Jeep.Value.RotationY)))))))))
-	{
-
-	goto case 11;	}else
-	{
-
-	goto case 12;	}
-	case 11:
-	leftWheel.steerAngle = 0f;
-	rightWheel.steerAngle = 0f;
-	s1 = 2;
-return;
-	case 12:
-	leftWheel.steerAngle = ___steeringAngle10;
-	rightWheel.steerAngle = ___steeringAngle10;
-	s1 = 2;
-return;
-	case 2:
-	if(((0f) > (world.Jeep.Value.cnvAccel)))
-	{
-
-	goto case 3;	}else
-	{
-
-	s1 = -1;
-return;	}
-	case 3:
-	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.Value.RotationY) > (200f))) && (((330f) > (world.Jeep.Value.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.Value.RotationY) > (30f))) && (((120f) > (world.Jeep.Value.RotationY)))))))))
-	{
-
-	goto case 4;	}else
-	{
-
-	goto case 5;	}
-	case 4:
-	leftWheel.steerAngle = 0f;
-	rightWheel.steerAngle = 0f;
-	s1 = -1;
-return;
-	case 5:
 	leftWheel.steerAngle = ___steeringAngle10;
 	rightWheel.steerAngle = ___steeringAngle10;
 	s1 = -1;
@@ -5561,6 +5525,7 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		this.Rule3(dt, world);
 	}
 
 
@@ -5573,15 +5538,37 @@ frame = World.frame;
 	{
 
 	case -1:
-	Active = LightController.Trigger;
+	Battery = 100f;
+	s0 = 0;
+return;
+	case 0:
+	if(!(world.W_Refill_Resources))
+	{
+
+	s0 = 0;
+return;	}else
+	{
+
 	s0 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
 	int s1=-1;
 	public void Rule1(float dt, World world){ 
 	switch (s1)
+	{
+
+	case -1:
+	Active = LightController.Trigger;
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
 	{
 
 	case -1:
@@ -5594,18 +5581,18 @@ return;
 	goto case 2;	}
 	case 1:
 	Battery = ((Battery) - (0.5f));
-	s1 = -1;
+	s2 = -1;
 return;
 	case 2:
 	Battery = Battery;
-	s1 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
 
-	int s2=-1;
-	public void Rule2(float dt, World world){ 
-	switch (s2)
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
 	{
 
 	case -1:
@@ -5615,12 +5602,12 @@ return;
 	goto case 7;	}else
 	{
 
-	s2 = -1;
+	s3 = -1;
 return;	}
 	case 7:
 	UnityEngine.Debug.Log(("Battery = ") + (Battery));
 	Battery = ((Battery) + (50f));
-	s2 = -1;
+	s3 = -1;
 return;	
 	default: return;}}
 	
@@ -5770,18 +5757,6 @@ public Zombie(UnityEngine.Transform trans)
 }
 		public System.Boolean ApplyForceOnZombie{  get { return UnityZombie2.ApplyForceOnZombie; }
   set{UnityZombie2.ApplyForceOnZombie = value; }
- }
-	public UnityEngine.AudioClip Audio_Attack1{  get { return UnityZombie2.Audio_Attack1; }
-  set{UnityZombie2.Audio_Attack1 = value; }
- }
-	public UnityEngine.AudioClip Audio_Attack2{  get { return UnityZombie2.Audio_Attack2; }
-  set{UnityZombie2.Audio_Attack2 = value; }
- }
-	public UnityEngine.AudioClip Audio_Shout{  get { return UnityZombie2.Audio_Shout; }
-  set{UnityZombie2.Audio_Shout = value; }
- }
-	public UnityEngine.AudioClip Audio_Walk{  get { return UnityZombie2.Audio_Walk; }
-  set{UnityZombie2.Audio_Walk = value; }
  }
 	public System.Single BodyPartMultiplier{  get { return UnityZombie2.BodyPartMultiplier; }
   set{UnityZombie2.BodyPartMultiplier = value; }
@@ -6072,4 +6047,4 @@ frame = World.frame;
 
 
 }
-}                                                               
+}             

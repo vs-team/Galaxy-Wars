@@ -15,6 +15,7 @@ entity Player = {
     Controllers = [new ControllerRazor("Hydra1 - Right"); new ControllerRazor("Hydra1 - Left")]
   }
 }
+
 entity Equipment = {
   inherit UnityEquipment
   ref AllGuns : [Gun]
@@ -608,6 +609,10 @@ entity Light = {
 
   rule Active =
     yield LightController.Trigger
+
+  rule Battery = 
+    yield 100.0f
+    wait world.W_Refill_Resources
 
   Create(LC : ControllerRazor) = 
   {

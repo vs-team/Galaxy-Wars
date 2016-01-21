@@ -12,23 +12,23 @@ entity TruckStats = {
   isModel : bool
   TypeWeapon : [int]
   AmountOfGunsInTruck : int
-
+  
   rule AmountOfGunsInTruck =
     yield TypeWeapon.Count
 
   rule Health, world.Jeep.Value.CarHP2 = 
-    if world.ActiveBoR = "Medipack Red" && isModel <> true then
+    if world.ActiveBoR = "Medipack Red" && isModel <> true && not world.W_Refill_Resources then
       yield Health + 20.0f, ((Health) / 100.0f)
-    //else
-      //yield Health - 1.0f, ((Health) / 100.0f)
 
   rule world.Jeep.Value.CarHP2, Health, world.GUIpanel.HPValue = 
-    if isModel <> true then
+    if isModel <> true && not world.W_Refill_Resources then
       let z = world.Jeep.Value.CarHP2
       if (z <> (Health / 100.0f)) then
         yield world.Jeep.Value.CarHP2, (world.Jeep.Value.CarHP2 * 100.0f), world.Jeep.Value.CarHP2
       else
         yield (Health / 100.0f), (world.Jeep.Value.CarHP2 * 100.0f), world.Jeep.Value.CarHP2
+    else if world.W_Refill_Resources then
+      yield (1.0f), 100.0f, ((Health) / 100.0f)
 
   Create(bs : bool, sts : [int]) = 
   let rnd = Random.Range(0,5)

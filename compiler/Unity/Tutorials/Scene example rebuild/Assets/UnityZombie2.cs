@@ -113,37 +113,68 @@ public class UnityZombie2 : MonoBehaviour
       return currentState;
     }
   }
-  public AudioClip Audio_Attack1;
-  public AudioClip Audio_Attack2;
-  public AudioClip Audio_Walk;
-  public AudioClip Audio_Shout;
+  void Start()
+  {
+    ac = new List<AudioClip>();
+    wc = new List<AudioClip>();
+    sc = new List<AudioClip>();
+    Object[] a = Resources.LoadAll("Zombie_Voice/Attack", typeof(AudioClip));
+    Object[] w = Resources.LoadAll("Zombie_Voice/Walk", typeof(AudioClip));
+    Object[] s = Resources.LoadAll("Zombie_Voice/Shout", typeof(AudioClip));
+    foreach (AudioClip j in a)
+    {
+      ac.Add(j);
+    }
+    foreach (AudioClip j in w)
+    {
+      wc.Add(j);
+    }
+    foreach (AudioClip j in s)
+    {
+      sc.Add(j);
+    }
+    asize = ac.Count;
+    wsize = wc.Count;
+    ssize = sc.Count;
+  }
+  private List<AudioClip> ac;
+  private List<AudioClip> wc;
+  private List<AudioClip> sc;
+  private int asize;
+  private int wsize;
+  private int ssize;
   public float tim;
+
   public string SoundToPlay
   {
     get { return ""; }
     set
     {
-      if (value == "Attack2")
+      var x = Random.Range(0, 10);
+      if(x < 8)
       {
-        snd.clip = Audio_Attack2;
+        tim = 3.0f;
+        return;
+      }
+
+      if (value == "Attack2" || value == "Attack1")
+      {
+        int AARN = Random.Range(0, asize);
+        snd.clip = ac[AARN];
         snd.Play();
         tim = snd.clip.length;
       }
       if (value == "Walk")
       {
-        snd.clip = Audio_Walk;
-        snd.Play();
-        tim = snd.clip.length;
-      }
-      if (value == "Attack1")
-      {
-        snd.clip = Audio_Attack1;
+        int AWRN = Random.Range(0, wsize);
+        snd.clip = wc[AWRN];
         snd.Play();
         tim = snd.clip.length;
       }
       if (value == "Shout")
       {
-        snd.clip = Audio_Shout;
+        int ASRN = Random.Range(0, ssize);
+        snd.clip = sc[ASRN];
         snd.Play();
         tim = snd.clip.length;
       }
@@ -176,7 +207,7 @@ public class UnityZombie2 : MonoBehaviour
     set
     {
       waitingOnStandstill = value;
-      if(!waitingOnStandstill)
+      if (!waitingOnStandstill)
       {
         Debug.Log("Standing up");
         Ragdolled = false;
@@ -304,7 +335,7 @@ public class UnityZombie2 : MonoBehaviour
       }
     }
   }
-  public void GetHit(Vector3 ImpactDirection, Transform BodyPartTransform, Rigidbody hitRigidbody, 
+  public void GetHit(Vector3 ImpactDirection, Transform BodyPartTransform, Rigidbody hitRigidbody,
                       Collider collider, float impactForce, bool carCollision, int forceMode)
   {
     CollisionDirection = ImpactDirection;
@@ -317,7 +348,7 @@ public class UnityZombie2 : MonoBehaviour
     IsHitByForce = true;
   }
 
-  /*
+  //*
   public bool Ragdolled
   {
     get { return GetComponent<RagdollHelper>().ragdolled; }
@@ -328,7 +359,7 @@ public class UnityZombie2 : MonoBehaviour
         Agent.speed = 0.0f;
     }
   }//*/
-  //*
+  /*
   public bool Ragdolled
   {
     get { return true; }
@@ -342,7 +373,7 @@ public class UnityZombie2 : MonoBehaviour
       applyForceOnZombie = value;
       if ((collidedWithCar || dead) && applyForceOnZombie)
       {
-        /*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
+        //*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
         if (gameObject.name == hitCollider.GetComponentInParent<RagdollHelper>().name)
         {
           Ragdolled = true;
@@ -370,7 +401,7 @@ public class UnityZombie2 : MonoBehaviour
   }
 
 
-  void Update() 
+  void Update()
   {
     //Check if we need to apply an impact for each impact in impactEndTimes
     if (impactEndTimes.Count > 0)
@@ -382,13 +413,13 @@ public class UnityZombie2 : MonoBehaviour
           switch (impactModes[i])
           {
             case 0:
-              impactTargets[i].AddForce(impacts[i],ForceMode.Force);
+              impactTargets[i].AddForce(impacts[i], ForceMode.Force);
               break;
             case 1:
-              impactTargets[i].AddForce(impacts[i],ForceMode.Impulse);
+              impactTargets[i].AddForce(impacts[i], ForceMode.Impulse);
               break;
             case 2:
-          impactTargets[i].AddForce(impacts[i], ForceMode.VelocityChange);
+              impactTargets[i].AddForce(impacts[i], ForceMode.VelocityChange);
               break;
             case 5:
               impactTargets[i].AddForce(impacts[i], ForceMode.Acceleration);
@@ -397,7 +428,7 @@ public class UnityZombie2 : MonoBehaviour
         }
         else
         {
-          if(!dead)
+          if (!dead)
           {
             LastHitRigidBody = hitRigidbody;
             WaitingOnStandstill = true;
@@ -410,4 +441,4 @@ public class UnityZombie2 : MonoBehaviour
       }
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+}                          

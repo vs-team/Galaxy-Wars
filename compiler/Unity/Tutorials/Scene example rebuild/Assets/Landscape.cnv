@@ -23,6 +23,7 @@ entity Gasstation = {
     else
       yield GroupZombies, 0
 
+        
   rule ZombieSpawnpoints = 
     let x = 
       [for a in SP2 do
