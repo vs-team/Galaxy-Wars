@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 485712}
   m_Layer: 0
-  m_Name: StreetlightSpawnPoint4
+  m_Name: StreetlightSpawnPoint2
   m_TagString: Streetlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,7 +400,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 466488}
   m_Layer: 0
-  m_Name: StreetlightSpawnPoint2
+  m_Name: StreetlightSpawnPoint4
   m_TagString: Streetlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

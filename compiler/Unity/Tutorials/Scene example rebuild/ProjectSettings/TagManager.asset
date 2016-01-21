@@ -20,6 +20,7 @@ TagManager:
   - Trucks
   - Barrels
   - Streetlight
+  - Streetlight_light
   layers:
   - Default
   - TransparentFX

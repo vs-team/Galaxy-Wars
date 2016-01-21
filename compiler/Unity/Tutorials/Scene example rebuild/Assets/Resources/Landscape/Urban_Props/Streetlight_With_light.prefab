@@ -30,7 +30,7 @@ GameObject:
   - 208: {fileID: 20873890}
   m_Layer: 0
   m_Name: Streetlight_With_light
-  m_TagString: Untagged
+  m_TagString: Streetlight_light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,6 +160,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Carve
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Streetlight_light
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

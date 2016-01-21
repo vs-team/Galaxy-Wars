@@ -68,7 +68,7 @@ worldEntity World = {
     yield zmbies  
 
   rule ZombiegroupDest, Landscapes = 
-    wait 0.5f
+    wait 1.0f
     let x = 
       [for a in Landscapes do
        where (Vector3.Distance (a.Position, Jeep.Value.Position) > 400)

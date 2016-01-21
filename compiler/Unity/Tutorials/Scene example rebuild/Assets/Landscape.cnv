@@ -22,7 +22,6 @@ entity Gasstation = {
       wait 2.0f
     else
       yield GroupZombies, 0
-
         
   rule ZombieSpawnpoints = 
     let x = 
@@ -46,7 +45,6 @@ entity Gasstation = {
       [for a in Barrels do
        where (not a.Destroyed)
        select a]
-    Debug.Log(x.Count)
     yield x
 
   rule Barrels = 
@@ -197,10 +195,18 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
     yield sps
     wait false
 
+  rule Streetlights_cnv =
+    let x =
+      [for a in Streetlights_cnv do
+       where (not a.Destroyed)
+       select a]
+    yield x
+
   rule Streetlights_cnv = 
     let r = Random.Range(0,Streetlights.Count)
     let p = Streetlights.[r]
-    yield [new Streetlight(p)]
+    let b = if(r = 2 || r = 3) then 0.0f else 180.0f
+    yield [new Streetlight(p, b)]
     wait false
 
   Create(pos : Vector3, ps : int) =
@@ -223,8 +229,8 @@ entity Streetlight = {
     yield false
     wait 0.3f
 
-  Create(p : Transform) = {
-    Base = UnityStreetLight.instantiate(p) // base has to be capital b. Otherwise Error at file 0
+  Create(p : Transform, LeftSide : float) = {
+    Base = UnityStreetLight.instantiate(p,LeftSide) // base cant be lower b. Otherwise Error at file 0
     test = false
   }
 }
