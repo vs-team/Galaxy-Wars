@@ -348,7 +348,7 @@ public class UnityZombie2 : MonoBehaviour
     IsHitByForce = true;
   }
 
-  //*
+  /*
   public bool Ragdolled
   {
     get { return GetComponent<RagdollHelper>().ragdolled; }
@@ -359,7 +359,7 @@ public class UnityZombie2 : MonoBehaviour
         Agent.speed = 0.0f;
     }
   }//*/
-  /*
+  //*
   public bool Ragdolled
   {
     get { return true; }
@@ -373,7 +373,7 @@ public class UnityZombie2 : MonoBehaviour
       applyForceOnZombie = value;
       if ((collidedWithCar || dead) && applyForceOnZombie)
       {
-        //*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
+        /*                                                                     // <---- COMMENT THIS LINE TO /* BEFORE COMPILING CNV. Once done, change it to //*. Then start the scene
         if (gameObject.name == hitCollider.GetComponentInParent<RagdollHelper>().name)
         {
           Ragdolled = true;
@@ -441,4 +441,4 @@ public class UnityZombie2 : MonoBehaviour
       }
     }
   }
-}                          
+}                                                                                                       

@@ -966,6 +966,8 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
  }
 	public System.Single RotationY{  get { return TruckScript.RotationY; }
  }
+	public System.Single Rotz{  get { return TruckScript.Rotz; }
+ }
 	public System.String Score{  get { return TruckScript.Score; }
   set{TruckScript.Score = value; }
  }
@@ -979,6 +981,9 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
  }
 	public System.Boolean enabled{  get { return TruckScript.enabled; }
   set{TruckScript.enabled = value; }
+ }
+	public System.Boolean flip{  get { return TruckScript.flip; }
+  set{TruckScript.flip = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return TruckScript.gameObject; }
  }
@@ -1021,6 +1026,7 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.Single ___a1310;
 	public System.Single count_down11;
 	public System.Single count_down12;
+	public System.Single count_down13;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1043,6 +1049,7 @@ frame = World.frame;
 		this.Rule12(dt, world);
 		this.Rule13(dt, world);
 		this.Rule14(dt, world);
+		this.Rule15(dt, world);
 	}
 
 
@@ -1424,7 +1431,7 @@ return;	}
 	{
 
 	case -1:
-	if(!(((1) > (Stats.Health))))
+	if(!(((((1) > (Stats.Health))) || (((0) > (world.Score))))))
 	{
 
 	s10 = -1;
@@ -1586,31 +1593,75 @@ return;	}
 	if(((world.ActiveBoR) == ("Star Red")))
 	{
 
-	goto case 20;	}else
+	goto case 19;	}else
 	{
 
-	s14 = -1;
-return;	}
-	case 20:
+	goto case 20;	}
+	case 19:
 	Multip = 1.2f;
-	s14 = 22;
+	s14 = 23;
 return;
-	case 22:
-	count_down12 = 8f;
-	goto case 23;
 	case 23:
+	count_down12 = 8f;
+	goto case 24;
+	case 24:
 	if(((count_down12) > (0f)))
 	{
 
 	count_down12 = ((count_down12) - (dt));
-	s14 = 23;
+	s14 = 24;
 return;	}else
 	{
 
-	goto case 21;	}
-	case 21:
+	goto case 22;	}
+	case 22:
 	Multip = 1f;
 	s14 = -1;
+return;
+	case 20:
+	Multip = 1f;
+	s14 = -1;
+return;	
+	default: return;}}
+	
+
+	int s15=-1;
+	public void Rule15(float dt, World world){ 
+	switch (s15)
+	{
+
+	case -1:
+	if(!(((((UnityEngine.Input.GetKeyDown(KeyCode.L)) || (((((Rotz) > (0.3f))) && (((0.9f) > (Rotz))))))) || (((((Rotz) > (-0.3f))) && (((-0.9f) > (Rotz))))))))
+	{
+
+	s15 = -1;
+return;	}else
+	{
+
+	goto case 4;	}
+	case 4:
+	UnityEngine.Debug.Log("flip");
+	count_down13 = 0.2f;
+	goto case 3;
+	case 3:
+	if(((count_down13) > (0f)))
+	{
+
+	count_down13 = ((count_down13) - (dt));
+	s15 = 3;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	flip = true;
+	world.Score = ((world.Score) - (200));
+	s15 = 0;
+return;
+	case 0:
+	flip = false;
+	world.Score = world.Score;
+	s15 = -1;
 return;	
 	default: return;}}
 	
@@ -1643,7 +1694,7 @@ public AxleInfo(UnityEngine.WheelCollider lW, UnityEngine.WheelCollider rW, Syst
 	public System.Boolean steering;
 	public System.Single ___dir00;
 	public System.Single ___speed00;
-	public System.Single count_down13;
+	public System.Single count_down14;
 	public System.Single ___steeringAngle10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -1666,106 +1717,106 @@ frame = World.frame;
 	if(!(world.Jeep.Value.isModel))
 	{
 
-	goto case 26;	}else
+	goto case 7;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 26:
+	case 7:
 	if(((world.Jeep.Value.Fuel) > (0.99f)))
 	{
 
-	goto case 27;	}else
+	goto case 8;	}else
 	{
 
-	goto case 28;	}
-	case 27:
+	goto case 9;	}
+	case 8:
 	if(((!(((world.Jeep.Value.cnvAccel) == (0f)))) && (((leftWheel.isGrounded) || (rightWheel.isGrounded)))))
 	{
 
-	goto case 30;	}else
+	goto case 11;	}else
 	{
 
-	goto case 31;	}
-	case 30:
+	goto case 12;	}
+	case 11:
 	___dir00 = world.Jeep.Value.cnvAccel;
 	___speed00 = ((((world.Jeep.Value.maxMotorTorque) * (world.Jeep.Value.cnvAccel))) * (-1f));
 	if(((world.ActiveBoR) == ("Arrows Green")))
 	{
 
-	goto case 33;	}else
+	goto case 14;	}else
 	{
 
-	goto case 34;	}
-	case 33:
+	goto case 15;	}
+	case 14:
 	leftWheel.motorTorque = leftWheel.motorTorque;
 	rightWheel.motorTorque = rightWheel.motorTorque;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 37;
+	s0 = 18;
 return;
-	case 37:
+	case 18:
 	if(!(((!(((world.Jeep.Value.cnvAccel) == (___dir00)))) || (true))))
 	{
 
-	s0 = 37;
+	s0 = 18;
 return;	}else
 	{
 
-	goto case 36;	}
-	case 36:
+	goto case 17;	}
+	case 17:
 	if(!(((world.Jeep.Value.cnvAccel) == (___dir00))))
 	{
 
-	goto case 38;	}else
+	goto case 19;	}else
 	{
 
 	if(true)
 	{
 
-	goto case 39;	}else
+	goto case 20;	}else
 	{
 
-	s0 = 36;
+	s0 = 17;
 return;	}	}
-	case 38:
+	case 19:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 39:
+	case 20:
 	leftWheel.motorTorque = ((___speed00) * (10f));
 	rightWheel.motorTorque = ((___speed00) * (10f));
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 41;
+	s0 = 22;
 return;
-	case 41:
-	count_down13 = 2f;
-	goto case 42;
-	case 42:
-	if(((count_down13) > (0f)))
+	case 22:
+	count_down14 = 2f;
+	goto case 23;
+	case 23:
+	if(((count_down14) > (0f)))
 	{
 
-	count_down13 = ((count_down13) - (dt));
-	s0 = 42;
+	count_down14 = ((count_down14) - (dt));
+	s0 = 23;
 return;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 34:
+	case 15:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 31:
+	case 12:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
 	s0 = -1;
 return;
-	case 28:
+	case 9:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = 0f;
@@ -1897,7 +1948,7 @@ Enumerable.Empty<Barrel>()).ToList<Barrel>();
 	public UnityEngine.Transform ___zsp50;
 	public UnityEngine.Vector3 ___t51;
 	public List<GroupZombie> ___newZ50;
-	public System.Single count_down14;
+	public System.Single count_down15;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -2082,13 +2133,13 @@ return;	}else
 	s5 = 3;
 return;
 	case 3:
-	count_down14 = 2f;
+	count_down15 = 2f;
 	goto case 4;
 	case 4:
-	if(((count_down14) > (0f)))
+	if(((count_down15) > (0f)))
 	{
 
-	count_down14 = ((count_down14) - (dt));
+	count_down15 = ((count_down15) - (dt));
 	s5 = 4;
 return;	}else
 	{
@@ -2826,8 +2877,8 @@ public Streetlight(UnityEngine.Transform p)
 	public System.Boolean useGUILayout{  get { return UnityStreetLight.useGUILayout; }
   set{UnityStreetLight.useGUILayout = value; }
  }
+	public System.Single count_down17;
 	public System.Single count_down16;
-	public System.Single count_down15;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -2849,13 +2900,13 @@ frame = World.frame;
 	s0 = 3;
 return;
 	case 3:
-	count_down16 = 0.2f;
+	count_down17 = 0.2f;
 	goto case 4;
 	case 4:
-	if(((count_down16) > (0f)))
+	if(((count_down17) > (0f)))
 	{
 
-	count_down16 = ((count_down16) - (dt));
+	count_down17 = ((count_down17) - (dt));
 	s0 = 4;
 return;	}else
 	{
@@ -2866,13 +2917,13 @@ return;	}else
 	s0 = 0;
 return;
 	case 0:
-	count_down15 = 0.3f;
+	count_down16 = 0.3f;
 	goto case 1;
 	case 1:
-	if(((count_down15) > (0f)))
+	if(((count_down16) > (0f)))
 	{
 
-	count_down15 = ((count_down15) - (dt));
+	count_down16 = ((count_down16) - (dt));
 	s0 = 1;
 return;	}else
 	{
@@ -4670,7 +4721,7 @@ Enumerable.Empty<BazookaBullet>()).ToList<BazookaBullet>();
 	public SixenseHand ___razer90;
 	public UnityEngine.Vector3 ___razerDirection90;
 	public UnityEngine.Vector3 ___razerPosition90;
-	public System.Single count_down17;
+	public System.Single count_down18;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -5038,13 +5089,13 @@ return;
 	s10 = 10;
 return;
 	case 10:
-	count_down17 = 0.05f;
+	count_down18 = 0.05f;
 	goto case 11;
 	case 11:
-	if(((count_down17) > (0f)))
+	if(((count_down18) > (0f)))
 	{
 
-	count_down17 = ((count_down17) - (dt));
+	count_down18 = ((count_down18) - (dt));
 	s10 = 11;
 return;	}else
 	{
@@ -5116,11 +5167,11 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 	public System.Boolean ooas;
 	public System.Boolean relo;
 	public System.Boolean shot;
-	public System.Single count_down18;
+	public System.Single count_down19;
 	public System.Int32 ___a151;
 	public System.Int32 ___b13;
-	public System.Single count_down19;
 	public System.Single count_down20;
+	public System.Single count_down21;
 	public System.Int32 ___changed10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -5214,13 +5265,13 @@ return;
 	s0 = 10;
 return;
 	case 10:
-	count_down18 = 0.05f;
+	count_down19 = 0.05f;
 	goto case 11;
 	case 11:
-	if(((count_down18) > (0f)))
+	if(((count_down19) > (0f)))
 	{
 
-	count_down18 = ((count_down18) - (dt));
+	count_down19 = ((count_down19) - (dt));
 	s0 = 11;
 return;	}else
 	{
@@ -5280,13 +5331,13 @@ return;	}else
 	s1 = 8;
 return;
 	case 8:
-	count_down19 = ReloadDuration;
+	count_down20 = ReloadDuration;
 	goto case 9;
 	case 9:
-	if(((count_down19) > (0f)))
+	if(((count_down20) > (0f)))
 	{
 
-	count_down19 = ((count_down19) - (dt));
+	count_down20 = ((count_down20) - (dt));
 	s1 = 9;
 return;	}else
 	{
@@ -5302,13 +5353,13 @@ return;	}
 	s1 = 19;
 return;
 	case 19:
-	count_down20 = ReloadDuration;
+	count_down21 = ReloadDuration;
 	goto case 20;
 	case 20:
-	if(((count_down20) > (0f)))
+	if(((count_down21) > (0f)))
 	{
 
-	count_down20 = ((count_down20) - (dt));
+	count_down21 = ((count_down21) - (dt));
 	s1 = 20;
 return;	}else
 	{
@@ -5850,8 +5901,8 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean useGUILayout{  get { return UnityZombie2.useGUILayout; }
   set{UnityZombie2.useGUILayout = value; }
  }
-	public System.Single count_down21;
 	public System.Single count_down22;
+	public System.Single count_down23;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -5888,13 +5939,13 @@ return;	}else
 
 	goto case 8;	}
 	case 8:
-	count_down21 = 5f;
+	count_down22 = 5f;
 	goto case 9;
 	case 9:
-	if(((count_down21) > (0f)))
+	if(((count_down22) > (0f)))
 	{
 
-	count_down21 = ((count_down21) - (dt));
+	count_down22 = ((count_down22) - (dt));
 	s0 = 9;
 return;	}else
 	{
@@ -5938,13 +5989,13 @@ return;
 	{
 
 	case -1:
-	count_down22 = tim;
+	count_down23 = tim;
 	goto case 2;
 	case 2:
-	if(((count_down22) > (0f)))
+	if(((count_down23) > (0f)))
 	{
 
-	count_down22 = ((count_down22) - (dt));
+	count_down23 = ((count_down23) - (dt));
 	s2 = 2;
 return;	}else
 	{
@@ -6047,4 +6098,4 @@ frame = World.frame;
 
 
 }
-}             
+}         

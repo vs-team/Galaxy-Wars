@@ -12,6 +12,8 @@ entity TruckStats = {
   isModel : bool
   TypeWeapon : [int]
   AmountOfGunsInTruck : int
+
+
   
   rule AmountOfGunsInTruck =
     yield TypeWeapon.Count
@@ -62,10 +64,19 @@ entity Truck = {
    isModel : bool
    Stats : TruckStats
 
+   rule flip, world.Score = 
+     wait Input.GetKeyDown(KeyCode.L) || (Rotz > 0.3f && Rotz < 0.9f) || (Rotz > -0.3f && Rotz < -0.9f)
+     Debug.Log("flip")
+     wait 0.2f
+     yield true, world.Score - 200
+     yield false, world.Score
+
    rule Multip = 
      if world.ActiveBoR = "Star Red" then
        yield 1.2f
        wait 8.0f
+       yield 1.0f
+     else
        yield 1.0f
 
    rule Dama, driv = 
@@ -88,7 +99,7 @@ entity Truck = {
      wait false
 
    rule GameOver = 
-     wait Stats.Health < 1
+     wait Stats.Health < 1 || world.Score < 0
      yield true
      wait false
 
