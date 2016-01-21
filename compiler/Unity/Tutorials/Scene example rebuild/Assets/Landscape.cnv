@@ -163,15 +163,32 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
       let sps_pos = sps.position
       let rpu = Spawnpoints.[random_pickup]
       let rpu_pos = rpu.position
-      yield [new GroupZombie(sps_pos,7);new GroupZombie(rpu_pos, 7)], [], []//, [new PickUp(rpu_pos1)], []
-      wait false
+      if world.Score > 1000 then 
+        let j = 
+          [for a in [0..3] do
+           where (a <> random_spawnp || a <> random_pickup)
+           select a]
+        let spo2 = Spawnpoints.[j.Head]
+        let spo2_pos = spo2.position
+        Debug.Log("Spawned 3 groups")
+        yield [new GroupZombie(sps_pos,7);new GroupZombie(rpu_pos, 7);new GroupZombie(spo2_pos, 7)], [], []
+        wait false
+      else
+        yield [new GroupZombie(sps_pos,7);new GroupZombie(rpu_pos, 7)], [], []
+        wait false
     else 
       let sps1 = Spawnpoints.[1]
       let sps_pos1 = sps1.position
+      let sps0 = Spawnpoints.[0]
+      let sps_pos0 = sps0.position
       let rpu1 = Spawnpoints.[2]
       let rpu_pos1 = rpu1.position
-      yield [new GroupZombie(sps_pos1,7)], [new PickUp(rpu_pos1)], []
-      wait false
+      if world.Score > 1000 then 
+        yield [new GroupZombie(sps_pos1,7);new GroupZombie(sps_pos0,7)], [new PickUp(rpu_pos1)], []
+        wait false
+      else
+        yield [new GroupZombie(sps_pos1,7)], [new PickUp(rpu_pos1)], []
+        wait false
 
   rule Spawnpoints = 
     let sps = 
