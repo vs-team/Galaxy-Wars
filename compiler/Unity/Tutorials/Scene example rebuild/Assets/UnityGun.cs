@@ -124,7 +124,7 @@ public class UnityGun : MonoBehaviour
       {
         gunShot.Play();
 
-        RaycastHit hitObject;
+        RaycastHit hitObject; 
         int layermask = 1 << 8; //Layermask of zombies
         if (keyboardShooting && name != "Bazooka")
         {
@@ -133,8 +133,16 @@ public class UnityGun : MonoBehaviour
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody,
+              GameObject bloodFX = Instantiate(Resources.Load("Blood"), hitObject.transform.position, Quaternion.FromToRotation(Vector3.zero,ray.direction)) as GameObject;
+              ParticleSystem bloodPS = bloodFX.GetComponentInChildren<ParticleSystem>();
+              Destroy(bloodFX, bloodPS.duration);
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, gunPower / 30.0f, false, 2);
+            }
+            else if(hitObject.collider.tag == "Barrels")
+            {
+              Debug.Log("Hit barrel");
+              hitObject.rigidbody.AddForce(ray.direction * gunPower);
             }
           }
           else
@@ -147,8 +155,15 @@ public class UnityGun : MonoBehaviour
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody,
+              GameObject bloodFX = Instantiate(Resources.Load("Blood"), hitObject.transform.position, Quaternion.identity) as GameObject;
+              ParticleSystem bloodPS = bloodFX.GetComponentInChildren<ParticleSystem>();
+              Destroy(bloodFX, bloodPS.duration);
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, (gunPower / 30.0f), false, 2);
+            }
+            else if(hitObject.collider.tag == "Barrels")
+            {
+              hitObject.rigidbody.AddForce(razerDirection * gunPower);
             }
           }
         }
@@ -190,8 +205,8 @@ public class UnityGun : MonoBehaviour
     {
       var x = this.transform.localPosition;
       this.transform.localPosition = x;
-    }
   }
+}                                                      
   public Vector3 Rotation
   {
     get
@@ -204,4 +219,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

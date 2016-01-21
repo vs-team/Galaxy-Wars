@@ -11,10 +11,10 @@ entity GroupZombie = {
   rule ZombieLeader = 
     let leader = new Zombie(U_ZombieLeader)
     yield Some leader
-    yield None
+    yield None 
     wait false
 
-  rule ZombieFollowers = 
+  rule ZombieFollowers =  
     let z = 
       [for a in U_Zombies do
        select (new Zombie(a))] 

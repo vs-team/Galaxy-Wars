@@ -142,7 +142,7 @@ entity Truck = {
       if KeyboardDriving then
         yield Input.GetAxis("Horizontal")
       else
-        yield Steering
+        yield Input.GetAxis("SW_Joy0X")
 
    rule Fuel = 
      wait world.W_Refill_Resources
@@ -187,18 +187,7 @@ entity AxleInfo = {
     wait steering
     if not world.Jeep.Value.isModel then
       let steeringAngle = world.Jeep.Value.maxSteeringAngle * world.Jeep.Value.JRotation
-      if world.Jeep.Value.cnvAccel > 0.0f then
-        if ((steeringAngle > 0.001f  && (world.Jeep.Value.RotationY > 30.0f  && world.Jeep.Value.RotationY < 120.0f)) || 
-            (steeringAngle < -0.001f && (world.Jeep.Value.RotationY > 200.0f && world.Jeep.Value.RotationY < 330.0f))) then 
-          yield 0.0f,0.0f
-        else
-          yield steeringAngle, steeringAngle
-      if world.Jeep.Value.cnvAccel < 0.0f then
-        if ((steeringAngle > 0.001f && (world.Jeep.Value.RotationY > 200.0f && world.Jeep.Value.RotationY < 330.0f)) || 
-            (steeringAngle < -0.001f && (world.Jeep.Value.RotationY > 30.0f && world.Jeep.Value.RotationY < 120.0f))) then 
-          yield 0.0f,0.0f
-        else
-          yield steeringAngle, steeringAngle
+      yield steeringAngle, steeringAngle
 
   rule leftWheel.motorTorque, rightWheel.motorTorque, world.Jeep.Value.Fuel =
     if not world.Jeep.Value.isModel then
