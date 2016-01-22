@@ -154,6 +154,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
 
   rule Group, PickUps, Spawnpoints = // spawning multiple groups on a single landscape
     wait Spawnpoints.Count > 0
+    wait dt
     let random_spawnp = Random.Range(0,4) 
     let random_pickup = Random.Range(0,4)
     if random_spawnp <> random_pickup then

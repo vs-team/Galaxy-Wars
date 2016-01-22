@@ -7,7 +7,6 @@ entity GroupZombie = {
   inherit UnityGroup
   ZombieFollowers : [Zombie]
 
-
   rule ZombieFollowers =  
     wait dt
     let z = 
@@ -27,6 +26,10 @@ entity GroupZombie = {
 entity Zombie = {
   inherit UnityZombie2
 
+  rule Life = 
+    yield 140.0f
+    wait false
+
   rule WaitingOnStandstill =
     wait WaitingOnStandstill
     Debug.Log(LastHitRigidBody.velocity.sqrMagnitude)
@@ -41,6 +44,7 @@ entity Zombie = {
     wait (Vector3.Distance(Position, world.Jeep.Value.Position) > 410.0f)
     yield true
       
+
   rule Dest =
     if Ragdolled then
       wait not Ragdolled

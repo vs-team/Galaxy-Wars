@@ -14,7 +14,7 @@ public bool JustEntered = true;
 public void Start()
 	{
 		Truck ___truk00;
-		___truk00 = new Truck("zpickup",new UnityEngine.Vector3(0f,-6.4f,0f),false,(
+		___truk00 = new Truck("zpickup",new UnityEngine.Vector3(0f,-6.8f,0f),false,(
 
 (new Cons<System.Int32>(4,(new Cons<System.Int32>(2,(new Cons<System.Int32>(1,(new Cons<System.Int32>(3,(new Empty<System.Int32>()).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>()).ToList<System.Int32>());
 		Zombies = (
@@ -2434,6 +2434,9 @@ public Barrel(UnityEngine.Vector3 ps)
 	public System.Boolean enabled{  get { return explode.enabled; }
   set{explode.enabled = value; }
  }
+	public UnityEngine.AudioClip explo{  get { return explode.explo; }
+  set{explode.explo = value; }
+ }
 	public explode explode;
 	public UnityEngine.GameObject explosionEffect{  get { return explode.explosionEffect; }
   set{explode.explosionEffect = value; }
@@ -2705,6 +2708,7 @@ Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 	public System.Single ___b04;
 	public List<Streetlight> ___x15;
 	public List<UnityEngine.Transform> ___sps20;
+	public System.Single count_down16;
 	public System.Int32 ___random_spawnp30;
 	public System.Int32 ___random_pickup30;
 	public UnityEngine.Transform ___sps31;
@@ -2831,6 +2835,19 @@ return;	}
 	{
 
 	s3 = -1;
+return;	}else
+	{
+
+	goto case 33;	}
+	case 33:
+	count_down16 = dt;
+	goto case 34;
+	case 34:
+	if(((count_down16) > (0f)))
+	{
+
+	count_down16 = ((count_down16) - (dt));
+	s3 = 34;
 return;	}else
 	{
 
@@ -3020,8 +3037,8 @@ public Streetlight(UnityEngine.Transform p, System.Single LeftSide, UnityEngine.
   set{UnityStreetLight.useGUILayout = value; }
  }
 	public System.Single ___r12;
+	public System.Single count_down18;
 	public System.Single count_down17;
-	public System.Single count_down16;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -3056,13 +3073,13 @@ return;
 	s1 = 3;
 return;
 	case 3:
-	count_down17 = ___r12;
+	count_down18 = ___r12;
 	goto case 4;
 	case 4:
-	if(((count_down17) > (0f)))
+	if(((count_down18) > (0f)))
 	{
 
-	count_down17 = ((count_down17) - (dt));
+	count_down18 = ((count_down18) - (dt));
 	s1 = 4;
 return;	}else
 	{
@@ -3073,13 +3090,13 @@ return;	}else
 	s1 = 0;
 return;
 	case 0:
-	count_down16 = ((___r12) - (0.2f));
+	count_down17 = ((___r12) - (0.2f));
 	goto case 1;
 	case 1:
-	if(((count_down16) > (0f)))
+	if(((count_down17) > (0f)))
 	{
 
-	count_down16 = ((count_down16) - (dt));
+	count_down17 = ((count_down17) - (dt));
 	s1 = 1;
 return;	}else
 	{
@@ -4880,7 +4897,7 @@ Enumerable.Empty<BazookaBullet>()).ToList<BazookaBullet>();
 	public SixenseHand ___razer90;
 	public UnityEngine.Vector3 ___razerDirection90;
 	public UnityEngine.Vector3 ___razerPosition90;
-	public System.Single count_down18;
+	public System.Single count_down19;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -5248,13 +5265,13 @@ return;
 	s10 = 10;
 return;
 	case 10:
-	count_down18 = 0.05f;
+	count_down19 = 0.05f;
 	goto case 11;
 	case 11:
-	if(((count_down18) > (0f)))
+	if(((count_down19) > (0f)))
 	{
 
-	count_down18 = ((count_down18) - (dt));
+	count_down19 = ((count_down19) - (dt));
 	s10 = 11;
 return;	}else
 	{
@@ -5326,11 +5343,11 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 	public System.Boolean ooas;
 	public System.Boolean relo;
 	public System.Boolean shot;
-	public System.Single count_down19;
+	public System.Single count_down20;
 	public System.Int32 ___a154;
 	public System.Int32 ___b15;
-	public System.Single count_down20;
 	public System.Single count_down21;
+	public System.Single count_down22;
 	public System.Int32 ___changed10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -5424,13 +5441,13 @@ return;
 	s0 = 10;
 return;
 	case 10:
-	count_down19 = 0.05f;
+	count_down20 = 0.05f;
 	goto case 11;
 	case 11:
-	if(((count_down19) > (0f)))
+	if(((count_down20) > (0f)))
 	{
 
-	count_down19 = ((count_down19) - (dt));
+	count_down20 = ((count_down20) - (dt));
 	s0 = 11;
 return;	}else
 	{
@@ -5490,13 +5507,13 @@ return;	}else
 	s1 = 8;
 return;
 	case 8:
-	count_down20 = ReloadDuration;
+	count_down21 = ReloadDuration;
 	goto case 9;
 	case 9:
-	if(((count_down20) > (0f)))
+	if(((count_down21) > (0f)))
 	{
 
-	count_down20 = ((count_down20) - (dt));
+	count_down21 = ((count_down21) - (dt));
 	s1 = 9;
 return;	}else
 	{
@@ -5512,13 +5529,13 @@ return;	}
 	s1 = 19;
 return;
 	case 19:
-	count_down21 = ReloadDuration;
+	count_down22 = ReloadDuration;
 	goto case 20;
 	case 20:
-	if(((count_down21) > (0f)))
+	if(((count_down22) > (0f)))
 	{
 
-	count_down21 = ((count_down21) - (dt));
+	count_down22 = ((count_down22) - (dt));
 	s1 = 20;
 return;	}else
 	{
@@ -5867,7 +5884,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Boolean useGUILayout{  get { return UnityGroup.useGUILayout; }
   set{UnityGroup.useGUILayout = value; }
  }
-	public System.Single count_down22;
+	public System.Single count_down23;
 	public List<Zombie> ___z05;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -5889,13 +5906,13 @@ frame = World.frame;
 	{
 
 	case -1:
-	count_down22 = dt;
+	count_down23 = dt;
 	goto case 5;
 	case 5:
-	if(((count_down22) > (0f)))
+	if(((count_down23) > (0f)))
 	{
 
-	count_down22 = ((count_down22) - (dt));
+	count_down23 = ((count_down23) - (dt));
 	s0 = 5;
 return;	}else
 	{
@@ -6041,8 +6058,8 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean useGUILayout{  get { return UnityZombie2.useGUILayout; }
   set{UnityZombie2.useGUILayout = value; }
  }
-	public System.Single count_down23;
 	public System.Single count_down24;
+	public System.Single count_down25;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -6050,6 +6067,7 @@ frame = World.frame;
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
+		this.Rule4(dt, world);
 	}
 
 
@@ -6079,13 +6097,13 @@ return;	}else
 
 	goto case 10;	}
 	case 10:
-	count_down23 = 5f;
+	count_down24 = 5f;
 	goto case 11;
 	case 11:
-	if(((count_down23) > (0f)))
+	if(((count_down24) > (0f)))
 	{
 
-	count_down23 = ((count_down23) - (dt));
+	count_down24 = ((count_down24) - (dt));
 	s0 = 11;
 return;	}else
 	{
@@ -6129,13 +6147,13 @@ return;
 	{
 
 	case -1:
-	count_down24 = tim;
+	count_down25 = tim;
 	goto case 2;
 	case 2:
-	if(((count_down24) > (0f)))
+	if(((count_down25) > (0f)))
 	{
 
-	count_down24 = ((count_down24) - (dt));
+	count_down25 = ((count_down25) - (dt));
 	s2 = 2;
 return;	}else
 	{
@@ -6178,6 +6196,28 @@ return;	}else
 	WaitingOnStandstill = false;
 	s3 = -1;
 return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	Life = 140f;
+	s4 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s4 = 0;
+return;	}else
+	{
+
+	s4 = -1;
+return;	}	
 	default: return;}}
 	
 
@@ -6238,4 +6278,4 @@ frame = World.frame;
 
 
 }
-}                                                            
+}       
