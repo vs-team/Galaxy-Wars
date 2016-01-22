@@ -4891,6 +4891,7 @@ Enumerable.Empty<BazookaBullet>()).ToList<BazookaBullet>();
 	public System.Boolean useGUILayout{  get { return UnityGun.useGUILayout; }
   set{UnityGun.useGUILayout = value; }
  }
+	public System.Int32 ___r24;
 	public List<BazookaBullet> ___undestroyedBullets80;
 	public UnityEngine.Camera ___camera90;
 	public UnityEngine.Ray ___Ray90;
@@ -4955,10 +4956,12 @@ return;
 	{
 
 	case -1:
+	___r24 = ((MagazineSize) * (3));
 	AmmoAct.Automatic = Automatic;
 	AmmoAct.ReloadDuration = ReloadDuration;
 	AmmoAct.MagazineSize = MagazineSize;
 	AmmoAct.TypeWeapon = TypeWeapon;
+	AmmoAct.Refill = ___r24;
 	s2 = 0;
 return;
 	case 0:
@@ -4983,24 +4986,24 @@ return;	}
 	if(UnityEngine.Input.GetKey(KeyCode.C))
 	{
 
-	goto case 6;	}else
+	goto case 7;	}else
 	{
 
-	goto case 2;	}
-	case 6:
+	goto case 3;	}
+	case 7:
 	Reloading = false;
-	s3 = 2;
+	s3 = 3;
 return;
-	case 2:
+	case 3:
 	if(((AmmoAct.Reloading) == (false)))
 	{
 
-	goto case 3;	}else
+	goto case 4;	}else
 	{
 
 	s3 = -1;
 return;	}
-	case 3:
+	case 4:
 	Reloading = false;
 	s3 = -1;
 return;	
@@ -5085,7 +5088,7 @@ return;
 	s7 = 11;
 return;
 	case 11:
-	if(!(!(Reloading)))
+	if(!(!(AmmoAct.Reloading)))
 	{
 
 	s7 = 11;
@@ -5323,6 +5326,7 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 		TypeWeapon = "";
 		Reloading = false;
 		ReloadDuration = 0f;
+		Refill = 0;
 		NotInMagazine = NotInMag;
 		MagazineSize = 0;
 		InMagazine = InMag;
@@ -5337,6 +5341,7 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 	public System.Int32 InMagazine;
 	public System.Int32 MagazineSize;
 	public System.Int32 NotInMagazine;
+	public System.Int32 Refill;
 	public System.Single ReloadDuration;
 	public System.Boolean Reloading;
 	public System.String TypeWeapon;
@@ -5344,16 +5349,17 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 	public System.Boolean relo;
 	public System.Boolean shot;
 	public System.Single count_down20;
-	public System.Int32 ___a154;
-	public System.Int32 ___b15;
+	public System.Int32 ___a254;
+	public System.Int32 ___b25;
 	public System.Single count_down21;
 	public System.Single count_down22;
-	public System.Int32 ___changed10;
+	public System.Int32 ___changed20;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
+		this.Rule2(dt, world);
 	}
 
 
@@ -5373,12 +5379,12 @@ frame = World.frame;
 return;	}else
 	{
 
-	goto case 15;	}
-	case 15:
+	goto case 14;	}
+	case 14:
 	if(!(GC.Value.Shot))
 	{
 
-	s0 = 15;
+	s0 = 14;
 return;	}else
 	{
 
@@ -5393,7 +5399,6 @@ return;	}else
 	s0 = -1;
 return;	}
 	case 1:
-	UnityEngine.Debug.Log(Automatic);
 	if(!(Automatic))
 	{
 
@@ -5463,10 +5468,31 @@ return;	}
 	{
 
 	case -1:
-	if(!(((((InMagazine) == (0))) || (Reloading))))
+	if(((world.ActiveBoR) == ("AmmoBox")))
+	{
+
+	goto case 17;	}else
 	{
 
 	s1 = -1;
+return;	}
+	case 17:
+	NotInMagazine = ((NotInMagazine) + (Refill));
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	if(!(((((InMagazine) == (0))) || (Reloading))))
+	{
+
+	s2 = -1;
 return;	}else
 	{
 
@@ -5491,20 +5517,20 @@ return;	}else
 	if(!(((((NotInMagazine) > (0))) && (((((MagazineSize) + (1))) > (InMagazine))))))
 	{
 
-	s1 = -1;
+	s2 = -1;
 return;	}else
 	{
 
 	goto case 7;	}
 	case 7:
-	___a154 = ((NotInMagazine) - (1));
-	___b15 = ((InMagazine) + (1));
+	___a254 = ((NotInMagazine) - (1));
+	___b25 = ((InMagazine) + (1));
 	Reloading = true;
-	NotInMagazine = ___a154;
-	InMagazine = ___b15;
+	NotInMagazine = ___a254;
+	InMagazine = ___b25;
 	relo = true;
 	ooas = false;
-	s1 = 8;
+	s2 = 8;
 return;
 	case 8:
 	count_down21 = ReloadDuration;
@@ -5514,11 +5540,11 @@ return;
 	{
 
 	count_down21 = ((count_down21) - (dt));
-	s1 = 9;
+	s2 = 9;
 return;	}else
 	{
 
-	s1 = 3;
+	s2 = 3;
 return;	}
 	case 4:
 	Reloading = true;
@@ -5526,7 +5552,7 @@ return;	}
 	InMagazine = InMagazine;
 	relo = false;
 	ooas = false;
-	s1 = 19;
+	s2 = 19;
 return;
 	case 19:
 	count_down22 = ReloadDuration;
@@ -5536,7 +5562,7 @@ return;
 	{
 
 	count_down22 = ((count_down22) - (dt));
-	s1 = 20;
+	s2 = 20;
 return;	}else
 	{
 
@@ -5555,16 +5581,16 @@ return;	}else
 	InMagazine = NotInMagazine;
 	relo = true;
 	ooas = false;
-	s1 = -1;
+	s2 = -1;
 return;
 	case 14:
-	___changed10 = ((MagazineSize) - (InMagazine));
+	___changed20 = ((MagazineSize) - (InMagazine));
 	Reloading = false;
-	NotInMagazine = ((NotInMagazine) - (___changed10));
+	NotInMagazine = ((NotInMagazine) - (___changed20));
 	InMagazine = MagazineSize;
 	relo = true;
 	ooas = false;
-	s1 = -1;
+	s2 = -1;
 return;
 	case 1:
 	Reloading = false;
@@ -5572,7 +5598,7 @@ return;
 	InMagazine = InMagazine;
 	relo = false;
 	ooas = true;
-	s1 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
@@ -5832,7 +5858,6 @@ return;
 	s3 = -1;
 return;	}
 	case 7:
-	UnityEngine.Debug.Log(("Battery = ") + (Battery));
 	Battery = ((Battery) + (50f));
 	s3 = -1;
 return;	
@@ -6278,4 +6303,4 @@ frame = World.frame;
 
 
 }
-}          
+} 
