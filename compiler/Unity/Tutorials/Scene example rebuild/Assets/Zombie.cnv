@@ -6,15 +6,10 @@ open UnityEngine
 entity GroupZombie = { 
   inherit UnityGroup
   ZombieFollowers : [Zombie]
-  ZombieLeader : Option<Zombie>
 
-  rule ZombieLeader = 
-    let leader = new Zombie(U_ZombieLeader)
-    yield Some leader
-    yield None 
-    wait false
 
   rule ZombieFollowers =  
+    wait dt
     let z = 
       [for a in U_Zombies do
        select (new Zombie(a))] 
@@ -26,7 +21,6 @@ entity GroupZombie = {
   {
     Base = UnityGroup.Instantiate(sps, amount)
     ZombieFollowers = []
-    ZombieLeader = None
   }
 }
 
@@ -60,6 +54,7 @@ entity Zombie = {
     Base = UnityZombie2.Find(trans)
   }
 }
+
 entity ZombieGroupDestroyer = {
   inherit UnityDestroyer
 

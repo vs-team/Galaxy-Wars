@@ -113,68 +113,43 @@ public class UnityZombie2 : MonoBehaviour
       return currentState;
     }
   }
-  void Start()
-  {
-    ac = new List<AudioClip>();
-    wc = new List<AudioClip>();
-    sc = new List<AudioClip>();
-    Object[] a = Resources.LoadAll("Zombie_Voice/Attack", typeof(AudioClip));
-    Object[] w = Resources.LoadAll("Zombie_Voice/Walk", typeof(AudioClip));
-    Object[] s = Resources.LoadAll("Zombie_Voice/Shout", typeof(AudioClip));
-    foreach (AudioClip j in a)
-    {
-      ac.Add(j);
-    }
-    foreach (AudioClip j in w)
-    {
-      wc.Add(j);
-    }
-    foreach (AudioClip j in s)
-    {
-      sc.Add(j);
-    }
-    asize = ac.Count;
-    wsize = wc.Count;
-    ssize = sc.Count;
-  }
-  private List<AudioClip> ac;
-  private List<AudioClip> wc;
-  private List<AudioClip> sc;
-  private int asize;
-  private int wsize;
-  private int ssize;
   public float tim;
-
+  private int asize = 63;
+  private int wsize = 64;
+  private int ssize = 64;
+  private int C = Random.Range(0, 10);
   public string SoundToPlay
   {
     get { return ""; }
     set
     {
-      var x = Random.Range(0, 10);
-      if(x < 8)
+      int x = C;
+      if(x != 9)
       {
+        C++;
         tim = 3.0f;
         return;
       }
+      C = 0;
 
       if (value == "Attack2" || value == "Attack1")
       {
-        int AARN = Random.Range(0, asize);
-        snd.clip = ac[AARN];
+        int AARN = Random.Range(1, asize);
+        snd.clip = Resources.Load<AudioClip>("Zombie_Voice/Attack/"+AARN);
         snd.Play();
         tim = snd.clip.length;
       }
       if (value == "Walk")
       {
-        int AWRN = Random.Range(0, wsize);
-        snd.clip = wc[AWRN];
+        int AWRN = Random.Range(1, wsize);
+        snd.clip = Resources.Load<AudioClip>("Zombie_Voice/Walk/" + AWRN);
         snd.Play();
         tim = snd.clip.length;
       }
       if (value == "Shout")
       {
-        int ASRN = Random.Range(0, ssize);
-        snd.clip = sc[ASRN];
+        int ASRN = Random.Range(1, ssize);
+        snd.clip = Resources.Load<AudioClip>("Zombie_Voice/Shout/" + ASRN);
         snd.Play();
         tim = snd.clip.length;
       }
@@ -441,4 +416,4 @@ public class UnityZombie2 : MonoBehaviour
       }
     }
   }
-}                                                                                                                                                                        
+}                                                                                                                                                                                                                                                                                                                                                                                                                                               

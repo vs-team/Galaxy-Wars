@@ -779,8 +779,8 @@ Transform:
   - {fileID: 488544}
   - {fileID: 404492}
   - {fileID: 497836}
-  - {fileID: 442214}
   - {fileID: 473332}
+  - {fileID: 442214}
   - {fileID: 487284}
   - {fileID: 404106}
   m_Father: {fileID: 0}
@@ -871,7 +871,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 412330}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!4 &442600
 Transform:
   m_ObjectHideFlags: 1
@@ -1052,7 +1052,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 412330}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!4 &481814
 Transform:
   m_ObjectHideFlags: 1
