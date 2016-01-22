@@ -59,8 +59,8 @@ public class UnityZombie2 : MonoBehaviour
     {
       Agent.destination = value;
       var zombieToCarDistance = Vector3.Distance(this.transform.position, value);
-      Agent.speed = Mathf.Min(zombieToCarDistance, 16.0f) / 8.0f;
-      if (Agent.speed > 1.5f)
+      Agent.speed = Mathf.Min(zombieToCarDistance * 4.5f, 25.0f) / 8.0f;
+      if (Agent.speed > 3.0f)
       {
         if (currentState != "Run")
         {
@@ -73,6 +73,7 @@ public class UnityZombie2 : MonoBehaviour
       {
         if (zombieToCarDistance > 5.0f)
         {
+          Agent.speed = 0.7f;
           if (currentState != "Walk")
           {
             motor1.SetBool(currentState, false);
@@ -82,7 +83,7 @@ public class UnityZombie2 : MonoBehaviour
         }
         else
         {
-          Agent.speed = 0.2f;
+          Agent.speed = 0.4f;
           int ranr = Random.Range(1, 3);
           if (ranr == 1)
           {
@@ -416,4 +417,4 @@ public class UnityZombie2 : MonoBehaviour
       }
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

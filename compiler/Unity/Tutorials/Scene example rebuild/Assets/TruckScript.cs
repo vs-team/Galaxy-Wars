@@ -201,6 +201,7 @@ public class TruckScript : MonoBehaviour
   {
     get { return this.transform.position; }
   }
+
   public Quaternion Rotation
   {
     get { return this.transform.localRotation; }
@@ -376,4 +377,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
