@@ -14,7 +14,7 @@ worldEntity World = {
   Landscapes : [Landscape]
   Jeep : Option<Truck>
   Zombies : [Zombie] // are created in the landscape in groups
-  GUIpanel : GUI 
+  Gui : [Guibar]
   ActiveBoR : string
   Counter : int  
   Players : [Player]
@@ -147,7 +147,7 @@ worldEntity World = {
      Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape((Vector3.zero), (2))] 
      Jeep = Some truk
      Zombies = []
-     GUIpanel = new GUI()
+     Gui = [new Guibar("HP");new Guibar("Fuel")]
      ActiveBoR = ""
      Counter = 3
      Players = [new Player(1)]
@@ -157,11 +157,19 @@ worldEntity World = {
     }
 }
 
-entity GUI = { //panel. Each wall contains the same info?
+entity Guibar = {
   inherit GUIBarScript
+  BarType : string
 
-  Create() = 
+  rule HPValue = 
+    if BarType = "HP" then
+      yield world.Jeep.Value.CarHP2
+    else
+      yield (world.Jeep.Value.Fuel / 10000.0f)
+
+  Create(typ : string) = 
   {
-    Base = GUIBarScript.Find()
+    Base = GUIBarScript.Find(typ)
+    BarType = typ
   }
 }

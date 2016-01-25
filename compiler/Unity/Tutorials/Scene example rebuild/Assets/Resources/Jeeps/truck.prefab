@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &102030
 GameObject:
   m_ObjectHideFlags: 1
@@ -2600,7 +2600,13 @@ MonoBehaviour:
   RearRightWheel: {fileID: 0}
   HeadlightLeft: {fileID: 0}
   HeadlightRight: {fileID: 0}
-  shield: {fileID: 0}
+  Audio_Driving: {fileID: 0}
+  Audio_DamageSmall: {fileID: 0}
+  Audio_DamageBig: {fileID: 0}
+  Invullen: 0
+  MultiplierBonus: 0
+  tim: 0
+  CarHPChanged: 0
 --- !u!114 &11444364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2921,6 +2927,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Trucks
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -17,7 +17,7 @@ public class TruckScript : MonoBehaviour
   public Light HeadlightLeft;
   public Light HeadlightRight;
   private float CarHP = 1.0f;
-  public Collider shield;
+  //public Collider shield;
   private List<UnityZombie2> collidedWithThisFrame;
   private TextMesh score;
   private TextMesh multiplier;
@@ -43,7 +43,7 @@ public class TruckScript : MonoBehaviour
     truck.HeadlightLeft = truck.transform.Find("LeftLight").GetComponent<Light>() as Light;
     truck.HeadlightRight = truck.transform.Find("RightLight").GetComponent<Light>() as Light;
 
-    truck.shield = truck.transform.Find("Shield").GetComponent<Collider>() as Collider;
+    //truck.shield = truck.transform.Find("Shield").GetComponent<Collider>() as Collider;
     truck.collidedWithThisFrame = new List<UnityZombie2>();
     truck.score = truck.transform.Find("Main Camera/Score").GetComponent<TextMesh>() as TextMesh;
     truck.multiplier = truck.transform.Find("Main Camera/Multiplier").GetComponent<TextMesh>() as TextMesh;
@@ -377,4 +377,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
