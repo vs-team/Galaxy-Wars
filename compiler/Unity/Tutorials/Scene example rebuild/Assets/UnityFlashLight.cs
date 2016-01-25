@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class UnityFlashLight : MonoBehaviour {
+public class UnityFlashLight : MonoBehaviour
+{
 
-	
+
   public static UnityFlashLight Find(string j)
   {
     Debug.Log(j);
@@ -33,9 +34,12 @@ public class UnityFlashLight : MonoBehaviour {
     get { return BatteryMesh.text; }
     set
     {
-      var x = value.Substring(0, 4);
-      BatteryMesh.text = x + "% left";
+      if (value.Length > 3)
+      {
+        var x = value.Substring(0, 4);
+        BatteryMesh.text = x + "% left";
+      }
     }
   }
 }
-                                      
+                         
