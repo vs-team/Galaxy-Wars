@@ -13,7 +13,6 @@ public bool JustEntered = true;
 
 public void Start()
 	{
-		test = false;
 		UnityMenu = new UnityMenu();
 		SubmitButton = (new Nothing<ButtonGUI>());
 		StartButton = (new Nothing<ButtonGUI>());
@@ -64,7 +63,6 @@ public void Start()
 	public System.String tag{  get { return UnityMenu.tag; }
   set{UnityMenu.tag = value; }
  }
-	public System.Boolean test;
 	public UnityEngine.Transform transform{  get { return UnityMenu.transform; }
  }
 	public System.Int32 upd{  get { return UnityMenu.upd; }
@@ -77,7 +75,6 @@ public void Start()
 	public System.Single count_down4;
 	public System.Single count_down3;
 	public System.Single count_down2;
-	public System.Int32 ___s140;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, Menu world) {
@@ -101,7 +98,6 @@ if(StartButton.IsSome){ 		StartButton.Value.Update(dt, world);
 		this.Rule11(dt, world);
 		this.Rule12(dt, world);
 		this.Rule13(dt, world);
-		this.Rule14(dt, world);
 	}
 
 
@@ -657,38 +653,6 @@ return;
 	default: return;}}
 	
 
-	int s14=-1;
-	public void Rule14(float dt, Menu world){ 
-	switch (s14)
-	{
-
-	case -1:
-	if(!(((LL) == (4))))
-	{
-
-	s14 = -1;
-return;	}else
-	{
-
-	goto case 2;	}
-	case 2:
-	___s140 = rbp;
-	test = true;
-	s14 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s14 = 0;
-return;	}else
-	{
-
-	s14 = -1;
-return;	}	
-	default: return;}}
-	
-
 
 
 
@@ -838,4 +802,4 @@ return;	}
 
 
 }
-}                                                               
+} 

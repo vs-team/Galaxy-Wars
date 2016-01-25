@@ -47,7 +47,6 @@ public class SixenseHand : MonoBehaviour
       var b = ClusterNetwork.isMasterOfCluster;
       Debug.Log("b = " + b);
 
-      */
       int nod = ClusterNetwork.nodeIndex; // front(master) = 3, left = 2, right = 1, back = 0
       // Create offset
       string handName = m_hand.ToString();
@@ -62,6 +61,7 @@ public class SixenseHand : MonoBehaviour
       Debug.Log("Rotation local" + Rot);
       m_controller.Position = Pos;
       m_controller.Rotation = Rot;
+      */
     }
   }
 
@@ -151,4 +151,4 @@ public class SixenseHand : MonoBehaviour
   public Quaternion InitialRotation { get { return m_initialRotation; } }
 
   public Vector3 InitialPosition { get { return m_initialPosition; } }
-}                                                                                                                                                                                                                                                                                                                                                  
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

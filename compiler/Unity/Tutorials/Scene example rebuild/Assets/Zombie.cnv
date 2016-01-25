@@ -6,15 +6,9 @@ open UnityEngine
 entity GroupZombie = { 
   inherit UnityGroup
   ZombieFollowers : [Zombie]
-  ZombieLeader : Option<Zombie>
-
-  rule ZombieLeader = 
-    let leader = new Zombie(U_ZombieLeader)
-    yield Some leader
-    yield None 
-    wait false
 
   rule ZombieFollowers =  
+    wait dt
     let z = 
       [for a in U_Zombies do
        select (new Zombie(a))] 
@@ -26,12 +20,15 @@ entity GroupZombie = {
   {
     Base = UnityGroup.Instantiate(sps, amount)
     ZombieFollowers = []
-    ZombieLeader = None
   }
 }
 
 entity Zombie = {
   inherit UnityZombie2
+
+  rule Life = 
+    yield 140.0f
+    wait false
 
   rule WaitingOnStandstill =
     wait WaitingOnStandstill
@@ -47,19 +44,21 @@ entity Zombie = {
     wait (Vector3.Distance(Position, world.Jeep.Value.Position) > 410.0f)
     yield true
       
+
   rule Dest =
     if Ragdolled then
       wait not Ragdolled
       wait 5.0f //Standing up animation
-      yield world.Jeep.Value.Position
+      yield world.Jeep.Value.Position // world.Jeep.Value.TruckTarget check each side of truck. pick closest c#
     else
-      yield world.Jeep.Value.Position 
+      yield world.Jeep.Value.Position // world.Jeep.Value.TruckTarget check each side of truck. pick closest c#
 
   Create(trans : Transform) = 
   { 
     Base = UnityZombie2.Find(trans)
   }
 }
+
 entity ZombieGroupDestroyer = {
   inherit UnityDestroyer
 

@@ -70,6 +70,25 @@ public class TruckScript : MonoBehaviour
     }
     //*/
   }
+  public float Rotz
+  {
+    get { return this.gameObject.transform.rotation.z; }
+  }
+  private bool rotate;
+  public bool flip
+  {
+    get { return rotate; }
+    set
+    {
+      rotate = value;
+      if (value)
+      {
+        truckRigidBody.velocity = Vector3.zero;
+        this.gameObject.transform.position = new Vector3(0, -6.94f, Position.z);
+        this.gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+      }
+    }
+  }
 
   public Vector3 InputPosition
   {
@@ -182,6 +201,7 @@ public class TruckScript : MonoBehaviour
   {
     get { return this.transform.position; }
   }
+
   public Quaternion Rotation
   {
     get { return this.transform.localRotation; }
@@ -282,7 +302,7 @@ public class TruckScript : MonoBehaviour
         collidedWithThisFrame.Add(hitZombie);
         if (collision.relativeVelocity.magnitude > 10.0f)
         {
-          hitZombie.GetHit(-collision.relativeVelocity.normalized, collision.transform, collision.rigidbody, 
+          hitZombie.GetHit(-collision.relativeVelocity.normalized, collision.transform, collision.rigidbody,
                            collision.collider, collision.relativeVelocity.magnitude / 30.0f, true, 2);
 
           if (!hitZombie.Dead)
@@ -297,7 +317,7 @@ public class TruckScript : MonoBehaviour
       CarHP -= collision.relativeVelocity.magnitude / 100;
       CarHPChanged = collision.relativeVelocity.magnitude;
     }
-    }
+  }
   public float tim;
   public float Dama
   {
@@ -310,13 +330,13 @@ public class TruckScript : MonoBehaviour
         tim = AudioS.clip.length;
         CarHPChanged = 0.0f;
         AudioS.Play();
-  }
-      else if(CarHPChanged > 1.0f)
-        {
-          AudioS.clip = Audio_DamageSmall;
-          tim = AudioS.clip.length;
+      }
+      else if (CarHPChanged > 1.0f)
+      {
+        AudioS.clip = Audio_DamageSmall;
+        tim = AudioS.clip.length;
         CarHPChanged = 0.0f;
-          AudioS.Play();
+        AudioS.Play();
       }
     }
   }
@@ -357,4 +377,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

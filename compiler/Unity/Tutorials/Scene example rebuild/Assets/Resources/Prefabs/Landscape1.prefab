@@ -24,7 +24,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 472042}
   m_Layer: 0
-  m_Name: StreetlightSpawnPoint4
+  m_Name: StreetlightSpawnPoint3
   m_TagString: Streetlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +39,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 437282}
   m_Layer: 0
-  m_Name: StreetlightSpawnPoint3
+  m_Name: StreetlightSpawnPoint1
   m_TagString: Streetlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,7 +342,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 438996}
   m_Layer: 0
-  m_Name: StreetlightSpawnPoint1
+  m_Name: StreetlightSpawnPoint4
   m_TagString: Streetlight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,7 +522,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 499014}
-  m_RootOrder: 16
+  m_RootOrder: 14
 --- !u!4 &438996
 Transform:
   m_ObjectHideFlags: 1
@@ -534,7 +534,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 499014}
-  m_RootOrder: 14
+  m_RootOrder: 17
 --- !u!4 &439556
 Transform:
   m_ObjectHideFlags: 1
@@ -630,7 +630,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 499014}
-  m_RootOrder: 17
+  m_RootOrder: 16
 --- !u!4 &475194
 Transform:
   m_ObjectHideFlags: 1
@@ -679,10 +679,10 @@ Transform:
   - {fileID: 432906}
   - {fileID: 492748}
   - {fileID: 450618}
-  - {fileID: 438996}
-  - {fileID: 475194}
   - {fileID: 437282}
+  - {fileID: 475194}
   - {fileID: 472042}
+  - {fileID: 438996}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &499020

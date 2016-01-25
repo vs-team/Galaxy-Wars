@@ -6,11 +6,15 @@ public class explode : MonoBehaviour
 {
   public GameObject explosionEffect;
   public Transform explosionEffectLocation;
+  private AudioSource audios;
+  public AudioClip explo;
+  private GameObject z;
 
   public static explode instantiate(Vector3 v, int a)
   {
     GameObject bom = GameObject.Instantiate(Resources.Load("Prefabs/barrel-" + a), v, Quaternion.Euler(new Vector3(90,0,0))) as GameObject;
     explode b = bom.GetComponent<explode>();
+    b.audios = bom.GetComponent<AudioSource>();
     return b;
   }
   private bool destroyed;
@@ -33,6 +37,14 @@ public class explode : MonoBehaviour
     set { isHit_p = value; }
   }
 
+  void Update()
+  {
+    if(Explode)
+    {
+
+    }
+  }
+
   private bool explosion;
   float explosionRadius = 15.0f;
   public bool Explode
@@ -40,7 +52,8 @@ public class explode : MonoBehaviour
     get { return explosion; }
     set
     {
-      Instantiate(explosionEffect, explosionEffectLocation.position, Quaternion.LookRotation(Vector3.up));
+      z = GameObject.Instantiate(explosionEffect, explosionEffectLocation.position, Quaternion.LookRotation(Vector3.up)) as GameObject;
+      z.GetComponent<AudioSource>().Play();
       explosion = value;
       Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, 1 << 8/*zombie layermask*/);
 
@@ -56,4 +69,4 @@ public class explode : MonoBehaviour
   }
 
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

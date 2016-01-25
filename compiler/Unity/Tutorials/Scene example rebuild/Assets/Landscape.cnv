@@ -22,7 +22,7 @@ entity Gasstation = {
       wait 2.0f
     else
       yield GroupZombies, 0
-
+        
   rule ZombieSpawnpoints = 
     let x = 
       [for a in SP2 do
@@ -45,7 +45,6 @@ entity Gasstation = {
       [for a in Barrels do
        where (not a.Destroyed)
        select a]
-    Debug.Log(x.Count)
     yield x
 
   rule Barrels = 
@@ -155,6 +154,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
 
   rule Group, PickUps, Spawnpoints = // spawning multiple groups on a single landscape
     wait Spawnpoints.Count > 0
+    wait dt
     let random_spawnp = Random.Range(0,4) 
     let random_pickup = Random.Range(0,4)
     if random_spawnp <> random_pickup then
@@ -162,15 +162,32 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
       let sps_pos = sps.position
       let rpu = Spawnpoints.[random_pickup]
       let rpu_pos = rpu.position
-      yield [new GroupZombie(sps_pos,7);new GroupZombie(rpu_pos, 7)], [], []//, [new PickUp(rpu_pos1)], []
-      wait false
+      if world.Score > 1000 then 
+        let j = 
+          [for a in [0..3] do
+           where (a <> random_spawnp || a <> random_pickup)
+           select a]
+        let spo2 = Spawnpoints.[j.Head]
+        let spo2_pos = spo2.position
+        Debug.Log("Spawned 3 groups")
+        yield [new GroupZombie(sps_pos,7);new GroupZombie(rpu_pos, 7);new GroupZombie(spo2_pos, 7)], [], []
+        wait false
+      else
+        yield [new GroupZombie(sps_pos,7);new GroupZombie(rpu_pos, 7)], [], []
+        wait false
     else 
       let sps1 = Spawnpoints.[1]
       let sps_pos1 = sps1.position
+      let sps0 = Spawnpoints.[0]
+      let sps_pos0 = sps0.position
       let rpu1 = Spawnpoints.[2]
       let rpu_pos1 = rpu1.position
-      yield [new GroupZombie(sps_pos1,7)], [new PickUp(rpu_pos1)], []
-      wait false
+      if world.Score > 1000 then 
+        yield [new GroupZombie(sps_pos1,7);new GroupZombie(sps_pos0,7)], [new PickUp(rpu_pos1, par)], []
+        wait false
+      else
+        yield [new GroupZombie(sps_pos1,7)], [new PickUp(rpu_pos1, par)], []
+        wait false
 
   rule Spawnpoints = 
     let sps = 
@@ -179,10 +196,19 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
     yield sps
     wait false
 
+  rule Streetlights_cnv =
+    let x =
+      [for a in Streetlights_cnv do
+       where (not a.Destroyed)
+       select a]
+    yield x
+
   rule Streetlights_cnv = 
     let r = Random.Range(0,Streetlights.Count)
     let p = Streetlights.[r]
-    yield [new Streetlight(p)]
+    let z = p.Item1
+    let b = if(p.Item2 = 1 || p.Item2 = 2) then 180.0f else 0.0f
+    yield [new Streetlight(z, b, par)]
     wait false
 
   Create(pos : Vector3, ps : int) =
@@ -199,14 +225,18 @@ entity Streetlight = {
   inherit UnityStreetLight
   test : bool
 
-  rule Lamp = 
+  rule test = 
+    let r = Random.Range(0.2f, 0.9f)
     yield true
-    wait 0.2f
+    wait r
     yield false
-    wait 0.3f
+    wait r - 0.2f
 
-  Create(p : Transform) = {
-    Base = UnityStreetLight.instantiate(p) // base has to be capital b. Otherwise Error at file 0
+  rule Lamp = 
+    yield test
+
+  Create(p : Transform, LeftSide : float, parent : Transform) = {
+    Base = UnityStreetLight.instantiate(p,LeftSide, parent) // base cant be lower b. Otherwise Error at file 0
     test = false
   }
 }
@@ -215,6 +245,7 @@ entity PickUp = {
   inherit UnityPickUp
   BonusAndResources : [BonusAndResource]
   BARpos : Vector3
+  p : Transform
 
   rule BonusAndResources = 
     let amount = 
@@ -233,7 +264,7 @@ entity PickUp = {
     let Slist = Shuffled
     let BAR = 
       [for a in [0..3] do
-       select (new BonusAndResource(plist.[a], Slist.[a]))]
+       select (new BonusAndResource(plist.[a], Slist.[a], p))]
     yield BAR
     wait false
 
@@ -242,8 +273,9 @@ entity PickUp = {
     yield BARlist
     wait false
 
-  Create(pos : Vector3) = 
+  Create(pos : Vector3, parent : Transform) = 
   {
+    p = parent
     BARpos = pos
     BonusAndResources = []
   }
@@ -258,9 +290,9 @@ entity BonusAndResource = {
       yield true, false
       yield true, true
 
-  Create(pos : Vector3, bonus : string) = 
+  Create(pos : Vector3, bonus : string, parent : Transform ) = 
   {
-    Base = UnityBonusResource.Instantiate(pos,bonus)
+    Base = UnityBonusResource.Instantiate(pos,bonus, parent)
     NameOfBoR = bonus
     Active = false;
   }

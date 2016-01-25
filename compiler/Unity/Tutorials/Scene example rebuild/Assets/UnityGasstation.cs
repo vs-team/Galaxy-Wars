@@ -48,6 +48,7 @@ public class UnityGasstation : MonoBehaviour
     var x = gs.transform;
     var dir = parkingspots[0].transform;
     component.modely = GameObject.Instantiate(Resources.Load("JeepModels/" + a[0] + "1"), dir.position, Quaternion.identity) as GameObject;
+    component.modely.transform.parent = gs.gameObject.transform;
     component.RepairZone = gs.transform.Find("Repair_Zone").GetComponent<Light>();
     component.SP2 = ZombieSpawnPoint;
     component.Blocations = BarrelLocation;
@@ -104,4 +105,4 @@ public class UnityGasstation : MonoBehaviour
     }
   }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

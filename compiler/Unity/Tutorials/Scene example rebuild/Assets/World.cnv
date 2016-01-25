@@ -44,6 +44,18 @@ worldEntity World = {
 
   rule Zombies = 
     let groups = 
+      [for a in Gasstations do
+       for b in a.GroupZombies do
+       select b]
+    let zombiegroup = 
+      [for a in groups do
+       for c in a.ZombieFollowers do
+	     select c]
+    if zombiegroup.Count > 0 then
+      yield zombiegroup @ Zombies
+
+  rule Zombies = 
+    let groups = 
       [for a in Landscapes do
        for b in a.Group do
        select b]
@@ -51,14 +63,8 @@ worldEntity World = {
       [for a in groups do
        for c in a.ZombieFollowers do
 	     select c]
-    let groupleader = 
-      [for a in groups do
-       where a.ZombieLeader.IsSome
-       let z = a.ZombieLeader.Value
-       select z]
-    let group = groupleader @ zombiegroup
-    if group.Count > 0 then
-      yield group @ Zombies
+    if zombiegroup.Count > 0 then
+      yield zombiegroup @ Zombies
   
   rule Zombies = 
     let zmbies = 
@@ -68,7 +74,7 @@ worldEntity World = {
     yield zmbies  
 
   rule ZombiegroupDest, Landscapes = 
-    wait 0.5f
+    wait 1.0f
     let x = 
       [for a in Landscapes do
        where (Vector3.Distance (a.Position, Jeep.Value.Position) > 400)
@@ -106,7 +112,7 @@ worldEntity World = {
       yield a.Head
       yield ""
 
-  rule Landscapes, Counter, Gasstations  = 
+  rule Landscapes, Counter, Gasstations = 
     let ls = 
       [for a in Landscapes do
        select a]
@@ -135,7 +141,7 @@ worldEntity World = {
           wait (Vector3.Distance(Headpos, Jeep.Value.Position) < 200.0f)
 
   Create() =
-    let truk = new Truck("zpickup", new Vector3(0.0f,-6.0f,0.0f), false, [4;2;1;3])
+    let truk = new Truck("zpickup", new Vector3(0.0f,-6.8f,0.0f), false, [4;2;1;3])
     {
      Gasstations = [new Gasstation(new Vector3(0.0f,0.0f, -80.0f))]
      Landscapes = [new Landscape(new Vector3(0.0f,0.0f,-160.0f), 1); new Landscape((Vector3.zero), (2))] 

@@ -14,7 +14,7 @@ public bool JustEntered = true;
 public void Start()
 	{
 		Truck ___truk00;
-		___truk00 = new Truck("zpickup",new UnityEngine.Vector3(0f,-6f,0f),false,(
+		___truk00 = new Truck("zpickup",new UnityEngine.Vector3(0f,-6.8f,0f),false,(
 
 (new Cons<System.Int32>(4,(new Cons<System.Int32>(2,(new Cons<System.Int32>(1,(new Cons<System.Int32>(3,(new Empty<System.Int32>()).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>())).ToList<System.Int32>()).ToList<System.Int32>());
 		Zombies = (
@@ -73,7 +73,7 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Int32 Score;
 	public System.Collections.Generic.List<UnityEngine.Transform> Spawnpoints2{  get { return UnityLandscape.Spawnpoints2; }
  }
-	public System.Collections.Generic.List<UnityEngine.Transform> Streetlights{  get { return UnityLandscape.Streetlights; }
+	public System.Collections.Generic.List<Casanova.Prelude.Tuple<UnityEngine.Transform,System.Int32>> Streetlights{  get { return UnityLandscape.Streetlights; }
  }
 	public UnityLandscape UnityLandscape;
 	public System.Boolean W_Refill_Resources;
@@ -97,6 +97,8 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
  }
 	public System.String name{  get { return UnityLandscape.name; }
   set{UnityLandscape.name = value; }
+ }
+	public UnityEngine.Transform par{  get { return UnityLandscape.par; }
  }
 	public System.String tag{  get { return UnityLandscape.tag; }
   set{UnityLandscape.tag = value; }
@@ -125,11 +127,11 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public List<Zombie> ___zmbies40;
 	public List<GroupZombie> ___groups50;
 	public List<Zombie> ___zombiegroup50;
-	public List<Zombie> ___groupleader50;
-	public List<Zombie> ___group50;
-	public System.Single ___x71;
-	public List<Gasstation> ___j81;
-	public System.Boolean ___t80;
+	public List<GroupZombie> ___groups61;
+	public List<Zombie> ___zombiegroup61;
+	public System.Single ___x81;
+	public List<Gasstation> ___j91;
+	public System.Boolean ___t90;
 
 System.DateTime init_time = System.DateTime.Now;
 	public void Update(float dt, World world) {
@@ -161,6 +163,7 @@ if(ZombiegroupDest.IsSome){ 		ZombiegroupDest.Value.Update(dt, world);
 		this.Rule6(dt, world);
 		this.Rule7(dt, world);
 		this.Rule8(dt, world);
+		this.Rule9(dt, world);
 	}
 
 
@@ -369,7 +372,7 @@ return;
 	{
 
 	case -1:
-	count_down3 = 0.5f;
+	count_down3 = 1f;
 	goto case 17;
 	case 17:
 	if(((count_down3) > (0f)))
@@ -491,15 +494,7 @@ return;
                                                       prev = __ContextSymbol31 })
 .Select(__ContextSymbol33 => __ContextSymbol33.___c51)
 .ToList<Zombie>())).ToList<Zombie>();
-	___groupleader50 = (
-
-(___groups50).Select(__ContextSymbol34 => new { ___a58 = __ContextSymbol34 })
-.Where(__ContextSymbol35 => __ContextSymbol35.___a58.ZombieLeader.IsSome)
-.Select(__ContextSymbol36 => new {___z51 = __ContextSymbol36.___a58.ZombieLeader.Value, prev = __ContextSymbol36 })
-.Select(__ContextSymbol37 => __ContextSymbol37.___z51)
-.ToList<Zombie>()).ToList<Zombie>();
-	___group50 = (___groupleader50).Concat(___zombiegroup50).ToList<Zombie>();
-	if(((___group50.Count) > (0)))
+	if(((___zombiegroup50.Count) > (0)))
 	{
 
 	goto case 3;	}else
@@ -508,7 +503,7 @@ return;
 	s5 = -1;
 return;	}
 	case 3:
-	Zombies = (___group50).Concat(Zombies).ToList<Zombie>();
+	Zombies = (___zombiegroup50).Concat(Zombies).ToList<Zombie>();
 	s5 = -1;
 return;	
 	default: return;}}
@@ -520,7 +515,30 @@ return;
 	{
 
 	case -1:
-	Score = ((Score) + (1));
+	___groups61 = (
+
+(Gasstations).Select(__ContextSymbol34 => new { ___a68 = __ContextSymbol34 })
+.SelectMany(__ContextSymbol35=> (__ContextSymbol35.___a68.GroupZombies).Select(__ContextSymbol36 => new { ___b63 = __ContextSymbol36,
+                                                      prev = __ContextSymbol35 })
+.Select(__ContextSymbol37 => __ContextSymbol37.___b63)
+.ToList<GroupZombie>())).ToList<GroupZombie>();
+	___zombiegroup61 = (
+
+(___groups61).Select(__ContextSymbol38 => new { ___a69 = __ContextSymbol38 })
+.SelectMany(__ContextSymbol39=> (__ContextSymbol39.___a69.ZombieFollowers).Select(__ContextSymbol40 => new { ___c62 = __ContextSymbol40,
+                                                      prev = __ContextSymbol39 })
+.Select(__ContextSymbol41 => __ContextSymbol41.___c62)
+.ToList<Zombie>())).ToList<Zombie>();
+	if(((___zombiegroup61.Count) > (0)))
+	{
+
+	goto case 8;	}else
+	{
+
+	s6 = -1;
+return;	}
+	case 8:
+	Zombies = (___zombiegroup61).Concat(Zombies).ToList<Zombie>();
 	s6 = -1;
 return;	
 	default: return;}}
@@ -532,25 +550,6 @@ return;
 	{
 
 	case -1:
-	if(!(Jeep.IsSome))
-	{
-
-	s7 = -1;
-return;	}else
-	{
-
-	goto case 3;	}
-	case 3:
-	___x71 = Jeep.Value.MultiplierBonus;
-	if(((___x71) > (1.1f)))
-	{
-
-	goto case 1;	}else
-	{
-
-	s7 = -1;
-return;	}
-	case 1:
 	Score = ((Score) + (1));
 	s7 = -1;
 return;	
@@ -563,20 +562,51 @@ return;
 	{
 
 	case -1:
-	___j81 = (
+	if(!(Jeep.IsSome))
+	{
 
-(Gasstations).Select(__ContextSymbol38 => new { ___a89 = __ContextSymbol38 })
-.Where(__ContextSymbol39 => __ContextSymbol39.___a89.RepairZonE.Refill_Resources)
-.Select(__ContextSymbol40 => __ContextSymbol40.___a89)
+	s8 = -1;
+return;	}else
+	{
+
+	goto case 3;	}
+	case 3:
+	___x81 = Jeep.Value.MultiplierBonus;
+	if(((___x81) > (1.1f)))
+	{
+
+	goto case 1;	}else
+	{
+
+	s8 = -1;
+return;	}
+	case 1:
+	Score = ((Score) + (1));
+	s8 = -1;
+return;	
+	default: return;}}
+	
+
+	int s9=-1;
+	public void Rule9(float dt, World world){ 
+	switch (s9)
+	{
+
+	case -1:
+	___j91 = (
+
+(Gasstations).Select(__ContextSymbol42 => new { ___a910 = __ContextSymbol42 })
+.Where(__ContextSymbol43 => __ContextSymbol43.___a910.RepairZonE.Refill_Resources)
+.Select(__ContextSymbol44 => __ContextSymbol44.___a910)
 .ToList<Gasstation>()).ToList<Gasstation>();
-	if(((___j81.Count) > (0)))
+	if(((___j91.Count) > (0)))
 	{
 
-	___t80 = true;	}else
+	___t90 = true;	}else
 	{
 
-	___t80 = false;	}
-	if(___t80)
+	___t90 = false;	}
+	if(___t90)
 	{
 
 	goto case 5;	}else
@@ -585,11 +615,11 @@ return;
 	goto case 6;	}
 	case 5:
 	W_Refill_Resources = true;
-	s8 = -1;
+	s9 = -1;
 return;
 	case 6:
 	W_Refill_Resources = false;
-	s8 = -1;
+	s9 = -1;
 return;	
 	default: return;}}
 	
@@ -750,7 +780,7 @@ public TruckStats(System.Boolean bs, List<System.Int32> sts)
 	public System.Single MaxSteering;
 	public List<System.Int32> TypeWeapon;
 	public System.Boolean isModel;
-	public System.Single ___z02;
+	public System.Single ___z01;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -769,33 +799,47 @@ frame = World.frame;
 	{
 
 	case -1:
-	if(!(((isModel) == (true))))
+	if(((!(((isModel) == (true)))) && (!(world.W_Refill_Resources))))
 	{
 
-	goto case 13;	}else
+	goto case 12;	}else
 	{
 
-	s0 = -1;
-return;	}
-	case 13:
-	___z02 = world.Jeep.Value.CarHP2;
-	if(!(((___z02) == (((Health) / (100f))))))
+	goto case 13;	}
+	case 12:
+	___z01 = world.Jeep.Value.CarHP2;
+	if(!(((___z01) == (((Health) / (100f))))))
 	{
 
-	goto case 14;	}else
+	goto case 15;	}else
 	{
 
-	goto case 15;	}
-	case 14:
+	goto case 16;	}
+	case 15:
 	world.Jeep.Value.CarHP2 = world.Jeep.Value.CarHP2;
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
 	s0 = -1;
 return;
-	case 15:
+	case 16:
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	Health = ((world.Jeep.Value.CarHP2) * (100f));
 	world.GUIpanel.HPValue = world.Jeep.Value.CarHP2;
+	s0 = -1;
+return;
+	case 13:
+	if(world.W_Refill_Resources)
+	{
+
+	goto case 22;	}else
+	{
+
+	s0 = -1;
+return;	}
+	case 22:
+	world.Jeep.Value.CarHP2 = 1f;
+	Health = 100f;
+	world.GUIpanel.HPValue = ((Health) / (100f));
 	s0 = -1;
 return;	
 	default: return;}}
@@ -807,15 +851,15 @@ return;
 	{
 
 	case -1:
-	if(((((world.ActiveBoR) == ("Medipack Red"))) && (!(((isModel) == (true))))))
+	if(((((((world.ActiveBoR) == ("Medipack Red"))) && (!(((isModel) == (true)))))) && (!(world.W_Refill_Resources))))
 	{
 
-	goto case 21;	}else
+	goto case 25;	}else
 	{
 
 	s1 = -1;
 return;	}
-	case 21:
+	case 25:
 	Health = ((Health) + (20f));
 	world.Jeep.Value.CarHP2 = ((Health) / (100f));
 	s1 = -1;
@@ -952,12 +996,12 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
  }
 	public System.Single RotationY{  get { return TruckScript.RotationY; }
  }
+	public System.Single Rotz{  get { return TruckScript.Rotz; }
+ }
 	public System.String Score{  get { return TruckScript.Score; }
   set{TruckScript.Score = value; }
  }
 	public TruckStats Stats;
-	public System.Single Steering{  get { return TruckScript.Steering; }
- }
 	public UnityEngine.Vector3 Trque{  set{TruckScript.Trque = value; }
  }
 	public TruckScript TruckScript;
@@ -967,6 +1011,9 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
  }
 	public System.Boolean enabled{  get { return TruckScript.enabled; }
   set{TruckScript.enabled = value; }
+ }
+	public System.Boolean flip{  get { return TruckScript.flip; }
+  set{TruckScript.flip = value; }
  }
 	public UnityEngine.GameObject gameObject{  get { return TruckScript.gameObject; }
  }
@@ -1006,9 +1053,10 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.String ___j92;
 	public System.Single count_down10;
 	public System.Single count_down9;
-	public System.Single ___a1310;
+	public System.Single ___a1311;
 	public System.Single count_down11;
 	public System.Single count_down12;
+	public System.Single count_down13;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1031,6 +1079,7 @@ frame = World.frame;
 		this.Rule12(dt, world);
 		this.Rule13(dt, world);
 		this.Rule14(dt, world);
+		this.Rule15(dt, world);
 	}
 
 
@@ -1140,7 +1189,7 @@ return;	}else
 	s3 = -1;
 return;
 	case 1:
-	JRotation = Steering;
+	JRotation = UnityEngine.Input.GetAxis("SW_Joy0X");
 	s3 = -1;
 return;	
 	default: return;}}
@@ -1412,7 +1461,7 @@ return;	}
 	{
 
 	case -1:
-	if(!(((1) > (Stats.Health))))
+	if(!(((((1) > (Stats.Health))) || (((0) > (world.Score))))))
 	{
 
 	s10 = -1;
@@ -1534,8 +1583,8 @@ return;
 	{
 
 	case -1:
-	___a1310 = CarHPChanged;
-	if(!(((___a1310) == (0f))))
+	___a1311 = CarHPChanged;
+	if(!(((___a1311) == (0f))))
 	{
 
 	goto case 14;	}else
@@ -1574,31 +1623,75 @@ return;	}
 	if(((world.ActiveBoR) == ("Star Red")))
 	{
 
-	goto case 20;	}else
+	goto case 19;	}else
 	{
 
-	s14 = -1;
-return;	}
-	case 20:
+	goto case 20;	}
+	case 19:
 	Multip = 1.2f;
-	s14 = 22;
+	s14 = 23;
 return;
-	case 22:
-	count_down12 = 8f;
-	goto case 23;
 	case 23:
+	count_down12 = 8f;
+	goto case 24;
+	case 24:
 	if(((count_down12) > (0f)))
 	{
 
 	count_down12 = ((count_down12) - (dt));
-	s14 = 23;
+	s14 = 24;
 return;	}else
 	{
 
-	goto case 21;	}
-	case 21:
+	goto case 22;	}
+	case 22:
 	Multip = 1f;
 	s14 = -1;
+return;
+	case 20:
+	Multip = 1f;
+	s14 = -1;
+return;	
+	default: return;}}
+	
+
+	int s15=-1;
+	public void Rule15(float dt, World world){ 
+	switch (s15)
+	{
+
+	case -1:
+	if(!(((((UnityEngine.Input.GetKeyDown(KeyCode.L)) || (((((Rotz) > (0.3f))) && (((0.9f) > (Rotz))))))) || (((((Rotz) > (-0.3f))) && (((-0.9f) > (Rotz))))))))
+	{
+
+	s15 = -1;
+return;	}else
+	{
+
+	goto case 4;	}
+	case 4:
+	UnityEngine.Debug.Log("flip");
+	count_down13 = 0.2f;
+	goto case 3;
+	case 3:
+	if(((count_down13) > (0f)))
+	{
+
+	count_down13 = ((count_down13) - (dt));
+	s15 = 3;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	flip = true;
+	world.Score = ((world.Score) - (200));
+	s15 = 0;
+return;
+	case 0:
+	flip = false;
+	world.Score = world.Score;
+	s15 = -1;
 return;	
 	default: return;}}
 	
@@ -1631,7 +1724,7 @@ public AxleInfo(UnityEngine.WheelCollider lW, UnityEngine.WheelCollider rW, Syst
 	public System.Boolean steering;
 	public System.Single ___dir00;
 	public System.Single ___speed00;
-	public System.Single count_down13;
+	public System.Single count_down14;
 	public System.Single ___steeringAngle10;
 	public void Update(float dt, World world) {
 frame = World.frame;
@@ -1654,106 +1747,106 @@ frame = World.frame;
 	if(!(world.Jeep.Value.isModel))
 	{
 
-	goto case 26;	}else
+	goto case 7;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 26:
+	case 7:
 	if(((world.Jeep.Value.Fuel) > (0.99f)))
 	{
 
-	goto case 27;	}else
+	goto case 8;	}else
 	{
 
-	goto case 28;	}
-	case 27:
+	goto case 9;	}
+	case 8:
 	if(((!(((world.Jeep.Value.cnvAccel) == (0f)))) && (((leftWheel.isGrounded) || (rightWheel.isGrounded)))))
 	{
 
-	goto case 30;	}else
+	goto case 11;	}else
 	{
 
-	goto case 31;	}
-	case 30:
+	goto case 12;	}
+	case 11:
 	___dir00 = world.Jeep.Value.cnvAccel;
 	___speed00 = ((((world.Jeep.Value.maxMotorTorque) * (world.Jeep.Value.cnvAccel))) * (-1f));
 	if(((world.ActiveBoR) == ("Arrows Green")))
 	{
 
-	goto case 33;	}else
+	goto case 14;	}else
 	{
 
-	goto case 34;	}
-	case 33:
+	goto case 15;	}
+	case 14:
 	leftWheel.motorTorque = leftWheel.motorTorque;
 	rightWheel.motorTorque = rightWheel.motorTorque;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 37;
+	s0 = 18;
 return;
-	case 37:
+	case 18:
 	if(!(((!(((world.Jeep.Value.cnvAccel) == (___dir00)))) || (true))))
 	{
 
-	s0 = 37;
+	s0 = 18;
 return;	}else
 	{
 
-	goto case 36;	}
-	case 36:
+	goto case 17;	}
+	case 17:
 	if(!(((world.Jeep.Value.cnvAccel) == (___dir00))))
 	{
 
-	goto case 38;	}else
+	goto case 19;	}else
 	{
 
 	if(true)
 	{
 
-	goto case 39;	}else
+	goto case 20;	}else
 	{
 
-	s0 = 36;
+	s0 = 17;
 return;	}	}
-	case 38:
+	case 19:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 39:
+	case 20:
 	leftWheel.motorTorque = ((___speed00) * (10f));
 	rightWheel.motorTorque = ((___speed00) * (10f));
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
-	s0 = 41;
+	s0 = 22;
 return;
-	case 41:
-	count_down13 = 2f;
-	goto case 42;
-	case 42:
-	if(((count_down13) > (0f)))
+	case 22:
+	count_down14 = 2f;
+	goto case 23;
+	case 23:
+	if(((count_down14) > (0f)))
 	{
 
-	count_down13 = ((count_down13) - (dt));
-	s0 = 42;
+	count_down14 = ((count_down14) - (dt));
+	s0 = 23;
 return;	}else
 	{
 
 	s0 = -1;
 return;	}
-	case 34:
+	case 15:
 	leftWheel.motorTorque = ___speed00;
 	rightWheel.motorTorque = ___speed00;
 	world.Jeep.Value.Fuel = ((world.Jeep.Value.Fuel) - (1f));
 	s0 = -1;
 return;
-	case 31:
+	case 12:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = world.Jeep.Value.Fuel;
 	s0 = -1;
 return;
-	case 28:
+	case 9:
 	leftWheel.motorTorque = 0f;
 	rightWheel.motorTorque = 0f;
 	world.Jeep.Value.Fuel = 0f;
@@ -1787,54 +1880,6 @@ return;	}else
 return;	}
 	case 1:
 	___steeringAngle10 = ((world.Jeep.Value.maxSteeringAngle) * (world.Jeep.Value.JRotation));
-	if(((world.Jeep.Value.cnvAccel) > (0f)))
-	{
-
-	goto case 10;	}else
-	{
-
-	goto case 2;	}
-	case 10:
-	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.Value.RotationY) > (30f))) && (((120f) > (world.Jeep.Value.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.Value.RotationY) > (200f))) && (((330f) > (world.Jeep.Value.RotationY)))))))))
-	{
-
-	goto case 11;	}else
-	{
-
-	goto case 12;	}
-	case 11:
-	leftWheel.steerAngle = 0f;
-	rightWheel.steerAngle = 0f;
-	s1 = 2;
-return;
-	case 12:
-	leftWheel.steerAngle = ___steeringAngle10;
-	rightWheel.steerAngle = ___steeringAngle10;
-	s1 = 2;
-return;
-	case 2:
-	if(((0f) > (world.Jeep.Value.cnvAccel)))
-	{
-
-	goto case 3;	}else
-	{
-
-	s1 = -1;
-return;	}
-	case 3:
-	if(((((((___steeringAngle10) > (0.001f))) && (((((world.Jeep.Value.RotationY) > (200f))) && (((330f) > (world.Jeep.Value.RotationY))))))) || (((((-0.001f) > (___steeringAngle10))) && (((((world.Jeep.Value.RotationY) > (30f))) && (((120f) > (world.Jeep.Value.RotationY)))))))))
-	{
-
-	goto case 4;	}else
-	{
-
-	goto case 5;	}
-	case 4:
-	leftWheel.steerAngle = 0f;
-	rightWheel.steerAngle = 0f;
-	s1 = -1;
-return;
-	case 5:
 	leftWheel.steerAngle = ___steeringAngle10;
 	rightWheel.steerAngle = ___steeringAngle10;
 	s1 = -1;
@@ -1933,7 +1978,7 @@ Enumerable.Empty<Barrel>()).ToList<Barrel>();
 	public UnityEngine.Transform ___zsp50;
 	public UnityEngine.Vector3 ___t51;
 	public List<GroupZombie> ___newZ50;
-	public System.Single count_down14;
+	public System.Single count_down15;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -1964,8 +2009,8 @@ frame = World.frame;
 	case -1:
 	___x02 = (
 
-(Blocations).Select(__ContextSymbol56 => new { ___a011 = __ContextSymbol56 })
-.Select(__ContextSymbol57 => new Barrel(__ContextSymbol57.___a011))
+(Blocations).Select(__ContextSymbol60 => new { ___a012 = __ContextSymbol60 })
+.Select(__ContextSymbol61 => new Barrel(__ContextSymbol61.___a012))
 .ToList<Barrel>()).ToList<Barrel>();
 	Barrels = ___x02;
 	s0 = 0;
@@ -1991,11 +2036,10 @@ return;	}
 	case -1:
 	___x13 = (
 
-(Barrels).Select(__ContextSymbol58 => new { ___a112 = __ContextSymbol58 })
-.Where(__ContextSymbol59 => !(__ContextSymbol59.___a112.Destroyed))
-.Select(__ContextSymbol60 => __ContextSymbol60.___a112)
+(Barrels).Select(__ContextSymbol62 => new { ___a113 = __ContextSymbol62 })
+.Where(__ContextSymbol63 => !(__ContextSymbol63.___a113.Destroyed))
+.Select(__ContextSymbol64 => __ContextSymbol64.___a113)
 .ToList<Barrel>()).ToList<Barrel>();
-	UnityEngine.Debug.Log(___x13.Count);
 	Barrels = ___x13;
 	s1 = -1;
 return;	
@@ -2057,8 +2101,8 @@ return;
 	case -1:
 	___x44 = (
 
-(SP2).Select(__ContextSymbol62 => new { ___a413 = __ContextSymbol62 })
-.Select(__ContextSymbol63 => __ContextSymbol63.___a413)
+(SP2).Select(__ContextSymbol66 => new { ___a414 = __ContextSymbol66 })
+.Select(__ContextSymbol67 => __ContextSymbol67.___a414)
 .ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
 	ZombieSpawnpoints = ___x44;
 	s4 = 0;
@@ -2118,13 +2162,13 @@ return;	}else
 	s5 = 3;
 return;
 	case 3:
-	count_down14 = 2f;
+	count_down15 = 2f;
 	goto case 4;
 	case 4:
-	if(((count_down14) > (0f)))
+	if(((count_down15) > (0f)))
 	{
 
-	count_down14 = ((count_down14) - (dt));
+	count_down15 = ((count_down15) - (dt));
 	s5 = 4;
 return;	}else
 	{
@@ -2260,9 +2304,9 @@ return;	}
 	case 1:
 	___wheel10 = (
 
-(___axl10).Select(__ContextSymbol65 => new { ___a114 = __ContextSymbol65 })
-.Where(__ContextSymbol66 => __ContextSymbol66.___a114.motor)
-.Select(__ContextSymbol67 => __ContextSymbol67.___a114.leftWheel)
+(___axl10).Select(__ContextSymbol69 => new { ___a115 = __ContextSymbol69 })
+.Where(__ContextSymbol70 => __ContextSymbol70.___a115.motor)
+.Select(__ContextSymbol71 => __ContextSymbol71.___a115.leftWheel)
 .ToList<UnityEngine.WheelCollider>()).ToList<UnityEngine.WheelCollider>();
 	if(((((-40f) > (___wheel10.Head().motorTorque))) || (((___wheel10.Head().motorTorque) > (40f)))))
 	{
@@ -2389,6 +2433,9 @@ public Barrel(UnityEngine.Vector3 ps)
 	public System.Single Health;
 	public System.Boolean enabled{  get { return explode.enabled; }
   set{explode.enabled = value; }
+ }
+	public UnityEngine.AudioClip explo{  get { return explode.explo; }
+  set{explode.explo = value; }
  }
 	public explode explode;
 	public UnityEngine.GameObject explosionEffect{  get { return explode.explosionEffect; }
@@ -2628,7 +2675,7 @@ Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 	public List<UnityEngine.Transform> Spawnpoints;
 	public System.Collections.Generic.List<UnityEngine.Transform> Spawnpoints2{  get { return UnityLandscape.Spawnpoints2; }
  }
-	public System.Collections.Generic.List<UnityEngine.Transform> Streetlights{  get { return UnityLandscape.Streetlights; }
+	public System.Collections.Generic.List<Casanova.Prelude.Tuple<UnityEngine.Transform,System.Int32>> Streetlights{  get { return UnityLandscape.Streetlights; }
  }
 	public List<Streetlight> Streetlights_cnv;
 	public UnityLandscape UnityLandscape;
@@ -2645,6 +2692,8 @@ Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
 	public System.String name{  get { return UnityLandscape.name; }
   set{UnityLandscape.name = value; }
  }
+	public UnityEngine.Transform par{  get { return UnityLandscape.par; }
+ }
 	public System.String tag{  get { return UnityLandscape.tag; }
   set{UnityLandscape.tag = value; }
  }
@@ -2654,18 +2703,27 @@ Enumerable.Empty<GroupZombie>()).ToList<GroupZombie>();
   set{UnityLandscape.useGUILayout = value; }
  }
 	public System.Int32 ___r01;
-	public UnityEngine.Transform ___p00;
-	public List<UnityEngine.Transform> ___sps10;
-	public System.Int32 ___random_spawnp20;
-	public System.Int32 ___random_pickup20;
-	public UnityEngine.Transform ___sps21;
-	public UnityEngine.Vector3 ___sps_pos20;
-	public UnityEngine.Transform ___rpu20;
-	public UnityEngine.Vector3 ___rpu_pos20;
-	public UnityEngine.Transform ___sps120;
-	public UnityEngine.Vector3 ___sps_pos120;
-	public UnityEngine.Transform ___rpu120;
-	public UnityEngine.Vector3 ___rpu_pos120;
+	public Casanova.Prelude.Tuple<UnityEngine.Transform,System.Int32> ___p00;
+	public UnityEngine.Transform ___z02;
+	public System.Single ___b04;
+	public List<Streetlight> ___x15;
+	public List<UnityEngine.Transform> ___sps20;
+	public System.Single count_down16;
+	public System.Int32 ___random_spawnp30;
+	public System.Int32 ___random_pickup30;
+	public UnityEngine.Transform ___sps31;
+	public UnityEngine.Vector3 ___sps_pos30;
+	public UnityEngine.Transform ___rpu30;
+	public UnityEngine.Vector3 ___rpu_pos30;
+	public List<System.Int32> ___j33;
+	public UnityEngine.Transform ___spo230;
+	public UnityEngine.Vector3 ___spo2_pos30;
+	public UnityEngine.Transform ___sps130;
+	public UnityEngine.Vector3 ___sps_pos130;
+	public UnityEngine.Transform ___sps030;
+	public UnityEngine.Vector3 ___sps_pos030;
+	public UnityEngine.Transform ___rpu130;
+	public UnityEngine.Vector3 ___rpu_pos130;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -2681,6 +2739,7 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		this.Rule3(dt, world);
 	}
 
 
@@ -2695,9 +2754,17 @@ frame = World.frame;
 	case -1:
 	___r01 = UnityEngine.Random.Range(0,Streetlights.Count);
 	___p00 = (Streetlights)[___r01];
+	___z02 = ___p00.Item1;
+	if(((((___p00.Item2) == (1))) || (((___p00.Item2) == (2)))))
+	{
+
+	___b04 = 180f;	}else
+	{
+
+	___b04 = 0f;	}
 	Streetlights_cnv = (
 
-(new Cons<Streetlight>(new Streetlight(___p00),(new Empty<Streetlight>()).ToList<Streetlight>())).ToList<Streetlight>()).ToList<Streetlight>();
+(new Cons<Streetlight>(new Streetlight(___z02,___b04,par),(new Empty<Streetlight>()).ToList<Streetlight>())).ToList<Streetlight>()).ToList<Streetlight>();
 	s0 = 0;
 return;
 	case 0:
@@ -2719,24 +2786,15 @@ return;	}
 	{
 
 	case -1:
-	___sps10 = (
+	___x15 = (
 
-(Spawnpoints2).Select(__ContextSymbol77 => new { ___a115 = __ContextSymbol77 })
-.Select(__ContextSymbol78 => __ContextSymbol78.___a115)
-.ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
-	Spawnpoints = ___sps10;
-	s1 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s1 = 0;
-return;	}else
-	{
-
+(Streetlights_cnv).Select(__ContextSymbol81 => new { ___a116 = __ContextSymbol81 })
+.Where(__ContextSymbol82 => !(__ContextSymbol82.___a116.Destroyed))
+.Select(__ContextSymbol83 => __ContextSymbol83.___a116)
+.ToList<Streetlight>()).ToList<Streetlight>();
+	Streetlights_cnv = ___x15;
 	s1 = -1;
-return;	}	
+return;	
 	default: return;}}
 	
 
@@ -2746,18 +2804,58 @@ return;	}
 	{
 
 	case -1:
-	if(!(((Spawnpoints.Count) > (0))))
+	___sps20 = (
+
+(Spawnpoints2).Select(__ContextSymbol84 => new { ___a217 = __ContextSymbol84 })
+.Select(__ContextSymbol85 => __ContextSymbol85.___a217)
+.ToList<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
+	Spawnpoints = ___sps20;
+	s2 = 0;
+return;
+	case 0:
+	if(!(false))
 	{
 
-	s2 = -1;
+	s2 = 0;
 return;	}else
 	{
 
-	goto case 16;	}
-	case 16:
-	___random_spawnp20 = UnityEngine.Random.Range(0,4);
-	___random_pickup20 = UnityEngine.Random.Range(0,4);
-	if(!(((___random_spawnp20) == (___random_pickup20))))
+	s2 = -1;
+return;	}	
+	default: return;}}
+	
+
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
+	{
+
+	case -1:
+	if(!(((Spawnpoints.Count) > (0))))
+	{
+
+	s3 = -1;
+return;	}else
+	{
+
+	goto case 33;	}
+	case 33:
+	count_down16 = dt;
+	goto case 34;
+	case 34:
+	if(((count_down16) > (0f)))
+	{
+
+	count_down16 = ((count_down16) - (dt));
+	s3 = 34;
+return;	}else
+	{
+
+	goto case 32;	}
+	case 32:
+	___random_spawnp30 = UnityEngine.Random.Range(0,4);
+	___random_pickup30 = UnityEngine.Random.Range(0,4);
+	if(!(((___random_spawnp30) == (___random_pickup30))))
 	{
 
 	goto case 0;	}else
@@ -2765,56 +2863,127 @@ return;	}else
 
 	goto case 1;	}
 	case 0:
-	___sps21 = (Spawnpoints)[___random_spawnp20];
-	___sps_pos20 = ___sps21.position;
-	___rpu20 = (Spawnpoints)[___random_pickup20];
-	___rpu_pos20 = ___rpu20.position;
+	___sps31 = (Spawnpoints)[___random_spawnp30];
+	___sps_pos30 = ___sps31.position;
+	___rpu30 = (Spawnpoints)[___random_pickup30];
+	___rpu_pos30 = ___rpu30.position;
+	if(((world.Score) > (1000)))
+	{
+
+	goto case 3;	}else
+	{
+
+	goto case 4;	}
+	case 3:
+	___j33 = (
+
+(Enumerable.Range(0,(1) + ((3) - (0))).ToList<System.Int32>()).Select(__ContextSymbol86 => new { ___a318 = __ContextSymbol86 })
+.Where(__ContextSymbol87 => ((!(((__ContextSymbol87.___a318) == (___random_spawnp30)))) || (!(((__ContextSymbol87.___a318) == (___random_pickup30))))))
+.Select(__ContextSymbol88 => __ContextSymbol88.___a318)
+.ToList<System.Int32>()).ToList<System.Int32>();
+	___spo230 = (Spawnpoints)[___j33.Head()];
+	___spo2_pos30 = ___spo230.position;
+	UnityEngine.Debug.Log("Spawned 3 groups");
 	Group = (
 
-(new Cons<GroupZombie>(new GroupZombie(___sps_pos20,7),(new Cons<GroupZombie>(new GroupZombie(___rpu_pos20,7),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
+(new Cons<GroupZombie>(new GroupZombie(___sps_pos30,7),(new Cons<GroupZombie>(new GroupZombie(___rpu_pos30,7),(new Cons<GroupZombie>(new GroupZombie(___spo2_pos30,7),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>())).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
 	PickUps = (
 
 Enumerable.Empty<PickUp>()).ToList<PickUp>();
 	Spawnpoints = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
-	s2 = 3;
+	s3 = 6;
 return;
-	case 3:
+	case 6:
 	if(!(false))
 	{
 
-	s2 = 3;
+	s3 = 6;
 return;	}else
 	{
 
-	s2 = -1;
+	s3 = -1;
 return;	}
-	case 1:
-	___sps120 = (Spawnpoints)[1];
-	___sps_pos120 = ___sps120.position;
-	___rpu120 = (Spawnpoints)[2];
-	___rpu_pos120 = ___rpu120.position;
+	case 4:
 	Group = (
 
-(new Cons<GroupZombie>(new GroupZombie(___sps_pos120,7),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
+(new Cons<GroupZombie>(new GroupZombie(___sps_pos30,7),(new Cons<GroupZombie>(new GroupZombie(___rpu_pos30,7),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
 	PickUps = (
 
-(new Cons<PickUp>(new PickUp(___rpu_pos120),(new Empty<PickUp>()).ToList<PickUp>())).ToList<PickUp>()).ToList<PickUp>();
+Enumerable.Empty<PickUp>()).ToList<PickUp>();
 	Spawnpoints = (
 
 Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
-	s2 = 9;
+	s3 = 12;
 return;
-	case 9:
+	case 12:
 	if(!(false))
 	{
 
-	s2 = 9;
+	s3 = 12;
 return;	}else
 	{
 
-	s2 = -1;
+	s3 = -1;
+return;	}
+	case 1:
+	___sps130 = (Spawnpoints)[1];
+	___sps_pos130 = ___sps130.position;
+	___sps030 = (Spawnpoints)[0];
+	___sps_pos030 = ___sps030.position;
+	___rpu130 = (Spawnpoints)[2];
+	___rpu_pos130 = ___rpu130.position;
+	if(((world.Score) > (1000)))
+	{
+
+	goto case 18;	}else
+	{
+
+	goto case 19;	}
+	case 18:
+	Group = (
+
+(new Cons<GroupZombie>(new GroupZombie(___sps_pos130,7),(new Cons<GroupZombie>(new GroupZombie(___sps_pos030,7),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
+	PickUps = (
+
+(new Cons<PickUp>(new PickUp(___rpu_pos130,par),(new Empty<PickUp>()).ToList<PickUp>())).ToList<PickUp>()).ToList<PickUp>();
+	Spawnpoints = (
+
+Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
+	s3 = 21;
+return;
+	case 21:
+	if(!(false))
+	{
+
+	s3 = 21;
+return;	}else
+	{
+
+	s3 = -1;
+return;	}
+	case 19:
+	Group = (
+
+(new Cons<GroupZombie>(new GroupZombie(___sps_pos130,7),(new Empty<GroupZombie>()).ToList<GroupZombie>())).ToList<GroupZombie>()).ToList<GroupZombie>();
+	PickUps = (
+
+(new Cons<PickUp>(new PickUp(___rpu_pos130,par),(new Empty<PickUp>()).ToList<PickUp>())).ToList<PickUp>()).ToList<PickUp>();
+	Spawnpoints = (
+
+Enumerable.Empty<UnityEngine.Transform>()).ToList<UnityEngine.Transform>();
+	s3 = 23;
+return;
+	case 23:
+	if(!(false))
+	{
+
+	s3 = 23;
+return;	}else
+	{
+
+	s3 = -1;
 return;	}	
 	default: return;}}
 	
@@ -2828,15 +2997,20 @@ public class Streetlight{
 public int frame;
 public bool JustEntered = true;
 private UnityEngine.Transform p;
+private System.Single LeftSide;
+private UnityEngine.Transform parent;
 	public int ID;
-public Streetlight(UnityEngine.Transform p)
+public Streetlight(UnityEngine.Transform p, System.Single LeftSide, UnityEngine.Transform parent)
 	{JustEntered = false;
  frame = World.frame;
 		test = false;
-		UnityStreetLight = UnityStreetLight.instantiate(p);
+		UnityStreetLight = UnityStreetLight.instantiate(p,LeftSide,parent);
 		
 }
-		public System.Boolean Lamp{  get { return UnityStreetLight.Lamp; }
+		public System.Boolean Destroyed{  get { return UnityStreetLight.Destroyed; }
+  set{UnityStreetLight.Destroyed = value; }
+ }
+	public System.Boolean Lamp{  get { return UnityStreetLight.Lamp; }
   set{UnityStreetLight.Lamp = value; }
  }
 	public UnityStreetLight UnityStreetLight;
@@ -2862,13 +3036,14 @@ public Streetlight(UnityEngine.Transform p)
 	public System.Boolean useGUILayout{  get { return UnityStreetLight.useGUILayout; }
   set{UnityStreetLight.useGUILayout = value; }
  }
-	public System.Single count_down16;
-	public System.Single count_down15;
+	public System.Single ___r12;
+	public System.Single count_down18;
+	public System.Single count_down17;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		this.Rule0(dt, world);
-
+		this.Rule1(dt, world);
 	}
 
 
@@ -2881,43 +3056,55 @@ frame = World.frame;
 	{
 
 	case -1:
-	Lamp = true;
-	s0 = 3;
-return;
-	case 3:
-	count_down16 = 0.2f;
-	goto case 4;
-	case 4:
-	if(((count_down16) > (0f)))
+	Lamp = test;
+	s0 = -1;
+return;	
+	default: return;}}
+	
+
+	int s1=-1;
+	public void Rule1(float dt, World world){ 
+	switch (s1)
 	{
 
-	count_down16 = ((count_down16) - (dt));
-	s0 = 4;
+	case -1:
+	___r12 = UnityEngine.Random.Range(0.2f,0.9f);
+	test = true;
+	s1 = 3;
+return;
+	case 3:
+	count_down18 = ___r12;
+	goto case 4;
+	case 4:
+	if(((count_down18) > (0f)))
+	{
+
+	count_down18 = ((count_down18) - (dt));
+	s1 = 4;
 return;	}else
 	{
 
 	goto case 2;	}
 	case 2:
-	Lamp = false;
-	s0 = 0;
+	test = false;
+	s1 = 0;
 return;
 	case 0:
-	count_down15 = 0.3f;
+	count_down17 = ((___r12) - (0.2f));
 	goto case 1;
 	case 1:
-	if(((count_down15) > (0f)))
+	if(((count_down17) > (0f)))
 	{
 
-	count_down15 = ((count_down15) - (dt));
-	s0 = 1;
+	count_down17 = ((count_down17) - (dt));
+	s1 = 1;
 return;	}else
 	{
 
-	s0 = -1;
+	s1 = -1;
 return;	}	
 	default: return;}}
 	
-
 
 
 
@@ -2928,10 +3115,12 @@ public class PickUp{
 public int frame;
 public bool JustEntered = true;
 private UnityEngine.Vector3 pos;
+private UnityEngine.Transform parent;
 	public int ID;
-public PickUp(UnityEngine.Vector3 pos)
+public PickUp(UnityEngine.Vector3 pos, UnityEngine.Transform parent)
 	{JustEntered = false;
  frame = World.frame;
+		p = parent;
 		UnityPickUp = new UnityPickUp();
 		BonusAndResources = (
 
@@ -2958,6 +3147,7 @@ Enumerable.Empty<BonusAndResource>()).ToList<BonusAndResource>();
 	public System.String name{  get { return UnityPickUp.name; }
   set{UnityPickUp.name = value; }
  }
+	public UnityEngine.Transform p;
 	public System.String tag{  get { return UnityPickUp.tag; }
   set{UnityPickUp.tag = value; }
  }
@@ -3040,8 +3230,8 @@ return;	}else
 	___Slist10 = Shuffled;
 	___BAR10 = (
 
-(Enumerable.Range(0,(1) + ((3) - (0))).ToList<System.Int32>()).Select(__ContextSymbol89 => new { ___a116 = __ContextSymbol89 })
-.Select(__ContextSymbol90 => new BonusAndResource(___plist10[__ContextSymbol90.___a116],___Slist10[__ContextSymbol90.___a116]))
+(Enumerable.Range(0,(1) + ((3) - (0))).ToList<System.Int32>()).Select(__ContextSymbol105 => new { ___a119 = __ContextSymbol105 })
+.Select(__ContextSymbol106 => new BonusAndResource(___plist10[__ContextSymbol106.___a119],___Slist10[__ContextSymbol106.___a119],p))
 .ToList<BonusAndResource>()).ToList<BonusAndResource>();
 	BonusAndResources = ___BAR10;
 	s1 = 0;
@@ -3067,9 +3257,9 @@ return;	}
 	case -1:
 	___amount20 = (
 
-(BonusAndResources).Select(__ContextSymbol91 => new { ___a217 = __ContextSymbol91 })
-.Where(__ContextSymbol92 => ((__ContextSymbol92.___a217.Destroyed) == (false)))
-.Select(__ContextSymbol93 => __ContextSymbol93.___a217)
+(BonusAndResources).Select(__ContextSymbol107 => new { ___a220 = __ContextSymbol107 })
+.Where(__ContextSymbol108 => ((__ContextSymbol108.___a220.Destroyed) == (false)))
+.Select(__ContextSymbol109 => __ContextSymbol109.___a220)
 .ToList<BonusAndResource>()).ToList<BonusAndResource>();
 	BonusAndResources = ___amount20;
 	s2 = -1;
@@ -3087,11 +3277,12 @@ public int frame;
 public bool JustEntered = true;
 private UnityEngine.Vector3 pos;
 private System.String bonus;
+private UnityEngine.Transform parent;
 	public int ID;
-public BonusAndResource(UnityEngine.Vector3 pos, System.String bonus)
+public BonusAndResource(UnityEngine.Vector3 pos, System.String bonus, UnityEngine.Transform parent)
 	{JustEntered = false;
  frame = World.frame;
-		UnityBonusResource = UnityBonusResource.Instantiate(pos,bonus);
+		UnityBonusResource = UnityBonusResource.Instantiate(pos,bonus,parent);
 		NameOfBoR = bonus;
 		Active = false;
 		
@@ -3298,10 +3489,10 @@ Enumerable.Empty<Light>()).ToList<Light>();
 	public System.Boolean useGUILayout{  get { return UnityEquipment.useGUILayout; }
   set{UnityEquipment.useGUILayout = value; }
  }
-	public List<Ammo> ___j03;
+	public List<Ammo> ___j04;
 	public List<ControllerRazor> ___pl10;
-	public List<System.String> ___j14;
-	public List<Gun> ___x15;
+	public List<System.String> ___j15;
+	public List<Gun> ___x16;
 	public List<Gun> ___y10;
 	public List<System.Int32> ___AcCount10;
 	public List<System.Int32> ___ac10;
@@ -3326,7 +3517,7 @@ Enumerable.Empty<Light>()).ToList<Light>();
 	public List<Light> ___AllF11;
 	public List<System.String> ___fdsa12;
 	public List<Gun> ___q21;
-	public List<Light> ___j25;
+	public List<Light> ___j26;
 	public System.String ___Joystickname30;
 	public System.String ___Operation30;
 	public System.Int32 ___GunNumber30;
@@ -3350,9 +3541,9 @@ Enumerable.Empty<Light>()).ToList<Light>();
 	public List<System.Int32> ___currActiveGunNumber30;
 	public List<Gun> ___newActiveGun34;
 	public List<Gun> ___NAG30;
-	public List<Gun> ___r42;
+	public List<Gun> ___r43;
 	public List<System.String> ___fdsa43;
-	public List<Light> ___j56;
+	public List<Light> ___j57;
 	public List<Light> ___rig50;
 	public System.Boolean ___right50;
 	public List<Light> ___lef50;
@@ -3389,12 +3580,12 @@ if(LightControllerPressed.IsSome){ 		LightControllerPressed.Value.Update(dt, wor
 	{
 
 	case -1:
-	___j03 = (
+	___j04 = (
 
-(Ammos).Select(__ContextSymbol110 => new { ___a018 = __ContextSymbol110 })
-.Select(__ContextSymbol111 => new Ammo(__ContextSymbol111.___a018.Item1,__ContextSymbol111.___a018.Item2))
+(Ammos).Select(__ContextSymbol126 => new { ___a021 = __ContextSymbol126 })
+.Select(__ContextSymbol127 => new Ammo(__ContextSymbol127.___a021.Item1,__ContextSymbol127.___a021.Item2))
 .ToList<Ammo>()).ToList<Ammo>();
-	AllAmmo = ___j03;
+	AllAmmo = ___j04;
 	s0 = 0;
 return;
 	case 0:
@@ -3417,23 +3608,23 @@ return;	}
 
 	case -1:
 	___pl10 = world.Players.Head().Controllers;
-	___j14 = (
+	___j15 = (
 
 (new Cons<System.String>(TransformHR.name,(new Cons<System.String>(TransformHL.name,(new Empty<System.String>()).ToList<System.String>())).ToList<System.String>())).ToList<System.String>()).ToList<System.String>();
-	___x15 = (
+	___x16 = (
 
-(Enumerable.Range(0,(1) + (((HR.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol113 => new { ___a119 = __ContextSymbol113 })
-.Select(__ContextSymbol114 => new Gun(__ContextSymbol114.___a119,___pl10.Head(),___j14.Head(),AllAmmo[__ContextSymbol114.___a119]))
+(Enumerable.Range(0,(1) + (((HR.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol129 => new { ___a122 = __ContextSymbol129 })
+.Select(__ContextSymbol130 => new Gun(__ContextSymbol130.___a122,___pl10.Head(),___j15.Head(),AllAmmo[__ContextSymbol130.___a122]))
 .ToList<Gun>()).ToList<Gun>();
 	___y10 = (
 
-(Enumerable.Range(0,(1) + (((HL.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol115 => new { ___a120 = __ContextSymbol115 })
-.Select(__ContextSymbol116 => new Gun(__ContextSymbol116.___a120,___pl10[1],___j14[1],AllAmmo[__ContextSymbol116.___a120]))
+(Enumerable.Range(0,(1) + (((HL.Count) - (1)) - (0))).ToList<System.Int32>()).Select(__ContextSymbol131 => new { ___a123 = __ContextSymbol131 })
+.Select(__ContextSymbol132 => new Gun(__ContextSymbol132.___a123,___pl10[1],___j15[1],AllAmmo[__ContextSymbol132.___a123]))
 .ToList<Gun>()).ToList<Gun>();
 	___AcCount10 = (
 
-(ActiveGuns).Select(__ContextSymbol117 => new { ___a121 = __ContextSymbol117 })
-.Select(__ContextSymbol118 => __ContextSymbol118.___a121.GunNumber)
+(ActiveGuns).Select(__ContextSymbol133 => new { ___a124 = __ContextSymbol133 })
+.Select(__ContextSymbol134 => __ContextSymbol134.___a124.GunNumber)
 .ToList<System.Int32>()).ToList<System.Int32>();
 	if(!(((___AcCount10.Count) == (0))))
 	{
@@ -3444,7 +3635,7 @@ return;	}
 	___ac10 = (
 
 Enumerable.Empty<System.Int32>()).ToList<System.Int32>();	}
-	___AllGunslist10 = (___x15).Concat(___y10).ToList<Gun>();
+	___AllGunslist10 = (___x16).Concat(___y10).ToList<Gun>();
 	if(((___ac10.Count) == (2)))
 	{
 
@@ -3478,14 +3669,14 @@ return;
 (new Cons<Gun>(___AllGunslist10[___ac10.Head()],(new Cons<Gun>(___AllGunslist10[___ac10[1]],(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();
 	___NotAG10 = (
 
-(___AllGunslist10).Select(__ContextSymbol125 => new { ___a122 = __ContextSymbol125 })
-.Where(__ContextSymbol126 => !(___AG10.Contains(__ContextSymbol126.___a122)))
-.Select(__ContextSymbol127 => __ContextSymbol127.___a122)
+(___AllGunslist10).Select(__ContextSymbol141 => new { ___a125 = __ContextSymbol141 })
+.Where(__ContextSymbol142 => !(___AG10.Contains(__ContextSymbol142.___a125)))
+.Select(__ContextSymbol143 => __ContextSymbol143.___a125)
 .ToList<Gun>()).ToList<Gun>();
 	___fdsa10 = (
 
-(___NotAG10).Select(__ContextSymbol128 => new { ___a123 = __ContextSymbol128 })
-.Select(__ContextSymbol129 => ((("Nummer:") + (__ContextSymbol129.___a123.GunNumber)) + (" Controller:")) + (__ContextSymbol129.___a123.GunController.JoystickName))
+(___NotAG10).Select(__ContextSymbol144 => new { ___a126 = __ContextSymbol144 })
+.Select(__ContextSymbol145 => ((("Nummer:") + (__ContextSymbol145.___a126.GunNumber)) + (" Controller:")) + (__ContextSymbol145.___a126.GunController.JoystickName))
 .ToList<System.String>()).ToList<System.String>();
 	ActiveGuns = ___AG10;
 	NotActiveGuns = ___NotAG10;
@@ -3519,8 +3710,8 @@ return;	}
 	case 3:
 	___gunhand10 = (
 
-(ActiveGuns).Select(__ContextSymbol131 => new { ___a124 = __ContextSymbol131 })
-.Select(__ContextSymbol132 => __ContextSymbol132.___a124.GunController.JoystickName)
+(ActiveGuns).Select(__ContextSymbol147 => new { ___a127 = __ContextSymbol147 })
+.Select(__ContextSymbol148 => __ContextSymbol148.___a127.GunController.JoystickName)
 .ToList<System.String>()).ToList<System.String>();
 	ActiveGuns = AllGuns;
 	NotActiveGuns = (
@@ -3549,9 +3740,9 @@ return;
 (new Cons<Gun>(___AllGunslist10[(___ac10.Head()) + (HR.Count)],(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();	}
 	___NotAG11 = (
 
-(___AllGunslist10).Select(__ContextSymbol137 => new { ___a125 = __ContextSymbol137 })
-.Where(__ContextSymbol138 => !(___AG11.Contains(__ContextSymbol138.___a125)))
-.Select(__ContextSymbol139 => __ContextSymbol139.___a125)
+(___AllGunslist10).Select(__ContextSymbol153 => new { ___a128 = __ContextSymbol153 })
+.Where(__ContextSymbol154 => !(___AG11.Contains(__ContextSymbol154.___a128)))
+.Select(__ContextSymbol155 => __ContextSymbol155.___a128)
 .ToList<Gun>()).ToList<Gun>();
 	___z14 = (
 
@@ -3581,8 +3772,8 @@ return;
 	___AllF10 = (___AF10).Concat(___NAF11).ToList<Light>();
 	___fdsa11 = (
 
-(___NotAG11).Select(__ContextSymbol145 => new { ___a126 = __ContextSymbol145 })
-.Select(__ContextSymbol146 => ((("Nummer:") + (__ContextSymbol146.___a126.GunNumber)) + (" Controller:")) + (__ContextSymbol146.___a126.GunController.JoystickName))
+(___NotAG11).Select(__ContextSymbol161 => new { ___a129 = __ContextSymbol161 })
+.Select(__ContextSymbol162 => ((("Nummer:") + (__ContextSymbol162.___a129.GunNumber)) + (" Controller:")) + (__ContextSymbol162.___a129.GunController.JoystickName))
 .ToList<System.String>()).ToList<System.String>();
 	ActiveGuns = ___AG11;
 	NotActiveGuns = ___NotAG11;
@@ -3609,9 +3800,9 @@ return;	}
 (new Cons<Gun>(___AllGunslist10[0],(new Empty<Gun>()).ToList<Gun>())).ToList<Gun>()).ToList<Gun>();
 	___NotAG12 = (
 
-(___AllGunslist10).Select(__ContextSymbol148 => new { ___a127 = __ContextSymbol148 })
-.Where(__ContextSymbol149 => !(___AG12.Contains(__ContextSymbol149.___a127)))
-.Select(__ContextSymbol150 => __ContextSymbol150.___a127)
+(___AllGunslist10).Select(__ContextSymbol164 => new { ___a130 = __ContextSymbol164 })
+.Where(__ContextSymbol165 => !(___AG12.Contains(__ContextSymbol165.___a130)))
+.Select(__ContextSymbol166 => __ContextSymbol166.___a130)
 .ToList<Gun>()).ToList<Gun>();
 	___AF11 = (
 
@@ -3622,8 +3813,8 @@ return;	}
 	___AllF11 = (___AF11).Concat(___NAF12).ToList<Light>();
 	___fdsa12 = (
 
-(___NotAG12).Select(__ContextSymbol153 => new { ___a128 = __ContextSymbol153 })
-.Select(__ContextSymbol154 => ((("Nummer:") + (__ContextSymbol154.___a128.GunNumber)) + (" Controller:")) + (__ContextSymbol154.___a128.GunController.JoystickName))
+(___NotAG12).Select(__ContextSymbol169 => new { ___a131 = __ContextSymbol169 })
+.Select(__ContextSymbol170 => ((("Nummer:") + (__ContextSymbol170.___a131.GunNumber)) + (" Controller:")) + (__ContextSymbol170.___a131.GunController.JoystickName))
 .ToList<System.String>()).ToList<System.String>();
 	ActiveGuns = ___AG12;
 	NotActiveGuns = ___NotAG12;
@@ -3655,17 +3846,17 @@ return;	}
 	case -1:
 	___q21 = (
 
-(ActiveGuns).Select(__ContextSymbol155 => new { ___a229 = __ContextSymbol155 })
-.Where(__ContextSymbol156 => !(((__ContextSymbol156.___a229.GunController.ECB) == (""))))
-.Select(__ContextSymbol157 => __ContextSymbol157.___a229)
+(ActiveGuns).Select(__ContextSymbol171 => new { ___a232 = __ContextSymbol171 })
+.Where(__ContextSymbol172 => !(((__ContextSymbol172.___a232.GunController.ECB) == (""))))
+.Select(__ContextSymbol173 => __ContextSymbol173.___a232)
 .ToList<Gun>()).ToList<Gun>();
-	___j25 = (
+	___j26 = (
 
-(ActiveFlashs).Select(__ContextSymbol158 => new { ___a230 = __ContextSymbol158 })
-.Where(__ContextSymbol159 => ((__ContextSymbol159.___a230.LightController.ECB) == ("other")))
-.Select(__ContextSymbol160 => __ContextSymbol160.___a230)
+(ActiveFlashs).Select(__ContextSymbol174 => new { ___a233 = __ContextSymbol174 })
+.Where(__ContextSymbol175 => ((__ContextSymbol175.___a233.LightController.ECB) == ("other")))
+.Select(__ContextSymbol176 => __ContextSymbol176.___a233)
 .ToList<Light>()).ToList<Light>();
-	if(((((___q21.Count) > (0))) && (!(((___j25.Count) > (0))))))
+	if(((((___q21.Count) > (0))) && (!(((___j26.Count) > (0))))))
 	{
 
 	goto case 48;	}else
@@ -3678,7 +3869,7 @@ return;	}
 	s2 = 44;
 return;
 	case 44:
-	if(((((___j25.Count) > (0))) && (!(((___q21.Count) > (0))))))
+	if(((((___j26.Count) > (0))) && (!(((___q21.Count) > (0))))))
 	{
 
 	goto case 42;	}else
@@ -3687,7 +3878,7 @@ return;
 	goto case 43;	}
 	case 42:
 	GunControllerPressed = (new Nothing<Gun>());
-	LightControllerPressed = (new Just<Light>(___j25.Head()));
+	LightControllerPressed = (new Just<Light>(___j26.Head()));
 	s2 = -1;
 return;
 	case 43:
@@ -3736,15 +3927,15 @@ return;	}else
 	___GunNumber30 = 0;	}
 	___OldActiveGun30 = (
 
-(ActiveGuns).Select(__ContextSymbol161 => new { ___a331 = __ContextSymbol161 })
-.Where(__ContextSymbol162 => !(((__ContextSymbol162.___a331.GunController.JoystickName) == (___Joystickname30))))
-.Select(__ContextSymbol163 => __ContextSymbol163.___a331)
+(ActiveGuns).Select(__ContextSymbol177 => new { ___a334 = __ContextSymbol177 })
+.Where(__ContextSymbol178 => !(((__ContextSymbol178.___a334.GunController.JoystickName) == (___Joystickname30))))
+.Select(__ContextSymbol179 => __ContextSymbol179.___a334)
 .ToList<Gun>()).ToList<Gun>();
 	___OldActiveFlash30 = (
 
-(ActiveFlashs).Select(__ContextSymbol164 => new { ___a332 = __ContextSymbol164 })
-.Where(__ContextSymbol165 => !(((__ContextSymbol165.___a332.LightController.JoystickName) == (___Joystickname30))))
-.Select(__ContextSymbol166 => __ContextSymbol166.___a332)
+(ActiveFlashs).Select(__ContextSymbol180 => new { ___a335 = __ContextSymbol180 })
+.Where(__ContextSymbol181 => !(((__ContextSymbol181.___a335.LightController.JoystickName) == (___Joystickname30))))
+.Select(__ContextSymbol182 => __ContextSymbol182.___a335)
 .ToList<Light>()).ToList<Light>();
 	if(GunControllerPressed.IsSome)
 	{
@@ -3756,9 +3947,9 @@ return;	}else
 	case 12:
 	___changingjoystick30 = (
 
-(AllGuns).Select(__ContextSymbol167 => new { ___a333 = __ContextSymbol167 })
-.Where(__ContextSymbol168 => ((__ContextSymbol168.___a333.GunController.JoystickName) == (___Joystickname30)))
-.Select(__ContextSymbol169 => __ContextSymbol169.___a333)
+(AllGuns).Select(__ContextSymbol183 => new { ___a336 = __ContextSymbol183 })
+.Where(__ContextSymbol184 => ((__ContextSymbol184.___a336.GunController.JoystickName) == (___Joystickname30)))
+.Select(__ContextSymbol185 => __ContextSymbol185.___a336)
 .ToList<Gun>()).ToList<Gun>();
 	___Listsize30 = ___changingjoystick30.Count;
 	if(((___Operation30) == ("other")))
@@ -3771,9 +3962,9 @@ return;	}else
 	case 86:
 	___changingLight30 = (
 
-(AllFlashs).Select(__ContextSymbol170 => new { ___a334 = __ContextSymbol170 })
-.Where(__ContextSymbol171 => ((__ContextSymbol171.___a334.LightController.JoystickName) == (___Joystickname30)))
-.Select(__ContextSymbol172 => __ContextSymbol172.___a334)
+(AllFlashs).Select(__ContextSymbol186 => new { ___a337 = __ContextSymbol186 })
+.Where(__ContextSymbol187 => ((__ContextSymbol187.___a337.LightController.JoystickName) == (___Joystickname30)))
+.Select(__ContextSymbol188 => __ContextSymbol188.___a337)
 .ToList<Light>()).ToList<Light>();
 	if(((___OldActiveFlash30.Count) > (0)))
 	{
@@ -3810,9 +4001,9 @@ return;
 	___nextGunNumber30 = ((((___GunNumber30) + (1))) % (___Listsize30));
 	___check30 = (
 
-(ActiveGuns).Select(__ContextSymbol175 => new { ___a335 = __ContextSymbol175 })
-.Where(__ContextSymbol176 => ((__ContextSymbol176.___a335.GunNumber) == (___nextGunNumber30)))
-.Select(__ContextSymbol177 => __ContextSymbol177.___a335)
+(ActiveGuns).Select(__ContextSymbol191 => new { ___a338 = __ContextSymbol191 })
+.Where(__ContextSymbol192 => ((__ContextSymbol192.___a338.GunNumber) == (___nextGunNumber30)))
+.Select(__ContextSymbol193 => __ContextSymbol193.___a338)
 .ToList<Gun>()).ToList<Gun>();
 	if(((___check30.Count) > (0)))
 	{
@@ -3825,9 +4016,9 @@ return;
 	___othernumber30 = ((((___GunNumber30) + (2))) % (___Listsize30));
 	___newActiveGun30 = (
 
-(___changingjoystick30).Select(__ContextSymbol178 => new { ___a336 = __ContextSymbol178 })
-.Where(__ContextSymbol179 => ((__ContextSymbol179.___a336.GunNumber) == (___othernumber30)))
-.Select(__ContextSymbol180 => __ContextSymbol180.___a336)
+(___changingjoystick30).Select(__ContextSymbol194 => new { ___a339 = __ContextSymbol194 })
+.Where(__ContextSymbol195 => ((__ContextSymbol195.___a339.GunNumber) == (___othernumber30)))
+.Select(__ContextSymbol196 => __ContextSymbol196.___a339)
 .ToList<Gun>()).ToList<Gun>();
 	if(((___Joystickname30) == (TransformHR.name)))
 	{
@@ -3883,9 +4074,9 @@ return;
 	case 52:
 	___newActiveGun31 = (
 
-(___changingjoystick30).Select(__ContextSymbol185 => new { ___a337 = __ContextSymbol185 })
-.Where(__ContextSymbol186 => ((__ContextSymbol186.___a337.GunNumber) == (___nextGunNumber30)))
-.Select(__ContextSymbol187 => __ContextSymbol187.___a337)
+(___changingjoystick30).Select(__ContextSymbol201 => new { ___a340 = __ContextSymbol201 })
+.Where(__ContextSymbol202 => ((__ContextSymbol202.___a340.GunNumber) == (___nextGunNumber30)))
+.Select(__ContextSymbol203 => __ContextSymbol203.___a340)
 .ToList<Gun>()).ToList<Gun>();
 	if(((___Joystickname30) == (TransformHR.name)))
 	{
@@ -3951,9 +4142,9 @@ return;	}
 	___prevGunNumber30 = ((((((___GunNumber30) + (___Listsize30))) - (1))) % (___Listsize30));
 	___check31 = (
 
-(ActiveGuns).Select(__ContextSymbol192 => new { ___a338 = __ContextSymbol192 })
-.Where(__ContextSymbol193 => ((__ContextSymbol193.___a338.GunNumber) == (___prevGunNumber30)))
-.Select(__ContextSymbol194 => __ContextSymbol194.___a338)
+(ActiveGuns).Select(__ContextSymbol208 => new { ___a341 = __ContextSymbol208 })
+.Where(__ContextSymbol209 => ((__ContextSymbol209.___a341.GunNumber) == (___prevGunNumber30)))
+.Select(__ContextSymbol210 => __ContextSymbol210.___a341)
 .ToList<Gun>()).ToList<Gun>();
 	if(((___check31.Count) > (0)))
 	{
@@ -3966,9 +4157,9 @@ return;	}
 	___othernumber31 = ((((((___GunNumber30) + (___Listsize30))) - (2))) % (___Listsize30));
 	___newActiveGun32 = (
 
-(___changingjoystick30).Select(__ContextSymbol195 => new { ___a339 = __ContextSymbol195 })
-.Where(__ContextSymbol196 => ((__ContextSymbol196.___a339.GunNumber) == (___othernumber31)))
-.Select(__ContextSymbol197 => __ContextSymbol197.___a339)
+(___changingjoystick30).Select(__ContextSymbol211 => new { ___a342 = __ContextSymbol211 })
+.Where(__ContextSymbol212 => ((__ContextSymbol212.___a342.GunNumber) == (___othernumber31)))
+.Select(__ContextSymbol213 => __ContextSymbol213.___a342)
 .ToList<Gun>()).ToList<Gun>();
 	if(((___Joystickname30) == (TransformHR.name)))
 	{
@@ -4024,9 +4215,9 @@ return;
 	case 16:
 	___newActiveGun33 = (
 
-(___changingjoystick30).Select(__ContextSymbol202 => new { ___a340 = __ContextSymbol202 })
-.Where(__ContextSymbol203 => ((__ContextSymbol203.___a340.GunNumber) == (___prevGunNumber30)))
-.Select(__ContextSymbol204 => __ContextSymbol204.___a340)
+(___changingjoystick30).Select(__ContextSymbol218 => new { ___a343 = __ContextSymbol218 })
+.Where(__ContextSymbol219 => ((__ContextSymbol219.___a343.GunNumber) == (___prevGunNumber30)))
+.Select(__ContextSymbol220 => __ContextSymbol220.___a343)
 .ToList<Gun>()).ToList<Gun>();
 	if(((___Joystickname30) == (TransformHR.name)))
 	{
@@ -4091,14 +4282,14 @@ return;	}
 	case 1:
 	___changingjoystick31 = (
 
-(AllFlashs).Select(__ContextSymbol209 => new { ___a341 = __ContextSymbol209 })
-.Where(__ContextSymbol210 => ((__ContextSymbol210.___a341.LightController.JoystickName) == (___Joystickname30)))
-.Select(__ContextSymbol211 => __ContextSymbol211.___a341)
+(AllFlashs).Select(__ContextSymbol225 => new { ___a344 = __ContextSymbol225 })
+.Where(__ContextSymbol226 => ((__ContextSymbol226.___a344.LightController.JoystickName) == (___Joystickname30)))
+.Select(__ContextSymbol227 => __ContextSymbol227.___a344)
 .ToList<Light>()).ToList<Light>();
 	___currActiveGunNumber30 = (
 
-(ActiveGuns).Select(__ContextSymbol212 => new { ___a342 = __ContextSymbol212 })
-.Select(__ContextSymbol213 => __ContextSymbol213.___a342.GunNumber)
+(ActiveGuns).Select(__ContextSymbol228 => new { ___a345 = __ContextSymbol228 })
+.Select(__ContextSymbol229 => __ContextSymbol229.___a345.GunNumber)
 .ToList<System.Int32>()).ToList<System.Int32>();
 	if(((___currActiveGunNumber30.Count) > (0)))
 	{
@@ -4110,9 +4301,9 @@ return;	}
 	case 2:
 	___newActiveGun34 = (
 
-(NotActiveGuns).Select(__ContextSymbol214 => new { ___a343 = __ContextSymbol214 })
-.Where(__ContextSymbol215 => ((((__ContextSymbol215.___a343.GunController.JoystickName) == (___Joystickname30))) && (!(((__ContextSymbol215.___a343.GunNumber) == (___currActiveGunNumber30.Head()))))))
-.Select(__ContextSymbol216 => __ContextSymbol216.___a343)
+(NotActiveGuns).Select(__ContextSymbol230 => new { ___a346 = __ContextSymbol230 })
+.Where(__ContextSymbol231 => ((((__ContextSymbol231.___a346.GunController.JoystickName) == (___Joystickname30))) && (!(((__ContextSymbol231.___a346.GunNumber) == (___currActiveGunNumber30.Head()))))))
+.Select(__ContextSymbol232 => __ContextSymbol232.___a346)
 .ToList<Gun>()).ToList<Gun>();
 	ActiveGuns = (
 
@@ -4125,9 +4316,9 @@ return;
 	case 3:
 	___NAG30 = (
 
-(NotActiveGuns).Select(__ContextSymbol219 => new { ___a344 = __ContextSymbol219 })
-.Where(__ContextSymbol220 => ((__ContextSymbol220.___a344.GunController.JoystickName) == (___Joystickname30)))
-.Select(__ContextSymbol221 => __ContextSymbol221.___a344)
+(NotActiveGuns).Select(__ContextSymbol235 => new { ___a347 = __ContextSymbol235 })
+.Where(__ContextSymbol236 => ((__ContextSymbol236.___a347.GunController.JoystickName) == (___Joystickname30)))
+.Select(__ContextSymbol237 => __ContextSymbol237.___a347)
 .ToList<Gun>()).ToList<Gun>();
 	ActiveGuns = (
 
@@ -4155,18 +4346,18 @@ return;	}else
 
 	goto case 2;	}
 	case 2:
-	___r42 = (
+	___r43 = (
 
-(AllGuns).Select(__ContextSymbol224 => new { ___a445 = __ContextSymbol224 })
-.Where(__ContextSymbol225 => !(ActiveGuns.Contains(__ContextSymbol225.___a445)))
-.Select(__ContextSymbol226 => __ContextSymbol226.___a445)
+(AllGuns).Select(__ContextSymbol240 => new { ___a448 = __ContextSymbol240 })
+.Where(__ContextSymbol241 => !(ActiveGuns.Contains(__ContextSymbol241.___a448)))
+.Select(__ContextSymbol242 => __ContextSymbol242.___a448)
 .ToList<Gun>()).ToList<Gun>();
 	___fdsa43 = (
 
-(___r42).Select(__ContextSymbol227 => new { ___a446 = __ContextSymbol227 })
-.Select(__ContextSymbol228 => ((("Nummer:") + (__ContextSymbol228.___a446.GunNumber)) + (" Controller:")) + (__ContextSymbol228.___a446.GunController.JoystickName))
+(___r43).Select(__ContextSymbol243 => new { ___a449 = __ContextSymbol243 })
+.Select(__ContextSymbol244 => ((("Nummer:") + (__ContextSymbol244.___a449.GunNumber)) + (" Controller:")) + (__ContextSymbol244.___a449.GunController.JoystickName))
 .ToList<System.String>()).ToList<System.String>();
-	NotActiveGuns = ___r42;
+	NotActiveGuns = ___r43;
 	asdf = ___fdsa43;
 	s4 = -1;
 return;	
@@ -4188,17 +4379,17 @@ return;	}else
 
 	goto case 6;	}
 	case 6:
-	___j56 = (
+	___j57 = (
 
-(AllFlashs).Select(__ContextSymbol229 => new { ___a547 = __ContextSymbol229 })
-.Where(__ContextSymbol230 => !(ActiveFlashs.Contains(__ContextSymbol230.___a547)))
-.Select(__ContextSymbol231 => __ContextSymbol231.___a547)
+(AllFlashs).Select(__ContextSymbol245 => new { ___a550 = __ContextSymbol245 })
+.Where(__ContextSymbol246 => !(ActiveFlashs.Contains(__ContextSymbol246.___a550)))
+.Select(__ContextSymbol247 => __ContextSymbol247.___a550)
 .ToList<Light>()).ToList<Light>();
 	___rig50 = (
 
-(ActiveFlashs).Select(__ContextSymbol232 => new { ___a548 = __ContextSymbol232 })
-.Where(__ContextSymbol233 => !(((__ContextSymbol233.___a548.LightController.JoystickName) == ("Hydra1 - Left"))))
-.Select(__ContextSymbol234 => __ContextSymbol234.___a548)
+(ActiveFlashs).Select(__ContextSymbol248 => new { ___a551 = __ContextSymbol248 })
+.Where(__ContextSymbol249 => !(((__ContextSymbol249.___a551.LightController.JoystickName) == ("Hydra1 - Left"))))
+.Select(__ContextSymbol250 => __ContextSymbol250.___a551)
 .ToList<Light>()).ToList<Light>();
 	if(((___rig50.Count) > (0)))
 	{
@@ -4209,9 +4400,9 @@ return;	}else
 	___right50 = false;	}
 	___lef50 = (
 
-(ActiveFlashs).Select(__ContextSymbol235 => new { ___a549 = __ContextSymbol235 })
-.Where(__ContextSymbol236 => !(((__ContextSymbol236.___a549.LightController.JoystickName) == ("Hydra1 - Right"))))
-.Select(__ContextSymbol237 => __ContextSymbol237.___a549)
+(ActiveFlashs).Select(__ContextSymbol251 => new { ___a552 = __ContextSymbol251 })
+.Where(__ContextSymbol252 => !(((__ContextSymbol252.___a552.LightController.JoystickName) == ("Hydra1 - Right"))))
+.Select(__ContextSymbol253 => __ContextSymbol253.___a552)
 .ToList<Light>()).ToList<Light>();
 	if(((___lef50.Count) > (0)))
 	{
@@ -4220,7 +4411,7 @@ return;	}else
 	{
 
 	___left50 = false;	}
-	NotActiveFlashs = ___j56;
+	NotActiveFlashs = ___j57;
 	sap = (
 
 (new Cons<System.Boolean>(___right50,(new Cons<System.Boolean>(___left50,(new Empty<System.Boolean>()).ToList<System.Boolean>())).ToList<System.Boolean>())).ToList<System.Boolean>()).ToList<System.Boolean>();
@@ -4700,13 +4891,14 @@ Enumerable.Empty<BazookaBullet>()).ToList<BazookaBullet>();
 	public System.Boolean useGUILayout{  get { return UnityGun.useGUILayout; }
   set{UnityGun.useGUILayout = value; }
  }
+	public System.Int32 ___r24;
 	public List<BazookaBullet> ___undestroyedBullets80;
 	public UnityEngine.Camera ___camera90;
 	public UnityEngine.Ray ___Ray90;
 	public SixenseHand ___razer90;
 	public UnityEngine.Vector3 ___razerDirection90;
 	public UnityEngine.Vector3 ___razerPosition90;
-	public System.Single count_down17;
+	public System.Single count_down19;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -4764,10 +4956,12 @@ return;
 	{
 
 	case -1:
+	___r24 = ((MagazineSize) * (3));
 	AmmoAct.Automatic = Automatic;
 	AmmoAct.ReloadDuration = ReloadDuration;
 	AmmoAct.MagazineSize = MagazineSize;
 	AmmoAct.TypeWeapon = TypeWeapon;
+	AmmoAct.Refill = ___r24;
 	s2 = 0;
 return;
 	case 0:
@@ -4792,24 +4986,24 @@ return;	}
 	if(UnityEngine.Input.GetKey(KeyCode.C))
 	{
 
-	goto case 6;	}else
+	goto case 7;	}else
 	{
 
-	goto case 2;	}
-	case 6:
+	goto case 3;	}
+	case 7:
 	Reloading = false;
-	s3 = 2;
+	s3 = 3;
 return;
-	case 2:
+	case 3:
 	if(((AmmoAct.Reloading) == (false)))
 	{
 
-	goto case 3;	}else
+	goto case 4;	}else
 	{
 
 	s3 = -1;
 return;	}
-	case 3:
+	case 4:
 	Reloading = false;
 	s3 = -1;
 return;	
@@ -4894,7 +5088,7 @@ return;
 	s7 = 11;
 return;
 	case 11:
-	if(!(!(Reloading)))
+	if(!(!(AmmoAct.Reloading)))
 	{
 
 	s7 = 11;
@@ -4918,9 +5112,9 @@ return;
 	case -1:
 	___undestroyedBullets80 = (
 
-(BazookaBullets).Select(__ContextSymbol245 => new { ___a850 = __ContextSymbol245 })
-.Where(__ContextSymbol246 => ((__ContextSymbol246.___a850.Destroyed) == (false)))
-.Select(__ContextSymbol247 => __ContextSymbol247.___a850)
+(BazookaBullets).Select(__ContextSymbol261 => new { ___a853 = __ContextSymbol261 })
+.Where(__ContextSymbol262 => ((__ContextSymbol262.___a853.Destroyed) == (false)))
+.Select(__ContextSymbol263 => __ContextSymbol263.___a853)
 .ToList<BazookaBullet>()).ToList<BazookaBullet>();
 	BazookaBullets = ___undestroyedBullets80;
 	s8 = -1;
@@ -5074,13 +5268,13 @@ return;
 	s10 = 10;
 return;
 	case 10:
-	count_down17 = 0.05f;
+	count_down19 = 0.05f;
 	goto case 11;
 	case 11:
-	if(((count_down17) > (0f)))
+	if(((count_down19) > (0f)))
 	{
 
-	count_down17 = ((count_down17) - (dt));
+	count_down19 = ((count_down19) - (dt));
 	s10 = 11;
 return;	}else
 	{
@@ -5132,6 +5326,7 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 		TypeWeapon = "";
 		Reloading = false;
 		ReloadDuration = 0f;
+		Refill = 0;
 		NotInMagazine = NotInMag;
 		MagazineSize = 0;
 		InMagazine = InMag;
@@ -5146,23 +5341,25 @@ public Ammo(System.Int32 InMag, System.Int32 NotInMag)
 	public System.Int32 InMagazine;
 	public System.Int32 MagazineSize;
 	public System.Int32 NotInMagazine;
+	public System.Int32 Refill;
 	public System.Single ReloadDuration;
 	public System.Boolean Reloading;
 	public System.String TypeWeapon;
 	public System.Boolean ooas;
 	public System.Boolean relo;
 	public System.Boolean shot;
-	public System.Single count_down18;
-	public System.Int32 ___a151;
-	public System.Int32 ___b13;
-	public System.Single count_down19;
 	public System.Single count_down20;
-	public System.Int32 ___changed10;
+	public System.Int32 ___a254;
+	public System.Int32 ___b25;
+	public System.Single count_down21;
+	public System.Single count_down22;
+	public System.Int32 ___changed20;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
+		this.Rule2(dt, world);
 	}
 
 
@@ -5182,12 +5379,12 @@ frame = World.frame;
 return;	}else
 	{
 
-	goto case 15;	}
-	case 15:
+	goto case 14;	}
+	case 14:
 	if(!(GC.Value.Shot))
 	{
 
-	s0 = 15;
+	s0 = 14;
 return;	}else
 	{
 
@@ -5202,7 +5399,6 @@ return;	}else
 	s0 = -1;
 return;	}
 	case 1:
-	UnityEngine.Debug.Log(Automatic);
 	if(!(Automatic))
 	{
 
@@ -5250,13 +5446,13 @@ return;
 	s0 = 10;
 return;
 	case 10:
-	count_down18 = 0.05f;
+	count_down20 = 0.05f;
 	goto case 11;
 	case 11:
-	if(((count_down18) > (0f)))
+	if(((count_down20) > (0f)))
 	{
 
-	count_down18 = ((count_down18) - (dt));
+	count_down20 = ((count_down20) - (dt));
 	s0 = 11;
 return;	}else
 	{
@@ -5272,10 +5468,31 @@ return;	}
 	{
 
 	case -1:
-	if(!(((((InMagazine) == (0))) || (Reloading))))
+	if(((world.ActiveBoR) == ("AmmoBox")))
+	{
+
+	goto case 17;	}else
 	{
 
 	s1 = -1;
+return;	}
+	case 17:
+	NotInMagazine = ((NotInMagazine) + (Refill));
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
+	{
+
+	case -1:
+	if(!(((((InMagazine) == (0))) || (Reloading))))
+	{
+
+	s2 = -1;
 return;	}else
 	{
 
@@ -5300,34 +5517,34 @@ return;	}else
 	if(!(((((NotInMagazine) > (0))) && (((((MagazineSize) + (1))) > (InMagazine))))))
 	{
 
-	s1 = -1;
+	s2 = -1;
 return;	}else
 	{
 
 	goto case 7;	}
 	case 7:
-	___a151 = ((NotInMagazine) - (1));
-	___b13 = ((InMagazine) + (1));
+	___a254 = ((NotInMagazine) - (1));
+	___b25 = ((InMagazine) + (1));
 	Reloading = true;
-	NotInMagazine = ___a151;
-	InMagazine = ___b13;
+	NotInMagazine = ___a254;
+	InMagazine = ___b25;
 	relo = true;
 	ooas = false;
-	s1 = 8;
+	s2 = 8;
 return;
 	case 8:
-	count_down19 = ReloadDuration;
+	count_down21 = ReloadDuration;
 	goto case 9;
 	case 9:
-	if(((count_down19) > (0f)))
+	if(((count_down21) > (0f)))
 	{
 
-	count_down19 = ((count_down19) - (dt));
-	s1 = 9;
+	count_down21 = ((count_down21) - (dt));
+	s2 = 9;
 return;	}else
 	{
 
-	s1 = 3;
+	s2 = 3;
 return;	}
 	case 4:
 	Reloading = true;
@@ -5335,17 +5552,17 @@ return;	}
 	InMagazine = InMagazine;
 	relo = false;
 	ooas = false;
-	s1 = 19;
+	s2 = 19;
 return;
 	case 19:
-	count_down20 = ReloadDuration;
+	count_down22 = ReloadDuration;
 	goto case 20;
 	case 20:
-	if(((count_down20) > (0f)))
+	if(((count_down22) > (0f)))
 	{
 
-	count_down20 = ((count_down20) - (dt));
-	s1 = 20;
+	count_down22 = ((count_down22) - (dt));
+	s2 = 20;
 return;	}else
 	{
 
@@ -5364,16 +5581,16 @@ return;	}else
 	InMagazine = NotInMagazine;
 	relo = true;
 	ooas = false;
-	s1 = -1;
+	s2 = -1;
 return;
 	case 14:
-	___changed10 = ((MagazineSize) - (InMagazine));
+	___changed20 = ((MagazineSize) - (InMagazine));
 	Reloading = false;
-	NotInMagazine = ((NotInMagazine) - (___changed10));
+	NotInMagazine = ((NotInMagazine) - (___changed20));
 	InMagazine = MagazineSize;
 	relo = true;
 	ooas = false;
-	s1 = -1;
+	s2 = -1;
 return;
 	case 1:
 	Reloading = false;
@@ -5381,7 +5598,7 @@ return;
 	InMagazine = InMagazine;
 	relo = false;
 	ooas = true;
-	s1 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
@@ -5561,6 +5778,7 @@ frame = World.frame;
 		this.Rule0(dt, world);
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
+		this.Rule3(dt, world);
 	}
 
 
@@ -5573,15 +5791,37 @@ frame = World.frame;
 	{
 
 	case -1:
-	Active = LightController.Trigger;
+	Battery = 100f;
+	s0 = 0;
+return;
+	case 0:
+	if(!(world.W_Refill_Resources))
+	{
+
+	s0 = 0;
+return;	}else
+	{
+
 	s0 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
 	int s1=-1;
 	public void Rule1(float dt, World world){ 
 	switch (s1)
+	{
+
+	case -1:
+	Active = LightController.Trigger;
+	s1 = -1;
+return;	
+	default: return;}}
+	
+
+	int s2=-1;
+	public void Rule2(float dt, World world){ 
+	switch (s2)
 	{
 
 	case -1:
@@ -5594,18 +5834,18 @@ return;
 	goto case 2;	}
 	case 1:
 	Battery = ((Battery) - (0.5f));
-	s1 = -1;
+	s2 = -1;
 return;
 	case 2:
 	Battery = Battery;
-	s1 = -1;
+	s2 = -1;
 return;	
 	default: return;}}
 	
 
-	int s2=-1;
-	public void Rule2(float dt, World world){ 
-	switch (s2)
+	int s3=-1;
+	public void Rule3(float dt, World world){ 
+	switch (s3)
 	{
 
 	case -1:
@@ -5615,12 +5855,11 @@ return;
 	goto case 7;	}else
 	{
 
-	s2 = -1;
+	s3 = -1;
 return;	}
 	case 7:
-	UnityEngine.Debug.Log(("Battery = ") + (Battery));
 	Battery = ((Battery) + (50f));
-	s2 = -1;
+	s3 = -1;
 return;	
 	default: return;}}
 	
@@ -5639,20 +5878,16 @@ private System.Int32 amount;
 public GroupZombie(UnityEngine.Vector3 sps, System.Int32 amount)
 	{JustEntered = false;
  frame = World.frame;
-		ZombieLeader = (new Nothing<Zombie>());
 		ZombieFollowers = (
 
 Enumerable.Empty<Zombie>()).ToList<Zombie>();
 		UnityGroup = UnityGroup.Instantiate(sps,amount);
 		
 }
-		public UnityEngine.Transform U_ZombieLeader{  get { return UnityGroup.U_ZombieLeader; }
- }
-	public System.Collections.Generic.List<UnityEngine.Transform> U_Zombies{  get { return UnityGroup.U_Zombies; }
+		public System.Collections.Generic.List<UnityEngine.Transform> U_Zombies{  get { return UnityGroup.U_Zombies; }
  }
 	public UnityGroup UnityGroup;
 	public List<Zombie> ZombieFollowers;
-	public Option<Zombie> ZombieLeader;
 	public System.Boolean enabled{  get { return UnityGroup.enabled; }
   set{UnityGroup.enabled = value; }
  }
@@ -5674,18 +5909,16 @@ Enumerable.Empty<Zombie>()).ToList<Zombie>();
 	public System.Boolean useGUILayout{  get { return UnityGroup.useGUILayout; }
   set{UnityGroup.useGUILayout = value; }
  }
+	public System.Single count_down23;
 	public List<Zombie> ___z05;
-	public Zombie ___leader10;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
 		for(int x0 = 0; x0 < ZombieFollowers.Count; x0++) { 
 			ZombieFollowers[x0].Update(dt, world);
 		}
-if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
- } 
 		this.Rule0(dt, world);
-		this.Rule1(dt, world);
+
 	}
 
 
@@ -5698,10 +5931,23 @@ if(ZombieLeader.IsSome){ 		ZombieLeader.Value.Update(dt, world);
 	{
 
 	case -1:
+	count_down23 = dt;
+	goto case 5;
+	case 5:
+	if(((count_down23) > (0f)))
+	{
+
+	count_down23 = ((count_down23) - (dt));
+	s0 = 5;
+return;	}else
+	{
+
+	goto case 3;	}
+	case 3:
 	___z05 = (
 
-(U_Zombies).Select(__ContextSymbol250 => new { ___a052 = __ContextSymbol250 })
-.Select(__ContextSymbol251 => new Zombie(__ContextSymbol251.___a052))
+(U_Zombies).Select(__ContextSymbol266 => new { ___a055 = __ContextSymbol266 })
+.Select(__ContextSymbol267 => new Zombie(__ContextSymbol267.___a055))
 .ToList<Zombie>()).ToList<Zombie>();
 	ZombieFollowers = ___z05;
 	s0 = 1;
@@ -5725,32 +5971,6 @@ return;	}
 	default: return;}}
 	
 
-	int s1=-1;
-	public void Rule1(float dt, World world){ 
-	switch (s1)
-	{
-
-	case -1:
-	___leader10 = new Zombie(U_ZombieLeader);
-	ZombieLeader = (new Just<Zombie>(___leader10));
-	s1 = 1;
-return;
-	case 1:
-	ZombieLeader = (new Nothing<Zombie>());
-	s1 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s1 = 0;
-return;	}else
-	{
-
-	s1 = -1;
-return;	}	
-	default: return;}}
-	
 
 
 
@@ -5770,18 +5990,6 @@ public Zombie(UnityEngine.Transform trans)
 }
 		public System.Boolean ApplyForceOnZombie{  get { return UnityZombie2.ApplyForceOnZombie; }
   set{UnityZombie2.ApplyForceOnZombie = value; }
- }
-	public UnityEngine.AudioClip Audio_Attack1{  get { return UnityZombie2.Audio_Attack1; }
-  set{UnityZombie2.Audio_Attack1 = value; }
- }
-	public UnityEngine.AudioClip Audio_Attack2{  get { return UnityZombie2.Audio_Attack2; }
-  set{UnityZombie2.Audio_Attack2 = value; }
- }
-	public UnityEngine.AudioClip Audio_Shout{  get { return UnityZombie2.Audio_Shout; }
-  set{UnityZombie2.Audio_Shout = value; }
- }
-	public UnityEngine.AudioClip Audio_Walk{  get { return UnityZombie2.Audio_Walk; }
-  set{UnityZombie2.Audio_Walk = value; }
  }
 	public System.Single BodyPartMultiplier{  get { return UnityZombie2.BodyPartMultiplier; }
   set{UnityZombie2.BodyPartMultiplier = value; }
@@ -5875,8 +6083,8 @@ public Zombie(UnityEngine.Transform trans)
 	public System.Boolean useGUILayout{  get { return UnityZombie2.useGUILayout; }
   set{UnityZombie2.useGUILayout = value; }
  }
-	public System.Single count_down21;
-	public System.Single count_down22;
+	public System.Single count_down24;
+	public System.Single count_down25;
 	public void Update(float dt, World world) {
 frame = World.frame;
 
@@ -5884,6 +6092,7 @@ frame = World.frame;
 		this.Rule1(dt, world);
 		this.Rule2(dt, world);
 		this.Rule3(dt, world);
+		this.Rule4(dt, world);
 	}
 
 
@@ -5899,37 +6108,37 @@ frame = World.frame;
 	if(Ragdolled)
 	{
 
-	goto case 4;	}else
-	{
-
-	goto case 5;	}
-	case 4:
-	if(!(!(Ragdolled)))
-	{
-
-	s0 = 4;
-return;	}else
-	{
-
-	goto case 8;	}
-	case 8:
-	count_down21 = 5f;
-	goto case 9;
-	case 9:
-	if(((count_down21) > (0f)))
-	{
-
-	count_down21 = ((count_down21) - (dt));
-	s0 = 9;
-return;	}else
+	goto case 6;	}else
 	{
 
 	goto case 7;	}
-	case 7:
+	case 6:
+	if(!(!(Ragdolled)))
+	{
+
+	s0 = 6;
+return;	}else
+	{
+
+	goto case 10;	}
+	case 10:
+	count_down24 = 5f;
+	goto case 11;
+	case 11:
+	if(((count_down24) > (0f)))
+	{
+
+	count_down24 = ((count_down24) - (dt));
+	s0 = 11;
+return;	}else
+	{
+
+	goto case 9;	}
+	case 9:
 	Dest = world.Jeep.Value.Position;
 	s0 = -1;
 return;
-	case 5:
+	case 7:
 	Dest = world.Jeep.Value.Position;
 	s0 = -1;
 return;	
@@ -5963,13 +6172,13 @@ return;
 	{
 
 	case -1:
-	count_down22 = tim;
+	count_down25 = tim;
 	goto case 2;
 	case 2:
-	if(((count_down22) > (0f)))
+	if(((count_down25) > (0f)))
 	{
 
-	count_down22 = ((count_down22) - (dt));
+	count_down25 = ((count_down25) - (dt));
 	s2 = 2;
 return;	}else
 	{
@@ -6012,6 +6221,28 @@ return;	}else
 	WaitingOnStandstill = false;
 	s3 = -1;
 return;	
+	default: return;}}
+	
+
+	int s4=-1;
+	public void Rule4(float dt, World world){ 
+	switch (s4)
+	{
+
+	case -1:
+	Life = 140f;
+	s4 = 0;
+return;
+	case 0:
+	if(!(false))
+	{
+
+	s4 = 0;
+return;	}else
+	{
+
+	s4 = -1;
+return;	}	
 	default: return;}}
 	
 
@@ -6072,4 +6303,4 @@ frame = World.frame;
 
 
 }
-}                                                               
+} 

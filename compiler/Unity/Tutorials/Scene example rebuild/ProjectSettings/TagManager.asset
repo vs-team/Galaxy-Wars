@@ -20,6 +20,7 @@ TagManager:
   - Trucks
   - Barrels
   - Streetlight
+  - Streetlight_light
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - BazookaBulletLayer
   - TruckLayer
   - BarrelLayer
-  - 
+  - Background
   - 
   - 
   - 

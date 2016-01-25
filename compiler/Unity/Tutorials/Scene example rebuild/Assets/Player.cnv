@@ -15,6 +15,7 @@ entity Player = {
     Controllers = [new ControllerRazor("Hydra1 - Right"); new ControllerRazor("Hydra1 - Left")]
   }
 }
+
 entity Equipment = {
   inherit UnityEquipment
   ref AllGuns : [Gun]
@@ -427,10 +428,11 @@ entity Gun = {
        select a]
     yield undestroyedBullets
 
+
   rule AmmoAct.Reloading = 
     if (Input.GetKey(KeyCode.R)) then
       yield true
-      wait not Reloading
+      wait not AmmoAct.Reloading
     else 
       yield false
 
@@ -456,8 +458,9 @@ entity Gun = {
     if AmmoAct.Reloading = false then
       yield false
 
-  rule AmmoAct.Automatic, AmmoAct.ReloadDuration, AmmoAct.MagazineSize, AmmoAct.TypeWeapon = 
-    yield Automatic, ReloadDuration, MagazineSize, TypeWeapon
+  rule AmmoAct.Automatic, AmmoAct.ReloadDuration, AmmoAct.MagazineSize, AmmoAct.TypeWeapon, AmmoAct.Refill = 
+    let r = MagazineSize * 3
+    yield Automatic, ReloadDuration, MagazineSize, TypeWeapon, r
     wait false
 
   rule AmmoAct.GC = 
@@ -502,6 +505,7 @@ entity Ammo = {
   ExplosionRadius : float
   relo : bool
   ooas : bool
+  Refill : int
 
   rule Reloading, NotInMagazine, InMagazine, relo, ooas = 
     wait (InMagazine = 0) || Reloading
@@ -524,28 +528,27 @@ entity Ammo = {
     else
       yield false, 0, InMagazine, false, true
 
-  //rule NotInMagazine = 
-    //if world.ActiveBoR = "AmmoBox" then 
-      //yield NotInMagazine + 50
+  rule NotInMagazine = 
+    if world.ActiveBoR = "AmmoBox" then 
+      yield NotInMagazine + Refill
 
   rule InMagazine, shot = 
     wait GC.IsSome
     wait GC.Value.Shot
     if (InMagazine > 0 && not Reloading) then
-      Debug.Log(Automatic)
       if (not Automatic) then
-        //Debug.Log("InMagazineNotAutom = "+ InMagazine)
         yield InMagazine - 1, true
         yield InMagazine, false
         wait not GC.Value.Shot
       else
         while (GC.Value.Shot && InMagazine > 0) do
-          //Debug.Log("InMagazineAutom = "+ InMagazine)
           yield InMagazine - 1, true
           yield InMagazine, false
           wait 0.05f
 
-  Create(InMag : int, NotInMag : int) = {
+  Create(InMag : int, NotInMag : int) = 
+  {
+    Refill = 0
     InMagazine = InMag
     NotInMagazine = NotInMag
     GC = None
@@ -596,11 +599,9 @@ entity Light = {
   
   rule Battery = 
      if world.ActiveBoR = "Battery Black" then 
-       Debug.Log("Battery = "+Battery)
        yield Battery + 50.0f
     
   rule Battery = 
-    //Debug.Log("Battery: " + Battery)
     if Active && Battery > 0.49f then
       yield Battery - 0.5f
     else
@@ -608,6 +609,10 @@ entity Light = {
 
   rule Active =
     yield LightController.Trigger
+
+  rule Battery = 
+    yield 100.0f
+    wait world.W_Refill_Resources
 
   Create(LC : ControllerRazor) = 
   {

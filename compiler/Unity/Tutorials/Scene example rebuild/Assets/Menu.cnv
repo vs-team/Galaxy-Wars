@@ -12,14 +12,8 @@ worldEntity Menu = {
   ref Highscore  : Option<ButtonGUI>
   ref SubmitButton : Option<ButtonGUI>
   Highs : Option<HighScore>
-  test : bool
   
-  rule test = 
-    wait LL = 4
-    let s = rbp
-    yield true
-    wait false
-
+  
   rule NextScene = 
     wait StartButton.IsSome
     wait StartButton.Value.IsPressed
@@ -112,7 +106,6 @@ worldEntity Menu = {
     Highscore = None
     Highs = None
     SubmitButton = None
-    test = false
   }
 }
 entity ButtonGUI = {
