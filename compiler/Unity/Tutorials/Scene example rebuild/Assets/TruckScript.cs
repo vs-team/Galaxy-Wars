@@ -8,12 +8,12 @@ using UnityEngine.UI;
 
 public class TruckScript : MonoBehaviour
 {
-
   public Rigidbody truckRigidBody;
   public WheelCollider FrontLeftWheel;
   public WheelCollider FrontRightWheel;
   public WheelCollider RearLeftWheel;
   public WheelCollider RearRightWheel;
+  private List<WheelCollider> wheels;
   public Light HeadlightLeft;
   public Light HeadlightRight;
   private float CarHP = 1.0f;
@@ -51,9 +51,9 @@ public class TruckScript : MonoBehaviour
     return truck;
   }
 
-
   void Start()
   {
+
     PlayerPrefs.DeleteKey("ReachedByPlayer");
     PlayerPrefs.Save();
     multiplier.gameObject.SetActive(false);
@@ -377,4 +377,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+}                                      
