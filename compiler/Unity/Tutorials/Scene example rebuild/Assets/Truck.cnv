@@ -102,7 +102,7 @@ entity Truck = {
      wait false
 
    rule GameOver = 
-     wait Fuel < 1 
+     wait Fuel < 1.0f
      yield 4
      wait truckRigidBody.velocity.z > -0.6f && truckRigidBody.velocity.z < 0.6f
      yield 3

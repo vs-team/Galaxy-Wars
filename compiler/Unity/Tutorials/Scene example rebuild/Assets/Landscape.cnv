@@ -11,6 +11,7 @@ entity Gasstation = {
   Barrels : [Barrel]
   Counter : int
 
+
   rule GroupZombies, Counter = 
     wait RepairZonE.RepairProgressBar.IsSome
     wait ZombieSpawnpoints.Count > 0 && RepairZonE.RepairProgressBar.Value.pspeed = 15

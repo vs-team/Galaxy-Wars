@@ -1838,7 +1838,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124048}
-  m_LocalRotation: {x: -.046038527, y: -.702804327, z: .663036346, w: .253632307}
+  m_LocalRotation: {x: -.0460385308, y: -.702804387, z: .663036406, w: .253632337}
   m_LocalPosition: {x: -.0296604317, y: .0559948348, z: -.168888599}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3218,7 +3218,7 @@ TextMesh:
   m_GameObject: {fileID: 113938}
   m_Text: 
   m_OffsetZ: 0
-  m_CharacterSize: .100000001
+  m_CharacterSize: .0399999991
   m_LineSpacing: 1
   m_Anchor: 5
   m_Alignment: 2
@@ -3419,7 +3419,6 @@ MonoBehaviour:
   Audio_Driving: {fileID: 8300000, guid: 048b1335d584da640bb5131fef37cd05, type: 3}
   Audio_DamageSmall: {fileID: 8300000, guid: e1cc089e45ba1ca42935e9b3863edefb, type: 3}
   Audio_DamageBig: {fileID: 8300000, guid: d2ca5d8792adb6249970c7a1fab8eaf9, type: 3}
-  mspacefont: {fileID: 12800000, guid: cc5cb819602348a4db69b9de8a3642ec, type: 3}
   Invullen: 0
   MultiplierBonus: 0
   tim: 0

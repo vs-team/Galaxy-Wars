@@ -46,11 +46,12 @@ public class TruckScript : MonoBehaviour
     //truck.shield = truck.transform.Find("Shield").GetComponent<Collider>() as Collider;
     truck.collidedWithThisFrame = new List<UnityZombie2>();
     truck.score = truck.transform.Find("Main Camera/Score").GetComponent<TextMesh>() as TextMesh;
+    truck.t = truck.transform.Find("Main Camera/Text").GetComponent<TextMesh>() as TextMesh;
     truck.multiplier = truck.transform.Find("Main Camera/Multiplier").GetComponent<TextMesh>() as TextMesh;
 
     return truck;
   }
-
+  private TextMesh t;
   void Start()
   {
 
@@ -122,13 +123,14 @@ public class TruckScript : MonoBehaviour
       }
     }
   }
-
-  public bool GameOver
+  private int GameOver_p;
+  public int GameOver
   {
-    get { return false; }
+    get { return GameOver_p; }
     set
     {
-      if (value == true)
+      GameOver_p = value;
+      if (value == 5)
       {
 
         //score
@@ -177,6 +179,26 @@ public class TruckScript : MonoBehaviour
           PlayerPrefs.Save();
           Application.LoadLevel(2);
         }
+      }
+      else
+      {
+        if (value == 1)
+        {
+          t.text = "1";
+        }
+        if (value == 2)
+        {
+          t.text = "2";
+        }
+        if (value == 3)
+        {
+          t.text = "3";
+        }
+        if (value == 4)
+        {
+          t.text = "Out of Fuel";
+        }
+
       }
     }
   }
@@ -377,4 +399,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+}                                            

@@ -1144,9 +1144,6 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.Boolean isModel;
 	public System.Single maxMotorTorque;
 	public System.Single maxSteeringAngle;
-	public UnityEngine.Font mspacefont{  get { return TruckScript.mspacefont; }
-  set{TruckScript.mspacefont = value; }
- }
 	public System.String name{  get { return TruckScript.name; }
   set{TruckScript.name = value; }
  }
@@ -1169,13 +1166,13 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.Single count_down10;
 	public System.Single count_down9;
 	public System.Single count_down8;
-	public System.String ___j92;
+	public System.String ___j82;
 	public System.Single count_down15;
 	public System.Single count_down14;
 	public System.Single count_down13;
 	public System.Single count_down17;
 	public System.Single count_down16;
-	public System.Single ___a1411;
+	public System.Single ___a1311;
 	public System.Single count_down18;
 	public System.Single count_down19;
 	public System.Single count_down20;
@@ -1202,7 +1199,6 @@ frame = World.frame;
 		this.Rule13(dt, world);
 		this.Rule14(dt, world);
 		this.Rule15(dt, world);
-		this.Rule16(dt, world);
 	}
 
 
@@ -1549,9 +1545,20 @@ return;
 	{
 
 	case -1:
-	PrevVelocity = truckRigidBody.velocity;
+	___j82 = (("") + (world.Score));
+	Score = ___j82;
+	s8 = 0;
+return;
+	case 0:
+	if(!(!(((GameOver) == (5)))))
+	{
+
+	s8 = 0;
+return;	}else
+	{
+
 	s8 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
@@ -1561,15 +1568,96 @@ return;
 	{
 
 	case -1:
-	___j92 = (("") + (world.Score));
-	Score = ___j92;
-	s9 = 0;
-return;
-	case 0:
-	if(!(!(((GameOver) == (5)))))
+	if(!(((1f) > (Fuel))))
 	{
 
-	s9 = 0;
+	s9 = -1;
+return;	}else
+	{
+
+	goto case 14;	}
+	case 14:
+	GameOver = 4;
+	s9 = 13;
+return;
+	case 13:
+	if(!(((((truckRigidBody.velocity.z) > (-0.6f))) && (((0.6f) > (truckRigidBody.velocity.z))))))
+	{
+
+	s9 = 13;
+return;	}else
+	{
+
+	goto case 12;	}
+	case 12:
+	GameOver = 3;
+	s9 = 10;
+return;
+	case 10:
+	count_down15 = 1f;
+	goto case 11;
+	case 11:
+	if(((count_down15) > (0f)))
+	{
+
+	count_down15 = ((count_down15) - (dt));
+	s9 = 11;
+return;	}else
+	{
+
+	goto case 9;	}
+	case 9:
+	GameOver = 2;
+	s9 = 7;
+return;
+	case 7:
+	count_down14 = 1f;
+	goto case 8;
+	case 8:
+	if(((count_down14) > (0f)))
+	{
+
+	count_down14 = ((count_down14) - (dt));
+	s9 = 8;
+return;	}else
+	{
+
+	goto case 6;	}
+	case 6:
+	GameOver = 1;
+	s9 = 4;
+return;
+	case 4:
+	count_down13 = 1f;
+	goto case 5;
+	case 5:
+	if(((count_down13) > (0f)))
+	{
+
+	count_down13 = ((count_down13) - (dt));
+	s9 = 5;
+return;	}else
+	{
+
+	goto case 0;	}
+	case 0:
+	if(((1) > (Fuel)))
+	{
+
+	goto case 1;	}else
+	{
+
+	s9 = -1;
+return;	}
+	case 1:
+	GameOver = 5;
+	s9 = 2;
+return;
+	case 2:
+	if(!(false))
+	{
+
+	s9 = 2;
 return;	}else
 	{
 
@@ -1584,96 +1672,23 @@ return;	}
 	{
 
 	case -1:
-	if(!(((1) > (Fuel))))
+	if(!(((((1) > (Stats.Health))) || (((0) > (world.Score))))))
 	{
 
 	s10 = -1;
 return;	}else
 	{
 
-	goto case 14;	}
-	case 14:
-	GameOver = 4;
-	s10 = 13;
-return;
-	case 13:
-	if(!(((((truckRigidBody.velocity.z) > (-0.6f))) && (((0.6f) > (truckRigidBody.velocity.z))))))
-	{
-
-	s10 = 13;
-return;	}else
-	{
-
-	goto case 12;	}
-	case 12:
-	GameOver = 3;
-	s10 = 10;
-return;
-	case 10:
-	count_down15 = 1f;
-	goto case 11;
-	case 11:
-	if(((count_down15) > (0f)))
-	{
-
-	count_down15 = ((count_down15) - (dt));
-	s10 = 11;
-return;	}else
-	{
-
-	goto case 9;	}
-	case 9:
-	GameOver = 2;
-	s10 = 7;
-return;
-	case 7:
-	count_down14 = 1f;
-	goto case 8;
-	case 8:
-	if(((count_down14) > (0f)))
-	{
-
-	count_down14 = ((count_down14) - (dt));
-	s10 = 8;
-return;	}else
-	{
-
-	goto case 6;	}
-	case 6:
-	GameOver = 1;
-	s10 = 4;
-return;
-	case 4:
-	count_down13 = 1f;
-	goto case 5;
-	case 5:
-	if(((count_down13) > (0f)))
-	{
-
-	count_down13 = ((count_down13) - (dt));
-	s10 = 5;
-return;	}else
-	{
-
-	goto case 0;	}
-	case 0:
-	if(((1) > (Fuel)))
-	{
-
-	goto case 1;	}else
-	{
-
-	s10 = -1;
-return;	}
+	goto case 1;	}
 	case 1:
 	GameOver = 5;
-	s10 = 2;
+	s10 = 0;
 return;
-	case 2:
+	case 0:
 	if(!(false))
 	{
 
-	s10 = 2;
+	s10 = 0;
 return;	}else
 	{
 
@@ -1688,7 +1703,7 @@ return;	}
 	{
 
 	case -1:
-	if(!(((((1) > (Stats.Health))) || (((0) > (world.Score))))))
+	if(!(((GameOver) == (5))))
 	{
 
 	s11 = -1;
@@ -1697,7 +1712,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	GameOver = 5;
+	Invullen = true;
 	s11 = 0;
 return;
 	case 0:
@@ -1719,37 +1734,6 @@ return;	}
 	{
 
 	case -1:
-	if(!(((GameOver) == (5))))
-	{
-
-	s12 = -1;
-return;	}else
-	{
-
-	goto case 1;	}
-	case 1:
-	Invullen = true;
-	s12 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s12 = 0;
-return;	}else
-	{
-
-	s12 = -1;
-return;	}	
-	default: return;}}
-	
-
-	int s13=-1;
-	public void Rule13(float dt, World world){ 
-	switch (s13)
-	{
-
-	case -1:
 	if(((KeyboardDriving) && (((0.5f) > (Dama)))))
 	{
 
@@ -1759,7 +1743,7 @@ return;	}
 	goto case 3;	}
 	case 9:
 	driv = 1f;
-	s13 = 10;
+	s12 = 10;
 return;
 	case 10:
 	count_down17 = tim;
@@ -1769,11 +1753,11 @@ return;
 	{
 
 	count_down17 = ((count_down17) - (dt));
-	s13 = 11;
+	s12 = 11;
 return;	}else
 	{
 
-	s13 = 3;
+	s12 = 3;
 return;	}
 	case 3:
 	if(((((Dama) > (0.5f))) || (!(KeyboardDriving))))
@@ -1782,7 +1766,7 @@ return;	}
 	goto case 4;	}else
 	{
 
-	s13 = -1;
+	s12 = -1;
 return;	}
 	case 4:
 	count_down16 = tim;
@@ -1792,37 +1776,37 @@ return;	}
 	{
 
 	count_down16 = ((count_down16) - (dt));
-	s13 = 7;
+	s12 = 7;
 return;	}else
 	{
 
 	goto case 5;	}
 	case 5:
 	driv = 0f;
-	s13 = -1;
+	s12 = -1;
 return;	
 	default: return;}}
 	
 
-	int s14=-1;
-	public void Rule14(float dt, World world){ 
-	switch (s14)
+	int s13=-1;
+	public void Rule13(float dt, World world){ 
+	switch (s13)
 	{
 
 	case -1:
-	___a1411 = CarHPChanged;
-	if(!(((___a1411) == (0f))))
+	___a1311 = CarHPChanged;
+	if(!(((___a1311) == (0f))))
 	{
 
 	goto case 14;	}else
 	{
 
-	s14 = -1;
+	s13 = -1;
 return;	}
 	case 14:
 	Dama = 0f;
 	driv = 0.5f;
-	s14 = 15;
+	s13 = 15;
 return;
 	case 15:
 	count_down18 = tim;
@@ -1832,18 +1816,18 @@ return;
 	{
 
 	count_down18 = ((count_down18) - (dt));
-	s14 = 16;
+	s13 = 16;
 return;	}else
 	{
 
-	s14 = -1;
+	s13 = -1;
 return;	}	
 	default: return;}}
 	
 
-	int s15=-1;
-	public void Rule15(float dt, World world){ 
-	switch (s15)
+	int s14=-1;
+	public void Rule14(float dt, World world){ 
+	switch (s14)
 	{
 
 	case -1:
@@ -1856,7 +1840,7 @@ return;	}
 	goto case 20;	}
 	case 19:
 	Multip = 1.2f;
-	s15 = 23;
+	s14 = 23;
 return;
 	case 23:
 	count_down19 = 8f;
@@ -1866,32 +1850,32 @@ return;
 	{
 
 	count_down19 = ((count_down19) - (dt));
-	s15 = 24;
+	s14 = 24;
 return;	}else
 	{
 
 	goto case 22;	}
 	case 22:
 	Multip = 1f;
-	s15 = -1;
+	s14 = -1;
 return;
 	case 20:
 	Multip = 1f;
-	s15 = -1;
+	s14 = -1;
 return;	
 	default: return;}}
 	
 
-	int s16=-1;
-	public void Rule16(float dt, World world){ 
-	switch (s16)
+	int s15=-1;
+	public void Rule15(float dt, World world){ 
+	switch (s15)
 	{
 
 	case -1:
 	if(!(((((UnityEngine.Input.GetKeyDown(KeyCode.L)) || (((((Rotz) > (0.3f))) && (((0.9f) > (Rotz))))))) || (((((Rotz) > (-0.3f))) && (((-0.9f) > (Rotz))))))))
 	{
 
-	s16 = -1;
+	s15 = -1;
 return;	}else
 	{
 
@@ -1905,7 +1889,7 @@ return;	}else
 	{
 
 	count_down20 = ((count_down20) - (dt));
-	s16 = 3;
+	s15 = 3;
 return;	}else
 	{
 
@@ -1913,12 +1897,12 @@ return;	}else
 	case 1:
 	flip = true;
 	world.Score = ((world.Score) - (200));
-	s16 = 0;
+	s15 = 0;
 return;
 	case 0:
 	flip = false;
 	world.Score = world.Score;
-	s16 = -1;
+	s15 = -1;
 return;	
 	default: return;}}
 	
@@ -2087,7 +2071,6 @@ return;
 
 	case -1:
 	___j23 = world.Jeep.Value.truckRigidBody.velocity.z;
-	UnityEngine.Debug.Log(((leftWheel.motorTorque) + (" and ")) + (___j23));
 	motor = motor;
 	s2 = -1;
 return;	
@@ -4992,7 +4975,7 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr, Ammo am)
 		List<System.Single> ___ReloadDurationList00;
 		___ReloadDurationList00 = (
 
-(new Cons<System.Single>(7f,(new Cons<System.Single>(3f,(new Cons<System.Single>(0.5f,(new Cons<System.Single>(0.5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
+(new Cons<System.Single>(5f,(new Cons<System.Single>(3f,(new Cons<System.Single>(0.5f,(new Cons<System.Single>(0.5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
 		List<System.Single> ___DamageList00;
 		___DamageList00 = (
 
@@ -5751,6 +5734,14 @@ return;	}
 	Reloading = true;
 	NotInMagazine = NotInMagazine;
 	InMagazine = InMagazine;
+	relo = true;
+	ooas = false;
+	s2 = 21;
+return;
+	case 21:
+	Reloading = true;
+	NotInMagazine = NotInMagazine;
+	InMagazine = InMagazine;
 	relo = false;
 	ooas = false;
 	s2 = 19;
@@ -5780,7 +5771,7 @@ return;	}else
 	Reloading = false;
 	NotInMagazine = 0;
 	InMagazine = NotInMagazine;
-	relo = true;
+	relo = false;
 	ooas = false;
 	s2 = -1;
 return;
@@ -5789,7 +5780,7 @@ return;
 	Reloading = false;
 	NotInMagazine = ((NotInMagazine) - (___changed20));
 	InMagazine = MagazineSize;
-	relo = true;
+	relo = false;
 	ooas = false;
 	s2 = -1;
 return;
@@ -6554,4 +6545,4 @@ frame = World.frame;
 
 
 }
-}       
+}         
