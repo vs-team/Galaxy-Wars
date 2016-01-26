@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46c0f1a3352eed4ab4576e119e396ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_hand: 2
+  m_hand: 0
   Pos: {x: 0, y: 0, z: 0}
   Rot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &17929811
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
-  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  ammo: {fileID: 0}
   Reloader: {fileID: 0}
 --- !u!1 &132223244
 GameObject:
@@ -2698,7 +2698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &529613216
 Transform:
   m_ObjectHideFlags: 0
@@ -2802,7 +2802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
-  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  ammo: {fileID: 0}
   Reloader: {fileID: 0}
 --- !u!1 &530465202
 GameObject:
@@ -3381,7 +3381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
-  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  ammo: {fileID: 0}
   Reloader: {fileID: 0}
 --- !u!1 &634928868
 GameObject:
@@ -5272,8 +5272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
-  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
-  Reloader: {fileID: 8300000, guid: b1af18e5df5c7f14abea4215bb35e1cf, type: 3}
+  ammo: {fileID: 0}
+  Reloader: {fileID: 0}
 --- !u!95 &1055263778
 Animator:
   serializedVersion: 3
@@ -5577,7 +5577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1137891347
 Transform:
   m_ObjectHideFlags: 0
@@ -5676,8 +5676,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
-  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
-  Reloader: {fileID: 8300000, guid: b1af18e5df5c7f14abea4215bb35e1cf, type: 3}
+  ammo: {fileID: 0}
+  Reloader: {fileID: 0}
 --- !u!95 &1137891350
 Animator:
   serializedVersion: 3
@@ -6811,7 +6811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1403834671
 Transform:
   m_ObjectHideFlags: 0
@@ -6910,7 +6910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
-  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  ammo: {fileID: 0}
   Reloader: {fileID: 0}
 --- !u!1 &1407814282
 GameObject:
@@ -8045,7 +8045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46c0f1a3352eed4ab4576e119e396ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_hand: 1
+  m_hand: 0
   Pos: {x: 0, y: 0, z: 0}
   Rot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1628336729
@@ -8064,7 +8064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1628336730
 Transform:
   m_ObjectHideFlags: 0
@@ -8164,7 +8164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
-  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  ammo: {fileID: 0}
   Reloader: {fileID: 0}
 --- !u!1 &1657142156
 GameObject:
@@ -8409,7 +8409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MagazineBox: {fileID: 0}
-  ammo: {fileID: 8300000, guid: dd91fdb8939cd794c8eef075648b303f, type: 3}
+  ammo: {fileID: 0}
   Reloader: {fileID: 0}
 --- !u!1 &1701051381
 GameObject:

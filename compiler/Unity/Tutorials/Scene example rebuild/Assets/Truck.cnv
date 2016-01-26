@@ -92,19 +92,33 @@ entity Truck = {
        yield 0.0f
 
    rule Invullen = 
-     wait GameOver
+     wait GameOver = 5
      yield true
      wait false
 
    rule GameOver = 
      wait Stats.Health < 1 || world.Score < 0
-     yield true
+     yield 5
      wait false
+
+   rule GameOver = 
+     wait Fuel < 1 
+     yield 4
+     wait truckRigidBody.velocity.z > -0.6f && truckRigidBody.velocity.z < 0.6f
+     yield 3
+     wait 1.0f
+     yield 2
+     wait 1.0f
+     yield 1
+     wait 1.0f
+     if Fuel < 1 then
+       yield 5
+       wait false
 
    rule Score = 
      let j = "" + world.Score
      yield j
-     wait GameOver <> true
+     wait GameOver <> 5
 
    rule PrevVelocity =
      yield truckRigidBody.velocity
@@ -161,7 +175,7 @@ entity Truck = {
      if not isModel then 
        if world.ActiveBoR = "Jerry Can Green" then 
          Debug.Log("Fuel = "+Fuel)
-         yield Fuel + 2000.0f
+         yield Fuel + 200.0f
 
    rule AxleInfos = 
      yield [new AxleInfo(FrontLeftWheel,FrontRightWheel,true,true);new AxleInfo(RearLeftWheel,RearRightWheel,true,false)]
@@ -174,7 +188,7 @@ entity Truck = {
       maxMotorTorque = 250.0f
       maxSteeringAngle = 50.0f
       AxleInfos = []
-      Fuel = 10000.0f // gas liters
+      Fuel = 1000.0f // gas liters
       cnvAccel = 0.0f
       JRotation = 0.0f
       KeyboardDriving = false; 

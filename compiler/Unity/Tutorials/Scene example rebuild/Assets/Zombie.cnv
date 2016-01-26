@@ -22,7 +22,6 @@ entity GroupZombie = {
     ZombieFollowers = []
   }
 }
-
 entity Zombie = {
   inherit UnityZombie2
 

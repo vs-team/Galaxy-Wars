@@ -597,10 +597,10 @@ entity Light = {
   LightController : ControllerRazor
   Battery : float
   Active : bool
-
-  
+  Max : float
+    
   rule BatteryGui =
-    let b = "" + Battery
+    let b = "" + ((Battery / Max) * 100.0f)
     yield b
 
   rule Battery = 
@@ -622,10 +622,12 @@ entity Light = {
 
   Create(LC : ControllerRazor) = 
   let j = LC.name
+  let startb = 100.01f
   {
     Base = UnityFlashLight.Find(j)
     LightController = LC
-    Battery = 100.0f
+    Battery = startb
+    Max = startb
     Active = false
   }
 }

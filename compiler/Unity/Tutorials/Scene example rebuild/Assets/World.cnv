@@ -161,6 +161,17 @@ entity Guibar = {
   inherit GUIBarScript
   BarType : string
 
+  rule check = 
+    if BarType = "Fuel" && world.Jeep.Value.GameOver <> 0 then
+      yield true
+      wait 0.4f
+      yield false
+      wait 0.4f
+      yield true
+      wait 0.4f
+      yield false
+      wait 0.4f
+
   rule HPValue = 
     if BarType = "HP" then
       yield world.Jeep.Value.CarHP2

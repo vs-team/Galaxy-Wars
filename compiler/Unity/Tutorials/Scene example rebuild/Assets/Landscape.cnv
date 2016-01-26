@@ -30,12 +30,12 @@ entity Gasstation = {
     yield x
     wait false
 
-  rule world.Jeep.Value.Destroyed, world.Jeep, world.Jeep.Value.CollisionWithModel, Destroyed = 
+  rule world.Jeep.Value.Destroyed, world.Jeep, world.Jeep.Value.CollisionWithModel, Destroyed, world.Gui = 
     wait world.Jeep.Value.CollisionWithModel
     let pos = modely.transform.position
     let newt = new Truck("zpickup", pos, false, [4;2;1;3])
-    yield true, Some (newt), false, true
-    yield world.Jeep.Value.Destroyed, world.Jeep, world.Jeep.Value.CollisionWithModel, Destroyed
+    yield true, Some (newt), false, true, world.Gui
+    yield world.Jeep.Value.Destroyed, world.Jeep, world.Jeep.Value.CollisionWithModel, Destroyed, [new Guibar("HP");new Guibar("Fuel")]
 
   rule world.Jeep.Value.CollisionWithModel = 
     yield world.Jeep.Value.CollisionWithModel
