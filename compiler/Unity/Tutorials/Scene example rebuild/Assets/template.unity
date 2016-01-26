@@ -350,22 +350,14 @@ Prefab:
       propertyPath: m_Name
       value: Input
       objectReference: {fileID: 0}
-    - target: {fileID: 11443788, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: Reloader
-      value: 
-      objectReference: {fileID: 8300000, guid: 3696128e914c7fc409dc154b5c01800b, type: 3}
-    - target: {fileID: 11403010, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: Reloader
-      value: 
-      objectReference: {fileID: 8300000, guid: 069a7a1c63dfc8049a6e07f7ee1aa53b, type: 3}
-    - target: {fileID: 11409060, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: Reloader
-      value: 
-      objectReference: {fileID: 8300000, guid: 069a7a1c63dfc8049a6e07f7ee1aa53b, type: 3}
-    - target: {fileID: 11468194, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: Reloader
-      value: 
-      objectReference: {fileID: 8300000, guid: 3696128e914c7fc409dc154b5c01800b, type: 3}
+    - target: {fileID: 126618, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 171328, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
   m_IsPrefabParent: 0

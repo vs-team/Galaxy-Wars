@@ -34,12 +34,20 @@ public class UnityFlashLight : MonoBehaviour
     get { return BatteryMesh.text; }
     set
     {
-      if (value.Length > 3)
+      if (value.Length > 1)
       {
-        var x = value.Substring(0, 4);
-        BatteryMesh.text = x + "% left";
+        var x = value.Substring(0, 3);
+        if("100" == x)
+        {
+          BatteryMesh.text = x + "% left";
+        }
+        else
+        {
+          var y = value.Substring(0, 2);
+          BatteryMesh.text = y + "% left";
+        }
       }
     }
   }
 }
-                                                                                                         
+                                                                                                                                                                                                                                                                                                                         

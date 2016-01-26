@@ -159,9 +159,9 @@ GameObject:
   - 208: {fileID: 20872000}
   - 54: {fileID: 5411798}
   - 65: {fileID: 6530300}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barrel (3)
-  m_TagString: Untagged
+  m_TagString: Barrels
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,9 +298,9 @@ GameObject:
   - 208: {fileID: 20883500}
   - 54: {fileID: 5485694}
   - 65: {fileID: 6514828}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barrel (1)
-  m_TagString: Untagged
+  m_TagString: Barrels
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -319,9 +319,9 @@ GameObject:
   - 111: {fileID: 11190810}
   - 208: {fileID: 20852944}
   - 65: {fileID: 6593124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barrel (2)
-  m_TagString: Untagged
+  m_TagString: Barrels
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -381,9 +381,9 @@ GameObject:
   - 208: {fileID: 20871940}
   - 54: {fileID: 5461150}
   - 65: {fileID: 6531264}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barrel
-  m_TagString: Untagged
+  m_TagString: Barrels
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -423,9 +423,9 @@ GameObject:
   - 208: {fileID: 20871966}
   - 54: {fileID: 5417914}
   - 65: {fileID: 6547778}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barrel (4)
-  m_TagString: Untagged
+  m_TagString: Barrels
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -514,9 +514,9 @@ GameObject:
   - 208: {fileID: 20812138}
   - 54: {fileID: 5480562}
   - 65: {fileID: 6504496}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: barrel (5)
-  m_TagString: Untagged
+  m_TagString: Barrels
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
