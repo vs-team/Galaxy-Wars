@@ -82,7 +82,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &111276
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +809,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &171758
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 489066}
+  - 114: {fileID: 11499562}
+  m_Layer: 10
+  m_Name: HP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &180318
 GameObject:
   m_ObjectHideFlags: 1
@@ -900,7 +916,7 @@ GameObject:
   - 4: {fileID: 425866}
   - 114: {fileID: 11403210}
   m_Layer: 10
-  m_Name: HP Bar
+  m_Name: Fuel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1285,7 +1301,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113322}
   m_LocalRotation: {x: -.999881744, y: 1.62901415e-07, z: .0153791364, w: -2.50557952e-09}
-  m_LocalPosition: {x: -.0209999997, y: 1.59200001, z: -.778999984}
+  m_LocalPosition: {x: -.00999999978, y: 1.57599998, z: -.437000006}
   m_LocalScale: {x: .330000013, y: .330000013, z: .300000012}
   m_Children: []
   m_Father: {fileID: 22466084}
@@ -1345,11 +1361,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 460574}
-  m_RootOrder: 0
+  m_RootOrder: 4
 --- !u!4 &426452
 Transform:
   m_ObjectHideFlags: 1
@@ -1635,10 +1651,11 @@ Transform:
   m_LocalPosition: {x: .0520000011, y: 1.65400004, z: .104999997}
   m_LocalScale: {x: .769230783, y: .769230783, z: .769230783}
   m_Children:
-  - {fileID: 425866}
+  - {fileID: 489066}
   - {fileID: 466216}
   - {fileID: 481720}
   - {fileID: 423180}
+  - {fileID: 425866}
   m_Father: {fileID: 22466084}
   m_RootOrder: 16
 --- !u!4 &463106
@@ -1797,6 +1814,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 411492}
   m_RootOrder: 3
+--- !u!4 &489066
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 460574}
+  m_RootOrder: 0
 --- !u!4 &489370
 Transform:
   m_ObjectHideFlags: 1
@@ -2925,7 +2954,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 114990}
   serializedVersion: 2
-  m_Mass: 150
+  m_Mass: 700
   m_Drag: .200000003
   m_AngularDrag: 4
   m_UseGravity: 1
@@ -3277,23 +3306,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HPValue: 0
   FadeFactor: 20
-  Position: {x: 10, y: 10}
+  Position: {x: 10, y: 70}
   ScaleSize: 1
-  DisplayText: 0
-  TextString: 100%
-  TextColor: {r: 0, g: 0, b: 0, a: 0}
-  OverRideTextColorWithGradient: 1
+  DisplayText: 1
+  TextString: HP
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
+  OverRideTextColorWithGradient: 0
   TextFont: {fileID: 12800000, guid: 240a102734c6045e1a3e91655501fa0a, type: 3}
   TextSize: 30
-  TextOffset: {x: 0, y: 0}
+  TextOffset: {x: 170, y: 55}
   Background: {fileID: 2800000, guid: 7e980bc7c35764f59b8cff4178e49fbf, type: 3}
   Mask: {fileID: 2800000, guid: 67065f8e8add54f348951792d1f16c2a, type: 3}
   ValueBar: {fileID: 2800000, guid: 179b80a7d990940c8b958af9da5224d1, type: 3}
   Foreground: {fileID: 2800000, guid: de935cedef6ae4ee9a2f9edea4805a85, type: 3}
   GradientColors:
   - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 1, g: 1, b: 0, a: 0}
-  - {r: 0, g: 1, b: 0, a: 0}
+  - {r: 1, g: .806896567, b: 0, a: 0}
+  - {r: 1, g: .972413778, b: 0, a: 0}
 --- !u!114 &11406110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3312,13 +3341,11 @@ MonoBehaviour:
   RearRightWheel: {fileID: 0}
   HeadlightLeft: {fileID: 0}
   HeadlightRight: {fileID: 0}
-  shield: {fileID: 0}
   Audio_Driving: {fileID: 8300000, guid: 048b1335d584da640bb5131fef37cd05, type: 3}
   Audio_DamageSmall: {fileID: 8300000, guid: e1cc089e45ba1ca42935e9b3863edefb, type: 3}
   Audio_DamageBig: {fileID: 8300000, guid: d2ca5d8792adb6249970c7a1fab8eaf9, type: 3}
   Invullen: 0
   MultiplierBonus: 0
-  TruckTarget: {fileID: 0}
   tim: 0
   CarHPChanged: 0
 --- !u!114 &11464474
@@ -3342,7 +3369,7 @@ MonoBehaviour:
       hasFloor: 0
       indexSky: 4
       indexFloor: 4
-    nearClip: .00400000019
+    nearClip: .00999999978
     farClip: 400
     fov: 60
     clusterType: 0
@@ -3355,6 +3382,36 @@ MonoBehaviour:
     masterNodeIndex: 3
   m_OverrideNodeIndex: 0
   m_ForcedIndex: 0
+--- !u!114 &11499562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ab6c5eb77615f4bb6be89000d76bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HPValue: 0
+  FadeFactor: 20
+  Position: {x: 10, y: 10}
+  ScaleSize: 1
+  DisplayText: 1
+  TextString: HP
+  TextColor: {r: 1, g: 1, b: 1, a: 1}
+  OverRideTextColorWithGradient: 0
+  TextFont: {fileID: 12800000, guid: 240a102734c6045e1a3e91655501fa0a, type: 3}
+  TextSize: 30
+  TextOffset: {x: 170, y: 55}
+  Background: {fileID: 2800000, guid: 7e980bc7c35764f59b8cff4178e49fbf, type: 3}
+  Mask: {fileID: 2800000, guid: 67065f8e8add54f348951792d1f16c2a, type: 3}
+  ValueBar: {fileID: 2800000, guid: 179b80a7d990940c8b958af9da5224d1, type: 3}
+  Foreground: {fileID: 2800000, guid: de935cedef6ae4ee9a2f9edea4805a85, type: 3}
+  GradientColors:
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 1, g: 1, b: 0, a: 0}
+  - {r: 0, g: 1, b: 0, a: 0}
 --- !u!124 &12407680
 Behaviour:
   m_ObjectHideFlags: 1
@@ -3383,24 +3440,24 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: .529999971
   m_SuspensionSpring:
-    spring: 1
+    spring: 4
     damper: 0
     targetPosition: 0
   m_SuspensionDistance: .0500000007
   m_ForceAppPointDistance: 1
-  m_Mass: 10
+  m_Mass: 100
   m_WheelDampingRate: 1
   m_ForwardFriction:
-    m_ExtremumSlip: .400000006
+    m_ExtremumSlip: .600000024
     m_ExtremumValue: 1
-    m_AsymptoteSlip: .800000012
-    m_AsymptoteValue: .5
+    m_AsymptoteSlip: .400000006
+    m_AsymptoteValue: 2
     m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: .200000003
     m_ExtremumValue: 1
-    m_AsymptoteSlip: .5
-    m_AsymptoteValue: .75
+    m_AsymptoteSlip: .800000012
+    m_AsymptoteValue: 1
     m_Stiffness: .600000024
   m_Enabled: 1
 --- !u!146 &14649350
@@ -3412,24 +3469,24 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: .529999971
   m_SuspensionSpring:
-    spring: 1
+    spring: 4
     damper: 0
     targetPosition: 0
   m_SuspensionDistance: .0500000007
   m_ForceAppPointDistance: 1
-  m_Mass: 10
+  m_Mass: 100
   m_WheelDampingRate: 1
   m_ForwardFriction:
-    m_ExtremumSlip: .400000006
+    m_ExtremumSlip: .600000024
     m_ExtremumValue: 1
-    m_AsymptoteSlip: .800000012
-    m_AsymptoteValue: .5
+    m_AsymptoteSlip: .400000006
+    m_AsymptoteValue: 2
     m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: .200000003
     m_ExtremumValue: 1
-    m_AsymptoteSlip: .5
-    m_AsymptoteValue: .75
+    m_AsymptoteSlip: .800000012
+    m_AsymptoteValue: 1
     m_Stiffness: .600000024
   m_Enabled: 1
 --- !u!146 &14652684
@@ -3441,24 +3498,24 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: .529999971
   m_SuspensionSpring:
-    spring: 1
+    spring: 4
     damper: 0
     targetPosition: 0
   m_SuspensionDistance: .0500000007
   m_ForceAppPointDistance: 1
-  m_Mass: 10
+  m_Mass: 100
   m_WheelDampingRate: 1
   m_ForwardFriction:
-    m_ExtremumSlip: .400000006
+    m_ExtremumSlip: .600000024
     m_ExtremumValue: 1
-    m_AsymptoteSlip: .800000012
-    m_AsymptoteValue: .5
+    m_AsymptoteSlip: .400000006
+    m_AsymptoteValue: 2
     m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: .200000003
     m_ExtremumValue: 1
-    m_AsymptoteSlip: .5
-    m_AsymptoteValue: .75
+    m_AsymptoteSlip: .800000012
+    m_AsymptoteValue: 1
     m_Stiffness: .600000024
   m_Enabled: 1
 --- !u!146 &14697624
@@ -3470,24 +3527,24 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: .529999971
   m_SuspensionSpring:
-    spring: 1
+    spring: 4
     damper: 0
     targetPosition: 0
   m_SuspensionDistance: .0500000007
   m_ForceAppPointDistance: 1
-  m_Mass: 10
+  m_Mass: 100
   m_WheelDampingRate: 1
   m_ForwardFriction:
-    m_ExtremumSlip: .400000006
+    m_ExtremumSlip: .600000024
     m_ExtremumValue: 1
-    m_AsymptoteSlip: .800000012
-    m_AsymptoteValue: .5
+    m_AsymptoteSlip: .400000006
+    m_AsymptoteValue: 2
     m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: .200000003
     m_ExtremumValue: 1
-    m_AsymptoteSlip: .5
-    m_AsymptoteValue: .75
+    m_AsymptoteSlip: .800000012
+    m_AsymptoteValue: 1
     m_Stiffness: .600000024
   m_Enabled: 1
 --- !u!198 &19805838
@@ -7988,7 +8045,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Mass
-      value: 150
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Drag

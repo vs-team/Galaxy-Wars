@@ -151,6 +151,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
   PickUps : [PickUp]
   Spawnpoints : [Transform]
   Streetlights_cnv : [Streetlight]
+  Groupsize : int
 
   rule Group, PickUps, Spawnpoints = // spawning multiple groups on a single landscape
     wait Spawnpoints.Count > 0
@@ -162,7 +163,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
       let sps_pos = sps.position
       let rpu = Spawnpoints.[random_pickup]
       let rpu_pos = rpu.position
-      if world.Score > 1000 then 
+      if world.Score > 10000 then 
         let j = 
           [for a in [0..3] do
            where (a <> random_spawnp || a <> random_pickup)
@@ -170,10 +171,10 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
         let spo2 = Spawnpoints.[j.Head]
         let spo2_pos = spo2.position
         Debug.Log("Spawned 3 groups")
-        yield [new GroupZombie(sps_pos,7);new GroupZombie(rpu_pos, 7);new GroupZombie(spo2_pos, 7)], [], []
+        yield [new GroupZombie(sps_pos,Groupsize);new GroupZombie(rpu_pos, Groupsize);new GroupZombie(spo2_pos, Groupsize)], [], []
         wait false
       else
-        yield [new GroupZombie(sps_pos,7);new GroupZombie(rpu_pos, 7)], [], []
+        yield [new GroupZombie(sps_pos,Groupsize);new GroupZombie(rpu_pos, Groupsize)], [], []
         wait false
     else 
       let sps1 = Spawnpoints.[1]
@@ -183,10 +184,10 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
       let rpu1 = Spawnpoints.[2]
       let rpu_pos1 = rpu1.position
       if world.Score > 1000 then 
-        yield [new GroupZombie(sps_pos1,7);new GroupZombie(sps_pos0,7)], [new PickUp(rpu_pos1, par)], []
+        yield [new GroupZombie(sps_pos1,Groupsize);new GroupZombie(sps_pos0,Groupsize)], [new PickUp(rpu_pos1, par)], []
         wait false
       else
-        yield [new GroupZombie(sps_pos1,7)], [new PickUp(rpu_pos1, par)], []
+        yield [new GroupZombie(sps_pos1,Groupsize)], [new PickUp(rpu_pos1, par)], []
         wait false
 
   rule Spawnpoints = 
@@ -218,6 +219,7 @@ entity Landscape = { //here are the zombies created and destroyed after a frame
   Group = []
   PickUps = []
   Streetlights_cnv = []
+  Groupsize = 7
   }
 }
 
@@ -269,7 +271,7 @@ entity PickUp = {
     wait false
 
   rule Shuffled = 
-    let BARlist = ["AmmoBox";"Crossed Wrenches Red";"Medipack Red";"Battery Black";"Jerry Can Green";"Lightning Blue";"Arrows Green";"Star Red";"Bomb Red";"Shield Metal"]
+    let BARlist = ["AmmoBox";"Crossed Wrenches Red";"Medipack Red";"Battery Black";"Jerry Can Green";"Lightning Blue";"Arrows Green";"Star Red"]
     yield BARlist
     wait false
 
@@ -290,7 +292,7 @@ entity BonusAndResource = {
       yield true, false
       yield true, true
 
-  Create(pos : Vector3, bonus : string, parent : Transform ) = 
+  Create(pos : Vector3, bonus : string, parent : Transform) = 
   {
     Base = UnityBonusResource.Instantiate(pos,bonus, parent)
     NameOfBoR = bonus

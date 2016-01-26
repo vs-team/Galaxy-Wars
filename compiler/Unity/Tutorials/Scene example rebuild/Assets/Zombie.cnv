@@ -43,7 +43,6 @@ entity Zombie = {
   rule Destroyed = 
     wait (Vector3.Distance(Position, world.Jeep.Value.Position) > 410.0f)
     yield true
-      
 
   rule Dest =
     if Ragdolled then

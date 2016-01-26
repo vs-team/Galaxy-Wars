@@ -591,10 +591,16 @@ entity BazookaBullet = {
 }
 
 entity Light = {
+  inherit UnityFlashLight
   LightController : ControllerRazor
   Battery : float
   Active : bool
+
   
+  rule BatteryGui =
+    let b = "" + Battery
+    yield b
+
   rule Battery = 
      if world.ActiveBoR = "Battery Black" then 
        yield Battery + 50.0f
@@ -613,7 +619,9 @@ entity Light = {
     wait world.W_Refill_Resources
 
   Create(LC : ControllerRazor) = 
+  let j = LC.name
   {
+    Base = UnityFlashLight.Find(j)
     LightController = LC
     Battery = 100.0f
     Active = false
