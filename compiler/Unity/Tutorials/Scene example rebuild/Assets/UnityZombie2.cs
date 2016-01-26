@@ -321,6 +321,9 @@ public class UnityZombie2 : MonoBehaviour
     Force = impactForce;
     CollidedWithCar = carCollision;
     this.forceMode = forceMode;
+    GameObject bloodFX = Instantiate(Resources.Load("Blood"), BodyPartTransform.position, Quaternion.identity) as GameObject;
+    ParticleSystem bloodPS = bloodFX.GetComponentInChildren<ParticleSystem>();
+    Destroy(bloodFX, bloodPS.duration);
     IsHitByForce = true;
   }
 
@@ -417,4 +420,4 @@ public class UnityZombie2 : MonoBehaviour
       }
     }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   

@@ -390,8 +390,6 @@ entity Gun = {
     yield DamagePerBullet
     wait false
 
-    (*
-    *)
   rule Shoot =  
    wait GunController.Shot && TypeWeapon <> "Bazooka"
    if (AmmoAct.InMagazine > 0 && not AmmoAct.Reloading) then
@@ -427,7 +425,6 @@ entity Gun = {
        where(a.Destroyed = false)
        select a]
     yield undestroyedBullets
-
 
   rule AmmoAct.Reloading = 
     if (Input.GetKey(KeyCode.R)) then
@@ -473,7 +470,7 @@ entity Gun = {
   let autom = if (ind <> 0) then false else true
   let stlist =             ["MachineGun";"Pistol" ;"ShotGun"; "Bazooka"]
   let ClipSizeList =       [150         ; 20      ;    5    ; 1]
-  let ReloadDurationList = [7.0f        ; 3.0f    ;  0.5f   ; 0.5f]
+  let ReloadDurationList = [5.0f        ; 3.0f    ;  0.5f   ; 0.5f]
   let DamageList =         [40.0f       ; 75.0f   ; 135.0f  ; 135.0f]
   let nam = stlist.[ind]
   {
@@ -518,13 +515,14 @@ entity Ammo = {
           yield true, a,b, true, false
           wait ReloadDuration
       else //magazine reload
+        yield true, NotInMagazine, InMagazine, true, false
         yield true, NotInMagazine, InMagazine, false, false
         wait (ReloadDuration)
         if MagazineSize > NotInMagazine then // clip can't be fulled completely
-          yield false, 0, NotInMagazine, true, false
+          yield false, 0, NotInMagazine, false, false
         else
           let changed = (MagazineSize - InMagazine)
-          yield false, NotInMagazine - changed, MagazineSize, true, false
+          yield false, NotInMagazine - changed, MagazineSize, false, false
     else
       yield false, 0, InMagazine, false, true
 

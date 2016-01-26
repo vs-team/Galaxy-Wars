@@ -7,12 +7,13 @@ public class UnityGun : MonoBehaviour
 {
   public TextMesh MagazineBox;
   private AudioSource gunShot;
+  private ParticleSystem Muzzleflash;
   public static UnityGun Instantiate(string nm, string j)
   {
     GameObject pap = GameObject.Find("Input/RazerJoysticks/" + j + "/" + nm) as GameObject;
     UnityGun wap = pap.GetComponent<UnityGun>() as UnityGun;
     wap.razer = wap.GetComponentInParent<SixenseHand>();
-
+    wap.Muzzleflash = wap.GetComponentInChildren<ParticleSystem>();
     //textmesh
     Transform a = pap.GetComponent<Transform>();
     List<TextMesh> tesla = new List<TextMesh>();
@@ -40,7 +41,6 @@ public class UnityGun : MonoBehaviour
   public AudioClip Reloader;
 
   private AudioSource Ammo;
-
   public bool Rel
   {
     get { return ReloadSound; }
@@ -48,7 +48,7 @@ public class UnityGun : MonoBehaviour
     {
       if (value)
       {
-        Ammo.clip = ammo;
+        Ammo.clip = Reloader;
         Ammo.Play();
       }
       ReloadSound = value;
@@ -113,6 +113,7 @@ public class UnityGun : MonoBehaviour
       gunPower = value;
     }
   }
+  
   private bool shot;
   public bool Shoot
   {
@@ -123,8 +124,8 @@ public class UnityGun : MonoBehaviour
       if (shot)
       {
         gunShot.Play();
-
-        RaycastHit hitObject; 
+        Muzzleflash.Play(true);
+        RaycastHit hitObject;
         int layermask = 1 << 8; //Layermask of zombies
         if (keyboardShooting && name != "Bazooka")
         {
@@ -155,9 +156,6 @@ public class UnityGun : MonoBehaviour
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              GameObject bloodFX = Instantiate(Resources.Load("Blood"), hitObject.transform.position, Quaternion.identity) as GameObject;
-              ParticleSystem bloodPS = bloodFX.GetComponentInChildren<ParticleSystem>();
-              Destroy(bloodFX, bloodPS.duration);
               hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, (gunPower / 30.0f), false, 2);
             }
@@ -219,4 +217,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

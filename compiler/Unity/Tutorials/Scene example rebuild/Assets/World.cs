@@ -1050,10 +1050,10 @@ Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
 	public System.Single count_down6;
 	public System.Single count_down5;
 	public System.Single count_down4;
-	public System.String ___j92;
+	public System.String ___j82;
 	public System.Single count_down10;
 	public System.Single count_down9;
-	public System.Single ___a1311;
+	public System.Single ___a1211;
 	public System.Single count_down11;
 	public System.Single count_down12;
 	public System.Single count_down13;
@@ -1079,7 +1079,6 @@ frame = World.frame;
 		this.Rule12(dt, world);
 		this.Rule13(dt, world);
 		this.Rule14(dt, world);
-		this.Rule15(dt, world);
 	}
 
 
@@ -1426,9 +1425,20 @@ return;
 	{
 
 	case -1:
-	PrevVelocity = truckRigidBody.velocity;
+	___j82 = (("") + (world.Score));
+	Score = ___j82;
+	s8 = 0;
+return;
+	case 0:
+	if(!(!(((GameOver) == (true)))))
+	{
+
+	s8 = 0;
+return;	}else
+	{
+
 	s8 = -1;
-return;	
+return;	}	
 	default: return;}}
 	
 
@@ -1438,12 +1448,20 @@ return;
 	{
 
 	case -1:
-	___j92 = (("") + (world.Score));
-	Score = ___j92;
+	if(!(((((1) > (Stats.Health))) || (((0) > (world.Score))))))
+	{
+
+	s9 = -1;
+return;	}else
+	{
+
+	goto case 1;	}
+	case 1:
+	GameOver = true;
 	s9 = 0;
 return;
 	case 0:
-	if(!(!(((GameOver) == (true)))))
+	if(!(false))
 	{
 
 	s9 = 0;
@@ -1461,7 +1479,7 @@ return;	}
 	{
 
 	case -1:
-	if(!(((((1) > (Stats.Health))) || (((0) > (world.Score))))))
+	if(!(GameOver))
 	{
 
 	s10 = -1;
@@ -1470,7 +1488,7 @@ return;	}else
 
 	goto case 1;	}
 	case 1:
-	GameOver = true;
+	Invullen = true;
 	s10 = 0;
 return;
 	case 0:
@@ -1492,37 +1510,6 @@ return;	}
 	{
 
 	case -1:
-	if(!(GameOver))
-	{
-
-	s11 = -1;
-return;	}else
-	{
-
-	goto case 1;	}
-	case 1:
-	Invullen = true;
-	s11 = 0;
-return;
-	case 0:
-	if(!(false))
-	{
-
-	s11 = 0;
-return;	}else
-	{
-
-	s11 = -1;
-return;	}	
-	default: return;}}
-	
-
-	int s12=-1;
-	public void Rule12(float dt, World world){ 
-	switch (s12)
-	{
-
-	case -1:
 	if(((KeyboardDriving) && (((0.5f) > (Dama)))))
 	{
 
@@ -1532,7 +1519,7 @@ return;	}
 	goto case 3;	}
 	case 9:
 	driv = 1f;
-	s12 = 10;
+	s11 = 10;
 return;
 	case 10:
 	count_down10 = tim;
@@ -1542,11 +1529,11 @@ return;
 	{
 
 	count_down10 = ((count_down10) - (dt));
-	s12 = 11;
+	s11 = 11;
 return;	}else
 	{
 
-	s12 = 3;
+	s11 = 3;
 return;	}
 	case 3:
 	if(((((Dama) > (0.5f))) || (!(KeyboardDriving))))
@@ -1555,7 +1542,7 @@ return;	}
 	goto case 4;	}else
 	{
 
-	s12 = -1;
+	s11 = -1;
 return;	}
 	case 4:
 	count_down9 = tim;
@@ -1565,37 +1552,37 @@ return;	}
 	{
 
 	count_down9 = ((count_down9) - (dt));
-	s12 = 7;
+	s11 = 7;
 return;	}else
 	{
 
 	goto case 5;	}
 	case 5:
 	driv = 0f;
-	s12 = -1;
+	s11 = -1;
 return;	
 	default: return;}}
 	
 
-	int s13=-1;
-	public void Rule13(float dt, World world){ 
-	switch (s13)
+	int s12=-1;
+	public void Rule12(float dt, World world){ 
+	switch (s12)
 	{
 
 	case -1:
-	___a1311 = CarHPChanged;
-	if(!(((___a1311) == (0f))))
+	___a1211 = CarHPChanged;
+	if(!(((___a1211) == (0f))))
 	{
 
 	goto case 14;	}else
 	{
 
-	s13 = -1;
+	s12 = -1;
 return;	}
 	case 14:
 	Dama = 0f;
 	driv = 0.5f;
-	s13 = 15;
+	s12 = 15;
 return;
 	case 15:
 	count_down11 = tim;
@@ -1605,18 +1592,18 @@ return;
 	{
 
 	count_down11 = ((count_down11) - (dt));
-	s13 = 16;
+	s12 = 16;
 return;	}else
 	{
 
-	s13 = -1;
+	s12 = -1;
 return;	}	
 	default: return;}}
 	
 
-	int s14=-1;
-	public void Rule14(float dt, World world){ 
-	switch (s14)
+	int s13=-1;
+	public void Rule13(float dt, World world){ 
+	switch (s13)
 	{
 
 	case -1:
@@ -1629,7 +1616,7 @@ return;	}
 	goto case 20;	}
 	case 19:
 	Multip = 1.2f;
-	s14 = 23;
+	s13 = 23;
 return;
 	case 23:
 	count_down12 = 8f;
@@ -1639,32 +1626,32 @@ return;
 	{
 
 	count_down12 = ((count_down12) - (dt));
-	s14 = 24;
+	s13 = 24;
 return;	}else
 	{
 
 	goto case 22;	}
 	case 22:
 	Multip = 1f;
-	s14 = -1;
+	s13 = -1;
 return;
 	case 20:
 	Multip = 1f;
-	s14 = -1;
+	s13 = -1;
 return;	
 	default: return;}}
 	
 
-	int s15=-1;
-	public void Rule15(float dt, World world){ 
-	switch (s15)
+	int s14=-1;
+	public void Rule14(float dt, World world){ 
+	switch (s14)
 	{
 
 	case -1:
 	if(!(((((UnityEngine.Input.GetKeyDown(KeyCode.L)) || (((((Rotz) > (0.3f))) && (((0.9f) > (Rotz))))))) || (((((Rotz) > (-0.3f))) && (((-0.9f) > (Rotz))))))))
 	{
 
-	s15 = -1;
+	s14 = -1;
 return;	}else
 	{
 
@@ -1678,7 +1665,7 @@ return;	}else
 	{
 
 	count_down13 = ((count_down13) - (dt));
-	s15 = 3;
+	s14 = 3;
 return;	}else
 	{
 
@@ -1686,12 +1673,12 @@ return;	}else
 	case 1:
 	flip = true;
 	world.Score = ((world.Score) - (200));
-	s15 = 0;
+	s14 = 0;
 return;
 	case 0:
 	flip = false;
 	world.Score = world.Score;
-	s15 = -1;
+	s14 = -1;
 return;	
 	default: return;}}
 	
@@ -4791,7 +4778,7 @@ public Gun(System.Int32 ind, ControllerRazor GC, System.String tr, Ammo am)
 		List<System.Single> ___ReloadDurationList00;
 		___ReloadDurationList00 = (
 
-(new Cons<System.Single>(7f,(new Cons<System.Single>(3f,(new Cons<System.Single>(0.5f,(new Cons<System.Single>(0.5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
+(new Cons<System.Single>(5f,(new Cons<System.Single>(3f,(new Cons<System.Single>(0.5f,(new Cons<System.Single>(0.5f,(new Empty<System.Single>()).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>())).ToList<System.Single>()).ToList<System.Single>();
 		List<System.Single> ___DamageList00;
 		___DamageList00 = (
 
@@ -5550,6 +5537,14 @@ return;	}
 	Reloading = true;
 	NotInMagazine = NotInMagazine;
 	InMagazine = InMagazine;
+	relo = true;
+	ooas = false;
+	s2 = 21;
+return;
+	case 21:
+	Reloading = true;
+	NotInMagazine = NotInMagazine;
+	InMagazine = InMagazine;
 	relo = false;
 	ooas = false;
 	s2 = 19;
@@ -5579,7 +5574,7 @@ return;	}else
 	Reloading = false;
 	NotInMagazine = 0;
 	InMagazine = NotInMagazine;
-	relo = true;
+	relo = false;
 	ooas = false;
 	s2 = -1;
 return;
@@ -5588,7 +5583,7 @@ return;
 	Reloading = false;
 	NotInMagazine = ((NotInMagazine) - (___changed20));
 	InMagazine = MagazineSize;
-	relo = true;
+	relo = false;
 	ooas = false;
 	s2 = -1;
 return;
@@ -6303,4 +6298,4 @@ frame = World.frame;
 
 
 }
-} 
+}        
