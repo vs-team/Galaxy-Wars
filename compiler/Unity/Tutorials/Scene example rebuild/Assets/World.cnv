@@ -9,7 +9,7 @@ open Player
 open Zombie
 
 worldEntity World = {
-  inherit UnityLandscape
+  inherit UnityLandscape 
   Gasstations : [Gasstation]
   Landscapes : [Landscape]
   Jeep : Option<Truck>

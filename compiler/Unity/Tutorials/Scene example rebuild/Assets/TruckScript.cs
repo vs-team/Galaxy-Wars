@@ -46,17 +46,14 @@ public class TruckScript : MonoBehaviour
     //truck.shield = truck.transform.Find("Shield").GetComponent<Collider>() as Collider;
     truck.collidedWithThisFrame = new List<UnityZombie2>();
     truck.score = truck.transform.Find("Main Camera/Score").GetComponent<TextMesh>() as TextMesh;
-    truck.t = truck.transform.Find("Main Camera/Text").GetComponent<TextMesh>() as TextMesh;
     truck.multiplier = truck.transform.Find("Main Camera/Multiplier").GetComponent<TextMesh>() as TextMesh;
 
     return truck;
   }
-  private TextMesh t;
-  public Font mspacefont;
-  private GUIStyle a;
 
   void Start()
   {
+
     PlayerPrefs.DeleteKey("ReachedByPlayer");
     PlayerPrefs.Save();
     multiplier.gameObject.SetActive(false);
@@ -125,15 +122,15 @@ public class TruckScript : MonoBehaviour
       }
     }
   }
-  private int GameOver_p;
-  public int GameOver
+
+  public bool GameOver
   {
-    get { return GameOver_p; }
+    get { return false; }
     set
     {
-      GameOver_p = value;
-      if (value == 5)
+      if (value == true)
       {
+
         //score
         var scorString = Score.Substring(7);
         int scoreInt = int.Parse(scorString);
@@ -181,23 +178,7 @@ public class TruckScript : MonoBehaviour
           Application.LoadLevel(2);
         }
       }
-      else
-      {
-        t.fontSize = 20;
-        if (GameOver_p == 4)
-          t.text = "Out of fuel";
-        if (GameOver_p == 3)
-          t.text = "3";
-        if (GameOver_p == 2)
-          t.text = "2";
-        if (GameOver_p == 1)
-          t.text = "1";
-      }
     }
-  }
-  void OnGUI()
-  {
-
   }
   public Vector3 PrevVelocity
   {
@@ -396,4 +377,4 @@ public class TruckScript : MonoBehaviour
     if (collidedWithThisFrame.Count > 0)
       collidedWithThisFrame.Clear();
   }
-}                                                          
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

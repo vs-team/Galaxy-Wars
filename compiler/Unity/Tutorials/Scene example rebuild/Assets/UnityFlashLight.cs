@@ -37,7 +37,7 @@ public class UnityFlashLight : MonoBehaviour
       if (value.Length > 1)
       {
         var x = value.Substring(0, 3);
-        if ("100" == x)
+        if("100" == x)
         {
           BatteryMesh.text = x + "% left";
         }
@@ -50,4 +50,4 @@ public class UnityFlashLight : MonoBehaviour
     }
   }
 }
-                                                                                                                
+                                                                                                                                                                                                                                                                                                                         
