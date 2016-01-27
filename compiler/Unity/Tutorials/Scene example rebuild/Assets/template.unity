@@ -130,7 +130,24 @@ Prefab:
       propertyPath: m_Name
       value: Input
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11417086, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MuzzleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 88d2629abc0eca84daf8ad1d8f6875fc, type: 3}
+    - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MaxDistance
+      value: 500
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8248750, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &250587979

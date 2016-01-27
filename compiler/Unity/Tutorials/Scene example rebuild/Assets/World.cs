@@ -5225,6 +5225,9 @@ Enumerable.Empty<BazookaBullet>()).ToList<BazookaBullet>();
   set{UnityGun.MagazineGUI = value; }
  }
 	public System.Int32 MagazineSize;
+	public UnityEngine.AudioClip MuzzleSound{  get { return UnityGun.MuzzleSound; }
+  set{UnityGun.MuzzleSound = value; }
+ }
 	public System.Int32 NotInMag{  get { return UnityGun.NotInMag; }
   set{UnityGun.NotInMag = value; }
  }
@@ -5884,7 +5887,7 @@ return;	}else
 
 	goto case 2;	}
 	case 2:
-	if(((NotInMagazine) > (0)))
+	if(((((NotInMagazine) > (-1))) && (!(((InMagazine) > (MagazineSize))))))
 	{
 
 	goto case 0;	}else
@@ -5903,12 +5906,11 @@ return;	}else
 	if(!(((((NotInMagazine) > (0))) && (((((MagazineSize) + (1))) > (InMagazine))))))
 	{
 
-	s2 = -1;
-return;	}else
+	goto case 6;	}else
 	{
 
-	goto case 7;	}
-	case 7:
+	goto case 8;	}
+	case 8:
 	___a262 = ((NotInMagazine) - (1));
 	___b25 = ((InMagazine) + (1));
 	Reloading = true;
@@ -5916,60 +5918,76 @@ return;	}else
 	InMagazine = ___b25;
 	relo = true;
 	ooas = false;
-	s2 = 8;
+	s2 = 11;
 return;
-	case 8:
-	count_down27 = ReloadDuration;
-	goto case 9;
+	case 11:
+	Reloading = true;
+	NotInMagazine = ___a262;
+	InMagazine = ___b25;
+	relo = false;
+	ooas = false;
+	s2 = 9;
+return;
 	case 9:
+	count_down27 = ReloadDuration;
+	goto case 10;
+	case 10:
 	if(((count_down27) > (0f)))
 	{
 
 	count_down27 = ((count_down27) - (dt));
-	s2 = 9;
+	s2 = 10;
 return;	}else
 	{
 
 	s2 = 3;
 return;	}
+	case 6:
+	Reloading = false;
+	NotInMagazine = NotInMagazine;
+	InMagazine = InMagazine;
+	relo = false;
+	ooas = false;
+	s2 = -1;
+return;
 	case 4:
 	Reloading = true;
 	NotInMagazine = NotInMagazine;
 	InMagazine = InMagazine;
 	relo = true;
 	ooas = false;
-	s2 = 21;
+	s2 = 23;
 return;
-	case 21:
+	case 23:
 	Reloading = true;
 	NotInMagazine = NotInMagazine;
 	InMagazine = InMagazine;
 	relo = false;
 	ooas = false;
-	s2 = 19;
+	s2 = 21;
 return;
-	case 19:
+	case 21:
 	count_down28 = ReloadDuration;
-	goto case 20;
-	case 20:
+	goto case 22;
+	case 22:
 	if(((count_down28) > (0f)))
 	{
 
 	count_down28 = ((count_down28) - (dt));
-	s2 = 20;
+	s2 = 22;
 return;	}else
 	{
 
-	goto case 15;	}
-	case 15:
+	goto case 17;	}
+	case 17:
 	if(((MagazineSize) > (NotInMagazine)))
 	{
 
-	goto case 13;	}else
+	goto case 15;	}else
 	{
 
-	goto case 14;	}
-	case 13:
+	goto case 16;	}
+	case 15:
 	Reloading = false;
 	NotInMagazine = 0;
 	InMagazine = NotInMagazine;
@@ -5977,7 +5995,7 @@ return;	}else
 	ooas = false;
 	s2 = -1;
 return;
-	case 14:
+	case 16:
 	___changed20 = ((MagazineSize) - (InMagazine));
 	Reloading = false;
 	NotInMagazine = ((NotInMagazine) - (___changed20));
@@ -5987,6 +6005,22 @@ return;
 	s2 = -1;
 return;
 	case 1:
+	if(!(((InMagazine) > (MagazineSize))))
+	{
+
+	goto case 25;	}else
+	{
+
+	goto case 26;	}
+	case 25:
+	Reloading = false;
+	NotInMagazine = NotInMagazine;
+	InMagazine = InMagazine;
+	relo = false;
+	ooas = false;
+	s2 = -1;
+return;
+	case 26:
 	Reloading = false;
 	NotInMagazine = 0;
 	InMagazine = InMagazine;
@@ -6747,4 +6781,4 @@ frame = World.frame;
 
 
 }
-}      
+}   
