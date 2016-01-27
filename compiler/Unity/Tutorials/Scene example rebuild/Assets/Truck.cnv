@@ -202,7 +202,6 @@ entity AxleInfo = {
 
   rule motor = 
     let j = world.Jeep.Value.truckRigidBody.velocity.z
-    Debug.Log(leftWheel.motorTorque + " and " + j)
     yield motor
 
   rule leftWheel.steerAngle, rightWheel.steerAngle =
