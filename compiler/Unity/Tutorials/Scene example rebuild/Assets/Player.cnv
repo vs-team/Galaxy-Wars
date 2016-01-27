@@ -8,7 +8,7 @@ entity Player = {
   Equip : Equipment
   ref Controllers : [ControllerRazor]
 
-  Create(id : int) =
+  Create(id : int) = 
   {
     Num = id
     Equip = new Equipment()
@@ -595,10 +595,10 @@ entity Light = {
   LightController : ControllerRazor
   Battery : float
   Active : bool
-  Max : float
+
   
   rule BatteryGui =
-    let b = "" + ((Battery / Max) * 100.0f)
+    let b = "" + Battery
     yield b
 
   rule Battery = 
@@ -620,12 +620,10 @@ entity Light = {
 
   Create(LC : ControllerRazor) = 
   let j = LC.name
-  let startb = 100.01f
   {
     Base = UnityFlashLight.Find(j)
     LightController = LC
-    Battery = startb
-    Max = startb
+    Battery = 100.0f
     Active = false
   }
 }
