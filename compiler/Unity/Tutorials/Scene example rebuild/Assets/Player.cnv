@@ -34,6 +34,30 @@ entity Equipment = {
     yield world.Jeep.Value.InputPosition
 
   rule NotActiveFlashs, sap = 
+    wait GunControllerPressed.IsSome || LightControllerPressed.IsSome || world.W_Refill_Resources
+    let j = 
+      [for a in AllFlashs do
+       where (not ActiveFlashs.Contains(a))
+       select a]
+    let rig = 
+      [for a in ActiveFlashs do
+       where (a.LightController.JoystickName <> "Hydra1 - Left")
+       select a]
+    let right = if rig.Count > 0 then true else false
+    let lef = 
+      [for a in ActiveFlashs do
+       where (a.LightController.JoystickName <> "Hydra1 - Right")
+       select a]
+    let left = if lef.Count > 0 then true else false
+    let Joystickname = if (GunControllerPressed.IsSome) then GunControllerPressed.Value.GunController.JoystickName else LightControllerPressed.Value.LightController.JoystickName
+    let oldg = 
+      [for a in ActiveGuns do
+       where (a.GunController.JoystickName = Joystickname)
+       select a]
+    if (oldg.Count > 0 && not oldg.Head.AmmoAct.Reloading) || oldg.Count < 1 then
+      yield j, [right;left]
+
+  rule NotActiveFlashs, sap = 
     wait AllFlashs.Count > 0 
     let j = 
       [for a in AllFlashs do
@@ -50,18 +74,24 @@ entity Equipment = {
        select a]
     let left = if lef.Count > 0 then true else false
     yield j, [right;left]
-    wait GunControllerPressed.IsSome || LightControllerPressed.IsSome || world.W_Refill_Resources
+    wait false
 
   rule NotActiveGuns, asdf = 
     wait GunControllerPressed.IsSome || LightControllerPressed.IsSome
-    let r = 
-      [for a in AllGuns do
-       where (not ActiveGuns.Contains(a))
+    let Joystickname = if (GunControllerPressed.IsSome) then GunControllerPressed.Value.GunController.JoystickName else LightControllerPressed.Value.LightController.JoystickName
+    let oldg = 
+      [for a in ActiveGuns do
+       where (a.GunController.JoystickName = Joystickname)
        select a]
-    let fdsa = 
-      [for a in r do
-       select ("Nummer:" + a.GunNumber + " Controller:" + a.GunController.JoystickName)]
-    yield r, fdsa
+    if (oldg.Count > 0 && not oldg.Head.AmmoAct.Reloading) || oldg.Count < 1 then 
+      let r = 
+        [for a in AllGuns do
+         where (not ActiveGuns.Contains(a))
+         select a]
+      let fdsa = 
+        [for a in r do
+         select ("Nummer:" + a.GunNumber + " Controller:" + a.GunController.JoystickName)]
+      yield r, fdsa
 
   rule ActiveGuns, ActiveFlashs = 
     wait GunControllerPressed.IsSome || LightControllerPressed.IsSome
@@ -84,92 +114,109 @@ entity Equipment = {
       let Listsize = changingjoystick.Count
       
       if Operation = "other" then
+        let oldg = 
+          [for a in ActiveGuns do
+           where (a.GunController.JoystickName = Joystickname)
+           select a]
         let changingLight = 
           [for a in AllFlashs do
            where (a.LightController.JoystickName = Joystickname)
            select a]
-        if OldActiveFlash.Count > 0 then
-          Debug.Log("Max 1 flashlight allowed")
-          yield ActiveGuns, [OldActiveFlash.Head]
-        else
-          let NewActiveFlash = changingLight.Head
-          yield OldActiveGun, [NewActiveFlash]
+        if not oldg.Head.AmmoAct.Reloading then
+          if OldActiveFlash.Count > 0 then
+            Debug.Log("Max 1 flashlight allowed")
+            yield ActiveGuns, [OldActiveFlash.Head]
+          else
+            let NewActiveFlash = changingLight.Head
+            yield OldActiveGun, [NewActiveFlash]
 
       if Operation = "next" then
+        let oldg = 
+          [for a in ActiveGuns do
+           where (a.GunController.JoystickName = Joystickname)
+           select a]
         let nextGunNumber = (GunNumber + 1) % Listsize
         let check = 
           [for a in ActiveGuns do
            where (a.GunNumber = nextGunNumber)
            select a]
-        if check.Count > 0 then
-          let othernumber = (GunNumber + 2) % Listsize
-          let newActiveGun = //newActiveGun
-            [for a in changingjoystick do 
-             where (a.GunNumber = othernumber)
-             select a]
-          if Joystickname = TransformHR.name then
-            if OldActiveGun.Count > 0 then
-              yield [newActiveGun.Head;OldActiveGun.Head], ActiveFlashs
-            else
-              yield [newActiveGun.Head], ActiveFlashs
-          else 
-            if OldActiveGun.Count > 0 then
-              yield [OldActiveGun.Head;newActiveGun.Head], ActiveFlashs
-            else
-              yield [newActiveGun.Head], ActiveFlashs
-        else
-          let newActiveGun = //newActiveGun
-            [for a in changingjoystick do 
-             where (a.GunNumber = nextGunNumber)
-             select a]
-          if Joystickname = TransformHR.name then
-            if OldActiveGun.Count > 0 then
-              yield [newActiveGun.Head;OldActiveGun.Head], ActiveFlashs
-            else
-              yield [newActiveGun.Head], ActiveFlashs
-          else 
-            if OldActiveGun.Count > 0 then
-              yield [OldActiveGun.Head;newActiveGun.Head], ActiveFlashs
-            else
-              yield [newActiveGun.Head], ActiveFlashs
+        Debug.Log("next "+oldg.Head.AmmoAct.Reloading)
+        if not oldg.Head.AmmoAct.Reloading then
+          if check.Count > 0 then
+            let othernumber = (GunNumber + 2) % Listsize
+            let nnewActiveGun = //nnewActiveGun
+              [for a in changingjoystick do 
+               where (a.GunNumber = othernumber)
+               select a]
+            if Joystickname = TransformHR.name then
+              if OldActiveGun.Count > 0 then
+                yield [nnewActiveGun.Head;OldActiveGun.Head], ActiveFlashs
+              else
+                yield [nnewActiveGun.Head], ActiveFlashs
+            else 
+              if OldActiveGun.Count > 0 then
+                yield [OldActiveGun.Head;nnewActiveGun.Head], ActiveFlashs
+              else
+                yield [nnewActiveGun.Head], ActiveFlashs
+          else
+            let enewActiveGun = //enewActiveGun
+              [for a in changingjoystick do 
+               where (a.GunNumber = nextGunNumber)
+               select a]
+            if Joystickname = TransformHR.name then
+              if OldActiveGun.Count > 0 then
+                yield [enewActiveGun.Head;OldActiveGun.Head], ActiveFlashs
+              else
+                yield [enewActiveGun.Head], ActiveFlashs
+            else 
+              if OldActiveGun.Count > 0 then
+                yield [OldActiveGun.Head;enewActiveGun.Head], ActiveFlashs
+              else
+                yield [enewActiveGun.Head], ActiveFlashs
 
       if Operation = "prev" then
+        let oldg = 
+          [for a in ActiveGuns do
+           where (a.GunController.JoystickName = Joystickname)
+           select a]
         let prevGunNumber = ((GunNumber + Listsize) - 1) % Listsize
         let check = 
           [for a in ActiveGuns do
            where (a.GunNumber = prevGunNumber)
            select a]
-        if check.Count > 0 then
-          let othernumber = ((GunNumber + Listsize) - 2) % Listsize
-          let newActiveGun = 
-            [for a in changingjoystick do 
-             where (a.GunNumber = othernumber)
-             select a]
-          if Joystickname = TransformHR.name then
-            if OldActiveGun.Count > 0 then
-              yield [newActiveGun.Head;OldActiveGun.Head], ActiveFlashs
-            else
-              yield [newActiveGun.Head], ActiveFlashs
-          else 
-            if OldActiveGun.Count > 0 then
-              yield [OldActiveGun.Head;newActiveGun.Head], ActiveFlashs
-            else
-              yield [newActiveGun.Head], ActiveFlashs
-        else
-          let newActiveGun = 
-            [for a in changingjoystick do 
-             where (a.GunNumber = prevGunNumber)
-             select a]
-          if Joystickname = TransformHR.name then
-            if OldActiveGun.Count > 0 then
-              yield [newActiveGun.Head;OldActiveGun.Head], ActiveFlashs
-            else
-              yield [newActiveGun.Head], ActiveFlashs
-          else 
-            if OldActiveGun.Count > 0 then
-              yield [OldActiveGun.Head;newActiveGun.Head], ActiveFlashs
-            else
-              yield [newActiveGun.Head], ActiveFlashs
+        Debug.Log("prev "+oldg.Head.AmmoAct.Reloading)
+        if not oldg.Head.AmmoAct.Reloading then
+          if check.Count > 0 then
+            let othernumber = ((GunNumber + Listsize) - 2) % Listsize
+            let pnewActiveGun = 
+              [for a in changingjoystick do 
+               where (a.GunNumber = othernumber)
+               select a]
+            if Joystickname = TransformHR.name then
+              if OldActiveGun.Count > 0 then
+                yield [pnewActiveGun.Head;OldActiveGun.Head], ActiveFlashs
+              else
+                yield [pnewActiveGun.Head], ActiveFlashs
+            else 
+              if OldActiveGun.Count > 0 then
+                yield [OldActiveGun.Head;pnewActiveGun.Head], ActiveFlashs
+              else
+                yield [pnewActiveGun.Head], ActiveFlashs
+          else
+            let penewActiveGun = 
+              [for a in changingjoystick do 
+               where (a.GunNumber = prevGunNumber)
+               select a]
+            if Joystickname = TransformHR.name then
+              if OldActiveGun.Count > 0 then
+                yield [penewActiveGun.Head;OldActiveGun.Head], ActiveFlashs
+              else
+                yield [penewActiveGun.Head], ActiveFlashs
+            else 
+              if OldActiveGun.Count > 0 then
+                yield [OldActiveGun.Head;penewActiveGun.Head], ActiveFlashs
+              else
+                yield [penewActiveGun.Head], ActiveFlashs
 
     if LightControllerPressed.IsSome then
       let changingjoystick = 
@@ -317,6 +364,7 @@ entity ControllerRazor= {
   JoystickName : string
   ECB : string
   Shot : bool
+  Razor_Reload : bool
 
   rule m_initialRot = 
     yield world.Jeep.Value.Rotation
@@ -352,6 +400,13 @@ entity ControllerRazor= {
     yield false
     wait not Drie
 
+  rule Razor_Reload = 
+    wait Bumper
+    yield true
+    yield true
+    yield false
+    wait not Bumper
+
   rule next = 
     wait Vier
     yield true
@@ -368,6 +423,7 @@ entity ControllerRazor= {
     prev = false
     ECB = ""
     Shot = false
+    Razor_Reload = false
   }
 }
 
@@ -427,7 +483,7 @@ entity Gun = {
     yield undestroyedBullets
 
   rule AmmoAct.Reloading = 
-    if (Input.GetKey(KeyCode.R)) then
+    if (Input.GetKey(KeyCode.R) || GunController.Razor_Reload) then
       yield true
       wait not AmmoAct.Reloading
     else 

@@ -50,4 +50,4 @@ public class UnityFlashLight : MonoBehaviour
     }
   }
 }
-                                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

@@ -259,4 +259,4 @@ public class GUIBarScript : MonoBehaviour
     return guiscript;
   }
 
-}                                                                                                     
+}                                                                                                                                                                                              
