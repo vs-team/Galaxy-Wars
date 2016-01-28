@@ -4,13 +4,9 @@ using System.Collections.Generic;
 
 public class UnityFlashLight : MonoBehaviour
 {
-
-
   public static UnityFlashLight Find(string j)
   {
-    Debug.Log(j);
     GameObject a = GameObject.Find(j + "/flashlight");
-    Debug.Log(a.name);
     UnityFlashLight b = a.GetComponent<UnityFlashLight>() as UnityFlashLight;
 
     //textmesh
@@ -26,8 +22,10 @@ public class UnityFlashLight : MonoBehaviour
       }
     }
     b.BatteryMesh = tesla[0];
+    b.Flight = a.GetComponentInChildren<Light>();
     return b;
   }
+  private Light Flight;
   public TextMesh BatteryMesh;
   public string BatteryGui
   {
@@ -49,5 +47,11 @@ public class UnityFlashLight : MonoBehaviour
       }
     }
   }
+
+  public bool Lamp
+  {
+    get { return Flight.enabled; }
+    set { Flight.enabled = value; }
+  }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              

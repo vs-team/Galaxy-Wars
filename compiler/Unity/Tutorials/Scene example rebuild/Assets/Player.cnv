@@ -653,7 +653,7 @@ entity Light = {
   inherit UnityFlashLight
   LightController : ControllerRazor
   Battery : float
-  Active : bool
+  //Active : bool
   Max : float
   
   rule BatteryGui =
@@ -665,13 +665,16 @@ entity Light = {
        yield Battery + 50.0f
     
   rule Battery = 
-    if Active && Battery > 0.49f then
+    if Lamp && Battery > 0.49f then
       yield Battery - 0.5f
     else
       yield Battery
 
-  rule Active =
-    yield LightController.Trigger
+  rule Lamp =
+    if Battery > 0.0f then
+      yield LightController.Trigger
+    else
+      yield false
 
   rule Battery = 
     yield 100.0f
@@ -685,6 +688,6 @@ entity Light = {
     LightController = LC
     Battery = startb
     Max = startb
-    Active = false
+    //Active = false
   }
 }

@@ -6199,16 +6199,17 @@ public Light(ControllerRazor LC)
 		Max = ___startb00;
 		LightController = LC;
 		Battery = ___startb00;
-		Active = false;
 		
 }
-		public System.Boolean Active;
-	public System.Single Battery;
+		public System.Single Battery;
 	public System.String BatteryGui{  get { return UnityFlashLight.BatteryGui; }
   set{UnityFlashLight.BatteryGui = value; }
  }
 	public UnityEngine.TextMesh BatteryMesh{  get { return UnityFlashLight.BatteryMesh; }
   set{UnityFlashLight.BatteryMesh = value; }
+ }
+	public System.Boolean Lamp{  get { return UnityFlashLight.Lamp; }
+  set{UnityFlashLight.Lamp = value; }
  }
 	public ControllerRazor LightController;
 	public System.Single Max;
@@ -6278,7 +6279,19 @@ return;	}
 	{
 
 	case -1:
-	Active = LightController.Trigger;
+	if(((Battery) > (0f)))
+	{
+
+	goto case 2;	}else
+	{
+
+	goto case 3;	}
+	case 2:
+	Lamp = LightController.Trigger;
+	s1 = -1;
+return;
+	case 3:
+	Lamp = false;
 	s1 = -1;
 return;	
 	default: return;}}
@@ -6290,18 +6303,18 @@ return;
 	{
 
 	case -1:
-	if(((Active) && (((Battery) > (0.49f)))))
+	if(((Lamp) && (((Battery) > (0.49f)))))
 	{
 
-	goto case 1;	}else
+	goto case 7;	}else
 	{
 
-	goto case 2;	}
-	case 1:
+	goto case 8;	}
+	case 7:
 	Battery = ((Battery) - (0.5f));
 	s2 = -1;
 return;
-	case 2:
+	case 8:
 	Battery = Battery;
 	s2 = -1;
 return;	
@@ -6317,12 +6330,12 @@ return;
 	if(((world.ActiveBoR) == ("Battery Black")))
 	{
 
-	goto case 7;	}else
+	goto case 13;	}else
 	{
 
 	s3 = -1;
 return;	}
-	case 7:
+	case 13:
 	Battery = ((Battery) + (50f));
 	s3 = -1;
 return;	
@@ -6781,4 +6794,4 @@ frame = World.frame;
 
 
 }
-}   
+}       

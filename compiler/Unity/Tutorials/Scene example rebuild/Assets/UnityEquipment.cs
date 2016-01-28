@@ -131,4 +131,4 @@ public class UnityEquipment : MonoBehaviour
     get { return transform.localPosition; }
     set { transform.localPosition = value; }
   }
-}                                                                                                                                                                                       
+}                                                                                                                                                                                                
