@@ -4,21 +4,34 @@ using System.Collections.Generic;
 
 public class UnityDestroyer : MonoBehaviour
 {
+  public GameObject Wall;
   public static UnityDestroyer instantiate(float e, Vector3 i)
   {
     GameObject c = GameObject.Find("Destroyer");
     UnityDestroyer d = c.GetComponent<UnityDestroyer>() as UnityDestroyer;
+    d.Wall = GameObject.Find("Invisible_walls/Behind");
+    List<float> lowest = new List<float>();
     if (e != 10)
     {
       GameObject[] f = GameObject.FindGameObjectsWithTag("Landscape");
       foreach (GameObject g in f)
       {
+        if (lowest.Count == 0)
+        {
+          lowest.Add(g.transform.position.z);
+        }
         if (g.transform.position.z == e)
         {
           GameObject.Destroy(g);
-          return d;
+        }
+        if (g.transform.position.z > lowest[0])
+        {
+          lowest.Clear();
+          lowest.Add(g.transform.position.z);
         }
       }
+      Debug.Log("new wall p"+lowest[0]);
+      d.Wall.transform.position = new Vector3(d.Wall.transform.position.x, d.Wall.transform.position.y, lowest[0]);
     }
     int distance_to_Delete = 400;
 
@@ -56,4 +69,4 @@ public class UnityDestroyer : MonoBehaviour
   }
 
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

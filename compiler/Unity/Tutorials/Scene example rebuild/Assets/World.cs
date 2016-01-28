@@ -1022,7 +1022,7 @@ public Truck(System.String nm, UnityEngine.Vector3 pos, System.Boolean ModelIs, 
 		Stats = new TruckStats(ModelIs,ints);
 		KeyboardDriving = false;
 		JRotation = 0f;
-		Fuel = 1000f;
+		Fuel = 10000f;
 		AxleInfos = (
 
 Enumerable.Empty<AxleInfo>()).ToList<AxleInfo>();
@@ -6794,4 +6794,4 @@ frame = World.frame;
 
 
 }
-}       
+}                  
