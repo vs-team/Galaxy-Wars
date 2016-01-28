@@ -569,15 +569,16 @@ entity Ammo = {
 
   rule Reloading, NotInMagazine, InMagazine, relo, ooas = 
     wait (InMagazine = 0) || Reloading
-    if (NotInMagazine > 0) then
-      if (TypeWeapon = "ShotGun") then //single shell reload
+    if (NotInMagazine > -1 && InMagazine <= MagazineSize) then
+      if (TypeWeapon = "ShotGun") then 
         while (NotInMagazine > 0 && InMagazine < (MagazineSize + 1)) do
           let a = NotInMagazine - 1
           let b = InMagazine + 1
-          //Debug.Log("update bullets")
           yield true, a,b, true, false
+          yield true, a,b, false, false
           wait ReloadDuration
-      else //magazine reload
+        yield false, NotInMagazine, InMagazine, false, false
+      else 
         yield true, NotInMagazine, InMagazine, true, false
         yield true, NotInMagazine, InMagazine, false, false
         wait (ReloadDuration)
@@ -586,6 +587,8 @@ entity Ammo = {
         else
           let changed = (MagazineSize - InMagazine)
           yield false, NotInMagazine - changed, MagazineSize, false, false
+    else if InMagazine <= MagazineSize then
+      yield false, NotInMagazine, InMagazine, false, false
     else
       yield false, 0, InMagazine, false, true
 
@@ -657,7 +660,7 @@ entity Light = {
   inherit UnityFlashLight
   LightController : ControllerRazor
   Battery : float
-  Active : bool
+  //Active : bool
   Max : float
   
   rule BatteryGui =
@@ -669,13 +672,16 @@ entity Light = {
        yield Battery + 50.0f
     
   rule Battery = 
-    if Active && Battery > 0.49f then
+    if Lamp && Battery > 0.49f then
       yield Battery - 0.5f
     else
       yield Battery
 
-  rule Active =
-    yield LightController.Trigger
+  rule Lamp =
+    if Battery > 0.0f then
+      yield LightController.Trigger
+    else
+      yield false
 
   rule Battery = 
     yield 100.0f
@@ -696,6 +702,6 @@ entity Light = {
     LightController = LC
     Battery = startb
     Max = startb
-    Active = false
+    //Active = false
   }
 }

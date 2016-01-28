@@ -130,20 +130,24 @@ Prefab:
       propertyPath: m_Name
       value: Input
       objectReference: {fileID: 0}
-    - target: {fileID: 22533136, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: m_Alpha
-      value: 1
+    - target: {fileID: 11417086, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MuzzleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 88d2629abc0eca84daf8ad1d8f6875fc, type: 3}
+    - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 22533136, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: m_Enabled
+    - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 10223368, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: m_Color.rgba
-      value: 4294967295
+    - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MaxDistance
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 22533136, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+    - {fileID: 8248750, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &250587979
@@ -212,7 +216,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 256423376}
   m_Layer: 0
-  m_Name: Invisible walls
+  m_Name: Invisible_walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,8 +454,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 2.22044578e-16, z: 9.99999905}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 8, y: 2.22044578e-16, z: 3}
+  m_Center: {x: .5, y: 0, z: 1}
 --- !u!1 &1594040684
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9b235fa514fda499c7c13a38a25449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Wall: {x: 0, y: 0, z: 0}
 --- !u!4 &1745576325
 Transform:
   m_ObjectHideFlags: 0
