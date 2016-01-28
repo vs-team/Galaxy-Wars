@@ -9,7 +9,7 @@ entity Player = {
   ref Controllers : [ControllerRazor]
 
   Create(id : int) =
-  {
+  { 
     Num = id
     Equip = new Equipment()
     Controllers = [new ControllerRazor("Hydra1 - Right"); new ControllerRazor("Hydra1 - Left")]
@@ -19,7 +19,7 @@ entity Player = {
 entity Equipment = {
   inherit UnityEquipment
   ref AllGuns : [Gun]
-  ActiveGuns : [Gun]
+  ActiveGuns : [Gun] 
   ref NotActiveGuns : [Gun]
   GunControllerPressed : Option<Gun>
 
@@ -521,6 +521,13 @@ entity Gun = {
      
   rule Rel, OoAs = 
     yield AmmoAct.relo, AmmoAct.ooas
+
+  rule TruckCameraPosition =
+    yield world.Jeep.Value.TruckCamera.transform.position
+
+  rule TextOpacity =
+    let newAlpha = Mathf.InverseLerp(45.0f, 0.0f, Mathf.Clamp(AngleBetween, 0.0f, 45.0f))
+    yield newAlpha
      
   Create(ind : int, GC : ControllerRazor, tr : string, am : Ammo) = 
   let autom = if (ind <> 0) then false else true
@@ -673,6 +680,13 @@ entity Light = {
   rule Battery = 
     yield 100.0f
     wait world.W_Refill_Resources
+
+  rule TruckCameraPosition =
+    yield world.Jeep.Value.TruckCamera.transform.position
+
+  rule TextOpacity = 
+    let newAlpha = Mathf.InverseLerp(45.0f, 0.0f, Mathf.Clamp(AngleBetween, 0.0f, 45.0f))
+    yield newAlpha
 
   Create(LC : ControllerRazor) = 
   let j = LC.name

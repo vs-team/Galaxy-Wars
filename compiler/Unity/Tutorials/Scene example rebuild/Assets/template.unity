@@ -130,7 +130,20 @@ Prefab:
       propertyPath: m_Name
       value: Input
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 22533136, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22533136, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 10223368, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_Color.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 22533136, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &250587979

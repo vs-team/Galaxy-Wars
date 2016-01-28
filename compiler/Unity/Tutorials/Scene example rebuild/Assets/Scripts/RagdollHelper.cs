@@ -60,10 +60,13 @@ public class RagdollHelper : MonoBehaviour {
 					//Initiate the get up animation
 					if (anim.GetBoneTransform(HumanBodyBones.Hips).forward.y>0) //hip hips forward vector pointing upwards, initiate the get up from back animation
 					{
+            Debug.Log(anim);
 						anim.SetBool("GetUpFromBack",true);
 					}
-					else{
-						anim.SetBool("GetUpFromBelly",true);
+					else
+          {
+            Debug.Log(anim);
+            anim.SetBool("GetUpFromBelly",true);
 					}
 				} //if (state==RagdollState.ragdolled)
 			}	//if value==false	
