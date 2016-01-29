@@ -116,11 +116,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8384462ce2202429497e415968b741f4, type: 3}
+  m_Script: {fileID: 11500000, guid: c70ac0f7e31176943807b3689c39f424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setIndex: 2
-  effectsManagerScript: {fileID: 0}
+  explosionEffect: {fileID: 0}
+  explosionEffectLocation: {fileID: 0}
+  explo: {fileID: 8300000, guid: d27e858edfa489d429e24b369d84a1cc, type: 3}
 --- !u!1002 &11400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -130,7 +131,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: explo
+      value: 
+      objectReference: {fileID: 8300000, guid: d27e858edfa489d429e24b369d84a1cc, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100002}

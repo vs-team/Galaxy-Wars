@@ -16,7 +16,7 @@ entity Player = {
   }
 }
 
-entity Equipment = {
+entity Equipment = { 
   inherit UnityEquipment
   ref AllGuns : [Gun]
   ActiveGuns : [Gun] 
