@@ -130,46 +130,6 @@ Prefab:
       propertyPath: m_Name
       value: Input
       objectReference: {fileID: 0}
-    - target: {fileID: 11403010, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: MuzzleSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 876d12f629634544e98b0dbf84c253b2, type: 3}
-    - target: {fileID: 11409060, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: MuzzleSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 876d12f629634544e98b0dbf84c253b2, type: 3}
-    - target: {fileID: 11443788, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: MuzzleSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 5ea8c3818c9e08342aecdcacb835f560, type: 3}
-    - target: {fileID: 11468194, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: MuzzleSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 5ea8c3818c9e08342aecdcacb835f560, type: 3}
-    - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 88d2629abc0eca84daf8ad1d8f6875fc, type: 3}
-    - target: {fileID: 11436164, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: MuzzleSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 88d2629abc0eca84daf8ad1d8f6875fc, type: 3}
-    - target: {fileID: 11427164, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: MuzzleSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 3951e78d83c59e946a5a105c44ba2e62, type: 3}
-    - target: {fileID: 11421366, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: MuzzleSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 3951e78d83c59e946a5a105c44ba2e62, type: 3}
-    - target: {fileID: 12072218, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 12056832, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
   m_IsPrefabParent: 0

@@ -6,28 +6,18 @@ using System.Collections.Generic;
 public class UnityGun : MonoBehaviour
 {
   public TextMesh MagazineBox;
-  private AudioSource gunShot;
-  private ParticleSystem Muzzleflash;
+  public AudioSource gunShot;
+  public ParticleSystem Muzzleflash;
   public static UnityGun Instantiate(string nm, string j)
   {
     GameObject pap = GameObject.Find("Input/RazerJoysticks/" + j + "/" + nm) as GameObject;
     UnityGun wap = pap.GetComponent<UnityGun>() as UnityGun;
-    wap.razer = wap.GetComponentInParent<SixenseHand>();
-    wap.Muzzleflash = wap.GetComponentInChildren<ParticleSystem>();
-    //textmesh
-    Transform a = pap.GetComponent<Transform>();
-    List<TextMesh> tesla = new List<TextMesh>();
-    foreach (Transform z in a)
-    {
-      if (z.name == "Canvas")
-      {
-        TextMesh Bullet = z.GetComponentInChildren<TextMesh>() as TextMesh;
-        tesla.Add(Bullet);
-      }
-    }
-    wap.MagazineBox = tesla[0];
+    Debug.Log("update" + wap);
+    wap.razer = GameObject.Find("Input/RazerJoysticks/" + j + "/").GetComponent<SixenseHand>();
+    wap.Muzzleflash = GameObject.Find("Input/RazerJoysticks/" + j + "/" + nm + "/MuzzleFlash").GetComponent<ParticleSystem>();
+    wap.MagazineBox = GameObject.Find("Input/RazerJoysticks/" + j + "/" + nm + "/Canvas/Bullets").GetComponent<TextMesh>();
 
-    wap.gunShot = pap.GetComponent<AudioSource>() as AudioSource;
+    wap.gunShot = GameObject.Find("Input/RazerJoysticks/" + j + "/" + nm).GetComponent<AudioSource>() as AudioSource;
 
     GameObject inp = GameObject.Find("Input");
     wap.Ammo = inp.GetComponent<AudioSource>() as AudioSource;
@@ -58,7 +48,15 @@ public class UnityGun : MonoBehaviour
   }
   public float AngleBetween
   {
-    get { return Vector3.Angle((truckCameraPosition - MagazineBox.transform.position), -MagazineBox.transform.forward); }
+    get
+    {
+      if (this.gameObject.activeInHierarchy)
+        return Vector3.Angle((truckCameraPosition - MagazineBox.transform.position), -MagazineBox.transform.forward);
+      else
+      {
+        return 0.0f;
+      }
+    }
   }
   public bool OoAs
   {
@@ -91,7 +89,9 @@ public class UnityGun : MonoBehaviour
     get { return MagazineBox.text; }
     set
     {
-      MagazineBox.text = InTheMag + "/" + NotInTheMag;
+      Debug.Log(value);
+      if (this.gameObject.activeInHierarchy)
+        MagazineBox.text = value;
     }
   }
   private bool keyboardShooting = false;
@@ -141,7 +141,7 @@ public class UnityGun : MonoBehaviour
       MagazineBox.color = new Color(MagazineBox.color.r, MagazineBox.color.g, MagazineBox.color.b, textOpacity);
     }
   }
-  
+
   private bool shot;
   public bool Shoot
   {
@@ -156,7 +156,7 @@ public class UnityGun : MonoBehaviour
         Debug.Log("gunShot.clip = " + gunShot.clip);
         gunShot.Play();
         Muzzleflash.Play(true);
-        RaycastHit hitObject; 
+        RaycastHit hitObject;
         int layermask = 1 << 8; //Layermask of zombies
         if (keyboardShooting && name != "Bazooka")
         {
@@ -168,7 +168,7 @@ public class UnityGun : MonoBehaviour
               GameObject bloodFX = Instantiate(Resources.Load("Blood"), hitObject.transform.position, Quaternion.FromToRotation(Vector3.zero, ray.direction)) as GameObject;
               ParticleSystem bloodPS = bloodFX.GetComponentInChildren<ParticleSystem>();
               Destroy(bloodFX, bloodPS.duration);
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody, 
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody,
                                                                               hitObject.collider, gunPower / 30.0f, false, 2);
             }
             else if (hitObject.collider.tag == "Barrels")
@@ -187,7 +187,7 @@ public class UnityGun : MonoBehaviour
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody, 
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody,
                                                                               hitObject.collider, (gunPower / 30.0f), false, 2);
             }
             else if (hitObject.collider.tag == "Barrels")
@@ -232,8 +232,8 @@ public class UnityGun : MonoBehaviour
     {
       var x = this.transform.localPosition;
       this.transform.localPosition = x;
+    }
   }
-}                                                      
   public Vector3 Rotation
   {
     get
@@ -246,4 +246,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+}         

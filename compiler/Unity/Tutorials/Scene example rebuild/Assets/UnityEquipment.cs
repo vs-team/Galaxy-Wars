@@ -105,6 +105,7 @@ public class UnityEquipment : MonoBehaviour
       {
         return;
       }
+      Debug.Log("deactivate");
       foreach (string a in value) // value is a list of strings
       {
         string q = (a.Substring(7, 1));
@@ -131,4 +132,4 @@ public class UnityEquipment : MonoBehaviour
     get { return transform.localPosition; }
     set { transform.localPosition = value; }
   }
-}                                                                                                                                                                                                                                                                                                                                                                                                                                        
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
