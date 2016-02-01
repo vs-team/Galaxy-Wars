@@ -47,6 +47,29 @@ public class UnityFlashLight : MonoBehaviour
       }
     }
   }
+  private Vector3 truckCameraPosition;
+  public Vector3 TruckCameraPosition
+  {
+    get { return truckCameraPosition; }
+    set { truckCameraPosition = value; }
+  }
+  public float AngleBetween
+  {
+    get { return Vector3.Angle((truckCameraPosition - BatteryMesh.transform.position), -BatteryMesh.transform.forward); }
+  }
+  private float textOpacity;
+  public float TextOpacity
+  {
+    get
+    {
+      return textOpacity;
+    }
+    set
+    {
+      textOpacity = value; 
+      BatteryMesh.color = new Color(BatteryMesh.color.r, BatteryMesh.color.g, BatteryMesh.color.b, textOpacity);
+    }
+  }
 
   public bool Lamp
   {
@@ -54,4 +77,4 @@ public class UnityFlashLight : MonoBehaviour
     set { Flight.enabled = value; }
   }
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: .117647052, g: .0686791465, b: .0242214538, a: 1}
+  m_AmbientSkyColor: {r: .654411793, g: .654411793, b: .654411793, a: 1}
   m_AmbientEquatorColor: {r: .117647052, g: .0686791465, b: .0242214538, a: 1}
   m_AmbientGroundColor: {r: .117647052, g: .0686791465, b: .0242214538, a: 1}
-  m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientIntensity: .114
+  m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 2100000, guid: 5ba172cd3918d7c44aa6d04446119a00, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
@@ -130,24 +130,47 @@ Prefab:
       propertyPath: m_Name
       value: Input
       objectReference: {fileID: 0}
-    - target: {fileID: 11417086, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+    - target: {fileID: 11403010, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
       propertyPath: MuzzleSound
       value: 
-      objectReference: {fileID: 8300000, guid: 88d2629abc0eca84daf8ad1d8f6875fc, type: 3}
+      objectReference: {fileID: 8300000, guid: 876d12f629634544e98b0dbf84c253b2, type: 3}
+    - target: {fileID: 11409060, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MuzzleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 876d12f629634544e98b0dbf84c253b2, type: 3}
+    - target: {fileID: 11443788, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MuzzleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ea8c3818c9e08342aecdcacb835f560, type: 3}
+    - target: {fileID: 11468194, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MuzzleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ea8c3818c9e08342aecdcacb835f560, type: 3}
     - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
       propertyPath: m_audioClip
       value: 
+      objectReference: {fileID: 8300000, guid: 88d2629abc0eca84daf8ad1d8f6875fc, type: 3}
+    - target: {fileID: 11436164, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MuzzleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 88d2629abc0eca84daf8ad1d8f6875fc, type: 3}
+    - target: {fileID: 11427164, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MuzzleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3951e78d83c59e946a5a105c44ba2e62, type: 3}
+    - target: {fileID: 11421366, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: MuzzleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3951e78d83c59e946a5a105c44ba2e62, type: 3}
+    - target: {fileID: 12072218, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: m_PlayOnAwake
-      value: 0
+    - target: {fileID: 12056832, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8255070, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
-      propertyPath: MaxDistance
-      value: 500
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8248750, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21b4141e397bec34b872bd7929454f8a, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &250587979
@@ -336,7 +359,7 @@ Light:
   serializedVersion: 6
   m_Type: 1
   m_Color: {r: .384313762, g: .36470589, b: .149019614, a: 1}
-  m_Intensity: 1
+  m_Intensity: 3.9000001
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -354,7 +377,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 1
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
@@ -569,7 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9b235fa514fda499c7c13a38a25449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Wall: {x: 0, y: 0, z: 0}
+  Wall: {fileID: 0}
 --- !u!4 &1745576325
 Transform:
   m_ObjectHideFlags: 0

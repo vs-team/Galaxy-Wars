@@ -152,7 +152,7 @@ entity Truck = {
       if KeyboardDriving then
         yield Input.GetAxis("Vertical"), world.Score + 1
       else
-        if Acceleration <> 0.0f then
+        if Acceleration <> 0.0f then 
           yield Acceleration, world.Score + 2
         else
           yield BrakeAndReverse * -1.0f, world.Score
@@ -185,7 +185,7 @@ entity Truck = {
       maxMotorTorque = 250.0f
       maxSteeringAngle = 50.0f
       AxleInfos = []
-      Fuel = 10000.0f // gas liters
+      Fuel = 100000.0f // gas liters
       cnvAccel = 0.0f
       JRotation = 0.0f
       KeyboardDriving = false; 

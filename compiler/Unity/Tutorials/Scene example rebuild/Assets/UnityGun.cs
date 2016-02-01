@@ -29,6 +29,9 @@ public class UnityGun : MonoBehaviour
 
     wap.gunShot = pap.GetComponent<AudioSource>() as AudioSource;
 
+    GameObject inp = GameObject.Find("Input");
+    wap.Ammo = inp.GetComponent<AudioSource>() as AudioSource;
+    wap.truckCameraPosition = Vector3.zero;
     return wap;
   }
   private bool OutofAmmoSound;
@@ -47,7 +50,16 @@ public class UnityGun : MonoBehaviour
       ReloadSound = value;
     }
   }
-
+  private Vector3 truckCameraPosition;
+  public Vector3 TruckCameraPosition
+  {
+    get { return truckCameraPosition; }
+    set { truckCameraPosition = value; }
+  }
+  public float AngleBetween
+  {
+    get { return Vector3.Angle((truckCameraPosition - MagazineBox.transform.position), -MagazineBox.transform.forward); }
+  }
   public bool OoAs
   {
     get { return OutofAmmoSound; }
@@ -116,6 +128,20 @@ public class UnityGun : MonoBehaviour
       Debug.Log("gunShot.clip = " + gunShot.clip);
     }
   }
+  private float textOpacity;
+  public float TextOpacity
+  {
+    get
+    {
+      return textOpacity;
+    }
+    set
+    {
+      textOpacity = value;
+      MagazineBox.color = new Color(MagazineBox.color.r, MagazineBox.color.g, MagazineBox.color.b, textOpacity);
+    }
+  }
+  
   private bool shot;
   public bool Shoot
   {
@@ -130,7 +156,7 @@ public class UnityGun : MonoBehaviour
         Debug.Log("gunShot.clip = " + gunShot.clip);
         gunShot.Play();
         Muzzleflash.Play(true);
-        RaycastHit hitObject;
+        RaycastHit hitObject; 
         int layermask = 1 << 8; //Layermask of zombies
         if (keyboardShooting && name != "Bazooka")
         {
@@ -142,7 +168,7 @@ public class UnityGun : MonoBehaviour
               GameObject bloodFX = Instantiate(Resources.Load("Blood"), hitObject.transform.position, Quaternion.FromToRotation(Vector3.zero, ray.direction)) as GameObject;
               ParticleSystem bloodPS = bloodFX.GetComponentInChildren<ParticleSystem>();
               Destroy(bloodFX, bloodPS.duration);
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody,
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(ray.direction, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, gunPower / 30.0f, false, 2);
             }
             else if (hitObject.collider.tag == "Barrels")
@@ -161,7 +187,7 @@ public class UnityGun : MonoBehaviour
           {
             if (hitObject.collider.GetComponentInParent<UnityZombie2>())
             {
-              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody,
+              hitObject.collider.GetComponentInParent<UnityZombie2>().GetHit(razerDirection, hitObject.transform, hitObject.rigidbody, 
                                                                               hitObject.collider, (gunPower / 30.0f), false, 2);
             }
             else if (hitObject.collider.tag == "Barrels")
@@ -206,8 +232,8 @@ public class UnityGun : MonoBehaviour
     {
       var x = this.transform.localPosition;
       this.transform.localPosition = x;
-    }
   }
+}                                                      
   public Vector3 Rotation
   {
     get
@@ -220,4 +246,4 @@ public class UnityGun : MonoBehaviour
     }
   }
 
-}                                                  
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
