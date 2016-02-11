@@ -1,0 +1,505 @@
+Mono path[0] = 'C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/ZombieSurvival_Data/Managed'
+Mono path[1] = 'C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/ZombieSurvival_Data/Mono'
+Mono config path = 'C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/ZombieSurvival_Data/Mono/etc'
+PlayerConnection initialized from C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/ZombieSurvival_Data (debug = 0)
+PlayerConnection initialized network socket : 0.0.0.0 55233
+Multi-casting "[IP] 145.24.221.155 [Port] 55233 [Flags] 3 [Guid] 69011421 [EditorId] 2677938940 [Version] 1048832 [Id] WindowsPlayer(Martijn) [Debug] 0" to [225.0.0.222:54997]...
+Waiting for connection from host on [145.24.221.155:55233]...
+PlayerConnection accepted from [145.24.221.155] handle:0x280
+PlayerConnection already initialized - listening to [145.24.221.155:55233]
+Initialize engine version: 5.1.2f1 (62e08e29dcf3)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 4600 (ID=0x416)
+    Vendor:   Intel
+    VRAM:     128 MB
+Cluster Renderer Log : ARG list
+ZombieSurvival.exe
+-client
+0
+tcp://127.0.0.1:1234
+tcp://*:*
+10000
+-logFile
+client1.txt
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.050 seconds
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initialized touch support.
+Platform assembly: C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\System.dll (this message is harmless)
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 25dc -> priority: 1 
+  Thread -> id: 25c4 -> priority: 1 
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.046417 ms
+System memory in use before: 92.6 MB.
+System memory in use after: 92.6 MB.
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1020.
+Total: 0.386071 ms (FindLiveObjects: 0.043028 ms CreateObjectMapping: 0.022895 ms MarkObjects: 0.291330 ms  DeleteObjects: 0.028027 ms)
+
+Platform assembly: C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\ZombieSurvival_Data\Managed\System.Xml.dll (this message is harmless)
+(0.0, 0.0, -80.0)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityGasstation:Instantiate(Vector3) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityGasstation.cs:14)
+Game.Gasstation:.ctor(Vector3) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2115)
+Game.World:Start() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:37)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/UnityGasstation.cs Line: 14)
+
+not this gameobjectRepair_Zone (UnityEngine.Transform)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityCheckpoint:Find(Vector3) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityCheckpoint.cs:20)
+Game.Repair:.ctor(Vector3) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2400)
+Game.Gasstation:.ctor(Vector3) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2116)
+Game.World:Start() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:37)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/UnityCheckpoint.cs Line: 20)
+
+The referenced script on this Behaviour is missing!
+UnityEngine.Resources:Load(String, Type)
+UnityEngine.Resources:Load(String) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\ResourcesBindings.gen.cs:50)
+explode:instantiate(Vector3, Int32) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\explode.cs:14)
+Game.Barrel:.ctor(Vector3) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2624)
+Game.Gasstation:<Rule0>m__2E(<>__AnonType17`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2210)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Gasstation:Rule0(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2207)
+Game.Gasstation:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2189)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:143)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+
+[C:/buildslave/unity/build/Runtime/Mono/MonoBehaviour.cpp line 1715] 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+The referenced script on this Behaviour is missing!
+UnityEngine.Resources:Load(String, Type)
+UnityEngine.Resources:Load(String) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\ResourcesBindings.gen.cs:50)
+explode:instantiate(Vector3, Int32) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\explode.cs:14)
+Game.Barrel:.ctor(Vector3) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2624)
+Game.Gasstation:<Rule0>m__2E(<>__AnonType17`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2210)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Gasstation:Rule0(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2207)
+Game.Gasstation:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2189)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:143)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+
+[C:/buildslave/unity/build/Runtime/Mono/MonoBehaviour.cpp line 1715] 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+The referenced script on this Behaviour is missing!
+UnityEngine.Resources:Load(String, Type)
+UnityEngine.Resources:Load(String) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\ResourcesBindings.gen.cs:50)
+explode:instantiate(Vector3, Int32) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\explode.cs:14)
+Game.Barrel:.ctor(Vector3) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2624)
+Game.Gasstation:<Rule0>m__2E(<>__AnonType17`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2210)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Gasstation:Rule0(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2207)
+Game.Gasstation:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2189)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:143)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+
+[C:/buildslave/unity/build/Runtime/Mono/MonoBehaviour.cpp line 1715] 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+The referenced script on this Behaviour is missing!
+UnityEngine.Resources:Load(String, Type)
+UnityEngine.Resources:Load(String) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\ResourcesBindings.gen.cs:50)
+explode:instantiate(Vector3, Int32) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\explode.cs:14)
+Game.Barrel:.ctor(Vector3) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2624)
+Game.Gasstation:<Rule0>m__2E(<>__AnonType17`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2210)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Gasstation:Rule0(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2207)
+Game.Gasstation:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:2189)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:143)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+
+[C:/buildslave/unity/build/Runtime/Mono/MonoBehaviour.cpp line 1715] 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+updateMachineGun (UnityGun)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityGun:Instantiate(String, String) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityGun.cs:15)
+Game.Gun:.ctor(Int32, ControllerRazor, String, Ammo) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:5152)
+Game.Equipment:<Rule1>m__47(<>__AnonType27`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3834)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3831)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+updatePistol (UnityGun)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityGun:Instantiate(String, String) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityGun.cs:15)
+Game.Gun:.ctor(Int32, ControllerRazor, String, Ammo) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:5152)
+Game.Equipment:<Rule1>m__47(<>__AnonType27`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3834)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3831)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+updateShotGun (UnityGun)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityGun:Instantiate(String, String) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityGun.cs:15)
+Game.Gun:.ctor(Int32, ControllerRazor, String, Ammo) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:5152)
+Game.Equipment:<Rule1>m__47(<>__AnonType27`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3834)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3831)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+updateBazooka (UnityGun)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityGun:Instantiate(String, String) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityGun.cs:15)
+Game.Gun:.ctor(Int32, ControllerRazor, String, Ammo) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:5152)
+Game.Equipment:<Rule1>m__47(<>__AnonType27`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3834)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3831)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+updateMachineGun (UnityGun)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityGun:Instantiate(String, String) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityGun.cs:15)
+Game.Gun:.ctor(Int32, ControllerRazor, String, Ammo) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:5152)
+Game.Equipment:<Rule1>m__49(<>__AnonType28`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3839)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3836)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+updatePistol (UnityGun)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityGun:Instantiate(String, String) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityGun.cs:15)
+Game.Gun:.ctor(Int32, ControllerRazor, String, Ammo) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:5152)
+Game.Equipment:<Rule1>m__49(<>__AnonType28`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3839)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3836)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+updateShotGun (UnityGun)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityGun:Instantiate(String, String) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityGun.cs:15)
+Game.Gun:.ctor(Int32, ControllerRazor, String, Ammo) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:5152)
+Game.Equipment:<Rule1>m__49(<>__AnonType28`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3839)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3836)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+updateBazooka (UnityGun)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityGun:Instantiate(String, String) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityGun.cs:15)
+Game.Gun:.ctor(Int32, ControllerRazor, String, Ammo) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:5152)
+Game.Equipment:<Rule1>m__49(<>__AnonType28`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3839)
+System.Linq.<CreateSelectIterator>c__Iterator10`2:MoveNext() (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:1605)
+System.Collections.Generic.List`1:AddEnumerable(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:128)
+System.Collections.Generic.List`1:.ctor(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Collections.Generic/List.cs:65)
+System.Linq.Enumerable:ToList(IEnumerable`1) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs:2189)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3836)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/System.Core/System.Linq/Enumerable.cs Line: 1605)
+
+ac.Count = 0
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3975)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/World.cs Line: 3975)
+
+deactivate
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+UnityEquipment:set_asdf(List`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\UnityEquipment.cs:108)
+Game.Equipment:set_asdf(List`1) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3666)
+Game.Equipment:Rule1(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:4000)
+Game.Equipment:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3781)
+Game.Player:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:3588)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:154)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/UnityEquipment.cs Line: 108)
+
+WASD driving activated
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+Game.Truck:Rule5(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:1403)
+Game.Truck:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:1210)
+Game.World:Update(Single, World) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:148)
+Game.World:Update() (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\World.cs:9)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/World.cs Line: 1403)
+
+barrel-1(Clone)
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLLeg1
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLLeg2
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm1
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigHub001
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigSpine1
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLLeg2
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLLeg1
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+CATRigLArm21
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+TruckScript:OnCollisionEnter(Collision) (at C:\Users\Martijn de Lange\Documents\GitHub\internship-tilburg\compiler\Unity\Tutorials\Scene example rebuild\Assets\TruckScript.cs:319)
+ 
+(Filename: C:/Users/Martijn de Lange/Documents/GitHub/internship-tilburg/compiler/Unity/Tutorials/Scene example rebuild/Assets/TruckScript.cs Line: 319)
+
+Waiting for finish

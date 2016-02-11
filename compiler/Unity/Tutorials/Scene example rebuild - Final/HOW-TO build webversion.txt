@@ -1,0 +1,4 @@
+1. Rename sixense.dll in \Assets\Plugins\x86_64 to sixense2.dll
+2. Rotate main camera 180 degrees
+3. Build!
+4. Revert changes

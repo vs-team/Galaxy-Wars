@@ -1,0 +1,1 @@
+ZombieSurvival.exe -server 3 tcp://127.0.0.1:1234 tcp://127.0.0.1:4324
